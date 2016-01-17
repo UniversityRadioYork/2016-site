@@ -1,0 +1,23 @@
+# http://editorconfig.org
+root = true
+
+[*]
+indent_style = tab
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.md]
+trim_trailing_whitespace = false
+
+; Mustache
+[*.mustache]
+insert_final_newline = false
+
+; Golang
+[*.go]
+indent_size = 4
+
+; YAML
+[*.{yaml,yml}]
+indent_size = 2
