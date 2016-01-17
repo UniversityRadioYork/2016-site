@@ -171,3 +171,6 @@ dist/
 
 ### Public, this is where compiled things live ###
 /public/
+
+### Don't be commiting exe's yo ###
+*.exe
