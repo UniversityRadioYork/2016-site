@@ -1,35 +1,48 @@
 package controllers
 
 import (
-	"github.com/gorilla/mux"
-	"net/http"
+	"github.com/UniversityRadioYork/2016-site/models"
 	"github.com/cbroglie/mustache"
 	"log"
+	"net/http"
 )
 
 type IndexController struct {
-	router *mux.Router
+	Controller
 }
 
-func NewIndexController(router *mux.Router) *IndexController {
-	return &IndexController{router}
+func NewIndexController() *IndexController {
+	return &IndexController{}
 }
 
-func (sc *IndexController) single(w http.ResponseWriter, r *http.Request) {
+// @TODO: Remove this!!
+type TemplateData struct {
+	Global map[string]string
+	Local  models.NowNextPayload
+}
 
-	// Call the model
-	data := map[string]string{"content":"Hello World"}
+func (sc *IndexController) Get(w http.ResponseWriter, r *http.Request) {
 
-	output, err := mustache.RenderFile("views/index.mustache", data)
+	// This is where any form params would be parsed
 
-	if (err != nil) {
-		log.Fatal(err)
-	} else {
-		w.Write([]byte(output))
+	model := models.NewIndexModel()
+
+	data, err := model.Get()
+
+	if err != nil {
+		log.Println(err)
+		return
 	}
 
-}
+	td := TemplateData{Local: data.Payload, Global: map[string]string{"name": "University Radio York"}}
 
-func (sc *IndexController) Register(r string) {
-	sc.router.HandleFunc(r, sc.single)
+	output, err := mustache.RenderFile("views/index.mustache", td)
+
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	w.Write([]byte(output))
+
 }

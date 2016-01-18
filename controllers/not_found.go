@@ -1,32 +1,28 @@
 package controllers
 
 import (
-	"github.com/gorilla/mux"
-	"net/http"
 	"github.com/cbroglie/mustache"
 	"log"
+	"net/http"
 )
 
 type NotFoundController struct {
-	router *mux.Router
+	Controller
 }
 
-func NewNotFoundController(router *mux.Router) *NotFoundController {
-	return &NotFoundController{router}
+func NewNotFoundController() *NotFoundController {
+	return &NotFoundController{}
 }
 
-func (sc *NotFoundController) single(w http.ResponseWriter, r *http.Request) {
+func (sc *NotFoundController) Get(w http.ResponseWriter, r *http.Request) {
 
-	output, err := mustache.RenderFile("views/404.mustache", map[string]string{"content":"hello world"})
+	output, err := mustache.RenderFile("views/404.mustache", map[string] string {})
 
-	if (err != nil) {
-		log.Fatal(err)
+	if err != nil {
+		log.Println(err)
 	} else {
+		w.WriteHeader(404)
 		w.Write([]byte(output))
 	}
 
-}
-
-func (sc *NotFoundController) Register() {
-	sc.router.NotFoundHandler = http.HandlerFunc(sc.single)
 }

@@ -1,0 +1,26 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">{{Global.name}}</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">{{Global.name}}</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+				{{#Global.pages}}
+                    <li>
+                        <a class="{{#active}}active{{/active}}" href="{{url}}">
+							{{name}}
+                        </a>
+                    </li>
+				{{/Global.pages}}
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+</nav>
