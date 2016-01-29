@@ -2,6 +2,7 @@ package web
 
 import (
 	"github.com/UniversityRadioYork/2016-site/controllers"
+	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
 	"net/http"
@@ -11,10 +12,7 @@ type Server struct {
 	*negroni.Negroni
 }
 
-/**
- * @TODO: This is where I would pass in the config options, if I had any :(
- */
-func NewServer(o map[string]string) *Server {
+func NewServer(o structs.Options) *Server {
 
 	s := Server{negroni.Classic()}
 

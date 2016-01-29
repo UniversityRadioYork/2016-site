@@ -1,18 +1,30 @@
 package main
 
 import (
+	"fmt"
+	"github.com/UniversityRadioYork/2016-site/utils"
 	"github.com/UniversityRadioYork/2016-site/web"
 	"github.com/stretchr/graceful"
+	"log"
+	"time"
 )
 
 func main() {
 
-	// Get the options from config.json
+	//Get the config from the config.yaml file
+	options, err := utils.GetOptionsFromFile("./config.toml")
 
-	//@TODO: Pass in the options!
-	s := web.NewServer(map[string]string{})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	s := web.NewServer(options)
+
+	l := fmt.Sprintf("%s:%d", options.Server.Address, options.Server.Port)
+
+	log.Printf("Listening on: %s", l)
 
 	//@TODO: All of this in a config!
-	graceful.Run(":3000", 0, s)
+	graceful.Run(l, time.Duration(options.Server.Timeout), s)
 
 }

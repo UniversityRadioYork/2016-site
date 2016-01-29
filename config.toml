@@ -1,0 +1,16 @@
+#	 __  .___  ___. .______     ______   .______     .___________.    ___      .__   __. .___________.
+#	|  | |   \/   | |   _  \   /  __  \  |   _  \    |           |   /   \     |  \ |  | |           |
+#	|  | |  \  /  | |  |_)  | |  |  |  | |  |_)  |   `---|  |----`  /  ^  \    |   \|  | `---|  |----`
+#	|  | |  |\/|  | |   ___/  |  |  |  | |      /        |  |      /  /_\  \   |  . `  |     |  |
+#	|  | |  |  |  | |  |      |  `--'  | |  |\  \----.   |  |     /  _____  \  |  |\   |     |  |
+#	|__| |__|  |__| | _|       \______/  | _| `._____|   |__|    /__/     \__\ |__| \__|     |__|
+#
+#
+# This is the main config file for the 2016-site.
+# Api Key should not be stored in this file. It should be in `.myradio.key`
+# Any changes to this config should be reflected in the struct `structs.Options`
+
+[server]
+	address	= "localhost"
+	port 		= 3000
+	timeout	= 0
