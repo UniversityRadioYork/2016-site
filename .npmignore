@@ -174,3 +174,5 @@ dist/
 
 ### Don't be commiting exe's yo ###
 *.exe
+
+.myradio.key
