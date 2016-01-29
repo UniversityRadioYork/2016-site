@@ -18,6 +18,6 @@ insert_final_newline = false
 [*.go]
 indent_size = 4
 
-; YAML
-[*.{yaml,yml}]
+; YAML, TOML
+[*.{yaml,yml,toml,tml}]
 indent_size = 2
