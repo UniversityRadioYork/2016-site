@@ -6,6 +6,7 @@ import (
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"log"
 	"net/http"
+	"github.com/UniversityRadioYork/2016-site/models"
 )
 
 type SearchController struct {
@@ -16,34 +17,27 @@ func NewSearchController(s *myradio.Session, o *structs.Options) *SearchControll
 	return &SearchController{Controller{session:s, options:o}}
 }
 
-func (ic *SearchController) Get(w http.ResponseWriter, r *http.Request) {
+func (sc *SearchController) Get(w http.ResponseWriter, r *http.Request) {
 
 	// Check if they've landed or they've searched
 
-	searching := false
-
-	term := r.URL.Query().Get("term")
-
-	searching = (term != "")
+	var term string = r.URL.Query().Get("term")
+	var searching bool = (term != "")
+	var results *[]myradio.ShowMeta = &[]myradio.ShowMeta{}
+	var err error
 
 	if searching { // If searching
 
 		// Contact the DB and get search results
+		sm := models.NewSearchModel(sc.session)
 
-		// Check if there are any results
+		results, err = sm.Get(term)
 
-		// If results
+		if err != nil {
+			log.Println(err)
+			return
+		}
 
-		// Show results
-
-		// Else
-
-		// "Sorry, no results"
-
-		// End if
-
-	} else {// Else "landed"
-		// Do nothing
 	}
 
 	// Render Template
@@ -51,9 +45,11 @@ func (ic *SearchController) Get(w http.ResponseWriter, r *http.Request) {
 	td := struct {
 		Globals   structs.Globals
 		Searching bool
+		Results   []myradio.ShowMeta
 	}{
-		Globals:    ic.options.Globals,
+		Globals:    sc.options.Globals,
 		Searching:  searching,
+		Results:    *results,
 	}
 
 	output, err := mustache.RenderFile("views/search.mustache", td)

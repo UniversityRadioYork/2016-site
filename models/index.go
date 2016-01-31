@@ -13,10 +13,8 @@ func NewIndexModel(s *myradio.Session) *IndexModel {
 	return &IndexModel{Model{session:s}}
 }
 
-func (m *IndexModel) Get() (myradio.CurrentAndNext, error) {
+func (m *IndexModel) Get() (*myradio.CurrentAndNext, error) {
 
-	data, err := m.session.GetCurrentAndNext();
-
-	return *data, err;
+	return m.session.GetCurrentAndNext();
 
 }

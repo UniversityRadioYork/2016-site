@@ -2,13 +2,29 @@
 
 <div class="container">
 
-    <p>
-		{{#Searching}}
-            We are searching
-		{{/Searching}}
-		{{^Searching}}
-            We are not searching
-		{{/Searching}}
+<p>
+	{{#Searching}}
+        We are searching
+
+		{{#Results}}
+            <p>
+				{{Title}}
+            </p>
+
+            <p>
+				{{Description}}
+            </p>
+		{{/Results}}
+		{{^Results}}
+            <p>
+                No Results
+            </p>
+		{{/Results}}
+
+	{{/Searching}}
+	{{^Searching}}
+        We are not searching
+	{{/Searching}}
     </p>
 
 </div><!-- /.container -->

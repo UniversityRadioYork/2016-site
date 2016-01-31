@@ -34,7 +34,7 @@ func (ic *IndexController) Get(w http.ResponseWriter, r *http.Request) {
 		Globals structs.Globals
 		Local   myradio.CurrentAndNext
 	}{
-		Local: data,
+		Local: *data,
 		Globals: ic.options.Globals,
 	}
 

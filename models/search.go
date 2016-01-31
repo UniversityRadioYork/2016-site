@@ -13,10 +13,8 @@ func NewSearchModel(s *myradio.Session) *SearchModel {
 	return &SearchModel{Model{session:s}}
 }
 
-func (m *SearchModel) Get() (myradio.CurrentAndNext, error) {
+func (m *SearchModel) Get(term string) (*[]myradio.ShowMeta, error) {
 
-	data, err := m.session.GetCurrentAndNext();
-
-	return *data, err;
+	return m.session.GetSearchMeta(term);
 
 }
