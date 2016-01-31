@@ -21,3 +21,7 @@ indent_size = 4
 ; YAML, TOML
 [*.{yaml,yml,toml,tml}]
 indent_size = 2
+
+; MyRadio API Key
+[.myradio.key]
+insert_final_newline = false
