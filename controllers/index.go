@@ -17,11 +17,6 @@ func NewIndexController(s *myradio.Session, o *structs.Options) *IndexController
 	return &IndexController{Controller{session:s, options:o}}
 }
 
-type TemplateData struct {
-	Globals structs.Globals
-	Local  myradio.CurrentAndNext
-}
-
 func (ic *IndexController) Get(w http.ResponseWriter, r *http.Request) {
 
 	// This is where any form params would be parsed
@@ -35,7 +30,13 @@ func (ic *IndexController) Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	td := TemplateData{Local: data, Globals: ic.options.Globals}
+	td := struct {
+		Globals structs.Globals
+		Local   myradio.CurrentAndNext
+	}{
+		Local: data,
+		Globals: ic.options.Globals,
+	}
 
 	output, err := mustache.RenderFile("views/index.mustache", td)
 
