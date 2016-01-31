@@ -6,15 +6,22 @@ import (
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
 	"net/http"
+	"github.com/UniversityRadioYork/myradio-go"
 )
 
 type Server struct {
 	*negroni.Negroni
 }
 
-func NewServer(o structs.Options) *Server {
+func NewServer(o structs.Options) (*Server, error) {
 
 	s := Server{negroni.Classic()}
+
+	session, err := myradio.NewSessionFromKeyFile()
+
+	if err != nil {
+		return &s, err;
+	}
 
 	router := mux.NewRouter()
 
@@ -24,13 +31,13 @@ func NewServer(o structs.Options) *Server {
 	nfc := controllers.NewNotFoundController()
 	router.NotFoundHandler = http.HandlerFunc(nfc.Get)
 
-	ic := controllers.NewIndexController()
+	ic := controllers.NewIndexController(session)
 	getRouter.HandleFunc("/", ic.Get)
 
 	// End routes
 
 	s.UseHandler(router)
 
-	return &s
+	return &s, nil;
 
 }

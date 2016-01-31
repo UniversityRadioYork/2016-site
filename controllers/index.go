@@ -5,27 +5,27 @@ import (
 	"github.com/cbroglie/mustache"
 	"log"
 	"net/http"
+	"github.com/UniversityRadioYork/myradio-go"
 )
 
 type IndexController struct {
 	Controller
 }
 
-func NewIndexController() *IndexController {
-	return &IndexController{}
+func NewIndexController(s *myradio.Session) *IndexController {
+	return &IndexController{Controller{session:s}}
 }
 
-// @TODO: Remove this!!
 type TemplateData struct {
-	Global map[string]string
-	Local  models.NowNextPayload
+	Global map[string]string // @TODO: Remove this!! PASS IN CONFIGS
+	Local  myradio.CurrentAndNext
 }
 
 func (sc *IndexController) Get(w http.ResponseWriter, r *http.Request) {
 
 	// This is where any form params would be parsed
 
-	model := models.NewIndexModel()
+	model := models.NewIndexModel(sc.session)
 
 	data, err := model.Get()
 
@@ -34,7 +34,7 @@ func (sc *IndexController) Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	td := TemplateData{Local: data.Payload, Global: map[string]string{"name": "University Radio York"}}
+	td := TemplateData{Local: data, Global: map[string]string{"name": "University Radio York"}}
 
 	output, err := mustache.RenderFile("views/index.mustache", td)
 

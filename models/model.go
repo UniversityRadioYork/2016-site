@@ -1,11 +1,14 @@
 package models
 
-import "github.com/UniversityRadioYork/2016-site/structs"
+import (
+	"github.com/UniversityRadioYork/2016-site/structs"
+	"github.com/UniversityRadioYork/myradio-go"
+)
 
-type ModelInteface interface {
-	Get() (data structs.Response, err error) // Maps to a GET request to the API
+type ModelInterface interface {
+	Get() (data structs.Response, err error) // @TODO: Refactor this to a more appropriate name
 }
 
 type Model struct {
-	config map[string]interface{}
+	session *myradio.Session
 }

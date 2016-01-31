@@ -4,7 +4,10 @@ package controllers
  @TODO: Change the default methods to render a mustache template, or log into DB??
  */
 
-import "net/http"
+import (
+	"net/http"
+	"github.com/UniversityRadioYork/myradio-go"
+)
 
 type ControllerInterface interface {
 	Get()                        //method = GET processing
@@ -14,11 +17,10 @@ type ControllerInterface interface {
 	Head()                       //method = HEAD processing
 	Patch()                      //method = PATCH treatment
 	Options()                    //method = OPTIONS processing
-	Register()
 }
 
 type Controller struct {
-
+	session *myradio.Session
 }
 
 func (c *Controller) Get(w http.ResponseWriter, r *http.Request) {

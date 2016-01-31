@@ -14,11 +14,11 @@ func main() {
 	//Get the config from the config.yaml file
 	options, err := utils.GetOptionsFromFile("./config.toml")
 
+	s, err := web.NewServer(options)
+
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	s := web.NewServer(options)
 
 	l := fmt.Sprintf("%s:%d", options.Server.Address, options.Server.Port)
 
