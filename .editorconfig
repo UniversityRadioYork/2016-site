@@ -14,10 +14,6 @@ trim_trailing_whitespace = false
 [*.mustache]
 insert_final_newline = false
 
-; Golang
-[*.go]
-indent_size = 4
-
 ; YAML, TOML
 [*.{yaml,yml,toml,tml}]
 indent_size = 2
