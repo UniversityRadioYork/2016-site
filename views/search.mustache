@@ -2,10 +2,22 @@
 
 <div class="container">
 
-<p>
-	{{#Searching}}
-        We are searching
+    <form method="GET" action="{{BaseURL}}">
 
+        <input name="term" type="text" value="{{Term}}">
+
+        <button type="submit">Search</button>
+
+    </form>
+
+	{{#Searching}}
+        <p>
+            We are searching
+        </p>
+
+        <h2>
+            #{{NumResults}} Results
+        </h2>
 		{{#Results}}
             <p>
 				{{Title}}
@@ -23,9 +35,10 @@
 
 	{{/Searching}}
 	{{^Searching}}
-        We are not searching
+        <p>
+            We are not searching
+        </p>
 	{{/Searching}}
-    </p>
 
 </div><!-- /.container -->
 

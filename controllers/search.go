@@ -43,13 +43,19 @@ func (sc *SearchController) Get(w http.ResponseWriter, r *http.Request) {
 	// Render Template
 
 	td := struct {
-		Globals   structs.Globals
-		Searching bool
-		Results   []myradio.ShowMeta
+		Globals    structs.Globals
+		Searching  bool
+		Results    []myradio.ShowMeta
+		NumResults int
+		BaseURL    string
+		Term       string
 	}{
 		Globals:    sc.options.Globals,
 		Searching:  searching,
 		Results:    *results,
+		NumResults: len(*results),
+		BaseURL:    r.URL.Path,
+		Term:        term,
 	}
 
 	output, err := mustache.RenderFile("views/search.mustache", td)
