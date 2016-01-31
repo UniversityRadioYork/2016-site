@@ -7,20 +7,27 @@ import (
 	"path/filepath"
 )
 
-func GetOptionsFromFile(path string) (options structs.Options, err error) {
+func GetOptionsFromFile(path string) (*structs.Options, error) {
+
+	o := structs.Options{}
+	or := &o
 
 	absPath, _ := filepath.Abs(path)
 
 	b, err := ioutil.ReadFile(absPath);
 
 	if err != nil {
-		return;
+		return or, err;
 	}
-	
+
 	s := string(b)
 
-	_, err = toml.Decode(s, &options);
+	_, err = toml.Decode(s, or);
 
-	return;
+	if err != nil {
+		return or, err;
+	}
+
+	return or, nil;
 
 }

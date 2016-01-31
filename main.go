@@ -24,7 +24,6 @@ func main() {
 
 	log.Printf("Listening on: %s", l)
 
-	//@TODO: All of this in a config!
 	graceful.Run(l, time.Duration(options.Server.Timeout), s)
 
 }

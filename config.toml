@@ -10,7 +10,13 @@
 # Api Key should not be stored in this file. It should be in `.myradio.key`
 # Any changes to this config should be reflected in the struct `structs.Options`
 
+# This is the config for the server
 [server]
 	address	= "localhost"
 	port 		= 3000
 	timeout	= 0
+
+# This is data that will be passed into all mustache templates
+[globals]
+	longName = "University Radio York"
+	shortName = "URY"

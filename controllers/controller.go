@@ -7,6 +7,7 @@ package controllers
 import (
 	"net/http"
 	"github.com/UniversityRadioYork/myradio-go"
+	"github.com/UniversityRadioYork/2016-site/structs"
 )
 
 type ControllerInterface interface {
@@ -21,6 +22,7 @@ type ControllerInterface interface {
 
 type Controller struct {
 	session *myradio.Session
+	options *structs.Options
 }
 
 func (c *Controller) Get(w http.ResponseWriter, r *http.Request) {

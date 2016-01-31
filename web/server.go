@@ -13,7 +13,7 @@ type Server struct {
 	*negroni.Negroni
 }
 
-func NewServer(o structs.Options) (*Server, error) {
+func NewServer(o *structs.Options) (*Server, error) {
 
 	s := Server{negroni.Classic()}
 
@@ -28,10 +28,10 @@ func NewServer(o structs.Options) (*Server, error) {
 	getRouter := router.Methods("GET").Subrouter()
 
 	// Routes go in here
-	nfc := controllers.NewNotFoundController()
+	nfc := controllers.NewNotFoundController(o)
 	router.NotFoundHandler = http.HandlerFunc(nfc.Get)
 
-	ic := controllers.NewIndexController(session)
+	ic := controllers.NewIndexController(session, o)
 	getRouter.HandleFunc("/", ic.Get)
 
 	// End routes
