@@ -1,0 +1,16 @@
+{{> partials/header }}
+
+<div class="container">
+
+    <p>
+		{{#Searching}}
+            We are searching
+		{{/Searching}}
+		{{^Searching}}
+            We are not searching
+		{{/Searching}}
+    </p>
+
+</div><!-- /.container -->
+
+{{> partials/footer }}

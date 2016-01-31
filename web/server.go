@@ -34,6 +34,9 @@ func NewServer(o *structs.Options) (*Server, error) {
 	ic := controllers.NewIndexController(session, o)
 	getRouter.HandleFunc("/", ic.Get)
 
+	sc := controllers.NewSearchController(session, o)
+	getRouter.HandleFunc("/search", sc.Get);
+
 	// End routes
 
 	s.UseHandler(router)
