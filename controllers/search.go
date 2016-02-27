@@ -23,7 +23,7 @@ func (sc *SearchController) Get(w http.ResponseWriter, r *http.Request) {
 
 	var term string = r.URL.Query().Get("term")
 	var searching bool = (term != "")
-	var results *[]myradio.ShowMeta = &[]myradio.ShowMeta{}
+	var results []myradio.ShowMeta
 	var err error
 
 	if searching { // If searching
@@ -52,15 +52,15 @@ func (sc *SearchController) Get(w http.ResponseWriter, r *http.Request) {
 	}{
 		Globals:    sc.options.Globals,
 		Searching:  searching,
-		Results:    *results,
-		NumResults: len(*results),
+		Results:    results,
+		NumResults: len(results),
 		BaseURL:    r.URL.Path,
 		Term:        term,
 	}
 
 	output, err := mustache.RenderFile("views/search.mustache", td)
 
-	if err != nil {
+	if err != nil {//@TODO: Do something proper here
 		log.Println(err)
 		return
 	}

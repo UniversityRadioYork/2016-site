@@ -35,7 +35,11 @@ func NewServer(o *structs.Options) (*Server, error) {
 	getRouter.HandleFunc("/", ic.Get)
 
 	sc := controllers.NewSearchController(session, o)
-	getRouter.HandleFunc("/search", sc.Get);
+	getRouter.HandleFunc("/search", sc.Get)
+
+	showC := controllers.NewShowController(session, o)
+//	getRouter.HandleFunc("/schedule/shows", showC.Get) // @TODO: Implement this
+	getRouter.HandleFunc("/schedule/shows/{id:[0-9]+}", showC.GetShow)
 
 	// End routes
 

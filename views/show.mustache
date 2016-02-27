@@ -1,0 +1,21 @@
+{{> partials/header }}
+
+<div class="container">
+
+    <p>
+		{{Show.Title}}
+    </p>
+
+    <p>
+		{{{Show.Description}}}
+    </p>
+
+	{{#Seasons}}
+        <p>
+			{{SeasonNum}} - {{RequestedTime}}
+        </p>
+	{{/Seasons}}
+
+</div><!-- /.container -->
+
+{{> partials/footer }}

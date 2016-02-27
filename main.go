@@ -11,6 +11,8 @@ import (
 
 func main() {
 
+	log.SetFlags(log.Llongfile)
+
 	//Get the config from the config.yaml file
 	options, err := utils.GetOptionsFromFile("./config.toml")
 
