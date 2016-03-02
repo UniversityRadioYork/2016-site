@@ -30,11 +30,11 @@ func (ic *IndexController) Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	ic.options.Globals.CurrentAndNext = *data
-
 	td := struct {
 		Globals structs.Globals
+		Local   myradio.CurrentAndNext
 	}{
+		Local: *data,
 		Globals: ic.options.Globals,
 	}
 
