@@ -17,6 +17,6 @@
 	timeout	= 0
 
 # This is data that will be passed into all mustache templates
-[globals]
+[pageContext]
 	longName = "University Radio York"
 	shortName = "URY"
