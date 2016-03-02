@@ -1,10 +1,5 @@
 package structs
 
-import (
-	"github.com/UniversityRadioYork/myradio-go"
-)
-
-
 type Options struct {
 
 	Server  Server    `toml:"server"`
@@ -22,8 +17,7 @@ type Server struct {
 
 type Globals struct {
 
-	LongName  		string    `toml:"longName"`
-	ShortName 		string    `toml:"shortName"`
-	CurrentAndNext 	myradio.CurrentAndNext
+	LongName  string    `toml:"longName"`
+	ShortName string    `toml:"shortName"`
 
 }
