@@ -22,7 +22,7 @@ type ControllerInterface interface {
 
 type Controller struct {
 	session *myradio.Session
-	options *structs.Options
+	config *structs.Config
 }
 
 func (c *Controller) Get(w http.ResponseWriter, r *http.Request) {

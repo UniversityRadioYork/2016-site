@@ -1,9 +1,9 @@
 package structs
 
-type Options struct {
+type Config struct {
 
-	Server  Server    `toml:"server"`
-	Globals Globals    `toml:"globals"`
+	Server      Server `toml:"server"`
+	PageContext PageContext `toml:"pageContext"`
 
 }
 
@@ -15,7 +15,7 @@ type Server struct {
 
 }
 
-type Globals struct {
+type PageContext struct {
 
 	LongName  string    `toml:"longName"`
 	ShortName string    `toml:"shortName"`

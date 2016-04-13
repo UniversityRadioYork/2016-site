@@ -11,8 +11,8 @@ type NotFoundController struct {
 	Controller
 }
 
-func NewNotFoundController(o *structs.Options) *NotFoundController {
-	return &NotFoundController{Controller{options: o}}
+func NewNotFoundController(c *structs.Config) *NotFoundController {
+	return &NotFoundController{Controller{config: c}}
 }
 
 func (sc *NotFoundController) Get(w http.ResponseWriter, r *http.Request) {
