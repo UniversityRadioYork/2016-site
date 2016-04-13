@@ -3,18 +3,18 @@
 <div class="container">
 
     <p>
-		{{Show.Title}}
+		{{Globals.PageData.Show.Title}}
     </p>
 
     <p>
-		{{{Show.Description}}}
+		{{{Globals.PageData.Show.Description}}}
     </p>
 
-	{{#Seasons}}
+	{{#Globals.PageData.Seasons}}
         <p>
 			{{SeasonNum}} - {{RequestedTime}}
         </p>
-	{{/Seasons}}
+	{{/Globals.PageData.Seasons}}
 
 </div><!-- /.container -->
 
