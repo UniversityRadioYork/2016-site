@@ -15,8 +15,8 @@ type ShowController struct {
 	Controller
 }
 
-func NewShowController(s *myradio.Session, o *structs.Options) *ShowController {
-	return &ShowController{Controller{session:s, options:o}}
+func NewShowController(s *myradio.Session, c *structs.Config) *ShowController {
+	return &ShowController{Controller{session:s, config:c}}
 }
 
 func (sc *ShowController) Get(w http.ResponseWriter, r *http.Request) {
@@ -46,14 +46,21 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 
 	// Render Template
 
-	td := struct {
-		Globals    structs.Globals
-		Show 	myradio.ShowMeta
+	pd := struct {
+		Show    myradio.ShowMeta
 		Seasons []myradio.Season
 	}{
-		Globals:    sc.options.Globals,
 		Show: *show,
 		Seasons: seasons,
+	}
+
+	td := struct {
+		Globals structs.Globals
+	}{
+		Globals: structs.Globals{
+			PageContext: sc.config.PageContext,
+			PageData: pd,
+		},
 	}
 
 	output, err := mustache.RenderFile("views/show.mustache", td)
