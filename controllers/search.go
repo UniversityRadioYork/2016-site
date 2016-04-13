@@ -13,8 +13,8 @@ type SearchController struct {
 	Controller
 }
 
-func NewSearchController(s *myradio.Session, o *structs.Options) *SearchController {
-	return &SearchController{Controller{session:s, options:o}}
+func NewSearchController(s *myradio.Session, c *structs.Config) *SearchController {
+	return &SearchController{Controller{session:s, config:c}}
 }
 
 func (sc *SearchController) Get(w http.ResponseWriter, r *http.Request) {
@@ -50,7 +50,10 @@ func (sc *SearchController) Get(w http.ResponseWriter, r *http.Request) {
 		BaseURL    string
 		Term       string
 	}{
-		Globals:    sc.options.Globals,
+		Globals: structs.Globals{
+			PageContext: sc.config.PageContext,
+			PageData: nil,
+		},
 		Searching:  searching,
 		Results:    results,
 		NumResults: len(results),

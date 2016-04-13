@@ -194,5 +194,6 @@ sftp-config.json
 
 ### Don't be commiting exe's yo ###
 *.exe
+2016-site
 
 .myradio.key

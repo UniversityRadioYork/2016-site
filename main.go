@@ -14,18 +14,18 @@ func main() {
 	log.SetFlags(log.Llongfile)
 
 	//Get the config from the config.yaml file
-	options, err := utils.GetOptionsFromFile("./config.toml")
+	config, err := utils.GetConfigFromFile("./config.toml")
 
-	s, err := web.NewServer(options)
+	s, err := web.NewServer(config)
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	l := fmt.Sprintf("%s:%d", options.Server.Address, options.Server.Port)
+	l := fmt.Sprintf("%s:%d", config.Server.Address, config.Server.Port)
 
 	log.Printf("Listening on: %s", l)
 
-	graceful.Run(l, time.Duration(options.Server.Timeout), s)
+	graceful.Run(l, time.Duration(config.Server.Timeout), s)
 
 }

@@ -13,8 +13,8 @@ type IndexController struct {
 	Controller
 }
 
-func NewIndexController(s *myradio.Session, o *structs.Options) *IndexController {
-	return &IndexController{Controller{session:s, options:o}}
+func NewIndexController(s *myradio.Session, c *structs.Config) *IndexController {
+	return &IndexController{Controller{session:s, config: c}}
 }
 
 func (ic *IndexController) Get(w http.ResponseWriter, r *http.Request) {
@@ -30,12 +30,15 @@ func (ic *IndexController) Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	ic.options.Globals.CurrentAndNext = *data
-
 	td := struct {
 		Globals structs.Globals
+		Local   myradio.CurrentAndNext
 	}{
-		Globals: ic.options.Globals,
+		Local: *data,
+		Globals: structs.Globals{
+			PageContext: ic.config.PageContext,
+			PageData: nil,
+		},
 	}
 
 	output, err := mustache.RenderFile("views/index.mustache", td)
