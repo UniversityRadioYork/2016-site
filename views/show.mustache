@@ -1,0 +1,21 @@
+{{> partials/header }}
+
+<div class="container">
+
+    <p>
+		{{Globals.PageData.Show.Title}}
+    </p>
+
+    <p>
+		{{{Globals.PageData.Show.Description}}}
+    </p>
+
+	{{#Globals.PageData.Seasons}}
+        <p>
+			{{SeasonNum}} - {{RequestedTime}}
+        </p>
+	{{/Globals.PageData.Seasons}}
+
+</div><!-- /.container -->
+
+{{> partials/footer }}

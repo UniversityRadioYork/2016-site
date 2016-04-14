@@ -63,7 +63,7 @@ func (sc *SearchController) Get(w http.ResponseWriter, r *http.Request) {
 
 	output, err := mustache.RenderFile("views/search.mustache", td)
 
-	if err != nil {
+	if err != nil {//@TODO: Do something proper here
 		log.Println(err)
 		return
 	}
