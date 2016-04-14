@@ -39,8 +39,8 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 
 	show, seasons, err := sm.GetShow(id)
 
-	if err != nil {
-		log.Fatal(err)
+	if err != nil {//@TODO: Do something proper here, render 404 or something
+		log.Println(err)
 		return
 	}
 
