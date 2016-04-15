@@ -1,45 +1,47 @@
-{{> partials/header }}
+{{template "header" .}}
+
+{{with .PageData}}
 
 <div class="container">
 
-    <form method="GET" action="{{BaseURL}}">
+    <form method="GET" action="{{.BaseURL}}">
 
-        <input name="term" type="text" value="{{Term}}">
+        <input name="term" type="text" value="{{.Term}}">
 
         <button type="submit">Search</button>
 
     </form>
 
-	{{#Searching}}
+	{{if .Searching}}
         <p>
             We are searching
         </p>
 
         <h2>
-            #{{NumResults}} Results
+            #{{.NumResults}} Results
         </h2>
-		{{#Results}}
+		{{range .Results}}
             <p>
-				<a href="/schedule/shows/{{ShowID}}">{{Title}}</a>
+				<a href="/schedule/shows/{{.ShowID}}/">{{.Title}}</a>
             </p>
 
             <p>
-				{{{Description}}}
+				{{.Description}}
             </p>
-		{{/Results}}
-		{{^Results}}
+		{{else}}
             <p>
                 No Results
             </p>
-		{{/Results}}
+		{{end}}
 
-	{{/Searching}}
-	{{^Searching}}
+	{{else}}
         <p>
             We are not searching
         </p>
-	{{/Searching}}
+	{{end}}
 
 </div><!-- /.container -->
 
-{{> partials/footer }}
+{{end}}
+
+{{template "footer" .}}

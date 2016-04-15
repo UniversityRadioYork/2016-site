@@ -1,12 +1,12 @@
 package controllers
 
 import (
-	"github.com/cbroglie/mustache"
 	"github.com/UniversityRadioYork/myradio-go"
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"log"
 	"net/http"
 	"github.com/UniversityRadioYork/2016-site/models"
+	"html/template"
 )
 
 type SearchController struct {
@@ -42,32 +42,41 @@ func (sc *SearchController) Get(w http.ResponseWriter, r *http.Request) {
 
 	// Render Template
 
-	td := struct {
-		Globals    structs.Globals
-		Searching  bool
-		Results    []myradio.ShowMeta
-		NumResults int
-		BaseURL    string
-		Term       string
-	}{
-		Globals: structs.Globals{
-			PageContext: sc.config.PageContext,
-			PageData: nil,
+	td := structs.Globals{
+		PageContext: sc.config.PageContext,
+		PageData: struct {
+			Searching  bool
+			Results    []myradio.ShowMeta
+			NumResults int
+			BaseURL    string
+			Term       string
+		} {
+			Searching:  searching,
+			Results:    results,
+			NumResults: len(results),
+			BaseURL:    r.URL.Path,
+			Term:        term,
 		},
-		Searching:  searching,
-		Results:    results,
-		NumResults: len(results),
-		BaseURL:    r.URL.Path,
-		Term:        term,
 	}
 
-	output, err := mustache.RenderFile("views/search.mustache", td)
 
-	if err != nil {//@TODO: Do something proper here
+	t := template.New("search.tmpl") // Create a template.
+	t, err = t.ParseFiles(
+		"views/search.tmpl",
+		"views/partials/header.tmpl",
+		"views/partials/footer.tmpl",
+		"views/elements/navbar.tmpl",
+	)  // Parse template file.
+
+	if err != nil {
 		log.Println(err)
 		return
 	}
 
-	w.Write([]byte(output))
+	err = t.Execute(w, td)  // merge.
+
+	if err != nil {
+		log.Println(err)
+	}
 
 }
