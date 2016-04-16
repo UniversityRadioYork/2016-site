@@ -1,3 +1,5 @@
+{{define "header"}}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>{{Globals.LongName}}</title>
+    <title>{{.PageContext.LongName}}</title>
 
     <!-- bower:css -->
     <link rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css' />
@@ -24,7 +26,7 @@
 </head>
 <body>
 
-{{> ../elements/navbar}}
+{{template "navbar" .}}
 
 <br>
 <br>
@@ -32,3 +34,5 @@
 <br>
 <br>
 <br>
+
+{{end}}

@@ -1,0 +1,25 @@
+{{template "header" .}}
+
+{{with .PageData}}
+
+<div class="container">
+
+	<p>
+		{{.Show.Title}}
+	</p>
+
+	<p>
+		{{.Show.Description}}
+	</p>
+
+	{{range .Seasons}}
+	<p>
+		{{.SeasonNum}} - {{.RequestedTime}}
+	</p>
+	{{end}}
+
+</div><!-- /.container -->
+
+{{end}}
+
+{{template "footer" .}}

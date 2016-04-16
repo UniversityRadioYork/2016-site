@@ -1,0 +1,33 @@
+{{define "now_next"}}
+<p>
+	{{.Title}}<br>
+	{{.Desc}}<br>
+	{{.Photo}}<br>
+	{{.StartTime.Format "2006 Jan 02"}}<br>
+	{{.EndTime.Format "2006 Jan 02"}}<br>
+	{{.Presenters}}<br>
+	{{.Url}}<br>
+	{{.Id}}<br>
+</p>
+{{end}}
+
+
+{{template "header" .}}
+
+{{with .PageData}}
+
+<div class="container">
+
+	{{if .Current}}
+		{{template "now_next" .Current}}
+	{{end}}
+
+	{{if .Next}}
+	{{template "now_next" .Next}}
+	{{end}}
+
+</div><!-- /.container -->
+
+{{end}}
+
+{{template "footer" .}}

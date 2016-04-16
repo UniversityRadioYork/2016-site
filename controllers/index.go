@@ -2,11 +2,11 @@ package controllers
 
 import (
 	"github.com/UniversityRadioYork/2016-site/models"
-	"github.com/cbroglie/mustache"
 	"log"
 	"net/http"
 	"github.com/UniversityRadioYork/myradio-go"
 	"github.com/UniversityRadioYork/2016-site/structs"
+	"html/template"
 )
 
 type IndexController struct {
@@ -30,24 +30,28 @@ func (ic *IndexController) Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	td := struct {
-		Globals structs.Globals
-		Local   myradio.CurrentAndNext
-	}{
-		Local: *data,
-		Globals: structs.Globals{
-			PageContext: ic.config.PageContext,
-			PageData: nil,
-		},
+	td := structs.Globals{
+		PageContext: ic.config.PageContext,
+		PageData: data,
 	}
 
-	output, err := mustache.RenderFile("views/index.mustache", td)
+	t := template.New("index.tmpl") // Create a template.
+	t, err = t.ParseFiles(
+		"views/index.tmpl",
+		"views/partials/header.tmpl",
+		"views/partials/footer.tmpl",
+		"views/elements/navbar.tmpl",
+	)  // Parse template file.
 
 	if err != nil {
 		log.Println(err)
 		return
 	}
 
-	w.Write([]byte(output))
+	err = t.Execute(w, td)  // merge.
+
+	if err != nil {
+		log.Println(err)
+	}
 
 }

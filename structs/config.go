@@ -19,5 +19,11 @@ type PageContext struct {
 
 	LongName  string    `toml:"longName"`
 	ShortName string    `toml:"shortName"`
+	Pages []Page
 
+}
+
+type Page struct {
+	Name string `toml:"name"`
+	Url string `toml:"url"`
 }

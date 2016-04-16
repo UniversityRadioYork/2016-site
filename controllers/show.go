@@ -7,8 +7,8 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/UniversityRadioYork/2016-site/models"
 	"log"
-	"github.com/cbroglie/mustache"
 	"strconv"
+	"html/template"
 )
 
 type ShowController struct {
@@ -39,37 +39,41 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 
 	show, seasons, err := sm.GetShow(id)
 
-	if err != nil {//@TODO: Do something proper here, render 404 or something
+	if err != nil {
+		//@TODO: Do something proper here, render 404 or something
 		log.Println(err)
 		return
 	}
 
 	// Render Template
-
-	pd := struct {
-		Show    myradio.ShowMeta
-		Seasons []myradio.Season
-	}{
-		Show: *show,
-		Seasons: seasons,
-	}
-
-	td := struct {
-		Globals structs.Globals
-	}{
-		Globals: structs.Globals{
-			PageContext: sc.config.PageContext,
-			PageData: pd,
+	td := structs.Globals{
+		PageContext: sc.config.PageContext,
+		PageData: struct {
+			Show    myradio.ShowMeta
+			Seasons []myradio.Season
+		}{
+			Show: *show,
+			Seasons: seasons,
 		},
 	}
 
-	output, err := mustache.RenderFile("views/show.mustache", td)
+	t := template.New("show.tmpl") // Create a template.
+	t, err = t.ParseFiles(
+		"views/show.tmpl",
+		"views/partials/header.tmpl",
+		"views/partials/footer.tmpl",
+		"views/elements/navbar.tmpl",
+	)  // Parse template file.
 
-	if err != nil {//@TODO: Do something proper here, render 404 or something
+	if err != nil {
 		log.Println(err)
 		return
 	}
 
-	w.Write([]byte(output))
+	err = t.Execute(w, td)  // merge.
+
+	if err != nil {
+		log.Println(err)
+	}
 
 }

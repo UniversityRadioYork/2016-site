@@ -1,10 +1,10 @@
 package controllers
 
 import (
-	"github.com/cbroglie/mustache"
 	"log"
 	"net/http"
 	"github.com/UniversityRadioYork/2016-site/structs"
+	"html/template"
 )
 
 type NotFoundController struct {
@@ -17,13 +17,31 @@ func NewNotFoundController(c *structs.Config) *NotFoundController {
 
 func (sc *NotFoundController) Get(w http.ResponseWriter, r *http.Request) {
 
-	output, err := mustache.RenderFile("views/404.mustache", map[string]string{})
+	td := structs.Globals{
+		PageContext: sc.config.PageContext,
+		PageData: nil,
+	}
+
+	w.WriteHeader(404)
+
+	t := template.New("404.tmpl") // Create a template.
+
+	t, err := t.ParseFiles(
+		"views/404.tmpl",
+		"views/partials/footer.tmpl",
+		"views/partials/header.tmpl",
+		"views/elements/navbar.tmpl",
+	)  // Parse template file.
 
 	if err != nil {
 		log.Println(err)
-	} else {
-		w.WriteHeader(404)
-		w.Write([]byte(output))
+		return
+	}
+
+	err = t.Execute(w, td)  // merge.
+
+	if err != nil {
+		log.Println(err)
 	}
 
 }
