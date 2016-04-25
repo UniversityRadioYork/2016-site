@@ -60,12 +60,13 @@ func (sc *SearchController) Get(w http.ResponseWriter, r *http.Request) {
 	}
 
 
-	t := template.New("search.tmpl") // Create a template.
+	t := template.New("base.tmpl") // Create a template.
 	t, err = t.ParseFiles(
-		"views/search.tmpl",
 		"views/partials/header.tmpl",
 		"views/partials/footer.tmpl",
 		"views/elements/navbar.tmpl",
+		"views/partials/base.tmpl",
+		"views/search.tmpl",
 	)  // Parse template file.
 
 	if err != nil {

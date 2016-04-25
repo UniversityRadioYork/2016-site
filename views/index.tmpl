@@ -11,9 +11,7 @@
 </p>
 {{end}}
 
-
-{{template "header" .}}
-
+{{define "content"}}
 {{with .PageData}}
 
 <div class="container">
@@ -29,5 +27,4 @@
 </div><!-- /.container -->
 
 {{end}}
-
-{{template "footer" .}}
+{{end}}
