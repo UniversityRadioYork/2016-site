@@ -24,13 +24,13 @@ func (sc *NotFoundController) Get(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(404)
 
-	t := template.New("404.tmpl") // Create a template.
-
+	t := template.New("base.tmpl") // Create a template.
 	t, err := t.ParseFiles(
-		"views/404.tmpl",
 		"views/partials/footer.tmpl",
 		"views/partials/header.tmpl",
 		"views/elements/navbar.tmpl",
+		"views/partials/base.tmpl",
+		"views/404.tmpl",
 	)  // Parse template file.
 
 	if err != nil {
