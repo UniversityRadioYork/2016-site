@@ -14,7 +14,7 @@
 [server]
 	address	= "localhost"
 	port 		= 3000
-	timeout	= 0
+	timeout	= 1
 
 # This is data that will be passed into all mustache templates
 [pageContext]

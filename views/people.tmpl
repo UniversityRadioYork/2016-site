@@ -1,0 +1,26 @@
+{{template "header" .}}
+
+{{with .PageData}}
+
+<div class="container">
+
+	<h1>
+		{{.Name}}
+	</h1>
+
+	{{.Bio}}
+
+
+	<br>
+
+	{{range Officerships}}
+
+		{{.OfficerName}}
+
+	{{end}}
+
+</div><!-- /.container -->
+
+{{end}}
+
+{{template "footer" .}}
