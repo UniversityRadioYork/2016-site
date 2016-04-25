@@ -18,7 +18,7 @@
 	"jquery-ui": "^1.11.4"
   },
   "private": true,
-  "license": "ISC",
+  "license": "MIT",
   "keywords": [
 	"golang",
 	"ury.org.uk",
