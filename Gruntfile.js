@@ -77,11 +77,6 @@ module.exports = function (grunt) {
 					"public/styles/"
 				]
 			}
-		},
-		auto_install: {
-			main: {
-				local: {}
-			}
 		}
 	});
 
@@ -90,7 +85,6 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-clean');
-	grunt.loadNpmTasks('grunt-auto-install');
 
 	// Default task(s).
 	grunt.registerTask('default', ['build', 'watch']);
