@@ -1,26 +1,32 @@
-{{template "header" .}}
+{{define "content"}}
 
-{{with .PageData}}
+	{{with .PageData}}
 
-<div class="container">
+		<div class="container">
 
-	<h1>
-		{{.Name}}
-	</h1>
+			<h1>
+				{{.Name}}
+			</h1>
 
-	{{.Bio}}
+			<p>
+				{{.Bio}}
+			</p>
 
+			<div class="row">
+				<div class="col-sm-2">
+					<!-- @TODO: Change the URL -->
+					<img class="img-responsive" src="https://ury.org.uk{{.ProfilePicture.Url}}">
+				</div>
+			</div>
 
-	<br>
+			{{range .Officerships}}
 
-	{{range Officerships}}
+				{{.OfficerName}}
 
-		{{.OfficerName}}
+			{{end}}
+
+		</div><!-- /.container -->
 
 	{{end}}
 
-</div><!-- /.container -->
-
 {{end}}
-
-{{template "footer" .}}

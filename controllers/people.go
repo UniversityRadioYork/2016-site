@@ -27,7 +27,7 @@ func (pc *PeopleController) Get(w http.ResponseWriter, r *http.Request) {
 
 	id, _ := strconv.Atoi(vars["id"])
 
-	name, bio, officerships, err := pm.Get(id)
+	name, bio, officerships, pic, err := pm.Get(id)
 
 	if err != nil {
 		//@TODO: Do something proper here, render 404 or something
@@ -42,20 +42,22 @@ func (pc *PeopleController) Get(w http.ResponseWriter, r *http.Request) {
 			Name         string
 			Bio          string
 			Officerships []myradio.Officership
+			ProfilePicture myradio.Photo
 		}{
 			Name: name,
 			Bio: bio,
 			Officerships:officerships,
+			ProfilePicture: pic,
 		},
 	}
 
-	t := template.New("people.tmpl") // Create a template.
-
+	t := template.New("base.tmpl") // Create a template.
 	t, err = t.ParseFiles(
-		"views/people.tmpl",
 		"views/partials/header.tmpl",
 		"views/partials/footer.tmpl",
 		"views/elements/navbar.tmpl",
+		"views/partials/base.tmpl",
+		"views/people.tmpl",
 	)  // Parse template file.
 
 	if err != nil {

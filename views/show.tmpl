@@ -3,12 +3,21 @@
 
 <div class="container">
 
-	<p>
+	<h1>
 		{{.Show.Title}}
-	</p>
+	</h1>
 
 	<p>
 		{{.Show.Description}}
+	</p>
+
+	<h2>
+		Presenters
+	</h2>
+	<p>
+		{{range .Show.Credits}}
+			<a href="/people/{{.User.Memberid}}/">{{.User.Fname}} {{.User.Sname}}</a> <br>
+		{{end}}
 	</p>
 
 	{{range .Seasons}}

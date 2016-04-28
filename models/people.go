@@ -12,7 +12,7 @@ func NewPeopleModel(s *myradio.Session) *PeopleModel {
 	return &PeopleModel{Model{session:s}}
 }
 
-func (m *PeopleModel) Get(id int) (name, bio string, officerships []myradio.Officership, err error) {
+func (m *PeopleModel) Get(id int) (name, bio string, officerships []myradio.Officership, pic myradio.Photo, err error) {
 	bio, err = m.session.GetUserBio(id)
 	if (err != nil) {
 		return
@@ -22,6 +22,10 @@ func (m *PeopleModel) Get(id int) (name, bio string, officerships []myradio.Offi
 		return
 	}
 	officerships, err = m.session.GetUserOfficerships(id)
+	if (err != nil) {
+		return
+	}
+	pic, err = m.session.GetUserProfilePhoto(id)
 	if (err != nil) {
 		return
 	}
