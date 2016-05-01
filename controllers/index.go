@@ -29,5 +29,9 @@ func (ic *IndexController) Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	utils.RenderTemplate(w, ic.config.PageContext, data, "index.tmpl")
+	err = utils.RenderTemplate(w, ic.config.PageContext, data, "index.tmpl")
+	if err != nil {
+		log.Println(err)
+		return
+	}
 }

@@ -56,5 +56,9 @@ func (sc *SearchController) Get(w http.ResponseWriter, r *http.Request) {
 		Term:        term,
 	}
 
-	utils.RenderTemplate(w, sc.config.PageContext, data, "search.tmpl")
+	err = utils.RenderTemplate(w, sc.config.PageContext, data, "search.tmpl")
+	if err != nil {
+		log.Println(err)
+		return
+	}
 }

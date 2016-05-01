@@ -4,7 +4,6 @@ import (
 	"html/template"
 	"net/http"
 	"path/filepath"
-	"log"
 	"github.com/UniversityRadioYork/2016-site/structs"
 )
 
@@ -20,7 +19,9 @@ import (
 // The string mainTmpl gives the name, relative to views, of the main
 // template to render.  The variadic argument addTmpls names any additional
 // templates mainTmpl depends on.
-func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data interface{}, mainTmpl string, addTmpls ...string) {
+//
+// RenderTemplate returns any error that occurred when rendering the template.
+func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data interface{}, mainTmpl string, addTmpls ...string) error {
 	var err error = nil
 
 	td := structs.Globals{
@@ -47,13 +48,13 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 	t := template.New("base.tmpl")
 	t, err = t.ParseFiles(tmpls...)
 	if err != nil {
-		log.Println(err)
-		return
+		return err
 	}
 
 	err = t.Execute(w, td)
 	if err != nil {
-		log.Println(err)
-		return
+		return err
 	}
+
+	return nil
 }

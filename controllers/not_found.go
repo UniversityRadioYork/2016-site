@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/2016-site/utils"
+	"log"
 )
 
 type NotFoundController struct {
@@ -16,5 +17,9 @@ func NewNotFoundController(c *structs.Config) *NotFoundController {
 
 func (sc *NotFoundController) Get(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(404)
-	utils.RenderTemplate(w, sc.config.PageContext, nil, "404.tmpl")
+	err := utils.RenderTemplate(w, sc.config.PageContext, nil, "404.tmpl")
+	if err != nil {
+		log.Println(err)
+		return
+	}
 }

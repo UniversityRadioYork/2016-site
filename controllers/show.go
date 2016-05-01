@@ -54,5 +54,9 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 		Seasons: seasons,
 	}
 
-	utils.RenderTemplate(w, sc.config.PageContext, data, "show.tmpl")
+	err = utils.RenderTemplate(w, sc.config.PageContext, data, "show.tmpl")
+	if err != nil {
+		log.Println(err)
+		return
+	}
 }
