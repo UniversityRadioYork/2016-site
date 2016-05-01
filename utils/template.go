@@ -1,11 +1,22 @@
 package utils
 
 import (
+	"github.com/UniversityRadioYork/2016-site/structs"
 	"html/template"
 	"net/http"
 	"path/filepath"
-	"github.com/UniversityRadioYork/2016-site/structs"
 )
+
+// TemplatePrefix is the constant containing the filepath prefix for templates.
+const TemplatePrefix = "views"
+
+// BaseTemplates is the array of 'base' templates used in each template render.
+var BaseTemplates = []string{
+	"partials/header.tmpl",
+	"partials/footer.tmpl",
+	"elements/navbar.tmpl",
+	"partials/base.tmpl",
+}
 
 // RenderTemplate renders a 2016site template on the ResponseWriter w.
 //
@@ -29,20 +40,19 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 		PageData:    data,
 	}
 
+	ownTmpls := append(
+		addTmpls,
+		mainTmpl,
+	)
+
 	baseTmpls := append(
-		[]string{
-			"partials/header.tmpl",
-			"partials/footer.tmpl",
-			"elements/navbar.tmpl",
-			"partials/base.tmpl",
-			mainTmpl,
-		},
-		addTmpls...,
+		BaseTemplates,
+		ownTmpls...,
 	)
 
 	var tmpls []string
 	for _, baseTmpl := range baseTmpls {
-		tmpls = append(tmpls, filepath.Join("views", baseTmpl))
+		tmpls = append(tmpls, filepath.Join(TemplatePrefix, baseTmpl))
 	}
 
 	t := template.New("base.tmpl")
