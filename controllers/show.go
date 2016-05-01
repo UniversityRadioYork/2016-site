@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"github.com/gorilla/mux"
 	"github.com/UniversityRadioYork/2016-site/models"
+	"github.com/UniversityRadioYork/2016-site/utils"
 	"log"
 	"strconv"
-	"html/template"
 )
 
 type ShowController struct {
@@ -46,35 +46,13 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Render Template
-	td := structs.Globals{
-		PageContext: sc.config.PageContext,
-		PageData: struct {
-			Show    myradio.ShowMeta
-			Seasons []myradio.Season
-		}{
-			Show: *show,
-			Seasons: seasons,
-		},
+	data := struct {
+		Show    myradio.ShowMeta
+		Seasons []myradio.Season
+	}{
+		Show: *show,
+		Seasons: seasons,
 	}
 
-	t := template.New("base.tmpl") // Create a template.
-	t, err = t.ParseFiles(
-		"views/partials/header.tmpl",
-		"views/partials/footer.tmpl",
-		"views/elements/navbar.tmpl",
-		"views/partials/base.tmpl",
-		"views/show.tmpl",
-	)  // Parse template file.
-
-	if err != nil {
-		log.Println(err)
-		return
-	}
-
-	err = t.Execute(w, td)  // merge.
-
-	if err != nil {
-		log.Println(err)
-	}
-
+	utils.RenderTemplate(w, sc.config.PageContext, data, "show.tmpl")
 }
