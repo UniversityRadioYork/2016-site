@@ -40,15 +40,8 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 		PageData:    data,
 	}
 
-	ownTmpls := append(
-		addTmpls,
-		mainTmpl,
-	)
-
-	baseTmpls := append(
-		BaseTemplates,
-		ownTmpls...,
-	)
+	ownTmpls := append(addTmpls, mainTmpl)
+	baseTmpls := append(BaseTemplates, ownTmpls...)
 
 	var tmpls []string
 	for _, baseTmpl := range baseTmpls {
