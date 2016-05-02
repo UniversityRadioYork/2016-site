@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 	"github.com/UniversityRadioYork/2016-site/models"
-	"html/template"
+	"github.com/UniversityRadioYork/2016-site/utils"
 )
 
 type SearchController struct {
@@ -42,42 +42,23 @@ func (sc *SearchController) Get(w http.ResponseWriter, r *http.Request) {
 
 	// Render Template
 
-	td := structs.Globals{
-		PageContext: sc.config.PageContext,
-		PageData: struct {
-			Searching  bool
-			Results    []myradio.ShowMeta
-			NumResults int
-			BaseURL    string
-			Term       string
-		} {
-			Searching:  searching,
-			Results:    results,
-			NumResults: len(results),
-			BaseURL:    r.URL.Path,
-			Term:        term,
-		},
+	data := struct {
+		Searching  bool
+		Results    []myradio.ShowMeta
+		NumResults int
+		BaseURL    string
+		Term       string
+	} {
+		Searching:  searching,
+		Results:    results,
+		NumResults: len(results),
+		BaseURL:    r.URL.Path,
+		Term:        term,
 	}
 
-
-	t := template.New("base.tmpl") // Create a template.
-	t, err = t.ParseFiles(
-		"views/partials/header.tmpl",
-		"views/partials/footer.tmpl",
-		"views/elements/navbar.tmpl",
-		"views/partials/base.tmpl",
-		"views/search.tmpl",
-	)  // Parse template file.
-
+	err = utils.RenderTemplate(w, sc.config.PageContext, data, "search.tmpl")
 	if err != nil {
 		log.Println(err)
 		return
 	}
-
-	err = t.Execute(w, td)  // merge.
-
-	if err != nil {
-		log.Println(err)
-	}
-
 }
