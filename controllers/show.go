@@ -35,7 +35,6 @@ func (sc *ShowController) Get(w http.ResponseWriter, r *http.Request) {
 
 // GetShow handles the HTTP GET request r for an individual show, writing to w.
 func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
-
 	sm := models.NewShowModel(sc.session)
 
 	vars := mux.Vars(r)
@@ -50,7 +49,6 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Render Template
 	data := struct {
 		Show    myradio.ShowMeta
 		Seasons []myradio.Season

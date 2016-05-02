@@ -22,16 +22,13 @@ func NewSearchController(s *myradio.Session, c *structs.Config) *SearchControlle
 
 // Get handles the HTTP GET request r for the search page, writing to w.
 func (sc *SearchController) Get(w http.ResponseWriter, r *http.Request) {
-
 	// Check if they've landed or they've searched
-
 	var term = r.URL.Query().Get("term")
 	var searching = (term != "")
 	var results []myradio.ShowMeta
 	var err error
 
-	if searching { // If searching
-
+	if searching {
 		// Contact the DB and get search results
 		sm := models.NewSearchModel(sc.session)
 
@@ -41,10 +38,7 @@ func (sc *SearchController) Get(w http.ResponseWriter, r *http.Request) {
 			log.Println(err)
 			return
 		}
-
 	}
-
-	// Render Template
 
 	data := struct {
 		Searching  bool

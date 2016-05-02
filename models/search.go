@@ -23,7 +23,5 @@ func NewSearchModel(s *myradio.Session) *SearchModel {
 // On success, it returns the search results, and nil.
 // Otherwise, it returns undefined data and the error causing failure.
 func (m *SearchModel) Get(term string) ([]myradio.ShowMeta, error) {
-
 	return m.session.GetSearchMeta(term)
-
 }

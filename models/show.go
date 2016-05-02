@@ -27,9 +27,7 @@ func NewShowModel(s *myradio.Session) *ShowModel {
 // On success, it returns the show's metadata, season list, and nil.
 // Otherwise, it returns undefined data and the error causing failure.
 func (m *ShowModel) GetShow(id int) (*myradio.ShowMeta, []myradio.Season, error) {
-
 	show, err := m.session.GetShow(id)
-
 	if err != nil {
 		return nil, nil, err
 	}
@@ -37,5 +35,4 @@ func (m *ShowModel) GetShow(id int) (*myradio.ShowMeta, []myradio.Season, error)
 	seasons, err := m.session.GetSeasons(id)
 
 	return show, seasons, err
-
 }
