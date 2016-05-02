@@ -2,11 +2,11 @@ package controllers
 
 import (
 	"github.com/UniversityRadioYork/2016-site/models"
-	"log"
-	"net/http"
-	"github.com/UniversityRadioYork/myradio-go"
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/2016-site/utils"
+	"github.com/UniversityRadioYork/myradio-go"
+	"log"
+	"net/http"
 )
 
 type IndexController struct {
@@ -14,7 +14,7 @@ type IndexController struct {
 }
 
 func NewIndexController(s *myradio.Session, c *structs.Config) *IndexController {
-	return &IndexController{Controller{session:s, config: c}}
+	return &IndexController{Controller{session: s, config: c}}
 }
 
 func (ic *IndexController) Get(w http.ResponseWriter, r *http.Request) {

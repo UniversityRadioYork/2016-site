@@ -10,11 +10,11 @@ type IndexModel struct {
 
 // @TODO: Pass in the config options
 func NewIndexModel(s *myradio.Session) *IndexModel {
-	return &IndexModel{Model{session:s}}
+	return &IndexModel{Model{session: s}}
 }
 
 func (m *IndexModel) Get() (*myradio.CurrentAndNext, error) {
 
-	return m.session.GetCurrentAndNext();
+	return m.session.GetCurrentAndNext()
 
 }

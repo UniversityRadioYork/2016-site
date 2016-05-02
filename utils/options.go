@@ -1,9 +1,9 @@
 package utils
 
 import (
+	"github.com/BurntSushi/toml"
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"io/ioutil"
-	"github.com/BurntSushi/toml"
 	"path/filepath"
 )
 
@@ -14,20 +14,20 @@ func GetConfigFromFile(path string) (*structs.Config, error) {
 
 	absPath, _ := filepath.Abs(path)
 
-	b, err := ioutil.ReadFile(absPath);
+	b, err := ioutil.ReadFile(absPath)
 
 	if err != nil {
-		return cr, err;
+		return cr, err
 	}
 
 	s := string(b)
 
-	_, err = toml.Decode(s, cr);
+	_, err = toml.Decode(s, cr)
 
 	if err != nil {
-		return cr, err;
+		return cr, err
 	}
 
-	return cr, nil;
+	return cr, nil
 
 }

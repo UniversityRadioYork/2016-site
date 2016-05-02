@@ -1,10 +1,10 @@
 package controllers
 
 import (
-	"net/http"
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/2016-site/utils"
 	"log"
+	"net/http"
 )
 
 type NotFoundController struct {

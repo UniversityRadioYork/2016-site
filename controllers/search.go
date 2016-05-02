@@ -1,12 +1,12 @@
 package controllers
 
 import (
-	"github.com/UniversityRadioYork/myradio-go"
+	"github.com/UniversityRadioYork/2016-site/models"
 	"github.com/UniversityRadioYork/2016-site/structs"
+	"github.com/UniversityRadioYork/2016-site/utils"
+	"github.com/UniversityRadioYork/myradio-go"
 	"log"
 	"net/http"
-	"github.com/UniversityRadioYork/2016-site/models"
-	"github.com/UniversityRadioYork/2016-site/utils"
 )
 
 type SearchController struct {
@@ -14,7 +14,7 @@ type SearchController struct {
 }
 
 func NewSearchController(s *myradio.Session, c *structs.Config) *SearchController {
-	return &SearchController{Controller{session:s, config:c}}
+	return &SearchController{Controller{session: s, config: c}}
 }
 
 func (sc *SearchController) Get(w http.ResponseWriter, r *http.Request) {
@@ -48,12 +48,12 @@ func (sc *SearchController) Get(w http.ResponseWriter, r *http.Request) {
 		NumResults int
 		BaseURL    string
 		Term       string
-	} {
+	}{
 		Searching:  searching,
 		Results:    results,
 		NumResults: len(results),
 		BaseURL:    r.URL.Path,
-		Term:        term,
+		Term:       term,
 	}
 
 	err = utils.RenderTemplate(w, sc.config.PageContext, data, "search.tmpl")

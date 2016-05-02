@@ -10,7 +10,7 @@ type ShowModel struct {
 
 // @TODO: Pass in the config options
 func NewShowModel(s *myradio.Session) *ShowModel {
-	return &ShowModel{Model{session:s}}
+	return &ShowModel{Model{session: s}}
 }
 
 //
