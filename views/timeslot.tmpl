@@ -1,0 +1,39 @@
+{{define "content"}}
+	{{with .PageData.Timeslot}}
+
+	<div class="container">
+
+		<h1>{{.Title}} </h1>
+
+		<small>{{.StartTime}}</small>
+
+		<h2>
+			Credits
+		</h2>
+
+		<ul>
+
+		{{range .Credits}}
+
+			<li>
+				<a href="/people/{{.MemberID}}">{{.User.Fname}} {{.User.Sname}}</a>
+			</li>
+
+		{{end}}
+
+		</ul>
+
+		<h3>
+			Tags
+		</h3>
+
+		<p>
+			{{range .Tags}}
+			{{.}}
+			{{end}}
+		</p>
+
+	</div><!-- /.container -->
+
+	{{end}}
+{{end}}

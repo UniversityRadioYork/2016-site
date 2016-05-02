@@ -10,7 +10,7 @@ type ShowModel struct {
 
 // @TODO: Pass in the config options
 func NewShowModel(s *myradio.Session) *ShowModel {
-	return &ShowModel{Model{session:s}}
+	return &ShowModel{Model{session: s}}
 }
 
 //
@@ -31,5 +31,11 @@ func (m *ShowModel) GetShow(id int) (*myradio.ShowMeta, []myradio.Season, error)
 	seasons, err := m.session.GetSeasons(id)
 
 	return show, seasons, err
+
+}
+
+func (m *ShowModel) GetTimeslot(id int) (myradio.Timeslot, error) {
+
+	return m.session.GetTimeslot(id)
 
 }

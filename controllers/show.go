@@ -78,3 +78,51 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
+
+func (sc *ShowController) GetTimeslot(w http.ResponseWriter, r *http.Request) {
+
+	sm := models.NewShowModel(sc.session)
+
+	vars := mux.Vars(r)
+
+	id, _ := strconv.Atoi(vars["id"])
+
+	timeslot, err := sm.GetTimeslot(id)
+
+	if err != nil {
+		//@TODO: Do something proper here, render 404 or something
+		log.Println(err)
+		return
+	}
+
+	// Render Template
+	td := structs.Globals{
+		PageContext: sc.config.PageContext,
+		PageData: struct {
+			Timeslot myradio.Timeslot
+		}{
+			Timeslot: timeslot,
+		},
+	}
+
+	t := template.New("base.tmpl") // Create a template.
+	t, err = t.ParseFiles(
+		"views/partials/header.tmpl",
+		"views/partials/footer.tmpl",
+		"views/elements/navbar.tmpl",
+		"views/partials/base.tmpl",
+		"views/timeslot.tmpl",
+	)  // Parse template file.
+
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	err = t.Execute(w, td)  // merge.
+
+	if err != nil {
+		log.Println(err)
+	}
+
+}
