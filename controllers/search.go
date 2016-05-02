@@ -21,8 +21,8 @@ func (sc *SearchController) Get(w http.ResponseWriter, r *http.Request) {
 
 	// Check if they've landed or they've searched
 
-	var term string = r.URL.Query().Get("term")
-	var searching bool = (term != "")
+	var term = r.URL.Query().Get("term")
+	var searching = (term != "")
 	var results []myradio.ShowMeta
 	var err error
 

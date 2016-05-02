@@ -23,11 +23,5 @@ func GetConfigFromFile(path string) (*structs.Config, error) {
 	s := string(b)
 
 	_, err = toml.Decode(s, cr)
-
-	if err != nil {
-		return cr, err
-	}
-
-	return cr, nil
-
+	return cr, err
 }
