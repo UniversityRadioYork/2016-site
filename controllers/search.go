@@ -9,14 +9,18 @@ import (
 	"net/http"
 )
 
+// SearchController is the controller for the search page.
 type SearchController struct {
 	Controller
 }
 
+// NewSearchController returns a new SearchController with the MyRadio session s
+// and configuration context c.
 func NewSearchController(s *myradio.Session, c *structs.Config) *SearchController {
 	return &SearchController{Controller{session: s, config: c}}
 }
 
+// Get handles the HTTP GET request r for the search page, writing to w.
 func (sc *SearchController) Get(w http.ResponseWriter, r *http.Request) {
 
 	// Check if they've landed or they've searched
