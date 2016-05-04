@@ -33,7 +33,7 @@ var BaseTemplates = []string{
 //
 // RenderTemplate returns any error that occurred when rendering the template.
 func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data interface{}, mainTmpl string, addTmpls ...string) error {
-	var err error = nil
+	var err error
 
 	td := structs.Globals{
 		PageContext: context,
@@ -54,10 +54,5 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 		return err
 	}
 
-	err = t.Execute(w, td)
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return t.Execute(w, td)
 }
