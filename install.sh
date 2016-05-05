@@ -12,7 +12,7 @@ function check_dependencies() {
   do
     is_installed $dependency || { echo >&2 "ERROR: $dependency is not installed!"; exit 1; }
   done
-} 
+}
 
 function is_required_go_version {
   go version | grep $REQUIRED_GO_VERSION >/dev/null 2>&1
@@ -28,4 +28,4 @@ bower install
 go get
 grunt build
 
-echo "Installation has successfully completed! Use 'go run' to run the website!"
+echo "Installation has successfully completed! Use 'go run' to run the website"
