@@ -11,6 +11,7 @@ type ShowModel struct {
 
 // NewShowModel returns a new ShowModel on the MyRadio session s.
 func NewShowModel(s *myradio.Session) *ShowModel {
+	// @TODO: Pass in the config options
 	return &ShowModel{Model{session: s}}
 }
 
@@ -36,8 +37,15 @@ func (m *ShowModel) GetShow(id int) (*myradio.ShowMeta, []myradio.Season, error)
 	return show, seasons, err
 }
 
-func (m *ShowModel) GetTimeslot(id int) (myradio.Timeslot, error) {
-
-	return m.session.GetTimeslot(id)
-
+// GetTimeslot gets the timeslot with ID id.
+//
+// On success, it returns the timeslot information, the tracklist and nil.
+// Otherwise, it returns undefined data and the error causing the failure.
+func (m *ShowModel) GetTimeslot(id int) (timeslot myradio.Timeslot,tracklist []myradio.TracklistItem, err error) {
+	timeslot, err = m.session.GetTimeslot(id)
+	if err != nil {
+		return
+	}
+	tracklist, err = m.session.GetTrackListForTimeslot(id)
+	return
 }

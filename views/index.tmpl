@@ -1,11 +1,12 @@
 {{define "now_next"}}
 <p>
-	<a href="{{.Url}}">{{.Title}}</a><br>
+	{{.Title}}<br>
 	{{.Desc}}<br>
 	{{.Photo}}<br>
 	{{.StartTime.Format "2006 Jan 02"}}<br>
 	{{.EndTime.Format "2006 Jan 02"}}<br>
 	{{.Presenters}}<br>
+	{{.Url}}<br>
 	{{.Id}}<br>
 </p>
 {{end}}

@@ -65,14 +65,13 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 }
 
 func (sc *ShowController) GetTimeslot(w http.ResponseWriter, r *http.Request) {
-
 	sm := models.NewShowModel(sc.session)
 
 	vars := mux.Vars(r)
 
 	id, _ := strconv.Atoi(vars["id"])
 
-	timeslot, err := sm.GetTimeslot(id)
+	timeslot, tracklist, err := sm.GetTimeslot(id)
 
 	if err != nil {
 		//@TODO: Do something proper here, render 404 or something
@@ -82,8 +81,10 @@ func (sc *ShowController) GetTimeslot(w http.ResponseWriter, r *http.Request) {
 
 	data := struct {
 		Timeslot myradio.Timeslot
+		Tracklist []myradio.TracklistItem
 	}{
 		Timeslot: timeslot,
+		Tracklist: tracklist,
 	}
 
 	err = utils.RenderTemplate(w, sc.config.PageContext, data, "timeslot.tmpl")
