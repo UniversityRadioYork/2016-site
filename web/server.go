@@ -3,10 +3,10 @@ package web
 import (
 	"github.com/UniversityRadioYork/2016-site/controllers"
 	"github.com/UniversityRadioYork/2016-site/structs"
+	"github.com/UniversityRadioYork/myradio-go"
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
 	"net/http"
-	"github.com/UniversityRadioYork/myradio-go"
 )
 
 type Server struct {
@@ -20,7 +20,7 @@ func NewServer(c *structs.Config) (*Server, error) {
 	session, err := myradio.NewSessionFromKeyFile()
 
 	if err != nil {
-		return &s, err;
+		return &s, err
 	}
 
 	router := mux.NewRouter()
@@ -38,7 +38,7 @@ func NewServer(c *structs.Config) (*Server, error) {
 	getRouter.HandleFunc("/search/", sc.Get)
 
 	showC := controllers.NewShowController(session, c)
-//	getRouter.HandleFunc("/schedule/shows", showC.Get) // @TODO: Implement this
+	//	getRouter.HandleFunc("/schedule/shows", showC.Get) // @TODO: Implement this
 	getRouter.HandleFunc("/schedule/shows/{id:[0-9]+}/", showC.GetShow)
 
 	pc := controllers.NewPeopleController(session, c)
@@ -48,6 +48,6 @@ func NewServer(c *structs.Config) (*Server, error) {
 
 	s.UseHandler(router)
 
-	return &s, nil;
+	return &s, nil
 
 }
