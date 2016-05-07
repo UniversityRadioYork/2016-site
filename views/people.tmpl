@@ -8,8 +8,10 @@
 				{{.Name}}
 			</h1>
 
+			<h2>Bio</h2>
+
 			<p>
-				{{.Bio}}
+				{{html .Bio}}
 			</p>
 
 			<div class="row">
@@ -19,11 +21,34 @@
 				</div>
 			</div>
 
-			{{range .Officerships}}
+			<h2>
+				Officerships
+			</h2>
 
-				{{.OfficerName}}
+			<ul>
+				{{range .Officerships}}
 
-			{{end}}
+				<li>
+					{{.OfficerName}} - from {{.FromDate.Format "2006-01-02"}} to
+					{{if .TillDateRaw}}
+						{{.TillDate.Format "2006-01-02"}}
+					{{else}}
+						current
+					{{end}}
+				</li>
+
+				{{end}}
+			</ul>
+
+			<h2>Credits</h2>
+
+			<p>
+				This person has worked on the following shows:
+			</p>
+
+			<ul>
+
+			</ul>
 
 		</div><!-- /.container -->
 
