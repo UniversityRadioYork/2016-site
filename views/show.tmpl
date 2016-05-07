@@ -11,11 +11,17 @@
 		{{.Show.Description}}
 	</p>
 
-	{{range .Seasons}}
-	<p>
-		{{.SeasonNum}} - {{.RequestedTime}}
-	</p>
-	{{end}}
+	<h2>
+		Seasons
+	</h2>
+
+	<ul>
+		{{range .Seasons}}
+			<li>
+				<a href="/schedule/shows/seasons/{{.SeasonID}}/">{{.FirstTime}}</a>
+			</li>
+		{{end}}
+	</ul>
 
 </div><!-- /.container -->
 
