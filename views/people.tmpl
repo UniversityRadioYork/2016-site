@@ -17,7 +17,13 @@
 			<div class="row">
 				<div class="col-sm-2">
 					<!-- @TODO: Change the URL -->
-					<img class="img-responsive" src="https://ury.org.uk{{.ProfilePicture.Url}}">
+					<img class="img-responsive" src="
+					{{if .ProfilePicture.Url}}
+						https://ury.org.uk{{.ProfilePicture.Url}}
+					{{else}}
+						https://ury.org.uk/static/img/default_show_player.png
+					{{end}}
+					">
 				</div>
 			</div>
 
