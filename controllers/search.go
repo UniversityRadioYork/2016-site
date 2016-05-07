@@ -1,33 +1,34 @@
 package controllers
 
 import (
-	"github.com/UniversityRadioYork/myradio-go"
+	"github.com/UniversityRadioYork/2016-site/models"
 	"github.com/UniversityRadioYork/2016-site/structs"
+	"github.com/UniversityRadioYork/2016-site/utils"
+	"github.com/UniversityRadioYork/myradio-go"
 	"log"
 	"net/http"
-	"github.com/UniversityRadioYork/2016-site/models"
-	"html/template"
 )
 
+// SearchController is the controller for the search page.
 type SearchController struct {
 	Controller
 }
 
+// NewSearchController returns a new SearchController with the MyRadio session s
+// and configuration context c.
 func NewSearchController(s *myradio.Session, c *structs.Config) *SearchController {
-	return &SearchController{Controller{session:s, config:c}}
+	return &SearchController{Controller{session: s, config: c}}
 }
 
+// Get handles the HTTP GET request r for the search page, writing to w.
 func (sc *SearchController) Get(w http.ResponseWriter, r *http.Request) {
-
 	// Check if they've landed or they've searched
-
-	var term string = r.URL.Query().Get("term")
-	var searching bool = (term != "")
+	var term = r.URL.Query().Get("term")
+	var searching = (term != "")
 	var results []myradio.ShowMeta
 	var err error
 
-	if searching { // If searching
-
+	if searching {
 		// Contact the DB and get search results
 		sm := models.NewSearchModel(sc.session)
 
@@ -37,47 +38,25 @@ func (sc *SearchController) Get(w http.ResponseWriter, r *http.Request) {
 			log.Println(err)
 			return
 		}
-
 	}
 
-	// Render Template
-
-	td := structs.Globals{
-		PageContext: sc.config.PageContext,
-		PageData: struct {
-			Searching  bool
-			Results    []myradio.ShowMeta
-			NumResults int
-			BaseURL    string
-			Term       string
-		} {
-			Searching:  searching,
-			Results:    results,
-			NumResults: len(results),
-			BaseURL:    r.URL.Path,
-			Term:        term,
-		},
+	data := struct {
+		Searching  bool
+		Results    []myradio.ShowMeta
+		NumResults int
+		BaseURL    string
+		Term       string
+	}{
+		Searching:  searching,
+		Results:    results,
+		NumResults: len(results),
+		BaseURL:    r.URL.Path,
+		Term:       term,
 	}
 
-
-	t := template.New("base.tmpl") // Create a template.
-	t, err = t.ParseFiles(
-		"views/partials/header.tmpl",
-		"views/partials/footer.tmpl",
-		"views/elements/navbar.tmpl",
-		"views/partials/base.tmpl",
-		"views/search.tmpl",
-	)  // Parse template file.
-
+	err = utils.RenderTemplate(w, sc.config.PageContext, data, "search.tmpl")
 	if err != nil {
 		log.Println(err)
 		return
 	}
-
-	err = t.Execute(w, td)  // merge.
-
-	if err != nil {
-		log.Println(err)
-	}
-
 }

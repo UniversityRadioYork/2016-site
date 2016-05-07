@@ -2,57 +2,40 @@ package controllers
 
 import (
 	"github.com/UniversityRadioYork/2016-site/models"
+	"github.com/UniversityRadioYork/2016-site/structs"
+	"github.com/UniversityRadioYork/2016-site/utils"
+	"github.com/UniversityRadioYork/myradio-go"
 	"log"
 	"net/http"
-	"github.com/UniversityRadioYork/myradio-go"
-	"github.com/UniversityRadioYork/2016-site/structs"
-	"html/template"
 )
 
+// IndexController is the controller for the index page.
 type IndexController struct {
 	Controller
 }
 
+// NewIndexController returns a new IndexController with the MyRadio session s
+// and configuration context c.
 func NewIndexController(s *myradio.Session, c *structs.Config) *IndexController {
-	return &IndexController{Controller{session:s, config: c}}
+	return &IndexController{Controller{session: s, config: c}}
 }
 
-func (ic *IndexController) Get(w http.ResponseWriter, r *http.Request) {
 
+// Get handles the HTTP GET request r for the index page, writing to w.
+func (ic *IndexController) Get(w http.ResponseWriter, r *http.Request) {
 	// This is where any form params would be parsed
 
 	model := models.NewIndexModel(ic.session)
 
 	data, err := model.Get()
-
 	if err != nil {
 		log.Println(err)
 		return
 	}
 
-	td := structs.Globals{
-		PageContext: ic.config.PageContext,
-		PageData: data,
-	}
-
-	t := template.New("base.tmpl") // Create a template.
-	t, err = t.ParseFiles(
-		"views/partials/header.tmpl",
-		"views/partials/footer.tmpl",
-		"views/elements/navbar.tmpl",
-		"views/partials/base.tmpl",
-		"views/index.tmpl",
-	)  // Parse template file.
-
+	err = utils.RenderTemplate(w, ic.config.PageContext, data, "index.tmpl")
 	if err != nil {
 		log.Println(err)
 		return
 	}
-
-	err = t.Execute(w, td)  // merge.
-
-	if err != nil {
-		log.Println(err)
-	}
-
 }

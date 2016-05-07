@@ -4,9 +4,7 @@ import (
 	"fmt"
 	"github.com/UniversityRadioYork/2016-site/utils"
 	"github.com/UniversityRadioYork/2016-site/web"
-	"github.com/stretchr/graceful"
 	"log"
-	"time"
 )
 
 func main() {
@@ -26,6 +24,6 @@ func main() {
 
 	log.Printf("Listening on: %s", l)
 
-	graceful.Run(l, time.Duration(config.Server.Timeout), s)
+	s.Run(l)
 
 }

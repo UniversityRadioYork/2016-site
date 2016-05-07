@@ -1,24 +1,28 @@
 package controllers
 
 import (
-	"github.com/UniversityRadioYork/myradio-go"
-	"github.com/UniversityRadioYork/2016-site/structs"
-	"net/http"
-	"github.com/gorilla/mux"
 	"github.com/UniversityRadioYork/2016-site/models"
+	"github.com/UniversityRadioYork/2016-site/structs"
+	"github.com/UniversityRadioYork/2016-site/utils"
+	"github.com/UniversityRadioYork/myradio-go"
+	"github.com/gorilla/mux"
 	"log"
+	"net/http"
 	"strconv"
-	"html/template"
 )
 
+// ShowController is the controller for looking up shows.
 type ShowController struct {
 	Controller
 }
 
+// NewShowController returns a new ShowController with the MyRadio session s
+// and configuration context c.
 func NewShowController(s *myradio.Session, c *structs.Config) *ShowController {
-	return &ShowController{Controller{session:s, config:c}}
+	return &ShowController{Controller{session: s, config: c}}
 }
 
+// Get handles the HTTP GET request r for all shows, writing to w.
 func (sc *ShowController) Get(w http.ResponseWriter, r *http.Request) {
 
 	// Do the pagination!!
@@ -29,8 +33,8 @@ func (sc *ShowController) Get(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// GetShow handles the HTTP GET request r for an individual show, writing to w.
 func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
-
 	sm := models.NewShowModel(sc.session)
 
 	vars := mux.Vars(r)
@@ -45,38 +49,19 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Render Template
-	td := structs.Globals{
-		PageContext: sc.config.PageContext,
-		PageData: struct {
-			Show    myradio.ShowMeta
-			Seasons []myradio.Season
-		}{
-			Show: *show,
-			Seasons: seasons,
-		},
+	data := struct {
+		Show    myradio.ShowMeta
+		Seasons []myradio.Season
+	}{
+		Show:    *show,
+		Seasons: seasons,
 	}
 
-	t := template.New("base.tmpl") // Create a template.
-	t, err = t.ParseFiles(
-		"views/partials/header.tmpl",
-		"views/partials/footer.tmpl",
-		"views/elements/navbar.tmpl",
-		"views/partials/base.tmpl",
-		"views/show.tmpl",
-	)  // Parse template file.
-
+	err = utils.RenderTemplate(w, sc.config.PageContext, data, "show.tmpl")
 	if err != nil {
 		log.Println(err)
 		return
 	}
-
-	err = t.Execute(w, td)  // merge.
-
-	if err != nil {
-		log.Println(err)
-	}
-
 }
 
 func (sc *ShowController) GetTimeslot(w http.ResponseWriter, r *http.Request) {
@@ -95,34 +80,16 @@ func (sc *ShowController) GetTimeslot(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Render Template
-	td := structs.Globals{
-		PageContext: sc.config.PageContext,
-		PageData: struct {
-			Timeslot myradio.Timeslot
-		}{
-			Timeslot: timeslot,
-		},
+	data := struct {
+		Timeslot myradio.Timeslot
+	}{
+		Timeslot: timeslot,
 	}
 
-	t := template.New("base.tmpl") // Create a template.
-	t, err = t.ParseFiles(
-		"views/partials/header.tmpl",
-		"views/partials/footer.tmpl",
-		"views/elements/navbar.tmpl",
-		"views/partials/base.tmpl",
-		"views/timeslot.tmpl",
-	)  // Parse template file.
-
+	err = utils.RenderTemplate(w, sc.config.PageContext, data, "timeslot.tmpl")
 	if err != nil {
 		log.Println(err)
 		return
-	}
-
-	err = t.Execute(w, td)  // merge.
-
-	if err != nil {
-		log.Println(err)
 	}
 
 }

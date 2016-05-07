@@ -4,11 +4,12 @@ import (
 	"github.com/UniversityRadioYork/myradio-go"
 )
 
+// ShowModel is the model for the Show controller.
 type ShowModel struct {
 	Model
 }
 
-// @TODO: Pass in the config options
+// NewShowModel returns a new ShowModel on the MyRadio session s.
 func NewShowModel(s *myradio.Session) *ShowModel {
 	return &ShowModel{Model{session: s}}
 }
@@ -20,10 +21,12 @@ func NewShowModel(s *myradio.Session) *ShowModel {
 //
 //}
 
+// GetShow gets the show with show ID id.
+//
+// On success, it returns the show's metadata, season list, and nil.
+// Otherwise, it returns undefined data and the error causing failure.
 func (m *ShowModel) GetShow(id int) (*myradio.ShowMeta, []myradio.Season, error) {
-
 	show, err := m.session.GetShow(id)
-
 	if err != nil {
 		return nil, nil, err
 	}
@@ -31,7 +34,6 @@ func (m *ShowModel) GetShow(id int) (*myradio.ShowMeta, []myradio.Season, error)
 	seasons, err := m.session.GetSeasons(id)
 
 	return show, seasons, err
-
 }
 
 func (m *ShowModel) GetTimeslot(id int) (myradio.Timeslot, error) {
