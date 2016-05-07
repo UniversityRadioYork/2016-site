@@ -23,7 +23,7 @@ func NewServer(c *structs.Config) (*Server, error) {
 		return &s, err
 	}
 
-	router := mux.NewRouter()
+	router := mux.NewRouter().StrictSlash(true)
 
 	getRouter := router.Methods("GET").Subrouter()
 
