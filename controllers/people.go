@@ -31,7 +31,7 @@ func (pc *PeopleController) Get(w http.ResponseWriter, r *http.Request) {
 
 	id, _ := strconv.Atoi(vars["id"])
 
-	name, bio, officerships, pic, err := pm.Get(id)
+	name, bio, officerships, pic, credits, err := pm.Get(id)
 
 	if err != nil {
 		//@TODO: Do something proper here, render 404 or something
@@ -44,11 +44,13 @@ func (pc *PeopleController) Get(w http.ResponseWriter, r *http.Request) {
 		Bio            string
 		Officerships   []myradio.Officership
 		ProfilePicture myradio.Photo
+		ShowCredits    []myradio.ShowMeta
 	}{
 		Name:           name,
 		Bio:            bio,
 		Officerships:   officerships,
 		ProfilePicture: pic,
+		ShowCredits:    credits,
 	}
 
 	err = utils.RenderTemplate(w, pc.config.PageContext, data, "people.tmpl")

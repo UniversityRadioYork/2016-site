@@ -47,7 +47,11 @@
 			</p>
 
 			<ul>
-
+				{{range .ShowCredits}}
+				<li>
+					<a href="{{.MicroSiteLink.URL}}/">{{.Title}}</a>
+				</li>
+				{{end}}
 			</ul>
 
 		</div><!-- /.container -->
