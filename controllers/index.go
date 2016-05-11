@@ -20,7 +20,6 @@ func NewIndexController(s *myradio.Session, c *structs.Config) *IndexController 
 	return &IndexController{Controller{session: s, config: c}}
 }
 
-
 // Get handles the HTTP GET request r for the index page, writing to w.
 func (ic *IndexController) Get(w http.ResponseWriter, r *http.Request) {
 	// This is where any form params would be parsed

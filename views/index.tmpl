@@ -1,7 +1,7 @@
 {{define "now_next"}}
 <p>
 	{{.Title}}<br>
-	{{.Desc}}<br>
+	{{html .Desc}}<br>
 	{{.Photo}}<br>
 	{{.StartTime.Format "2006 Jan 02"}}<br>
 	{{.EndTime.Format "2006 Jan 02"}}<br>
