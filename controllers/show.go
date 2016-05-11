@@ -63,3 +63,65 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
+func (sc *ShowController) GetTimeslot(w http.ResponseWriter, r *http.Request) {
+	sm := models.NewShowModel(sc.session)
+
+	vars := mux.Vars(r)
+
+	id, _ := strconv.Atoi(vars["id"])
+
+	timeslot, tracklist, err := sm.GetTimeslot(id)
+
+	if err != nil {
+		//@TODO: Do something proper here, render 404 or something
+		log.Println(err)
+		return
+	}
+
+	data := struct {
+		Timeslot myradio.Timeslot
+		Tracklist []myradio.TracklistItem
+	}{
+		Timeslot: timeslot,
+		Tracklist: tracklist,
+	}
+
+	err = utils.RenderTemplate(w, sc.config.PageContext, data, "timeslot.tmpl")
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+}
+
+func (sc *ShowController) GetSeason(w http.ResponseWriter, r *http.Request) {
+	sm := models.NewShowModel(sc.session)
+
+	vars := mux.Vars(r)
+
+	id, _ := strconv.Atoi(vars["id"])
+
+	season, timeslots, err := sm.GetSeason(id)
+
+	if err != nil {
+		//@TODO: Do something proper here, render 404 or something
+		log.Println(err)
+		return
+	}
+
+	data := struct {
+		Season myradio.Season
+		Timeslots []myradio.Timeslot
+	}{
+		Season: season,
+		Timeslots: timeslots,
+	}
+
+	err = utils.RenderTemplate(w, sc.config.PageContext, data, "season.tmpl")
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+}

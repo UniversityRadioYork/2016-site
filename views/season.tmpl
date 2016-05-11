@@ -1,0 +1,31 @@
+{{define "content"}}
+{{with .PageData}}
+
+<div class="container">
+
+	<h1>
+		{{.Season.Title}}
+	</h1>
+
+	<p>
+		{{html .Season.Description}}
+	</p>
+
+	<h2>
+		Episodes
+	</h2>
+
+	<ul>
+		{{range .Timeslots}}
+		<li>
+			<a href="/schedule/shows/timeslots/{{.TimeslotID}}/">
+				{{.StartTime.Format "Monday, _2 January 2006 at 15:04"}}
+			</a>
+		</li>
+		{{end}}
+	</ul>
+
+</div><!-- /.container -->
+
+{{end}}
+{{end}}

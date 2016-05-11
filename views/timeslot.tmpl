@@ -1,0 +1,67 @@
+{{define "content"}}
+	{{with .PageData}}
+
+	<div class="container">
+
+		<h1>{{.Timeslot.Title}} </h1>
+
+		<small>{{.Timeslot.StartTime}}</small>
+
+		<h2>
+			Credits
+		</h2>
+
+		<ul>
+
+		{{range .Timeslot.Credits}}
+
+			<li>
+				<a href="/people/{{.MemberID}}">{{.User.Fname}} {{.User.Sname}}</a>
+			</li>
+
+		{{end}}
+
+		</ul>
+
+		{{if .Tracklist}}
+
+		<h2>
+			Tracklist
+		</h2>
+
+		<table class="table">
+			<thead>
+			<tr>
+				<th>Track</th>
+				<th>Artist</th>
+				<th>Time</th>
+			</tr>
+			</thead>
+			<tbody>
+			{{range .Tracklist}}
+			<tr>
+				<td>{{.Title}}</td>
+				<td>{{.Artist}}</td>
+				<td>{{.StartTime.Format "15:04"}}</td>
+			</tr>
+			{{end}}
+			</tbody>
+
+		</table>
+
+		{{end}}
+
+		<h3>
+			Tags
+		</h3>
+
+		<p>
+			{{range .Timeslot.Tags}}
+			{{.}}
+			{{end}}
+		</p>
+
+	</div><!-- /.container -->
+
+	{{end}}
+{{end}}
