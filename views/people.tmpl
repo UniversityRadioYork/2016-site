@@ -1,0 +1,67 @@
+{{define "content"}}
+
+	{{with .PageData}}
+
+		<div class="container">
+
+			<h1>
+				{{.Name}}
+			</h1>
+
+			<h2>Bio</h2>
+
+			<p>
+				{{html .Bio}}
+			</p>
+
+			<div class="row">
+				<div class="col-sm-2">
+					<!-- @TODO: Change the URL -->
+					<img class="img-responsive" src="
+					{{if .ProfilePicture.Url}}
+						https://ury.org.uk{{.ProfilePicture.Url}}
+					{{else}}
+						https://ury.org.uk/static/img/default_show_player.png
+					{{end}}
+					">
+				</div>
+			</div>
+
+			<h2>
+				Officerships
+			</h2>
+
+			<ul>
+				{{range .Officerships}}
+
+				<li>
+					{{.OfficerName}} - from {{.FromDate.Format "2006-01-02"}} to
+					{{if .TillDateRaw}}
+						{{.TillDate.Format "2006-01-02"}}
+					{{else}}
+						current
+					{{end}}
+				</li>
+
+				{{end}}
+			</ul>
+
+			<h2>Credits</h2>
+
+			<p>
+				This person has worked on the following shows:
+			</p>
+
+			<ul>
+				{{range .ShowCredits}}
+				<li>
+					<a href="{{.MicroSiteLink.URL}}/">{{.Title}}</a>
+				</li>
+				{{end}}
+			</ul>
+
+		</div><!-- /.container -->
+
+	{{end}}
+
+{{end}}
