@@ -3,19 +3,34 @@
 
 <div class="container">
 
-	<p>
+	<h1>
 		{{.Show.Title}}
-	</p>
+	</h1>
 
 	<p>
-		{{.Show.Description}}
+		{{html .Show.Description}}
 	</p>
 
-	{{range .Seasons}}
+	<h2>
+		Presenters
+	</h2>
 	<p>
-		{{.SeasonNum}} - {{.RequestedTime}}
+		{{range .Show.Credits}}
+			<a href="/people/{{.User.Memberid}}/">{{.User.Fname}} {{.User.Sname}}</a> <br>
+		{{end}}
 	</p>
-	{{end}}
+
+	<h2>
+		Seasons
+	</h2>
+
+	<ul>
+		{{range .Seasons}}
+			<li>
+				<a href="/schedule/shows/seasons/{{.SeasonID}}/">{{.FirstTime}}</a>
+			</li>
+		{{end}}
+	</ul>
 
 </div><!-- /.container -->
 

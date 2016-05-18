@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"net/http"
 	"path/filepath"
+	"fmt"
 )
 
 // TemplatePrefix is the constant containing the filepath prefix for templates.
@@ -50,9 +51,19 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 
 	t := template.New("base.tmpl")
 	t, err = t.ParseFiles(tmpls...)
+	t.Funcs(template.FuncMap{
+		"html": renderHTML,
+	})
 	if err != nil {
 		return err
 	}
 
 	return t.Execute(w, td)
+}
+
+// renderHTML takes some html as a string and returns a template.HTML
+//
+// Handles plain text gracefully.
+func renderHTML(value interface{}) template.HTML {
+	return template.HTML(fmt.Sprint(value))
 }

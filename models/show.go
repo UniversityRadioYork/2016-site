@@ -36,3 +36,29 @@ func (m *ShowModel) GetShow(id int) (*myradio.ShowMeta, []myradio.Season, error)
 
 	return show, seasons, err
 }
+
+// GetTimeslot gets the timeslot with ID id.
+//
+// On success, it returns the timeslot information, the tracklist and nil.
+// Otherwise, it returns undefined data and the error causing the failure.
+func (m *ShowModel) GetTimeslot(id int) (timeslot myradio.Timeslot, tracklist []myradio.TracklistItem, err error) {
+	timeslot, err = m.session.GetTimeslot(id)
+	if err != nil {
+		return
+	}
+	tracklist, err = m.session.GetTrackListForTimeslot(id)
+	return
+}
+
+// GetSeason gets the show season with season ID id.
+//
+// On success, it returns the season information, timeslots and nil.
+// Otherwise, it returns undefined data and the error causing the failure.
+func (m *ShowModel) GetSeason(id int) (season myradio.Season, timeslots []myradio.Timeslot, err error) {
+	season, err = m.session.GetSeason(id)
+	if err != nil {
+		return
+	}
+	timeslots, err = m.session.GetTimeslotsForSeason(id)
+	return
+}
