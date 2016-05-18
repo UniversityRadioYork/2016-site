@@ -26,14 +26,15 @@ function is_required_go_version {
 function install_npm_dependencies {
   for dependency in "${!NPM_DEPENDENCIES[@]}"
   do
-    npm_modules_is_installed dependency || { echo >&2 "$dependency not installed. Now installing..."; }
+    npm_modules_is_installed $dependency || { echo >&2 "$dependency not installed. Now installing...";
     npm install -g "${NPM_DEPENDENCIES[$dependency]}";
+  }
   done
 }
 
 check_dependencies
 is_required_go_version || { echo >&2 "ERROR: You have the wrong version of Go installed! Please install version $REQUIRED_GO_VERSION"; exit 1; }
-# install_npm_dependencies
+install_npm_dependencies
 
 #Error catching is now complete. Below is package installation
 npm install
