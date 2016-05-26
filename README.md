@@ -12,6 +12,5 @@ You will need the following things installed:
  
 ```bash
 $ ./install.sh
-$ go build
-$ ./2016-Site
+$ go run main.go
 ```

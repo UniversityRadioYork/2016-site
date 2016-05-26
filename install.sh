@@ -42,4 +42,4 @@ bower install
 go get
 grunt build
 
-echo "Installation has successfully completed! Use 'go run' to run the website"
+echo "Installation has successfully completed! Use 'go run main.go' to run the website"
