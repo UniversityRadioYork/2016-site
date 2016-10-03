@@ -134,9 +134,9 @@ func isoWeekToDate(year, week, weekday string) (time.Time, error) {
 
 // Get handles the HTTP GET request r for all shows, writing to w.
 //
-// ScheduleWeek's Get takes three request variables--year, week, and weekday--,
-// which correspond to an ISO 8601 weekday-format time.
-func (sc *ScheduleWeekController) Get(w http.ResponseWriter, r *http.Request) {
+// ScheduleWeek's Get takes two request variables--year and week--,
+// which correspond to an ISO 8601 year-week date.
+func (sc *ScheduleWeekController) GetByYearWeek(w http.ResponseWriter, r *http.Request) {
 	//sm := models.NewScheduleModel(sc.session)
 
 	vars := mux.Vars(r)
