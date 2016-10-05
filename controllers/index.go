@@ -32,7 +32,7 @@ func (ic *IndexController) Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = utils.RenderTemplate(w, ic.config.PageContext, data, "index.tmpl")
+	err = utils.RenderTemplate(w, ic.config.PageContext, data, "index.tmpl", "elements/current_and_next.tmpl")
 	if err != nil {
 		log.Println(err)
 		return

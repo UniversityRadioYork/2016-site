@@ -1,0 +1,17 @@
+{{define "current_and_next"}}
+	{{if .Current}}
+		{{template "current_next" .Current}}
+	{{end}}
+	{{if .Next}}
+		{{template "current_next" .Next}}
+	{{end}}
+{{end}}
+
+{{define "current_next"}}
+
+<p>
+	<a href="{{.Url}}">{{.Title}}</a><br>
+	{{.StartTime.Format "15:04"}} - {{.EndTime.Format "15:04"}}
+</p>
+
+{{end}}
