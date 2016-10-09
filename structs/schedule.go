@@ -1,6 +1,9 @@
 package structs
 
+// TODO(CaptainHayashi): this probably doesn't belong in structs.
+
 import (
+	"fmt"
 	"github.com/UniversityRadioYork/myradio-go"
 	"time"
 )
@@ -8,8 +11,8 @@ import (
 // ScheduleItem is an interface containing information about one item in a URY schedule.
 type ScheduleItem interface {
 	// GetName gets the display name of the schedule item.
-	// The website config is passed to resolve, for example, the sustainer name.
-	GetName(config *Config) string
+	// The website page context is passed to resolve, for example, the sustainer name.
+	GetName(context *PageContext) string
 
 	// GetStart gets the start time of the schedule item.
 	GetStart() time.Time
@@ -32,12 +35,17 @@ type SustainerItem struct {
 	Finish time.Time
 }
 
+// NewSustainerItem creates a new SustainerItem.
+func NewSustainerItem(start, finish time.Time) *SustainerItem {
+	return &SustainerItem{Start: start, Finish: finish}
+}
+
 // TimeslotItem adapts myradio.Timeslot into a ScheduleItem.
 type TimeslotItem struct {
 	Timeslot *myradio.Timeslot
 }
 
-// NewTimeslotItem converts a myradio.Timeslot into a TimeslotItem
+// NewTimeslotItem converts a myradio.Timeslot into a TimeslotItem.
 func NewTimeslotItem(t *myradio.Timeslot) *TimeslotItem {
 	return &TimeslotItem{Timeslot: t}
 }
@@ -47,8 +55,8 @@ func NewTimeslotItem(t *myradio.Timeslot) *TimeslotItem {
  */
 
 // GetName gets the display name of a SustainerItem.
-func (s *SustainerItem) GetName(config *Config) string {
-	return config.PageContext.SustainerName
+func (s *SustainerItem) GetName(context *PageContext) string {
+	return context.SustainerName
 }
 
 // GetStart gets the start time of a SustainerItem.
@@ -71,7 +79,7 @@ func (s *SustainerItem) GetBlock() string {
  */
 
 // GetName gets the display name of a TimeslotItem.
-func (t *TimeslotItem) GetName(config *Config) string {
+func (t *TimeslotItem) GetName(context *PageContext) string {
 	return t.Timeslot.Title
 }
 
@@ -89,4 +97,78 @@ func (t *TimeslotItem) GetFinish() time.Time {
 func (t *TimeslotItem) GetBlock() string {
 	// TODO(CaptainHayashi): calculate schedule block here.
 	return "normal"
+}
+
+/*
+ * Schedule filling
+ * TODO(CaptainHayashi): This DEFINITELY doesn't belong in structs
+ */
+
+// FillTimeslotSlice converts a slice of Timeslots to a slice of ScheduleItems.
+// It does so by filling in any gaps between the start time and the first show, the final show and the finish time, and any two shows.
+// It will return an error if any two shows overlap.
+// It presumes the timeslot slice is already sorted in chronological order.
+func FillTimeslotSlice(start, finish time.Time, slots []myradio.Timeslot) ([]ScheduleItem, error) {
+	nslots := len(slots)
+
+	// The maximum possible number of items is 2(nslots) + 1:
+	// nslots slots, (nslots - 1) sustainers in between, and 2 sustainers at the ends.
+	items := make([]ScheduleItem, (2*len(slots))+1)
+
+	// Now deal with the easy case--no slots.
+	if (nslots == 0) {
+		items[0] = NewSustainerItem(start, finish)
+		return items, nil
+	}
+
+	// Otherwise, we now have to do some actual filling.
+	i := 0
+
+	// First, work out if we need to fill before the first show.
+	firstShow := slots[0]
+	if start.Before(firstShow.StartTime) {
+		items[i] = NewSustainerItem(start, firstShow.StartTime)
+		i++
+	}
+
+	// Now, if possible, start filling between.
+	// This will add all but the last show.
+	for j := range slots {
+		if (j < nslots - 1) {
+			first := &slots[j]
+			second := &slots[j+1]
+
+			firstFinish := first.StartTime.Add(first.Duration)
+			if firstFinish.After(second.StartTime) {
+				return nil, fmt.Errorf(
+					"Timeslot '%s', ID %d, finishing at %v overlaps with timeslot '%s', ID %d, starting at %v'",
+					first.Title,
+					first.TimeslotID,
+					firstFinish,
+					second.Title,
+					second.TimeslotID,
+					second.StartTime,
+				)
+			}
+
+			items[i] = NewTimeslotItem(first)
+			i++
+			if firstFinish.Before(second.StartTime) {
+				items[i] = NewSustainerItem(firstFinish, second.StartTime)
+				i++
+			}
+			// Don't add second -- it'll either be the next first, or we'll add it at the end.		
+		}
+	}
+
+	lastShow := &slots[nslots - 1]
+	items[i] = NewTimeslotItem(lastShow)
+	i++
+	lastFinish := lastShow.StartTime.Add(lastShow.Duration)
+	if lastFinish.Before(finish) {
+		items[i] = NewSustainerItem(lastFinish, finish)
+		i++
+	}
+
+	return items[:i], nil
 }

@@ -1,36 +1,25 @@
 {{define "content"}}
+
 {{with .PageData}}
 
 <div class="container">
 
-<h1>Schedule for week commencing {{ .StartDate.Format "Jan 02 2006" }}</h1>
+<h1>Schedule for week commencing {{.StartDate.Format "Jan 02 2006"}}</h1>
 
 <h2>Debug: all timeslots</h2>
 
-{{ if .Timeslots }}
-<dl>
-	{{ with .Timeslots }}
-	{{ range $day, $slots := . }}
-	<dt>
-		{{ $day }}
-	</dt>
-	<dd>
-		{{ if $slots }}
-			<ul>
-				{{ range $slots }}
-				<li>{{ .Title }}</li>
-				{{ end }}
-			</ul>
-		{{ else }}
-		Nothing today
-		{{ end }}
-	</dd>
+{{if .Timeslots}}
+<ul>
+	{{ range .Timeslots }}
+		<li>{{showName .}} ({{showStart .}} to {{showFinish .}})</li>
 	{{ end }}
-	{{ end }}
-</dl>
-{{ end }}
+</ul>
+{{else}}
+	Nothing today
+{{end}}
 
 </div><!-- /.container -->
 
 {{end}}
 {{end}}
+

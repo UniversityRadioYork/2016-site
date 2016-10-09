@@ -5,7 +5,8 @@ import (
 	"html/template"
 	"net/http"
 	"path/filepath"
-
+	"time"
+	
 	"github.com/UniversityRadioYork/2016-site/structs"
 	myradio "github.com/UniversityRadioYork/myradio-go"
 )
@@ -76,6 +77,10 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 			//TODO: finish This
 			return -5
 		},
+		// TODO(CaptainHayashi): this is temporary
+		"showName": func(s structs.ScheduleItem)string { return s.GetName(&context) },
+		"showStart": func(s structs.ScheduleItem)time.Time { return s.GetStart() },
+		"showFinish": func(s structs.ScheduleItem)time.Time { return s.GetFinish() },
 	})
 	t, err = t.ParseFiles(tmpls...)
 	if err != nil {

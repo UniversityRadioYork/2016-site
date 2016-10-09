@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"github.com/UniversityRadioYork/2016-site/models"
 	"errors"
 	"fmt"
+	"github.com/UniversityRadioYork/2016-site/models"
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/2016-site/utils"
 	"github.com/UniversityRadioYork/myradio-go"
@@ -121,16 +121,23 @@ func isoWeekToDate(year, week int, weekday time.Weekday) (time.Time, error) {
 	return oj.AddDate(0, 0, ord-1), nil
 }
 
+// uryStartOfDayOn gets the URY start of day on a given date.
+func uryStartOfDayOn(date time.Time) time.Time {
+	y, m, d := date.Date()
+	// TODO(CaptainHayashi): de-hardcode the hour?
+	return time.Date(y, m, d, 6, 0, 0, 0, time.Local)
+}
+
 //
 // Week schedule algorithm
-// TODO(CaptainHayashi): move? 
+// TODO(CaptainHayashi): move?
 //
 
 // WeekScheduleCell represents one cell in the week schedule.
 type WeekScheduleCell struct {
 	// Number of rows this cell spans.
 	// If 0, this is a continuation from a cell further up.
-	RowSpan uint;
+	RowSpan uint
 
 	// Pointer to the timeslot in this cell, if any.
 	// Will be nil if 'RowSpan' is 0.
@@ -140,11 +147,11 @@ type WeekScheduleCell struct {
 // WeekScheduleRow represents one row in the week schedule.
 type WeekScheduleRow struct {
 	// The hour of the row (0..23).
-	Hour uint;
+	Hour uint
 	// The minute of the show (0..59).
-	Minute uint;
+	Minute uint
 	// The cells inside this row.
-	Cells []WeekScheduleCell;
+	Cells []WeekScheduleCell
 }
 
 //
@@ -188,9 +195,9 @@ func (sc *ScheduleWeekController) GetByYearWeek(w http.ResponseWriter, r *http.R
 		log.Println(err)
 		return
 	}
-	endDate := startDate.AddDate(0, 0, 7)
+	finishDate := startDate.AddDate(0, 0, 7)
 
-	log.Printf("getting year %d week %d\n", yr, wk) 
+	log.Printf("getting year %d week %d\n", yr, wk)
 	timeslots, err := sm.Get(yr, wk)
 	if err != nil {
 		//@TODO: Do something proper here, render 404 or something
@@ -198,16 +205,29 @@ func (sc *ScheduleWeekController) GetByYearWeek(w http.ResponseWriter, r *http.R
 		return
 	}
 
-	log.Println(timeslots)
+	// Flatten the timeslots into one stream
+	flat := []myradio.Timeslot{}
+	for d := 1; d <= 7; d++ {
+		flat = append(flat, timeslots[d]...)
+	}
+
+	// Now start filling from URY start to URY start.
+	startUry := uryStartOfDayOn(startDate)
+	finishUry := uryStartOfDayOn(finishDate)
+	filled, err := structs.FillTimeslotSlice(startUry, finishUry, flat)
+	if err != nil {
+		log.Println(err)
+		return
+	}
 
 	data := struct {
-		StartDate time.Time
-		EndDate   time.Time
-		Timeslots map[int][]myradio.Timeslot // TEMP
+		StartDate  time.Time
+		FinishDate time.Time
+		Timeslots  []structs.ScheduleItem // TEMP
 	}{
-		StartDate: startDate,
-		EndDate:   endDate,
-		Timeslots: timeslots, // TEMP
+		StartDate:  startUry,
+		FinishDate: finishUry,
+		Timeslots:  filled, // TEMP
 	}
 
 	err = utils.RenderTemplate(w, sc.config.PageContext, data, "schedule_week.tmpl")
