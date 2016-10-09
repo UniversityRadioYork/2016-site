@@ -7,5 +7,15 @@
 
 	</div><!-- /.container -->
 
+	<div class="container">
+
+		{{range .Banners}}
+		<a href="{{.Target}}">
+			<img alt="{{.Alt}}" src="https://ury.org.uk{{.URL}}">
+		</a>
+		{{end}}
+
+	</div>
+
 	{{end}}
 {{end}}
