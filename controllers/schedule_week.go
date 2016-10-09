@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	//"github.com/UniversityRadioYork/2016-site/models"
+	"github.com/UniversityRadioYork/2016-site/models"
 	"errors"
 	"fmt"
 	"github.com/UniversityRadioYork/2016-site/structs"
@@ -14,16 +14,10 @@ import (
 	"time"
 )
 
-// ScheduleWeekController is the controller for looking up week schedules.
-type ScheduleWeekController struct {
-	Controller
-}
-
-// NewScheduleWeekController returns a new ShowController with the MyRadio session s
-// and configuration context c.
-func NewScheduleWeekController(s *myradio.Session, c *structs.Config) *ScheduleWeekController {
-	return &ScheduleWeekController{Controller{session: s, config: c}}
-}
+//
+// Date manipulation functions
+// TODO(CaptainHayashi): move
+//
 
 // weekFromVars extracts the year, and week strings from vars.
 func weekFromVars(vars map[string]string) (string, string, error) {
@@ -98,25 +92,20 @@ func parseIsoWeek(year, week, weekday string) (int, int, time.Weekday, error) {
 
 // isoWeekToDate interprets year, week, and weekday strings as an ISO weekday.
 // The time is set to local midnight.
-func isoWeekToDate(year, week, weekday string) (time.Time, error) {
+func isoWeekToDate(year, week int, weekday time.Weekday) (time.Time, error) {
 	// This is based on the calculation given at:
 	// https://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
-
-	y, w, d, err := parseIsoWeek(year, week, weekday)
-	if err != nil {
-		return time.Time{}, err
-	}
 
 	// We need to find the first week in the year.
 	// This always contains the 4th of January, so find that, and get
 	// ISOWeek on it.
-	fj := time.Date(y, time.January, 4, 0, 0, 0, 0, time.Local)
+	fj := time.Date(year, time.January, 4, 0, 0, 0, 0, time.Local)
 	fjWeekday := fj.Weekday()
 
 	// Sanity check to make sure time (and our intuition) is still working.
 	fjYear, fjWeek := fj.ISOWeek()
-	if fjYear != y {
-		return time.Time{}, fmt.Errorf("ISO weekday year %d != calendar year %d!", fjYear, y)
+	if fjYear != year {
+		return time.Time{}, fmt.Errorf("ISO weekday year %d != calendar year %d!", fjYear, year)
 	}
 	if fjWeek != 1 {
 		return time.Time{}, fmt.Errorf("ISO weekday week of 4 Jan (%d) not week 1!", fjWeek)
@@ -124,12 +113,53 @@ func isoWeekToDate(year, week, weekday string) (time.Time, error) {
 
 	// The ISO 8601 ordinal date, which may belong to the next or previous
 	// year.
-	ord := (w * 7) + int(d) - (int(fjWeekday) + 3)
+	ord := (week * 7) + int(weekday) - (int(fjWeekday) + 3)
 
 	// The ordinal date is just the number of days since 1 Jan y plus one,
 	// so calculate the year from that.
-	oj := time.Date(y, time.January, 1, 0, 0, 0, 0, time.Local)
+	oj := time.Date(year, time.January, 1, 0, 0, 0, 0, time.Local)
 	return oj.AddDate(0, 0, ord-1), nil
+}
+
+//
+// Week schedule algorithm
+// TODO(CaptainHayashi): move? 
+//
+
+// WeekScheduleCell represents one cell in the week schedule.
+type WeekScheduleCell struct {
+	// Number of rows this cell spans.
+	// If 0, this is a continuation from a cell further up.
+	RowSpan uint;
+
+	// Pointer to the timeslot in this cell, if any.
+	// Will be nil if 'RowSpan' is 0.
+	Slot *myradio.Timeslot
+}
+
+// WeekScheduleRow represents one row in the week schedule.
+type WeekScheduleRow struct {
+	// The hour of the row (0..23).
+	Hour uint;
+	// The minute of the show (0..59).
+	Minute uint;
+	// The cells inside this row.
+	Cells []WeekScheduleCell;
+}
+
+//
+// Controller
+//
+
+// ScheduleWeekController is the controller for looking up week schedules.
+type ScheduleWeekController struct {
+	Controller
+}
+
+// NewScheduleWeekController returns a new ShowController with the MyRadio session s
+// and configuration context c.
+func NewScheduleWeekController(s *myradio.Session, c *structs.Config) *ScheduleWeekController {
+	return &ScheduleWeekController{Controller{session: s, config: c}}
 }
 
 // Get handles the HTTP GET request r for all shows, writing to w.
@@ -137,7 +167,7 @@ func isoWeekToDate(year, week, weekday string) (time.Time, error) {
 // ScheduleWeek's Get takes two request variables--year and week--,
 // which correspond to an ISO 8601 year-week date.
 func (sc *ScheduleWeekController) GetByYearWeek(w http.ResponseWriter, r *http.Request) {
-	//sm := models.NewScheduleModel(sc.session)
+	sm := models.NewScheduleWeekModel(sc.session)
 
 	vars := mux.Vars(r)
 
@@ -147,26 +177,37 @@ func (sc *ScheduleWeekController) GetByYearWeek(w http.ResponseWriter, r *http.R
 		return
 	}
 
-	startDate, err := isoWeekToDate(year, week, "1")
+	yr, wk, dy, err := parseIsoWeek(year, week, "1")
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	startDate, err := isoWeekToDate(yr, wk, dy)
 	if err != nil {
 		log.Println(err)
 		return
 	}
 	endDate := startDate.AddDate(0, 0, 7)
 
-	//timeslots, err := sm.GetShow(id)
-	//if err != nil {
-	//	//@TODO: Do something proper here, render 404 or something
-	//	log.Println(err)
-	//	return
-	//}
+	log.Printf("getting year %d week %d\n", yr, wk) 
+	timeslots, err := sm.Get(yr, wk)
+	if err != nil {
+		//@TODO: Do something proper here, render 404 or something
+		log.Println(err)
+		return
+	}
+
+	log.Println(timeslots)
 
 	data := struct {
 		StartDate time.Time
 		EndDate   time.Time
+		Timeslots map[int][]myradio.Timeslot // TEMP
 	}{
 		StartDate: startDate,
 		EndDate:   endDate,
+		Timeslots: timeslots, // TEMP
 	}
 
 	err = utils.RenderTemplate(w, sc.config.PageContext, data, "schedule_week.tmpl")

@@ -5,6 +5,31 @@
 
 <h1>Schedule for week commencing {{ .StartDate.Format "Jan 02 2006" }}</h1>
 
+<h2>Debug: all timeslots</h2>
+
+{{ if .Timeslots }}
+<dl>
+	{{ with .Timeslots }}
+	{{ range $day, $slots := . }}
+	<dt>
+		{{ $day }}
+	</dt>
+	<dd>
+		{{ if $slots }}
+			<ul>
+				{{ range $slots }}
+				<li>{{ .Title }}</li>
+				{{ end }}
+			</ul>
+		{{ else }}
+		Nothing today
+		{{ end }}
+	</dd>
+	{{ end }}
+	{{ end }}
+</dl>
+{{ end }}
+
 </div><!-- /.container -->
 
 {{end}}
