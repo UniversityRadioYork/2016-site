@@ -2,7 +2,7 @@
 
 DEPENDENCIES=(npm go)
 declare -A NPM_DEPENDENCIES=([bower]=bower [grunt]=grunt-cli)
-REQUIRED_GO_VERSION=1.6
+REQUIRED_GO_VERSION=1.7
 
 function is_installed {
   command -v $1 >/dev/null 2>&1
