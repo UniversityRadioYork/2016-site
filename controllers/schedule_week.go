@@ -10,6 +10,7 @@ import (
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
+	"sort"
 	"strconv"
 	"time"
 )
@@ -100,7 +101,16 @@ func isoWeekToDate(year, week int, weekday time.Weekday) (time.Time, error) {
 	// This always contains the 4th of January, so find that, and get
 	// ISOWeek on it.
 	fj := time.Date(year, time.January, 4, 0, 0, 0, 0, time.Local)
-	fjWeekday := fj.Weekday()
+
+	// Correct Go's stupid Sunday is 0 decision, making the weekdays ISO 8601 compliant
+	intWeekday := int(weekday)
+	if intWeekday == 0 {
+		intWeekday = 7
+	}
+	fjWeekday := int(fj.Weekday())
+	if fjWeekday == 0 {
+		fjWeekday = 7
+	}
 
 	// Sanity check to make sure time (and our intuition) is still working.
 	fjYear, fjWeek := fj.ISOWeek()
@@ -113,7 +123,7 @@ func isoWeekToDate(year, week int, weekday time.Weekday) (time.Time, error) {
 
 	// The ISO 8601 ordinal date, which may belong to the next or previous
 	// year.
-	ord := (week * 7) + int(weekday) - (int(fjWeekday) + 3)
+	ord := (week * 7) + intWeekday - (fjWeekday + 3)
 
 	// The ordinal date is just the number of days since 1 Jan y plus one,
 	// so calculate the year from that.
@@ -141,17 +151,131 @@ type WeekScheduleCell struct {
 
 	// Pointer to the timeslot in this cell, if any.
 	// Will be nil if 'RowSpan' is 0.
-	Slot *myradio.Timeslot
+	Item *structs.ScheduleItem
 }
 
 // WeekScheduleRow represents one row in the week schedule.
 type WeekScheduleRow struct {
 	// The hour of the row (0..23).
-	Hour uint
+	Hour int
 	// The minute of the show (0..59).
-	Minute uint
+	Minute int
 	// The cells inside this row.
 	Cells []WeekScheduleCell
+}
+
+// calculateScheduleRows takes a schedule and determines which rows should be displayed.
+func calculateScheduleRows(items []structs.ScheduleItem) []WeekScheduleRow {
+	// Internally, we use a 24-hour array to store our decisions.
+	rows := make([]struct {
+		MinuteMarks     map[int]bool
+		HasNonSustainer bool
+		Cull            bool
+	}, 24)
+
+	// Populate with all of the hours of the URY day.
+	for i := 0; i < 24; i++ {
+		rows[i].MinuteMarks = map[int]bool{0: true}
+	}
+
+	for _, s := range items {
+		start := s.GetStart()
+		rows[start.Hour()].MinuteMarks[start.Minute()] = true
+		if !s.IsSustainer() {
+			rows[start.Hour()].HasNonSustainer = true
+		}
+	}
+
+	// Now decide which rows to cull by working forwards and backwards
+	for i := 0; i < 24; i++ {
+		ri := (i + 6) % 24
+
+		if rows[ri].HasNonSustainer {
+			break
+		}
+		rows[ri].Cull = true
+	}
+	for i := 0; i < 24; i++ {
+		ri := ((24 + 6) - i) % 24
+
+		if rows[ri].HasNonSustainer {
+			break
+		}
+		rows[ri].Cull = true
+	}
+
+	// Now translate the above into a row table
+	wsrs := []WeekScheduleRow{}
+	for i := 0; i < 24; i++ {
+		ri := (i + 6) % 24
+		if rows[ri].Cull {
+			continue
+		}
+
+		minutes := make([]int, len(rows[ri].MinuteMarks))
+		j := 0
+		for k, _ := range rows[ri].MinuteMarks {
+			minutes[j] = k
+			j++
+		}
+		sort.Ints(minutes)
+
+		hwsrs := make([]WeekScheduleRow, len(minutes))
+		for j, m := range minutes {
+			hwsrs[j] = WeekScheduleRow{Hour: ri, Minute: m, Cells: []WeekScheduleCell{}}
+		}
+
+		wsrs = append(wsrs, hwsrs...)
+	}
+
+	return wsrs
+}
+
+// populateRows fills schedule rows with timeslots.
+// It takes local midnight on the start and end days of the schedule to fill.
+func populateRows(startMidnight, endMidnight time.Time, rows []WeekScheduleRow, items []structs.ScheduleItem) {
+	// How many days does this timetable actually span?
+	scheduleSpan := endMidnight.Sub(startMidnight)
+	scheduleDays := int(scheduleSpan / time.Hour / 24)
+
+	currentItem := 0
+
+	// Handle each day individually
+	for d := 0; d < scheduleDays; d++ {
+		dayMidnight := startMidnight.AddDate(0, 0, d)
+
+		// We use this to find out when we've gone over midnight
+		lastHour := -1
+		// And this to find out where the current show started
+		thisShowIndex := -1
+
+		// Now, go through all the rows for this day.
+		// We have to be careful to make sure we tick over dayMidnight if we go past midnight.
+		for i := range rows {
+			if rows[i].Hour < lastHour {
+				dayMidnight = dayMidnight.AddDate(0, 0, 1)
+			}
+			lastHour = rows[i].Hour
+
+			rowTime := time.Date(dayMidnight.Year(), dayMidnight.Month(), dayMidnight.Day(), rows[i].Hour, rows[i].Minute, 0, 0, time.Local)
+
+			// Seek forwards if the current show has finished.
+			for !items[currentItem].GetFinish().After(rowTime) {
+				currentItem++
+				thisShowIndex = -1
+			}
+
+			// If this is not the first time we've seen this slot, update its rowspan
+			// and put in a placeholder.
+			if thisShowIndex != -1 {
+				rows[thisShowIndex].Cells[d].RowSpan++
+				rows[i].Cells = append(rows[i].Cells, WeekScheduleCell{RowSpan: 0, Item: nil})
+			} else {
+				thisShowIndex = i
+				rows[i].Cells = append(rows[i].Cells, WeekScheduleCell{RowSpan: 1, Item: &(items[currentItem])})
+			}
+		}
+	}
 }
 
 //
@@ -220,14 +344,17 @@ func (sc *ScheduleWeekController) GetByYearWeek(w http.ResponseWriter, r *http.R
 		return
 	}
 
+	table := calculateScheduleRows(filled)
+	populateRows(startDate, finishDate, table, filled)
+
 	data := struct {
 		StartDate  time.Time
 		FinishDate time.Time
-		Timeslots  []structs.ScheduleItem // TEMP
+		Table      []WeekScheduleRow
 	}{
 		StartDate:  startUry,
 		FinishDate: finishUry,
-		Timeslots:  filled, // TEMP
+		Table:      table,
 	}
 
 	err = utils.RenderTemplate(w, sc.config.PageContext, data, "schedule_week.tmpl")

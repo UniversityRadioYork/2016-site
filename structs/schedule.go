@@ -22,6 +22,9 @@ type ScheduleItem interface {
 
 	// GetBlock gets the block name of the schedule item.
 	GetBlock() string
+
+	// IsSustainer gets whether this schedule item is the URY sustainer.
+	IsSustainer() bool
 }
 
 // SustainerItem is a struct containing information about a sustainer (filler) item in a URY schedule.
@@ -74,6 +77,11 @@ func (s *SustainerItem) GetBlock() string {
 	return "sustainer"
 }
 
+// IsSustainer gets whether a SustainerItem is sustainer (it is).
+func (s *SustainerItem) IsSustainer() bool {
+	return true
+}
+
 /*
  * Implementation of ScheduleItem for TimeslotItem
  */
@@ -99,6 +107,11 @@ func (t *TimeslotItem) GetBlock() string {
 	return "normal"
 }
 
+// IsSustainer gets whether a TimeslotItem is sustainer (it isn't).
+func (t *TimeslotItem) IsSustainer() bool {
+	return false
+}
+
 /*
  * Schedule filling
  * TODO(CaptainHayashi): This DEFINITELY doesn't belong in structs
@@ -116,7 +129,7 @@ func FillTimeslotSlice(start, finish time.Time, slots []myradio.Timeslot) ([]Sch
 	items := make([]ScheduleItem, (2*len(slots))+1)
 
 	// Now deal with the easy case--no slots.
-	if (nslots == 0) {
+	if nslots == 0 {
 		items[0] = NewSustainerItem(start, finish)
 		return items, nil
 	}
@@ -134,7 +147,7 @@ func FillTimeslotSlice(start, finish time.Time, slots []myradio.Timeslot) ([]Sch
 	// Now, if possible, start filling between.
 	// This will add all but the last show.
 	for j := range slots {
-		if (j < nslots - 1) {
+		if j < nslots-1 {
 			first := &slots[j]
 			second := &slots[j+1]
 
@@ -157,11 +170,11 @@ func FillTimeslotSlice(start, finish time.Time, slots []myradio.Timeslot) ([]Sch
 				items[i] = NewSustainerItem(firstFinish, second.StartTime)
 				i++
 			}
-			// Don't add second -- it'll either be the next first, or we'll add it at the end.		
+			// Don't add second -- it'll either be the next first, or we'll add it at the end.
 		}
 	}
 
-	lastShow := &slots[nslots - 1]
+	lastShow := &slots[nslots-1]
 	items[i] = NewTimeslotItem(lastShow)
 	i++
 	lastFinish := lastShow.StartTime.Add(lastShow.Duration)

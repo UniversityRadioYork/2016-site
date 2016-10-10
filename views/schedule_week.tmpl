@@ -6,16 +6,37 @@
 
 <h1>Schedule for week commencing {{.StartDate.Format "Jan 02 2006"}}</h1>
 
-<h2>Debug: all timeslots</h2>
-
-{{if .Timeslots}}
-<ul>
-	{{ range .Timeslots }}
-		<li>{{showName .}} ({{showStart .}} to {{showFinish .}})</li>
-	{{ end }}
-</ul>
+{{if .Table}}
+<table>
+	<thead>
+		<tr>
+			<th>Time</th>
+			<th>Monday</th>
+			<th>Tuesday</th>
+			<th>Wednesday</th>
+			<th>Thursday</th>
+			<th>Friday</th>
+			<th>Saturday</th>
+			<th>Sunday</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{range .Table}}
+			<tr>
+				<td>{{ .Hour | printf "%02d" }}:{{ .Minute | printf "%02d" }}</td>
+				{{range .Cells}}
+					{{if ne .RowSpan 0}}
+					<td rowspan="{{.RowSpan}}">
+						{{showName .Item}}
+					</td>
+					{{end}}
+				{{end}}
+			</tr>
+		{{end}}
+	</tbody>
+</table>
 {{else}}
-	Nothing today
+	<p>Nothing today</p>
 {{end}}
 
 </div><!-- /.container -->
