@@ -15,6 +15,8 @@ import (
 	"time"
 )
 
+const URYStartHour = 6
+
 //
 // Date manipulation functions
 // TODO(CaptainHayashi): move
@@ -134,8 +136,7 @@ func isoWeekToDate(year, week int, weekday time.Weekday) (time.Time, error) {
 // uryStartOfDayOn gets the URY start of day on a given date.
 func uryStartOfDayOn(date time.Time) time.Time {
 	y, m, d := date.Date()
-	// TODO(CaptainHayashi): de-hardcode the hour?
-	return time.Date(y, m, d, 6, 0, 0, 0, time.Local)
+	return time.Date(y, m, d, URYStartHour, 0, 0, 0, time.Local)
 }
 
 //
@@ -186,9 +187,10 @@ func calculateScheduleRows(items []structs.ScheduleItem) []WeekScheduleRow {
 		}
 	}
 
-	// Now decide which rows to cull by working forwards and backwards
+	// Now decide which rows to cull by working forwards and backwards.
+	// The runs of sustainer-only rows at the start and end are culled.
 	for i := 0; i < 24; i++ {
-		ri := (i + 6) % 24
+		ri := (i + URYStartHour) % 24
 
 		if rows[ri].HasNonSustainer {
 			break
@@ -196,7 +198,7 @@ func calculateScheduleRows(items []structs.ScheduleItem) []WeekScheduleRow {
 		rows[ri].Cull = true
 	}
 	for i := 0; i < 24; i++ {
-		ri := ((24 + 6) - i) % 24
+		ri := ((24 + URYStartHour) - i) % 24
 
 		if rows[ri].HasNonSustainer {
 			break
@@ -204,10 +206,10 @@ func calculateScheduleRows(items []structs.ScheduleItem) []WeekScheduleRow {
 		rows[ri].Cull = true
 	}
 
-	// Now translate the above into a row table
+	// Now translate the above into a row table.
 	wsrs := []WeekScheduleRow{}
 	for i := 0; i < 24; i++ {
-		ri := (i + 6) % 24
+		ri := (i + URYStartHour) % 24
 		if rows[ri].Cull {
 			continue
 		}
