@@ -1,22 +1,26 @@
 {{define "current_and_next"}}
-	<div class="row">
-		{{if .Current}}
-			<div class="col-xs-4 col-sm-4 now-next-live" style="background-image:url('/images/index-now-next-live-thumb.jpeg');"></div>
-			<div class="col-xs-8 col-sm-4 now-next-now">
-				<h2>Now</h2>
-				{{template "current_next" .Current}}
-			</div>
+	{{with .CurrentAndNext}}
 
-		{{end}}
-		{{if .Next}}
-			<div class="col-xs-12 col-sm-4 now-next-next">
-			 	<h2 class="mobile-col-left">Next</h2>
-			 	<div class="mobile-col-right">
-					{{template "current_next" .Next}}
+		<div class="row">
+			{{if .Current}}
+				<div class="col-xs-4 col-sm-4 now-next-live" style="background-image:url('/images/index-now-next-live-thumb.jpeg');"></div>
+				<div class="col-xs-8 col-sm-4 now-next-now">
+					<h2>Now</h2>
+					{{template "current_next" .Current}}
 				</div>
-			</div>
-		{{end}}
-	</div>
+
+			{{end}}
+			{{if .Next}}
+				<div class="col-xs-12 col-sm-4 now-next-next">
+				 	<h2 class="mobile-col-left">Next</h2>
+				 	<div class="mobile-col-right">
+						{{template "current_next" .Next}}
+					</div>
+				</div>
+			{{end}}
+		</div>
+
+	{{end}}
 {{end}}
 
 {{define "current_next"}}
