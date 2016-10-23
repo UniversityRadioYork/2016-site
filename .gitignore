@@ -189,10 +189,8 @@ sftp-config.json
 ### Vim ###
 *.swp
 
-### Public, but allow images. ###
-/public/bower_components/
-/public/scripts/
-/public/styles/
+### Compiled CSS ###
+public/css/*.scss.css
 
 ### Don't be commiting exe's yo ###
 *.exe

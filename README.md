@@ -6,11 +6,10 @@
 
 #### Requirements ####
 
-You will need the following things installed:
- - [NodeJs](https://nodejs.org/en/ "NodeJs")
- - [Go 1.6](https://golang.org/ "Go")
- 
+Requires [Go 1.6](https://golang.org/) to compile and run, along with something
+to compile the SCSS files.
+
 ```bash
-$ ./install.sh
-$ go run main.go
+$ sassc sass/main.scss public/css/main.scss.css # Or whatever sass program you prefer
+$ go run *.go
 ```
