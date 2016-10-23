@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/BurntSushi/toml"
 	"github.com/UniversityRadioYork/2016-site/structs"
-	"github.com/UniversityRadioYork/2016-site/web"
 	"github.com/stretchr/graceful"
 	"log"
 	"time"
@@ -19,7 +18,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	s, err := web.NewServer(config)
+	s, err := NewServer(config)
 	if err != nil {
 		log.Fatal(err)
 	}
