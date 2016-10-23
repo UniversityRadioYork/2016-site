@@ -2,3 +2,269 @@
 @import "partials/partials";
 @import "elements/elements";
 
+/* Space out content a bit */
+body {
+  padding-top: 49px;
+  /* padding-bottom: 20px; */
+
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+/* Custom page header */
+.header {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e5e5e5;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
+}
+
+/* Custom page footer */
+.footer {
+  padding: 20px 30px;
+  font-size:18px;
+  color: #777;
+  border-top: 3px solid #ddd;
+  background:#e1e1e1;
+}
+
+
+.navbar {
+	background: #032e59;
+}
+.navbar img {
+	margin-top: -7px;
+}
+
+
+.now-next {
+	background:url('/images/index-now-next-bg.png') center center no-repeat;
+	background-size:300%;
+	color:white;
+}
+
+.now-next-live {
+	background-repeat: no-repeat;
+	background-size:100%;
+	position: relative;
+	text-align:center;
+
+}
+.now-next-now, .now-next-next{
+	background: #032e59;
+
+}
+.now-next-next{
+ 	background:#000088;
+}
+.now-next-live-button {
+    position: absolute;
+    left: 15%;
+    right: 15%;
+    bottom: 10%;
+    opacity:0.9;
+}
+.now-next-live-button-mobile {
+    width:100%;
+    border-radius:0;
+}
+
+.index-infobar {
+	background:#e1e1e1;
+
+}
+.index-infobar hr {
+	border-color:#032e59;
+
+}
+.index-schedule {
+	background: #032e59;
+	color: #fff;
+}
+
+.people-content {
+	background:#e1e1e1;
+
+}
+.people-content h1 {
+	color: #032e59;
+	font-size:60px;
+	font-weight:300;
+	
+}
+.people-sidebar {
+	padding: 0 30px;
+	color: #032e59;
+	text-align:center;
+}
+.people-sidebar h3 {
+	font-weight:300;
+	display:inline-block;
+	padding: 15px 10px;
+	border-bottom: #d6d6d6 2px  solid;
+}
+.people-sidebar h3:first-of-type {
+	border-right: #d6d6d6 2px  solid;
+} 
+.people-profile {
+	border: #e1e1e1 7px solid;
+	margin:-100px auto 20px auto;
+
+    max-width: 85%;
+}
+.people-sidebar .row div {
+	padding:5px;
+}
+.people-bio {
+	background: #032e59;
+	color: #fff;
+	padding:10px 40px 40px 40px;
+}
+
+
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+	body {
+		background:url('/images/bg-overlay.png') bottom right no-repeat fixed;
+	}
+	
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+   {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 30px;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+  }
+  
+  .now-next {
+
+	padding: 8em 0;
+  }
+  .now-next-live-button-mobile {
+		display:none;
+	}
+
+  	.container.outer {
+  		max-width:70%;
+  		width:70%;
+  	}
+  .container {
+    max-width: 730px;
+  }
+  .mobile-only {
+  	display:none;
+  }
+  
+  .people-content h1 {
+	padding:0 0 10px 40px;
+  }
+}
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+}
+.jumbotron .btn {
+  padding: 14px 24px;
+  font-size: 21px;
+}
+
+/* Supporting marketing content */
+.marketing {
+  margin: 40px 0;
+}
+.marketing p + h4 {
+  margin-top: 28px;
+}
+
+@media (min-width: 982px) {
+
+  	.container.outer {
+  		max-width: 950px;
+  		width:950px;
+  }
+}
+@media (min-width: 1280px) {
+
+  	.container.outer {
+  		max-width: 1200px;
+  		width:1200px;
+  }
+}
+
+
+
+@media screen and (max-width: 767px) {
+	.mobile-hide {
+  		display:none;
+ 	}
+ 	.header-large {
+ 		height:400px;
+ 	}
+ 	.people-profile {
+ 		margin-top: -320px;
+ 		margin-bottom: 30px;
+ 	}
+	body {
+		background:#02213f;
+	}
+	.now-next h2 {
+		font-size: 25px;
+	}
+	.now-next h3 {
+		font-size: 20px;
+		margin-top:5px;
+	}
+	.now-next h4 {
+		font-size: 16px;
+		margin-top:5px;
+	}
+	.now-next {
+		padding-top: 6em;
+		padding-bottom: 4em;
+	}
+	.now-next-live-button {
+		display:none;
+	}
+	.now-next-next .mobile-col-left {
+		width: 33.333333333%;
+		float:left;
+	}		
+	.now-next-next .mobile-col-right {
+		width: 66.66666666%;
+		float:right;
+    	margin-top: 20px;
+    	padding-right: 15px;
+    	padding-left: 15px;
+	}	
+	.index-banner {
+		display:none;
+	}
+}
+
+
+
+
