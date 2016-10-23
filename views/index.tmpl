@@ -1,11 +1,15 @@
 {{define "content"}}
 	{{with .PageData}}
 
-	<div class="container">
+	<div class="container outer now-next">
+    	<div class="container">
 
-		{{template "current_and_next" .}}
+			{{template "current_and_next" .}}
 
-	</div><!-- /.container -->
+			<!-- BANNER TEMPLATE GOES HERE -->
+
+		</div><!-- /.container -->
+	</div><!-- /outer containter -->
 
 	{{end}}
 {{end}}
