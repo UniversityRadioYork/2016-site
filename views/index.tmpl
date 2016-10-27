@@ -6,20 +6,62 @@
 
 			{{template "current_and_next" .}}
 
-			<!-- BANNER TEMPLATE GOES HERE -->
+			{{range .Banners}}
+				<a href="{{.Target}}">
+					<img alt="{{.Alt}}" src="https://ury.org.uk{{.URL}}">
+				</a>
+			{{end}}
 
 		</div><!-- /.container -->
 	</div><!-- /outer containter -->
 
 	<div class="container">
 
-		{{range .Banners}}
-		<a href="{{.Target}}">
-			<img alt="{{.Alt}}" src="https://ury.org.uk{{.URL}}">
-		</a>
-		{{end}}
 
 	</div>
+
+	 <div class="container outer index-infobar">
+
+	  <div class="row">
+	  	<div class="col-lg-1"></div>
+        <div class="col-lg-4">
+          <h2>Send a Message</h2>
+          <hr>
+          <form id="sendMessage" action="">
+          		<textarea name="body">Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</textarea>
+          		<button type="submit">Send</button>
+          </form>
+        </div>
+
+        <div class="col-lg-6">
+          <h2>Get Involved</h2>
+          <hr>
+          <div class="row">
+          	<div class="col-lg-6">
+          		<p>University Radio York has been alive since 1967, when it became the first legal independant radio station in the UK!</p>
+          		<p>Help us continue our legacy by joining the URY team.</p>
+          		<p>Contact our teams to find out more.</p>
+          	</div>
+          	<div class="col-lg-6">
+          		<ul>
+          			<li>List of teams here.</li>
+          		</ul>
+          	</div>
+          	
+          </div>
+
+        </div>
+        <div class="col-lg-1"></div>
+      </div>
+
+    </div> <!-- /outer containter -->
+    
+    <div class="container outer index-schedule">
+		<h2>Today's Schedule</h2>
+	  	<h1 style="text-align:center; padding: 7em 0;">Coming Soon</h1>
+
+    </div> <!-- /outer containter -->
+	
 
 	{{end}}
 {{end}}
