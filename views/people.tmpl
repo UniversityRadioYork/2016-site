@@ -2,65 +2,84 @@
 
 	{{with .PageData}}
 
-		<div class="container">
+		<div class="container outer header-large now-next">
+		    <div class="container mobile-hide">
 
-			<h1>
-				{{.Name}}
-			</h1>
+				{{template "current_and_next" .}}
 
-			<h2>Bio</h2>
+					<!-- BANNER TEMPLATE GOES HERE -->
 
-			<p>
-				{{html .Bio}}
-			</p>
+			</div><!-- /.container -->
+		</div><!-- /outer containter -->
 
-			<div class="row">
-				<div class="col-sm-2">
-					<!-- @TODO: Change the URL -->
-					<img class="img-responsive" src="
-					{{if .ProfilePicture.Url}}
+
+		<div class="container outer people-content">
+
+		  <div class="row">
+	        <div class="col-lg-4 people-sidebar">
+	        	<img class="img-circle img-responsive people-profile" src="
+
+		        	{{if .ProfilePicture.Url}}
 						https://ury.org.uk{{.ProfilePicture.Url}}
 					{{else}}
-						https://ury.org.uk/static/img/default_show_player.png
+						/images/people-profile.jpg
 					{{end}}
-					">
-				</div>
-			</div>
 
-			<h2>
-				Officerships
-			</h2>
-
-			<ul>
-				{{range .Officerships}}
-
-				<li>
-					{{.OfficerName}} - from {{.FromDate.Format "2006-01-02"}} to
-					{{if .TillDateRaw}}
-						{{.TillDate.Format "2006-01-02"}}
-					{{else}}
-						current
-					{{end}}
-				</li>
-
+				" alt="Photo of 
+					{{.Name}}
+				">
+	          	<h1 class="mobile-only">
+	          		{{.Name}}
+	          	</h1>
+	          	<h3>Shows: 10</h3><h3>Hours: 10</h3>
+	          	<h2>Credit</h2>
+	          <div class="row">
+	          	{{range .ShowCredits}}
+					<div class="col-xs-4">
+		          		<a href="{{.MicroSiteLink.URL}}" title="View the {{.Title}} webpage.">
+		          			<img class="img-responsive" src="/images/show-1.png" alt="{{.Title}} logo." />
+		          		</a>
+	          		</div>
 				{{end}}
-			</ul>
+	          </div>
+	        </div>
 
-			<h2>Credits</h2>
+	        <div class="col-lg-8">
+	          <h1 class="mobile-hide">
+	        	{{.Name}}
+	          </h1>
+	          <div class="people-bio">
+				  <h2>Bio</h2>
+				  <p>
+				  	{{html .Bio}}
+				  </p>
 
-			<p>
-				This person has worked on the following shows:
-			</p>
+					<h2>
+						Officerships
+					</h2>
 
-			<ul>
-				{{range .ShowCredits}}
-				<li>
-					<a href="{{.MicroSiteLink.URL}}/">{{.Title}}</a>
-				</li>
-				{{end}}
-			</ul>
+					<ul>
+						{{range .Officerships}}
 
-		</div><!-- /.container -->
+						<li>
+							{{.OfficerName}} - from {{.FromDate.Format "2006-01-02"}} to
+							{{if .TillDateRaw}}
+								{{.TillDate.Format "2006-01-02"}}
+							{{else}}
+								current
+							{{end}}
+						</li>
+
+						{{end}}
+					</ul>
+
+
+
+			  </div>
+	        </div>
+	      </div>
+
+	    </div> <!-- /outer containter -->
 
 	{{end}}
 
