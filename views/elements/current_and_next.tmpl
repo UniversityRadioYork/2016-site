@@ -3,15 +3,16 @@
 
 		<div class="row">
 			{{if .Current}}
-				<div class="col-xs-4 col-sm-4 now-next-live" style="background-image:url('/images/index-now-next-live-thumb.jpeg');"></div>
-				<div class="col-xs-8 col-sm-4 now-next-now">
+				<div class="col-xs-4 col-sm-4 current-next-live" style="background-image:url('/images/show-current.png');">
+				<a href="https://ury.org.uk/listen" class="btn btn-lg btn-primary current-next-live-button" title="Listen Live" onclick="window.open('http://ury.org.uk/live', 'radioplayer', 'height=665,width=380'); return false;">Listen Live</a></div>
+				<div class="col-xs-8 col-sm-4 current-next-now">
 					<h2>Now</h2>
 					{{template "current_next" .Current}}
 				</div>
 
 			{{end}}
 			{{if .Next}}
-				<div class="col-xs-12 col-sm-4 now-next-next">
+				<div class="col-xs-12 col-sm-4 current-next-next">
 				 	<h2 class="mobile-col-left">Next</h2>
 				 	<div class="mobile-col-right">
 						{{template "current_next" .Next}}
@@ -27,6 +28,5 @@
 
 <h3><a href="{{.Url}}">{{.Title}}</a></h3>
 <h4>{{.StartTime.Format "15:04"}} - {{.EndTime.Format "15:04"}}</h4>
-<p><a class="btn btn-default" href="{{.Url}}" role="button">About the show »</a></p>
 
 {{end}}
