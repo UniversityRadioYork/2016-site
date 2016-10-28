@@ -6,19 +6,36 @@
 
 			{{template "current_and_next" .}}
 
-			{{range .Banners}}
-				<a href="{{.Target}}">
-					<img alt="{{.Alt}}" src="https://ury.org.uk{{.URL}}">
-				</a>
-			{{end}}
+
+			<div class="row index-banner">
+	  		<div id="index-banner-carousel" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+        	{{range .Banners}}
+          <li data-target="#index-banner-carousel" data-slide-to="0" class="active"></li>
+          {{end}}
+        </ol>
+        <div class="carousel-inner" role="listbox">
+        	{{range .Banners}}
+          <div class="item active">
+          	<a href="{{.Target}}">
+            	<img src="https://ury.org.uk{{.URL}}" alt="{{.Alt}}">
+            </a>
+          </div>
+          {{end}}
+        </div>
+        <a class="left carousel-control" href="#index-banner-carousel" role="button" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#index-banner-carousel" role="button" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+	  </div>
 
 		</div><!-- /.container -->
 	</div><!-- /outer containter -->
-
-	<div class="container">
-
-
-	</div>
 
 	 <div class="container outer index-infobar">
 
