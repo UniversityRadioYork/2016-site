@@ -1,0 +1,103 @@
+.current-next {
+  background: url('/images/current-next-bg.png') center center no-repeat;
+  background-size: 300%;
+  color: white;
+}
+.current-next-live {
+  background-repeat: no-repeat;
+  background-size: 100%;
+  position: relative;
+  text-align: center;
+}
+.current-next-now, .current-next-next {
+  background: #032e59;
+}
+.current-next-next {
+  background: #000088;
+}
+.current-next-live-button {
+  position: absolute;
+  left: 15%;
+  right: 15%;
+  bottom: 10%;
+  opacity: 0.9;
+}
+.current-next-live-button-mobile {
+  width: 100%;
+  border-radius: 0;
+}
+
+
+@media screen and (max-width: 767px) {
+  .current-next {
+    padding-top: 6em;
+    padding-bottom: 4em;
+    h2 {
+      font-size: 25px;
+    }
+    h3 {
+      font-size: 20px;
+      margin-top: 5px;
+    }
+    h4 {
+      font-size: 16px;
+      margin-top: 5px;
+    }
+    
+    .current-next-live {
+      padding: 0;
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+    .current-next-next .mobile-col-left {
+      width: 33.333333333%;
+      padding: 30px 15px;
+      margin: 0;
+      float: left;
+    }
+  }
+}
+
+
+@media screen and (min-width: 768px) {
+  .current-next {
+    padding: 8em 0;
+    .current-next-live {
+      float: left;
+    }
+    .desktop-right {
+      width: 545px;
+      float: right;
+      padding-right: 15px;
+    }
+  }
+  .current-next-live, .current-next-live img {
+    width: 200px;
+    height: 200px;
+  }
+  .current-next-now, .current-next-next {
+    height: 200px;
+  }
+  .current-next-live-button-mobile {
+    display: none;
+  }
+}
+
+@media (min-width: 982px) {
+  .current-next {
+    .desktop-right {
+      width: 765px;
+    }
+  }
+}
+
+@media (min-width: 1280px) {
+  .current-next {
+    .desktop-right {
+      width: 1015px;
+    }
+  }
+}
+
