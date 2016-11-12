@@ -1,6 +1,9 @@
+$current-next-now-bg:#003367;
+$current-next-next-bg:rgba(0,51,103,0.75);
+
 .current-next {
   background: url('/images/current-next-bg.png') center center no-repeat;
-  background-size: 300%;
+  background-size: cover;
   color: white;
 }
 .current-next-live {
@@ -10,10 +13,10 @@
   text-align: center;
 }
 .current-next-now, .current-next-next {
-  background: #032e59;
+  background: $current-next-now-bg;
 }
 .current-next-next {
-  background: #000088;
+  background: $current-next-next-bg;
 }
 .current-next-live-button {
   position: absolute;
