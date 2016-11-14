@@ -4,14 +4,17 @@ $current-next-next-bg:rgba(0,51,103,0.75);
 .current-and-next {
   display: flex;
   flex-direction: row;
-  height:10em;
+  height:12em;
   color:white;
+  margin: 0 -15px; //not sure why this is needed should probably be looked into
   .current-and-next-img {
-    height: 10em;
+    height: 12em;
     width: auto;
   }
   div {
     flex-grow: 1;
+    flex-basis: 0; 
+    
   }
   .current-and-next-now {
     background: $current-next-now-bg;
@@ -20,7 +23,6 @@ $current-next-next-bg:rgba(0,51,103,0.75);
     background: $current-next-next-bg;
   }
 }
-
 
 
 
