@@ -1,33 +1,24 @@
 $current-next-now-bg:#003367;
 $current-next-next-bg:rgba(0,51,103,0.75);
 
-.current-next {
-  background: url('/images/current-next-bg.png') center center no-repeat;
-  background-size: cover;
-  color: white;
-}
-.current-next-live {
-  background-repeat: no-repeat;
-  background-size: 100%;
-  position: relative;
-  text-align: center;
-}
-.current-next-now, .current-next-next {
-  background: $current-next-now-bg;
-}
-.current-next-next {
-  background: $current-next-next-bg;
-}
-.current-next-live-button {
-  position: absolute;
-  left: 15%;
-  right: 15%;
-  bottom: 10%;
-  opacity: 0.9;
-}
-.current-next-live-button-mobile {
-  width: 100%;
-  border-radius: 0;
+.current-and-next {
+  display: flex;
+  flex-direction: row;
+  height:10em;
+  color:white;
+  .current-and-next-img {
+    height: 10em;
+    width: auto;
+  }
+  div {
+    flex-grow: 1;
+  }
+  .current-and-next-now {
+    background: $current-next-now-bg;
+  }
+  .current-and-next-next {
+    background: $current-next-next-bg;
+  }
 }
 
 
