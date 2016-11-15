@@ -1,6 +1,13 @@
 $current-next-now-bg:#003367;
 $current-next-next-bg:rgba(0,51,103,0.85);
 
+
+//should be moved into variables folder
+$base-font-size: 16px;
+$mobile-font-size:10px;
+$mobile-max-width:770px;
+
+
 .current-next {
   background: url('/images/current-next-bg.png') center center no-repeat;
   background-size: cover;
@@ -12,12 +19,12 @@ $current-next-next-bg:rgba(0,51,103,0.85);
   flex-flow: row wrap;
   min-height:12em;
   color:white;
-  margin: 0 -15px; //not sure why this is needed should probably be looked into
+  margin: 0 -15px;
+  font-size: $base-font-size;
   
   .current-and-next-img {
-      max-height: 12em;
-      max-width: 12em;
-      width: auto;
+    height: 12em;
+    width: 12em;
     img {
       height:100%;
       width:auto;
@@ -25,8 +32,8 @@ $current-next-next-bg:rgba(0,51,103,0.85);
   }
   .current-and-next-now, .current-and-next-next {
     flex-grow: 1; 
-    padding: 0.5em 2em;
-    min-width: 250px;
+    padding: 0 1em;
+    min-width: 15em;
     flex-wrap: wrap;
   }
   .current-and-next-now {
@@ -36,6 +43,7 @@ $current-next-next-bg:rgba(0,51,103,0.85);
     background: $current-next-next-bg;
   }
 }
+
 @media screen and (max-width: 767px) {
   .current-and-next-btn-mobile {
     flex-basis: 100%;
@@ -56,3 +64,21 @@ $current-next-next-bg:rgba(0,51,103,0.85);
 
 
 
+@media screen and (max-width: $mobile-max-width) {
+  .current-and-next {
+    font-size: $mobile-font-size;
+  }
+}
+
+
+//for testing purposes only, should eventually be moved into own file
+
+h1 {
+  font-size: 2.5em;
+}
+h2 {
+  font-size: 2em;
+}
+h3 {
+  font-size: 1.8em;
+}
