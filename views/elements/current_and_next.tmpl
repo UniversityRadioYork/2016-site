@@ -2,7 +2,10 @@
 	{{with .CurrentAndNext}}
 		<div class="current-and-next">
 			{{if .Current}}
-				<img class="current-and-next-img" src="/images/show-current.png" alt="" />
+				<div class="current-and-next-img">
+					<img src="/images/show-current.png" alt="" />
+					<a href="https://ury.org.uk/listen" class="btn btn-lg btn-primary current-and-next-btn mobile-hide" title="Listen Live" onclick="window.open('http://ury.org.uk/live', 'radioplayer', 'height=665,width=380'); return false;">Listen Live</a>
+				</div>
 				<div class="current-and-next-now">
 					<h2>Now</h2>
 					{{template "current_next" .Current}}
@@ -13,7 +16,7 @@
 					{{template "current_next" .Next}}
 				</div>
 				{{end}}
-
+				<a href="https://ury.org.uk/listen" class="btn btn-lg btn-primary current-and-next-btn-mobile mobile-only" title="Listen Live" onclick="window.open('http://ury.org.uk/live', 'radioplayer', 'height=665,width=380'); return false;">Listen Live</a>
 			{{end}}
 		</div>
 
