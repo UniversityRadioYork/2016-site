@@ -3,8 +3,9 @@
 
 		<div class="row">
 			{{if .Current}}
-				<div class="current-next-live mobile-col-left mobile-hide"><img id="current-next-live" src="/images/show-current.png" alt="" />
-				<a href="https://ury.org.uk/listen" class="btn btn-lg btn-primary mobile-hide" title="Listen Live" onclick="window.open('http://ury.org.uk/live', 'radioplayer', 'height=665,width=380'); return false;">Listen Live</a>
+				<div class="current-next-live mobile-col-left mobile-hide">
+					<img id="current-next-live" src="/images/show-current.png" alt="" />
+					<a href="https://ury.org.uk/listen" class="btn btn-lg btn-primary mobile-hide current-next-live-button" title="Listen Live" onclick="window.open('http://ury.org.uk/live', 'radioplayer', 'height=665,width=380'); return false;">Listen Live</a>
 				</div>
 				<div class="row desktop-right">
 					
@@ -26,8 +27,10 @@
 							{{template "current_next" .Next}}
 						</div>
 					</div>
-				</div>
+				
 			{{end}}
+				<a href="" class="btn btn-lg btn-primary current-next-live-button-mobile" alt="Listen Live">Listen Live</a>
+				</div>
 		</div>
 
 	{{end}}

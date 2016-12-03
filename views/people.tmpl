@@ -11,11 +11,11 @@
 		</div><!-- /outer containter -->
 
 
-		<div class="container outer people-content">
+		<div class="container outer page1-content">
 
 		  <div class="row">
-	        <div class="col-lg-4 people-sidebar">
-	        	<img class="img-circle img-responsive people-profile" src="
+	        <div class="col-xs-12 col-sm-4 page1-sidebar">
+	        	<img class="img-circle img-responsive page1-image" src="
 					      
 					      {{if .ProfilePicture.Url}}
 									https://ury.org.uk{{.ProfilePicture.Url}}
@@ -26,7 +26,7 @@
 							" alt="Photo of 
 								{{.Name}}
 							">
-	          	<h1 class="mobile-only">
+	          	<h1 class="mobile-only page1-title">
 	          		{{.Name}}
 	          	</h1>
 	          	<h3>Shows: 10</h3><h3>Hours: 10</h3>
@@ -42,36 +42,36 @@
 	          </div>
 	        </div>
 
-	        <div class="col-lg-8">
-	          <h1 class="mobile-hide">
+	        <div class="col-xs-12 col-sm-8 page1-bio">
+	          <h1 class="mobile-hide page1-title">
 	        	{{.Name}}
 	          </h1>
-	          <div class="people-bio">
-				  <h2>Bio</h2>
-				  <p>
-				  	{{html .Bio}}
-				  </p>
+	          <div class="page1-bio-box">
+						  <h2>Bio</h2>
+						  <p>
+						  	{{html .Bio}}
+						  </p>
 
-					<h2>
-						Officerships
-					</h2>
+							<h2>
+								Officerships
+							</h2>
 
-					<ul>
-						{{range .Officerships}}
+							<ul>
+								{{range .Officerships}}
 
-						<li>
-							{{.OfficerName}} - from {{.FromDate.Format "2006-01-02"}} to
-							{{if .TillDateRaw}}
-								{{.TillDate.Format "2006-01-02"}}
-							{{else}}
-								current
-							{{end}}
-						</li>
+								<li>
+									{{.OfficerName}} - from {{.FromDate.Format "2006-01-02"}} to
+									{{if .TillDateRaw}}
+										{{.TillDate.Format "2006-01-02"}}
+									{{else}}
+										current
+									{{end}}
+								</li>
 
-						{{end}}
-					</ul>
+								{{end}}
+							</ul>
 
-			  </div>
+					  </div>
 	        </div>
 	      </div>
 
