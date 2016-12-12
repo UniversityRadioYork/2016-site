@@ -1,14 +1,15 @@
 package controllers
 
 import (
+	"log"
+	"net/http"
+	"strconv"
+
 	"github.com/UniversityRadioYork/2016-site/models"
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/2016-site/utils"
 	"github.com/UniversityRadioYork/myradio-go"
 	"github.com/gorilla/mux"
-	"log"
-	"net/http"
-	"strconv"
 )
 
 // ShowController is the controller for looking up shows.
@@ -43,18 +44,19 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 
 	show, seasons, err := sm.GetShow(id)
 
-	if err != nil {
-		//@TODO: Do something proper here, render 404 or something
-		log.Println(err)
-		return
-	}
-
 	data := struct {
 		Show    myradio.ShowMeta
 		Seasons []myradio.Season
 	}{
 		Show:    *show,
 		Seasons: seasons,
+	}
+
+	if err != nil {
+		//@TODO: Do something proper here, render 404 or something
+		log.Println(err)
+		utils.RenderTemplate(w, sc.config.PageContext, data, "404.tmpl")
+		return
 	}
 
 	err = utils.RenderTemplate(w, sc.config.PageContext, data, "show.tmpl")
@@ -73,18 +75,19 @@ func (sc *ShowController) GetTimeslot(w http.ResponseWriter, r *http.Request) {
 
 	timeslot, tracklist, err := sm.GetTimeslot(id)
 
+	data := struct {
+		Timeslot  myradio.Timeslot
+		Tracklist []myradio.TracklistItem
+	}{
+		Timeslot:  timeslot,
+		Tracklist: tracklist,
+	}
+
 	if err != nil {
 		//@TODO: Do something proper here, render 404 or something
 		log.Println(err)
+		utils.RenderTemplate(w, sc.config.PageContext, data, "404.tmpl")
 		return
-	}
-
-	data := struct {
-		Timeslot myradio.Timeslot
-		Tracklist []myradio.TracklistItem
-	}{
-		Timeslot: timeslot,
-		Tracklist: tracklist,
 	}
 
 	err = utils.RenderTemplate(w, sc.config.PageContext, data, "timeslot.tmpl")
@@ -104,23 +107,24 @@ func (sc *ShowController) GetSeason(w http.ResponseWriter, r *http.Request) {
 
 	season, timeslots, err := sm.GetSeason(id)
 
+	data := struct {
+		Season    myradio.Season
+		Timeslots []myradio.Timeslot
+	}{
+		Season:    season,
+		Timeslots: timeslots,
+	}
+
 	if err != nil {
 		//@TODO: Do something proper here, render 404 or something
 		log.Println(err)
 		return
 	}
 
-	data := struct {
-		Season myradio.Season
-		Timeslots []myradio.Timeslot
-	}{
-		Season: season,
-		Timeslots: timeslots,
-	}
-
 	err = utils.RenderTemplate(w, sc.config.PageContext, data, "season.tmpl")
 	if err != nil {
 		log.Println(err)
+
 		return
 	}
 

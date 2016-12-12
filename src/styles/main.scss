@@ -2,10 +2,16 @@
 @import "partials/partials";
 @import "elements/elements";
 
+$primary-color: rgba(0, 51, 103, 1);
+$secondary-color: rgba(1, 26, 50, 1);
+$third-color: rgba(2, 33, 63, 1);
+$content-bg-1: #e1e1e1;
+
 /* Space out content a bit */
 
 body {
   padding-top: 49px;
+  font-family: 'Raleway', sans-serif;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -37,66 +43,184 @@ body {
   font-size: 18px;
   color: #777;
   border-top: 3px solid #ddd;
-  background: #e1e1e1;
+  background: $content-bg-1;
+}
+.navbar-container {
+    max-width: 1200px;
+    padding-right: 15px;
+    margin: 0 auto;
 }
 .navbar {
-  background: #032e59;
+  background: $primary-color;
+  img {
+    margin-top: -7px;
+  }
 }
-.navbar img {
-  margin-top: -7px;
-}
+
 .index-infobar {
-  background: #e1e1e1;
+  background: $content-bg-1;
+  padding: 3em 0;
+  .row {
+    margin-right: auto;
+    margin-left: auto;
+  }
 }
 .index-infobar hr {
-  border-color: #032e59;
+  border-color: $primary-color;
 }
 .index-schedule {
-  background: #032e59;
+  background: $primary-color;
   color: #fff;
 }
-.people-content {
-  background: #e1e1e1;
+.index-videos {
+  background: $secondary-color;
+  color: #fff;
+  .scroll-right {
+    background-color: $primary-color;
+  }
+  
 }
-.people-content h1 {
-  color: #032e59;
-  font-size: 60px;
+.index-uryplayer, .index-videos{
+  padding-right:0;
+  .scroll-container {
+    .scroll-body, .scroll-right {
+      display: table-cell;
+      vertical-align: middle;
+    }
+    .scroll-body {
+      white-space: nowrap;
+      position: relative;
+      z-index: 1;
+      [class*="row"] {
+        overflow-x: scroll;
+        margin-right:-70px;
+      }
+      [class*="col"] {
+        display: inline-block;
+        float: none; /* Very important */
+        padding-right:0;
+      }
+      [class*="col"]:last-of-type {
+        margin-right:95px;
+      }
+      .thumbnail {
+        border-color:black;
+        padding:0;
+      }
+    }
+    .scroll-right {
+        padding: 0 10px;
+        width:80px;
+        font-size: 100px;
+        font-weight: 900;
+        color: white;
+        position: relative;
+        z-index: 2;
+        opacity: 0.7;
+      }
+  }
+}
+
+
+.index-uryplayer {
+  background: $third-color;
+  color: #fff;
+  .thumbnail {
+    background-color: $primary-color;
+    padding: 0;
+    .podcast-title {
+      margin:0;
+      padding:10px;
+      font-size: 24px;
+    }
+    p {
+      color: #fff;
+      padding:10px;
+      white-space: normal;
+    }
+  }
+  .scroll-right {
+    background-color: $secondary-color;
+  }
+}
+.page1-content {
+  background: $content-bg-1;
+}
+.page1-title {
+  color: $primary-color;
+  font-size: 40px;
   font-weight: 300;
 }
-.people-sidebar {
+.page1-subtitle {
+  color: $primary-color;
+  font-weight: 300;
+}
+.page1-sidebar {
   padding: 0 30px;
   color: #032e59;
   text-align: center;
 }
-.people-sidebar h3 {
+.page1-sidebar h3 {
   font-weight: 300;
+  font-size: 18px;
   display: inline-block;
   padding: 15px 10px;
   border-bottom: #d6d6d6 2px solid;
 }
-.people-sidebar h3:first-of-type {
+.page1-sidebar h3:first-of-type {
   border-right: #d6d6d6 2px solid;
 }
-.people-profile {
+.page1-image {
   border: #e1e1e1 7px solid;
   margin: -100px auto 20px auto;
   max-width: 85%;
 }
-.people-sidebar .row div {
+.page1-sidebar .row div {
   padding: 5px;
 }
-.people-bio {
-  background: #032e59;
-  color: #fff;
-  padding: 10px 40px 40px 40px;
+.page1-bio {
+  .page1-title {
+    padding: 0 0 10px 40px;
+  }
+	.page1-bio-box {
+  	background: $secondary-color;
+  	color: #fff;
+  	padding: 10px 40px 40px 40px;
+  }
 }
+.page1-credits-people {
+	background-color: $primary-color;
+	color: white;
+}
+	.page404 {
+	 text-align:center;
+	 margin: 0 auto;
+	}
+	.page404 h1 {
+		font-size:200px;
+		padding-top: 25vw;
+		padding-bottom: 25vw;
+	}
+	.page404 .spinner {
+		display:inline-block;
+		width:160px;
+		height:160px;
+		font-size:50px;
+		text-align:center;
+		-webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+    background: url("/images/URYrecord.png") center center;
+    background-size: contain;
+	}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
 /* Responsive: Portrait tablets and up */
 
 @media screen and (min-width: 768px) {
-  body {
-    background: url('/images/bg-overlay.png') bottom right no-repeat fixed;
-  }
   /* Remove the padding we set earlier */
   .header {
     padding-right: 0;
@@ -111,13 +235,10 @@ body {
     width: 100%;
   }
   .container {
-    width: 730px;
+    width: 600px;
   }
   .mobile-only {
     display: none;
-  }
-  .people-content h1 {
-    padding: 0 0 10px 40px;
   }
 }
 .container-narrow>hr {
@@ -136,7 +257,7 @@ body {
 }
 @media (min-width: 982px) {
   .container {
-    width: 950px;
+    width: 800px;
   }
 }
 @media (min-width: 1280px) {
@@ -151,7 +272,7 @@ body {
   .header-large {
     height: 400px;
   }
-  .people-profile {
+  .page1-profile {
     margin-top: -320px;
     margin-bottom: 30px;
   }
