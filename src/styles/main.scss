@@ -5,6 +5,7 @@
 $primary-color: rgba(0, 51, 103, 1);
 $secondary-color: rgba(1, 26, 50, 1);
 $third-color: rgba(2, 33, 63, 1);
+$content-bg-1: #e1e1e1;
 
 /* Space out content a bit */
 
@@ -42,7 +43,7 @@ body {
   font-size: 18px;
   color: #777;
   border-top: 3px solid #ddd;
-  background: #e1e1e1;
+  background: $content-bg-1;
 }
 .navbar {
   background: $primary-color;
@@ -52,7 +53,7 @@ body {
 }
 
 .index-infobar {
-  background: #e1e1e1;
+  background: $content-bg-1;
   padding: 3em 0;
   .row {
     margin-right: auto;
@@ -138,7 +139,7 @@ body {
   }
 }
 .page1-content {
-  background: #e1e1e1;
+  background: $content-bg-1;
 }
 .page1-title {
   color: $primary-color;
@@ -177,7 +178,7 @@ body {
     padding: 0 0 10px 40px;
   }
 	.page1-bio-box {
-  	background: #032e59;
+  	background: $secondary-color;
   	color: #fff;
   	padding: 10px 40px 40px 40px;
   }
@@ -215,9 +216,6 @@ body {
 /* Responsive: Portrait tablets and up */
 
 @media screen and (min-width: 768px) {
-  body {
-    background: url('/images/bg-overlay.png') bottom right no-repeat fixed;
-  }
   /* Remove the padding we set earlier */
   .header {
     padding-right: 0;
