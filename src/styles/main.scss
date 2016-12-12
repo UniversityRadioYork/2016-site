@@ -93,6 +93,7 @@ body {
       z-index: 1;
       [class*="row"] {
         overflow-x: scroll;
+        overflow-y: hidden; 
         margin-right:-70px;
       }
       [class*="col"] {
