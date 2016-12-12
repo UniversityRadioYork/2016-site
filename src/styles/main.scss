@@ -3,11 +3,14 @@
 @import "elements/elements";
 
 $primary-color: rgba(0, 51, 103, 1);
+$secondary-color: rgba(1, 26, 50, 1);
+$third-color: rgba(2, 33, 63, 1);
 
 /* Space out content a bit */
 
 body {
   padding-top: 49px;
+  font-family: 'Raleway', sans-serif;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -47,9 +50,14 @@ body {
 .navbar img {
   margin-top: -7px;
 }
+
 .index-infobar {
   background: #e1e1e1;
   padding: 3em 0;
+  .row {
+    margin-right: auto;
+    margin-left: auto;
+  }
 }
 .index-infobar hr {
   border-color: $primary-color;
@@ -57,6 +65,77 @@ body {
 .index-schedule {
   background: $primary-color;
   color: #fff;
+}
+.index-videos {
+  background: $secondary-color;
+  color: #fff;
+  .scroll-right {
+    background-color: $primary-color;
+  }
+  
+}
+.index-uryplayer, .index-videos{
+  padding-right:0;
+  .scroll-container {
+    .scroll-body, .scroll-right {
+      display: table-cell;
+      vertical-align: middle;
+    }
+    .scroll-body {
+      white-space: nowrap;
+      position: relative;
+      z-index: 1;
+      [class*="row"] {
+        overflow-x: scroll;
+        margin-right:-70px;
+      }
+      [class*="col"] {
+        display: inline-block;
+        float: none; /* Very important */
+        padding-right:0;
+      }
+      [class*="col"]:last-of-type {
+        margin-right:95px;
+      }
+      .thumbnail {
+        border-color:black;
+        padding:0;
+      }
+    }
+    .scroll-right {
+        padding: 0 10px;
+        width:80px;
+        font-size: 100px;
+        font-weight: 900;
+        color: white;
+        position: relative;
+        z-index: 2;
+        opacity: 0.7;
+      }
+  }
+}
+
+
+.index-uryplayer {
+  background: $third-color;
+  color: #fff;
+  .thumbnail {
+    background-color: $primary-color;
+    padding: 0;
+    .podcast-title {
+      margin:0;
+      padding:10px;
+      font-size: 24px;
+    }
+    p {
+      color: #fff;
+      padding:10px;
+      white-space: normal;
+    }
+  }
+  .scroll-right {
+    background-color: $secondary-color;
+  }
 }
 .page1-content {
   background: #e1e1e1;
@@ -153,7 +232,7 @@ body {
     width: 100%;
   }
   .container {
-    width: 730px;
+    width: 600px;
   }
   .mobile-only {
     display: none;
@@ -175,7 +254,7 @@ body {
 }
 @media (min-width: 982px) {
   .container {
-    width: 950px;
+    width: 800px;
   }
 }
 @media (min-width: 1280px) {
