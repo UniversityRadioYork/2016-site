@@ -44,18 +44,19 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 
 	show, seasons, err := sm.GetShow(id)
 
-	if err != nil {
-		//@TODO: Do something proper here, render 404 or something
-		log.Println(err)
-		return
-	}
-
 	data := struct {
 		Show    myradio.ShowMeta
 		Seasons []myradio.Season
 	}{
 		Show:    *show,
 		Seasons: seasons,
+	}
+
+	if err != nil {
+		//@TODO: Do something proper here, render 404 or something
+		log.Println(err)
+		utils.RenderTemplate(w, sc.config.PageContext, data, "404.tmpl")
+		return
 	}
 
 	err = utils.RenderTemplate(w, sc.config.PageContext, data, "show.tmpl")
