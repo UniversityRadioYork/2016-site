@@ -47,7 +47,8 @@ body {
 }
 .navbar-container {
     max-width:1200px;
-    margin-right:15px;
+    margin: 0 auto;
+    padding-right: 15px;
 }
 .navbar {
   background: $primary-color;
