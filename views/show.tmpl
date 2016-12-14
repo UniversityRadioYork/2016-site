@@ -11,10 +11,11 @@
 		  <div class="row">
 	        <div class="col-xs-12 col-sm-4 page1-sidebar">
 	        	<img class="img-responsive page1-image" src="
-					      
-					      
+						{{if .Show.Photo}}
+									https://ury.org.uk{{.Show.Photo}}
+						{{else}}
 									/images/show-current.png
-								
+						{{end}}		
 
 							" alt="
 								{{.Show.Title}} Logo
@@ -56,13 +57,6 @@
 
 <div class="container">
 
-	<h1>
-		{{.Show.Title}}
-	</h1>
-
-	<p>
-		{{html .Show.Description}}
-	</p>
 
 	<h2>
 		Presenters
@@ -80,7 +74,7 @@
 	<ul>
 		{{range .Seasons}}
 			<li>
-				<a href="/schedule/shows/seasons/{{.SeasonID}}/">{{.FirstTime}}</a>
+				<a href="/schedule/shows/seasons/{{.SeasonID}}/">Seasion {{.SeasonNum}}: {{.FirstTime.Format "Monday, _2 Jan 2006 at 15:04"}} - {{.NumEpisodes.Value}} Episode(s)</a>
 			</li>
 		{{end}}
 	</ul>
