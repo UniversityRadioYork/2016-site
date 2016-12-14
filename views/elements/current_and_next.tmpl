@@ -23,7 +23,7 @@
 {{end}}
 
 {{define "current_next"}}
-
+{{if .Title}}
 <h3>
 	{{if .Url}}
 		<a href="{{.Url}}">
@@ -34,5 +34,7 @@
 	{{end}}
 </h3>
 <h4>{{.StartTime.Format "15:04"}} - {{.EndTime.Format "15:04"}}</h4>
-
+{{else}}
+<span>Looks like there is nothing coming up next yet.</span>
+{{end}}
 {{end}}
