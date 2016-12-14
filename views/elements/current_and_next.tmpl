@@ -24,7 +24,15 @@
 
 {{define "current_next"}}
 
-<h3><a href="{{.Url}}">{{.Title}}</a></h3>
+<h3>
+	{{if .Url}}
+		<a href="{{.Url}}">
+	{{end}}
+	{{.Title}}
+	{{if .Url}}
+		</a>
+	{{end}}
+</h3>
 <h4>{{.StartTime.Format "15:04"}} - {{.EndTime.Format "15:04"}}</h4>
 
 {{end}}
