@@ -68,10 +68,7 @@ body {
 .index-infobar hr {
   border-color: $primary-color;
 }
-.index-schedule {
-  background: $primary-color;
-  color: #fff;
-}
+
 .index-videos {
   background: $secondary-color;
   color: #fff;
@@ -144,6 +141,8 @@ body {
     background-color: $secondary-color;
   }
 }
+
+/* Page 1 is the Shows/People template style of page. */
 .page1-content {
   background: $content-bg-1;
 }
@@ -192,6 +191,10 @@ body {
 .page1-credits-people {
 	background-color: $primary-color;
 	color: white;
+}
+.page1-on-demand {
+  background-color: $secondary-color;
+  color: white;
 }
 	.page404 {
 	 text-align:center;
@@ -276,9 +279,6 @@ body {
   .page1-profile {
     margin-top: -320px;
     margin-bottom: 30px;
-  }
-  body {
-    background: #02213f;
   }
   .container.outer {
     width: 100%;
