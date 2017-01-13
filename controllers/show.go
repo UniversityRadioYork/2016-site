@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/UniversityRadioYork/2016-site/models"
 	"github.com/UniversityRadioYork/2016-site/structs"
@@ -53,7 +54,6 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err != nil {
-		//@TODO: Do something proper here, render 404 or something
 		log.Println(err)
 		utils.RenderTemplate(w, sc.config.PageContext, data, "404.tmpl")
 		return
@@ -74,17 +74,22 @@ func (sc *ShowController) GetTimeslot(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(vars["id"])
 
 	timeslot, tracklist, err := sm.GetTimeslot(id)
+	mixcloudavailable := false
 
+	if strings.HasPrefix(timeslot.MixcloudStatus, "/URY1350/") {
+		mixcloudavailable = true
+	}
 	data := struct {
-		Timeslot  myradio.Timeslot
-		Tracklist []myradio.TracklistItem
+		Timeslot          myradio.Timeslot
+		Tracklist         []myradio.TracklistItem
+		MixcloudAvailable bool
 	}{
-		Timeslot:  timeslot,
-		Tracklist: tracklist,
+		Timeslot:          timeslot,
+		Tracklist:         tracklist,
+		MixcloudAvailable: mixcloudavailable,
 	}
 
 	if err != nil {
-		//@TODO: Do something proper here, render 404 or something
 		log.Println(err)
 		utils.RenderTemplate(w, sc.config.PageContext, data, "404.tmpl")
 		return
