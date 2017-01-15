@@ -11,30 +11,28 @@
 		  <div class="row">
 	        <div class="col-xs-12 col-sm-4 page1-sidebar">
 	        	<img class="img-responsive page1-image" src="
-						{{if .Show.Photo}}
-									https://ury.org.uk{{.Show.Photo}}
-						{{else}}
-									/images/show-current.png
-						{{end}}		
-
+								{{- if .Show.Photo -}}
+											https://ury.org.uk{{.Show.Photo}}
+								{{- else -}}
+											/images/show-current.png
+								{{- end -}}
 							" alt="
-								{{.Show.Title}} Logo
-							">
+								{{- .Show.Title}} Logo">
 	          	<h1 class="mobile-only">
-	          		{{.Show.Title}}
+	          		{{- .Show.Title -}}
 	          	</h1>
-	          	<h3>Seasons: 10</h3><h3>Shows: 10</h3>
+	          	<h3>Seasons: {{.NumSeasons}}</h3><h3>Episodes: {{.NumTimeslots}}</h3>
 	        </div>
 
 	        <div class="col-xs-12 col-sm-8">
 	          <h1 class="mobile-hide page1-title">
-	        	{{.Show.Title}}
+	        	{{- .Show.Title -}}
 	          </h1>
 	          <hr>
 	          <!-- <div class="page1-bio-box">  Do we want the bio in a blue box? -->
 				  		<h2 class="page1-subtitle">Description</h2>
 				  		<p>
-								{{html .Show.Description}}
+								{{- html .Show.Description -}}
 							</p>
 
 			  		<!-- </div> -->
@@ -45,44 +43,80 @@
 	    </div>
 	  </div> <!-- /outer containter -->
 	  <div class="container outer page1-credits-people">
-	  	{{range .Show.Credits}}
-				<a href="/people/{{.User.Memberid}}/">{{.User.Fname}} {{.User.Sname}}</a> <br>
-			{{end}}
+			<h2>Credits</h2>
+			<ul class="cards">
+				
+				<li class="cards__item">
+					<div class="card">
+						<div class="card__content">
+							<div class="card__title">Presenters</div>
+							<ul>
+							{{range .Show.Credits}}
+								<li><img src="/images/people-profile.jpg" class="img-circle credit-thumb" alt="Photo of {{.User.Fname}} {{.User.Sname}}" /><a href="/people/{{.User.Memberid}}/">{{.User.Fname}} {{.User.Sname}}</a></li>
+							{{end}}
+							</ul>
+						</div>
+					</div>
+				</li>
+			</ul>
+	  	
+				
 
     </div> <!-- /outer containter -->
 
+		<div class="container outer page1-on-demand">
+				<div class="row col-container">
+					<div class="col-xs-12 col-md-4">
+						<h1>((URY)) Player</h1>
+						<h3><small>Explore the show catalogue, and listen back to your favorite episodes!</small></h3>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4 seasons">
+						<h2>
+							Seasons
+						</h2>
+						<ul>
+							{{range .Seasons}}
+								{{if ne .SeasonNum 0}}
+									<li class="timeslotFilterSeason">
+										<a data-SeasonID="{{.SeasonID}}">Seasion {{.SeasonNum}}: {{.FirstTime.Format "Monday, _2 Jan 2006 at 15:04"}} - {{.NumEpisodes.Value}} Episode(s)</a>
+										
+									</li>
+								{{end}}
+							{{end}}
+						</ul>
+					</div>
+					<div id="timeslotLatest" class="col-xs-12 col-sm-6 col-md-4">
+						<h3>Latest Episode</h3>
+						<p>Catchup with the latest episode from !!DATE!!</p>
+						!!MixClouder iFrame
 
+					</div>
+					<div id="timeslotList" class="col-xs-12 col-sm-6 col-md-4" style="display: none;">
+						<h3>Episodes</h3>
+						<table id="timeslots" class="table page1-timeslots-table">
+						<thead>
+							<tr>
+								<th>SeasonID</th>
+								<th>Episode</th>
+								<th>Time</th>
+							</tr>
+						</thead>
+						<tbody>
 
+						{{range .Timeslots}}
+							{{if ne .TimeslotNum 0}}
+								<tr>
+									<td>{{.Season.SeasonID}}</td>
+									<td>{{.TimeslotNum}}</td>
+									<td><a href="/schedule/shows/timeslots/{{.TimeslotID}}/">{{.StartTime.Format "Monday, _2 Jan 2006 at 15:04"}}</a></td>
+								</tr>
+							{{end}}
+						{{end}}
+						</tbody>
+					</table>
+				</div>		
 
-
-<div class="container">
-
-
-	<h2>
-		Presenters
-	</h2>
-	<p>
-		{{range .Show.Credits}}
-			<a href="/people/{{.User.Memberid}}/">{{.User.Fname}} {{.User.Sname}}</a> <br>
-		{{end}}
-	</p>
-
-	<h2>
-		Seasons
-	</h2>
-
-	<ul>
-		{{range .Seasons}}
-			<li>
-				<a href="/schedule/shows/seasons/{{.SeasonID}}/">Seasion {{.SeasonNum}}: {{.FirstTime.Format "Monday, _2 Jan 2006 at 15:04"}} - {{.NumEpisodes.Value}} Episode(s)</a>
-			</li>
-		{{end}}
-	</ul>
-
-</div><!-- /.container -->
-
-
-
+		</div> <!-- /outer containter -->
 
 
 

@@ -45,12 +45,33 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 
 	show, seasons, err := sm.GetShow(id)
 
+	var timeslots = make([]myradio.Timeslot, 0)
+	var numSeasons = 0
+	var numTimeslots = 0
+	for _, element := range seasons {
+		_, timeslotsSingleSeason, _ := sm.GetSeason(element.SeasonID)
+		timeslots = append(timeslots, timeslotsSingleSeason...)
+		if element.SeasonNum != 0 {
+			numSeasons = numSeasons + 1
+		}
+	}
+	for _, element := range timeslots {
+		if element.TimeslotNum != 0 {
+			numTimeslots = numTimeslots + 1
+		}
+	}
 	data := struct {
-		Show    myradio.ShowMeta
-		Seasons []myradio.Season
+		Show         myradio.ShowMeta
+		Seasons      []myradio.Season
+		Timeslots    []myradio.Timeslot
+		NumSeasons   int
+		NumTimeslots int
 	}{
-		Show:    *show,
-		Seasons: seasons,
+		Show:         *show,
+		Seasons:      seasons,
+		Timeslots:    timeslots,
+		NumSeasons:   numSeasons,
+		NumTimeslots: numTimeslots,
 	}
 
 	if err != nil {
