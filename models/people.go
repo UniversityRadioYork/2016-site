@@ -19,11 +19,15 @@ func NewPeopleModel(s *myradio.Session) *PeopleModel {
 //
 // On success, it returns the users name, bio, a list of officerships, their photo if they have one and nil
 // Otherwise, it returns undefined data and the error causing failure.
-func (m *PeopleModel) Get(id int) (name, bio string, officerships []myradio.Officership, pic myradio.Photo, credits []myradio.ShowMeta, err error) {
+
+
+
+func (m *PeopleModel) Get(id int) (name, bio string, officerships []myradio.Officership, pic myradio.Photo, credits []myradio.ShowMeta, currentAndNext *myradio.CurrentAndNext, err error) {
 	name, err = m.session.GetUserName(id)
 	if err != nil {
 		return
 	}
+
 	// If there was an error getting their bio
 	// it's probably because they don't have one set.
 	bio, err = m.session.GetUserBio(id)
@@ -44,5 +48,10 @@ func (m *PeopleModel) Get(id int) (name, bio string, officerships []myradio.Offi
 	if err != nil {
 		return
 	}
+	currentAndNext, err = m.session.GetCurrentAndNext()
+	if err != nil {
+		return
+	}
+
 	return
 }

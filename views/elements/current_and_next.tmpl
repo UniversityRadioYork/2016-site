@@ -1,17 +1,40 @@
 {{define "current_and_next"}}
-	{{if .Current}}
-		{{template "current_next" .Current}}
-	{{end}}
-	{{if .Next}}
-		{{template "current_next" .Next}}
+	{{with .CurrentAndNext}}
+		<div class="current-and-next">
+			{{if .Current}}
+				<div class="current-and-next-img">
+					<img src="/images/show-current.png" alt="" />
+					<a href="https://ury.org.uk/listen" class="btn btn-lg btn-primary current-and-next-btn mobile-hide" title="Listen Live" onclick="window.open('http://ury.org.uk/live', 'radioplayer', 'height=665,width=380'); return false;">Listen Live</a>
+				</div>
+				<div class="current-and-next-now">
+					<h2>Now</h2>
+					{{template "current_next" .Current}}
+				</div>
+			{{end}}
+			{{if .Next}}
+				<div class="current-and-next-next">
+					<h2>Next</h2>
+					{{template "current_next" .Next}}
+				</div>
+			{{end}}
+		</div>
+
 	{{end}}
 {{end}}
 
 {{define "current_next"}}
-
-<p>
-	<a href="{{.Url}}">{{.Title}}</a><br>
-	{{.StartTime.Format "15:04"}} - {{.EndTime.Format "15:04"}}
-</p>
-
+{{if .Title}}
+<h3>
+	{{if .Url}}
+		<a href="{{.Url}}">
+	{{end}}
+	{{.Title}}
+	{{if .Url}}
+		</a>
+	{{end}}
+</h3>
+<h4>{{.StartTime.Format "15:04"}} - {{.EndTime.Format "15:04"}}</h4>
+{{else}}
+<span>Looks like there is nothing coming up next yet.</span>
+{{end}}
 {{end}}
