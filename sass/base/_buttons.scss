@@ -1,0 +1,11 @@
+.btn {
+    border-radius: 0.4em;
+    padding: 0.25em 1em;
+    font-family: Raleway-Medium;
+    font-size: $base-font-size;
+
+    &.btn-primary {
+        background: $blue;
+        color: #FFFFFF;
+    }
+}
