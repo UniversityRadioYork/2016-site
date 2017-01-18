@@ -2,7 +2,12 @@
   background: url('/images/current-next-bg.png') center center no-repeat;
   background-size: cover;
   color: white;
-  padding:10em 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 80vh;
+  padding: 20px 0;
 }
 .current-and-next {
   display: flex;
@@ -36,6 +41,9 @@
 }
 
 @media screen and (max-width: 767px) {
+  .current-next {
+    min-height: auto;
+  }
   .current-and-next-now, .current-and-next-next {
     flex-basis: auto!important;
   }
