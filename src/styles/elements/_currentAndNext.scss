@@ -21,17 +21,18 @@ $mobile-max-width:770px;
   color:white;
   margin: 0 -15px;
   font-size: $base-font-size;
-  
+
   .current-and-next-img {
     height: 12em;
     width: 12em;
     img {
       height:100%;
-      width:auto;
+      width:100%;
     }
+    background: #022d59;
   }
   .current-and-next-now, .current-and-next-next {
-    flex-grow: 1; 
+    flex-grow: 1;
     padding: 0 1em;
     min-width: 15em;
     flex-wrap: wrap;
@@ -60,7 +61,7 @@ $mobile-max-width:770px;
     opacity: 0.9;
   }
 }
-  
+
 
 
 
