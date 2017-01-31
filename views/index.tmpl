@@ -11,7 +11,7 @@
 	  		<div id="index-banner-carousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner" role="listbox">
           {{range $index, $Banners := .Banners}}
-          
+
           <div class="item {{ if eq $index 0 }} active {{end}}">
           	<a href="{{$Banners.Target}}">
             	<img src="https://ury.org.uk{{$Banners.URL}}" alt="{{$Banners.Alt}}">
@@ -60,7 +60,7 @@
           			<li>List of teams here.</li>
           		</ul>
           	</div>
-          	
+
           </div>
 
         </div>
@@ -68,19 +68,19 @@
       </div>
 
     </div> <!-- /outer containter -->
-    
+
     <div class="container outer index-schedule">
 		  <h2>Today's Schedule</h2>
 	  	<h3 style="text-align:center;">We're not broadcasting today, we'll be back on !!DATE!!.</h3>
       <p style="text-align:center;">In the meantime, how about some On Demand content?</p>
       <div class="container">
-        <div class="row">  
+        <div class="row">
             <figure class="col-md-6 large">
               <img src="images/show-current.png" alt="img01">
                 <figcaption>
                   <h3>!!Show Name!!</h3>
                   <span>12:00 - 14:00</span>
-                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>	
+                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
                 </figcaption>
             </figure>
           <div class="col-md-6 small">
@@ -193,36 +193,43 @@
       </div>
     </div> <!-- /outer containter -->
 
+
+    <script>
+        function onGoogleLoad() {
+            gapi.client.setApiKey('AIzaSyCzI5Gvpq1hPlfjvB81EVc0vLv_11eW7NI');
+            gapi.client.load('youtube', 'v3', function() {
+
+                var request = gapi.client.youtube.playlistItems.list({
+                    part: 'snippet',
+                    playlistId: 'PLsxUDJzU4VKDudlmlYb-ImFKreFKAfFln',
+                    maxResults: 12
+                });
+
+                request.execute(function(response) {
+                    for (var i = 0; i < response.items.length; i++) {
+                        $('#youtube-video-slider').append('<div class="col-sm-5 col-md-4 col-lg-3">' +
+                          '<div class="thumbnail">' +
+                              '<a href="//youtube.com/watch?v=' + response.items[i].snippet.resourceId.videoId + '" target="_blank">' +
+                                '<img src="' + response.items[i].snippet.thumbnails.maxres.url +
+                                  '" alt="' + response.items[i].snippet.title + '">' +
+                              '</a>' +
+                          '</div>' +
+                        '</div>');
+                    }
+                });
+            });
+        }
+    </script>
+
+    <script src="https://apis.google.com/js/client.js?onload=onGoogleLoad"></script>
+
+
+
     <div class="container outer index-videos">
       <div id="video-container" class="scroll-container">
         <div class="scroll-body">
           <h2>URY Sessions</h2>
-          <div class="row">
-            <div class="col-sm-5 col-md-4 col-lg-3">
-              <div class="thumbnail">
-                <img src="http://img.youtube.com/vi/y2fCIG0l144/maxresdefault.jpg" alt="...">
-              </div>
-            </div>
-            <div class="col-sm-5 col-md-4 col-lg-3">
-              <div class="thumbnail">
-                <img src="http://img.youtube.com/vi/y2fCIG0l144/maxresdefault.jpg" alt="...">
-              </div>
-            </div>
-            <div class="col-sm-5 col-md-4 col-lg-3">
-              <div class="thumbnail">
-                <img src="http://img.youtube.com/vi/y2fCIG0l144/maxresdefault.jpg" alt="...">
-              </div>
-            </div>
-            <div class="col-sm-5 col-md-4 col-lg-3">
-              <div class="thumbnail">
-                <img src="http://img.youtube.com/vi/y2fCIG0l144/maxresdefault.jpg" alt="...">
-              </div>
-            </div>
-            <div class="col-sm-5 col-md-4 col-lg-3">
-              <div class="thumbnail">
-                <img src="http://img.youtube.com/vi/y2fCIG0l144/maxresdefault.jpg" alt="...">
-              </div>
-            </div>
+          <div id="youtube-video-slider" class="row">
           </div>
         </div>
         <div class="scroll-right">
@@ -231,7 +238,7 @@
       </div>
 
     </div> <!-- /outer containter -->
-    
+
     <div class="container outer index-uryplayer">
       <div class="scroll-container">
         <div class="scroll-body">
@@ -280,7 +287,7 @@
       </div>
 
     </div> <!-- /outer containter -->
-	
+
 
 	{{end}}
 {{end}}
