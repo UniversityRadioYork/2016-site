@@ -12,7 +12,7 @@ $primary-color: rgba(0, 51, 103, 1);
   }
   figure {
     img {
-	  max-width: 100%;
+	  width: 100%;
 	  display: block;
 	  position: relative;
     }
@@ -72,13 +72,13 @@ $primary-color: rgba(0, 51, 103, 1);
       transition: transform 0.4s;
     }
 
-    
+
     figcaption {
       height: 100%;
       width: 100%;
     }
     figcaption h3 {
-      margin-top: 60%;
+      margin-top: 70%;
     }
 
     figcaption a {
