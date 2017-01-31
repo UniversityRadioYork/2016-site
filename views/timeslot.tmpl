@@ -6,7 +6,7 @@
 		<div class="container mobile-hide">
 		</div>
 	</div>
-	
+
 	<div class="container outer page1-content">
 		<div class="container">
 		  <div class="row">
@@ -16,7 +16,7 @@
 									https://ury.org.uk{{.Timeslot.Season.ShowMeta.Photo}}
 								{{else}}
 									/images/show-current.png
-								{{end}}	
+								{{end}}
 							" alt="
 								{{.Timeslot.Title}} Logo
 							">
@@ -51,7 +51,7 @@
 							</p>
 
 			  		<!-- </div> -->
-						
+
 	        </div>
 
 	      </div>
@@ -60,7 +60,7 @@
 		{{if .MixcloudAvailable}}
 			<div class="container outer page1-on-demand">
 				<h2>
-					URY on Tap: Listen Again
+					URY Player: Listen Again
 				</h2>
 				<div class="container">
 					<div class="row">
@@ -68,7 +68,7 @@
 							<h3>Some cool text about the fact that this show is on URY OnDemand!</h3>
 						</div>
 						<div class="col-sm-5">
-							<iframe width="100%" height="120" src="https://www.mixcloud.com/widget/iframe/?feed={{.Timeslot.MixcloudStatus}}&hide_cover=1&light=1" frameborder="0"></iframe>				
+							<iframe width="100%" height="120" src="https://www.mixcloud.com/widget/iframe/?feed={{.Timeslot.MixcloudStatus}}&hide_cover=1&light=1" frameborder="0"></iframe>
 						</div>
 					</div>
 					<a href="#">Listen to more shows on URY On Demand</a>
@@ -109,7 +109,7 @@
 					</tbody>
 				</table>
 			</div>
-		</div> <!-- /outer containter -->		
+		</div> <!-- /outer containter -->
 		{{end}}
 
 	{{end}}
