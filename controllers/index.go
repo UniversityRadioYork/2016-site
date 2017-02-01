@@ -32,13 +32,20 @@ func (ic *IndexController) Get(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		return
 	}
-
 	data := struct {
 		CurrentAndNext *myradio.CurrentAndNext
 		Banners        []myradio.Banner
+		Sched1         []myradio.Show
+		Sched2         []myradio.Show
+		Sched3         []myradio.Show
+		Sched4         []myradio.Show
 	}{
 		CurrentAndNext: currentAndNext,
 		Banners:        banners,
+		Sched1:         currentAndNext.Next[:2],
+		Sched2:         currentAndNext.Next[2:4],
+		Sched3:         currentAndNext.Next[4:8],
+		Sched4:         currentAndNext.Next[8:12],
 	}
 
 	err = utils.RenderTemplate(w, ic.config.PageContext, data, "index.tmpl", "elements/current_and_next.tmpl")
