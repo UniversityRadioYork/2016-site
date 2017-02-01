@@ -75,121 +75,87 @@
       <p style="text-align:center;">In the meantime, how about some On Demand content?</p>
       <div class="container">
         <div class="row">
-            <figure class="col-md-6 large">
-              <img src="images/show-current.png" alt="img01">
-                <figcaption>
-                  <h3>!!Show Name!!</h3>
-                  <span>12:00 - 14:00</span>
-                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
-                </figcaption>
-            </figure>
+          {{with .CurrentAndNext}}
+            {{if .Current}}
+            <a href="{{.Current.Url}}" title="Goto the {{.Current.Title}} page">
+              <figure class="col-md-6 large">
+                <img src="{{if .Current.Photo}}https://ury.org.uk/{{.Current.Photo}}{{else}}/images/show-current.png{{end}}" alt="img01">
+                  <figcaption>
+                    <h3>{{.Current.Title}}</h3>
+                    <span>{{.Current.StartTime.Format "15:04"}} - {{.Current.EndTime.Format "15:04"}}</span>
+                    <p>{{html .Current.Desc}}</p>
+                  </figcaption>
+              </figure>
+            </a>
+            {{end}}
+          {{end}}
           <div class="col-md-6 small">
+            {{with .Sched1}}
             <div class="row">
-              <figure class="col-md-6">
-                <img src="images/show-current.png" alt="img01">
-                <figcaption>
-                  <h3>!!Show Name!!</h3>
-                  <span>12:00 - 14:00</span>
-                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
-                </figcaption>
-              </figure>
-              <figure class="col-md-6">
-                <img src="images/show-current.png" alt="img01">
-                <figcaption>
-                  <h3>!!Show Name!!</h3>
-                  <span>12:00 - 14:00</span>
-                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
-                </figcaption>
-              </figure>
+              {{range .}}
+              <a href="{{.Url}}" title="Goto the {{.Title}} page">
+                <figure class="col-md-6">
+                  <img src="{{if .Photo}}https://ury.org.uk/{{.Photo}}{{else}}/images/show-current.png{{end}}" alt="img01">
+                  <figcaption>
+                    <h3>{{.Title}}</h3>
+                    <span>{{.StartTime.Format "15:04"}} - {{.EndTime.Format "15:04"}}</span>
+                    <p>{{html .Desc}}</p>
+                  </figcaption>
+                </figure>
+              </a>
+              {{end}}
             </div>
+            {{end}}
+            {{with .Sched2}}
             <div class="row">
-              <figure class="col-md-6">
-                <img src="images/show-current.png" alt="img01">
-                <figcaption>
-                  <h3>!!Show Name!!</h3>
-                  <span>12:00 - 14:00</span>
-                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
-                </figcaption>
-              </figure>
-              <figure class="col-md-6">
-                <img src="images/show-current.png" alt="img01">
-                <figcaption>
-                  <h3>!!Show Name!!</h3>
-                  <span>12:00 - 14:00</span>
-                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
-                </figcaption>
-              </figure>
+              {{range .}}
+              <a href="{{.Url}}" title="Goto the {{.Title}} page">
+                <figure class="col-md-6">
+                  <img src="{{if .Photo}}https://ury.org.uk/{{.Photo}}{{else}}/images/show-current.png{{end}}" alt="img01">
+                  <figcaption>
+                    <h3>{{.Title}}</h3>
+                    <span>{{.StartTime.Format "15:04"}} - {{.EndTime.Format "15:04"}}</span>
+                    <p>{{html .Desc}}</p>
+                  </figcaption>
+                </figure>
+              </a>
+              {{end}}
             </div>
-          </div>
+            {{end}}
         </div>
+        </div>
+        {{with .Sched3}}
         <div class="row small">
-          <figure class="col-md-3">
-                <img src="images/show-current.png" alt="img01">
-                <figcaption>
-                  <h3>!!Show Name!!</h3>
-                  <span>12:00 - 14:00</span>
-                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
-                </figcaption>
-              </figure>
-              <figure class="col-md-3">
-                <img src="images/show-current.png" alt="img01">
-                <figcaption>
-                  <h3>!!Show Name!!</h3>
-                  <span>12:00 - 14:00</span>
-                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
-                </figcaption>
-              </figure>
-              <figure class="col-md-3">
-                <img src="images/show-current.png" alt="img01">
-                <figcaption>
-                  <h3>!!Show Name!!</h3>
-                  <span>12:00 - 14:00</span>
-                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
-                </figcaption>
-              </figure>
-              <figure class="col-md-3">
-                <img src="images/show-current.png" alt="img01">
-                <figcaption>
-                  <h3>!!Show Name!!</h3>
-                  <span>12:00 - 14:00</span>
-                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
-                </figcaption>
-              </figure>
+          {{range .}}
+              <a href="{{.Url}}" title="Goto the {{.Title}} page">
+                <figure class="col-md-3">
+                  <img src="{{if .Photo}}https://ury.org.uk/{{.Photo}}{{else}}/images/show-current.png{{end}}" alt="img01">
+                  <figcaption>
+                    <h3>{{.Title}}</h3>
+                    <span>{{.StartTime.Format "15:04"}} - {{.EndTime.Format "15:04"}}</span>
+                    <p>{{html .Desc}}</p>
+                  </figcaption>
+                </figure>
+              </a>
+          {{end}}
         </div>
+        {{end}}
+        {{with .Sched4}}
         <div class="row small">
-          <figure class="col-md-3">
-                <img src="images/show-current.png" alt="img01">
-                <figcaption>
-                  <h3>!!Show Name!!</h3>
-                  <span>12:00 - 14:00</span>
-                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
-                </figcaption>
-              </figure>
-              <figure class="col-md-3">
-                <img src="images/show-current.png" alt="img01">
-                <figcaption>
-                  <h3>!!Show Name!!</h3>
-                  <span>12:00 - 14:00</span>
-                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
-                </figcaption>
-              </figure>
-              <figure class="col-md-3">
-                <img src="images/show-current.png" alt="img01">
-                <figcaption>
-                  <h3>!!Show Name!!</h3>
-                  <span>12:00 - 14:00</span>
-                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
-                </figcaption>
-              </figure>
-              <figure class="col-md-3">
-                <img src="images/show-current.png" alt="img01">
-                <figcaption>
-                  <h3>!!Show Name!!</h3>
-                  <span>12:00 - 14:00</span>
-                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
-                </figcaption>
-              </figure>
+          {{range .}}
+              <a href="{{.Url}}" title="Goto the {{.Title}} page">
+                <figure class="col-md-3">
+                  <img src="{{if .Photo}}https://ury.org.uk/{{.Photo}}{{else}}/images/show-current.png{{end}}" alt="img01">
+                  <figcaption>
+                    <h3>{{.Title}}</h3>
+                    <span>{{.StartTime.Format "15:04"}} - {{.EndTime.Format "15:04"}}</span>
+                    <p>{{html .Desc}}</p>
+                  </figcaption>
+                </figure>
+              </a>
+          {{end}}
         </div>
+        {{end}}
       </div>
     </div> <!-- /outer containter -->
 
