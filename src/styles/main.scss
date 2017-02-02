@@ -12,6 +12,24 @@ body {
   font-family: 'Raleway', sans-serif;
 }
 
+h2, h3 {
+  font-weight: bold;
+}
+h1 {
+  font-size: 3em;
+}
+h2 {
+  font-size: 2.5em;
+}
+h3 {
+  font-size: 2em;
+}
+
+.page-title {
+  color: $primary-color;
+  font-weight: 300;
+
+}
 /* Everything but the jumbotron gets side spacing for mobile first views */
 
 .header, .footer {
@@ -55,6 +73,29 @@ body {
   }
 }
 
+.container {
+  padding:1em 15px;
+}
+.container.outer.noPad {
+  padding: 0em 15px;
+  .container {
+    padding: 0em 15px;
+  }
+}
+
+.container-blue {
+  background-color: $primary-color;
+  color: white;
+}
+.container-darkBlue {
+  background-color: $secondary-color;
+  color: white;
+}
+.container-grey {
+  background-color: $content-bg-1;
+}
+
+
 .index-infobar {
   background: $content-bg-1;
   padding: 3em 0;
@@ -73,7 +114,7 @@ body {
   .scroll-right {
     background-color: $primary-color;
   }
-  
+
 }
 .index-uryplayer, .index-videos{
   padding-right:0;
@@ -88,7 +129,7 @@ body {
       z-index: 1;
       [class*="row"] {
         overflow-x: scroll;
-        overflow-y: hidden; 
+        overflow-y: hidden;
         margin-right:-70px;
       }
       [class*="col"] {
@@ -143,11 +184,6 @@ body {
 /* Page 1 is the Shows/People template style of page. */
 .page1-content {
   background: $content-bg-1;
-}
-.page1-title {
-  color: $primary-color;
-  font-size: 40px;
-  font-weight: 300;
 }
 .page1-subtitle {
   color: $primary-color;
@@ -215,6 +251,32 @@ body {
     background: url("/images/URYrecord.png") center center;
     background-size: contain;
 	}
+
+
+ul.people-credits-list {
+  padding-left: 0;
+  list-style: none;
+  li {
+    display:inline-block;
+    figure {
+      margin-bottom:0.7em;
+      margin-right:2em;
+      img {
+        height:4em;
+        width:4em;
+        border-radius: 50%;
+        border: 5px solid white;
+        display: inline-block;
+      }
+      figcaption {
+        margin-left:0.7em;
+        font-size: 1.5em;
+        display: inline-block;
+      }
+    }
+  }
+
+}
 
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
