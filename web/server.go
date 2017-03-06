@@ -1,12 +1,13 @@
 package web
 
 import (
+	"net/http"
+
 	"github.com/UniversityRadioYork/2016-site/controllers"
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/myradio-go"
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
-	"net/http"
 )
 
 type Server struct {
@@ -45,6 +46,9 @@ func NewServer(c *structs.Config) (*Server, error) {
 
 	pc := controllers.NewPeopleController(session, c)
 	getRouter.HandleFunc("/people/{id:[0-9]+}/", pc.Get)
+
+	staticC := controllers.NewStaticController(c)
+	getRouter.HandleFunc("/about/", staticC.Get)
 
 	// End routes
 
