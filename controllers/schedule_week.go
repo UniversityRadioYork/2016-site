@@ -165,45 +165,121 @@ type WeekScheduleRow struct {
 	Cells []WeekScheduleCell
 }
 
-// calculateScheduleRows takes a schedule and determines which rows should be displayed.
-func calculateScheduleRows(items []structs.ScheduleItem) []WeekScheduleRow {
-	// Internally, we use a 24-hour array to store our decisions.
-	rows := make([]struct {
-		MinuteMarks     map[int]bool
-		HasNonSustainer bool
-		Cull            bool
-	}, 24)
-
-	// Populate with all of the hours of the URY day.
-	for i := 0; i < 24; i++ {
-		rows[i].MinuteMarks = map[int]bool{0: true}
+// startOffsetToHour takes a number of hours since the last URY start (0-23) and gives the actual hour.
+// It returns an error if the hour is invalid.
+func startOffsetToHour(hour int) (int, error) {
+	if 23 < hour || hour < 0 {
+		return 0, fmt.Errorf("startOffsetToHour: hour %i not between 0 and 23")
 	}
+	return (hour + URYStartHour) % 24, nil
+}
+
+// hourToStartOffset takes an hour (0-23) and gives the number of hours elapsed since the last URY start.
+// It returns an error if the hour is invalid.
+func hourToStartOffset(hour int) (int, error) {
+	if 23 < hour || hour < 0 {
+		return 0, fmt.Errorf("hourToStartOffset: hour %i not between 0 and 23")
+	}
+	// Adding 24 to ensure we don't go negative.  Negative modulo is scary.
+	return ((hour + 24) - URYStartHour) % 24, nil
+}
+
+// showStraddlesDay checks whether a show's start and finish cross over the boundary of a URY day.
+func showStraddlesDay(start, finish time.Time) bool {
+	nextDayStart := uryStartOfDayOn(start.AddDate(0, 0, 1))
+	return finish.After(nextDayStart)
+}
+
+// calculateScheduleBoundaries works out the earliest and latest hours in the schedule that need to display.
+// It returns these as a pair of start and finish bound, both in terms of offsets from URY start time.
+func calculateScheduleBoundaries(items []structs.ScheduleItem) (sOffset, fOffset int, err error) {
+	if len(items) == 0 {
+		err = errors.New("calculateScheduleBoundaries: no schedule")
+		return
+	}
+
+	// These are the boundaries for culling, and are expanded upwards when we find shows that start earlier or finish later than the last-set boundary.
+	// Initially they are set to one past their worst case to make the updating logic easier.
+	// Since we assert we have a schedule, these values _will_ change.
+	sOffset = 24
+	fOffset = -1
 
 	for _, s := range items {
 		start := s.GetStart()
-		rows[start.Hour()].MinuteMarks[start.Minute()] = true
+		finish := s.GetFinish()
 		if !s.IsSustainer() {
-			rows[start.Hour()].HasNonSustainer = true
+			// Any show that isn't a sustainer affects the culling boundaries.
+			
+			if showStraddlesDay(start, finish) {
+				// A show that straddles the day crosses over from the end of a day to the start of the day.
+				// This means that we saturate the culling boundaries.
+				// As an optimisation we don't need to consider any other show.
+				sOffset = 0
+				fOffset = 23
+				return
+			}
+
+			// Otherwise, if its start/finish as offsets from start time are outside the current boundaries, update them.
+			so := 0
+			so, err = hourToStartOffset(start.Hour())
+			if err != nil {
+				return 
+			}
+			if so < sOffset {
+				sOffset = so
+			}
+
+			fo := 0
+			fo, err = hourToStartOffset(finish.Hour())
+			if err != nil {
+				return
+			}
+			if fOffset < fo {
+				fOffset = fo
+			}
 		}
 	}
 
-	// Now decide which rows to cull by working forwards and backwards.
-	// The runs of sustainer-only rows at the start and end are culled.
-	for i := 0; i < 24; i++ {
-		ri := (i + URYStartHour) % 24
+	return
+}
 
-		if rows[ri].HasNonSustainer {
-			break
-		}
-		rows[ri].Cull = true
+// calculateScheduleRows takes a schedule and determines which rows should be displayed.
+func calculateScheduleRows(items []structs.ScheduleItem) ([]WeekScheduleRow, error) {
+	// Internally, we use a 24-hour array to store our decisions.
+	rows := make([]struct {
+		MinuteMarks     map[int]bool
+		Cull            bool
+	}, 24)
+
+
+	// Now decide which rows to cull by calculating boundaries, then marking the rows outside of the boundaries.
+	sOffset, fOffset, err := calculateScheduleBoundaries(items)
+	if err != nil {
+		return nil, err
 	}
-	for i := 0; i < 24; i++ {
-		ri := ((24 + URYStartHour) - i) % 24
+	if 23 < sOffset || sOffset < 0 || 23 < fOffset || fOffset < 0 || fOffset < sOffset {
+		return nil, fmt.Errorf("calculateScheduleRows: row boundaries %i to %i are invalid", sOffset, fOffset)
+	}
 
-		if rows[ri].HasNonSustainer {
-			break
+	// Go through each hour, culling ones before the boundaries, and adding on-the-hour minute marks to the others.
+	// Boundaries are inclusive, so cull only things outside of them.
+	for i := 0; i < 24; i++ {
+		ri, err := startOffsetToHour(i)
+		if err != nil {
+			return nil, err
 		}
-		rows[ri].Cull = true
+		if i < sOffset || fOffset < i {
+			rows[ri].Cull = true
+		} else {
+			rows[ri].MinuteMarks = map[int]bool{0: true}
+		}
+	}
+	// Calculate the minute marks from non-on-the-hour show starts now.
+	for _, item := range(items) {
+		h := item.GetStart().Hour()
+		if !rows[h].Cull {
+			rows[item.GetStart().Hour()].MinuteMarks[item.GetStart().Minute()] = true
+		}
 	}
 
 	// Now translate the above into a row table.
@@ -230,7 +306,7 @@ func calculateScheduleRows(items []structs.ScheduleItem) []WeekScheduleRow {
 		wsrs = append(wsrs, hwsrs...)
 	}
 
-	return wsrs
+	return wsrs, nil
 }
 
 // populateRows fills schedule rows with timeslots.
@@ -346,7 +422,11 @@ func (sc *ScheduleWeekController) GetByYearWeek(w http.ResponseWriter, r *http.R
 		return
 	}
 
-	table := calculateScheduleRows(filled)
+	table, err := calculateScheduleRows(filled)
+	if err != nil {
+		log.Println(err)
+		return
+	}
 	populateRows(startDate, finishDate, table, filled)
 
 	data := struct {
