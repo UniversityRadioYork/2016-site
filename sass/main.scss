@@ -180,15 +180,15 @@ body {
   .page1-title {
     padding: 0 0 10px 40px;
   }
-	.page1-bio-box {
-  	background: $secondary-color;
-  	color: #fff;
-  	padding: 10px 40px 40px 40px;
+  .page1-bio-box {
+    background: $secondary-color;
+    color: #fff;
+    padding: 10px 40px 40px 40px;
   }
 }
 .page1-credits-people {
-	background-color: $primary-color;
-	color: white;
+  background-color: $primary-color;
+  color: white;
 }
 .page1-on-demand {
   background-color: $secondary-color;
@@ -200,20 +200,20 @@ body {
   h1 {
     font-size:25vmin;
     padding-top: 25vh;
-		padding-bottom: 25vh;
-	}
-	.spinner {
-		display:inline-block;
-		width:25vmin;
-		height:25vmin;
-		position: relative;
+    padding-bottom: 25vh;
+  }
+  .spinner {
+    display:inline-block;
+    width:25vmin;
+    height:25vmin;
+    position: relative;
     top: 6vmin;
-		-webkit-animation:spin 4s linear infinite;
+    -webkit-animation:spin 4s linear infinite;
     -moz-animation:spin 4s linear infinite;
     animation:spin 4s linear infinite;
     background: url("/images/URYrecord.png") center center;
     background-size: contain;
-	}
+  }
 }
 
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
