@@ -2,12 +2,7 @@
   background: url('/images/current-next-bg.png') center center no-repeat;
   background-size: cover;
   color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  min-height: 80vh;
-  padding: 20px 0;
+  padding:10em 0;
 }
 .current-and-next {
   display: flex;
@@ -27,7 +22,6 @@
   }
   .current-and-next-now, .current-and-next-next {
     flex-grow: 1; 
-    flex-basis: 0;
     padding: 0 1em;
     min-width: 15em;
     flex-wrap: wrap;
@@ -41,12 +35,6 @@
 }
 
 @media screen and (max-width: 767px) {
-  .current-next {
-    min-height: auto;
-  }
-  .current-and-next-now, .current-and-next-next {
-    flex-basis: auto!important;
-  }
   .current-and-next-btn-mobile {
     flex-basis: 100%;
     order:5;
@@ -70,4 +58,17 @@
   .current-and-next {
     font-size: $mobile-font-size;
   }
+}
+
+
+//for testing purposes only, should eventually be moved into own file
+
+h1 {
+  font-size: 2.5em;
+}
+h2 {
+  font-size: 2em;
+}
+h3 {
+  font-size: 1.8em;
 }
