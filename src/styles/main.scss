@@ -9,7 +9,7 @@
 
 body {
   padding-top: 49px;
-  font-family: 'Raleway', sans-serif;
+
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -42,17 +42,7 @@ body {
   color: #777;
   border-top: 3px solid #ddd;
   background: $content-bg-1;
-}
-.navbar-container {
-    max-width:1200px;
-    margin: 0 auto;
-    padding-right: 15px;
-}
-.navbar {
-  background: $primary-color;
-  img {
-    margin-top: -7px;
-  }
+
 }
 
 .index-infobar {
