@@ -5,6 +5,29 @@
 
 
 
+
+html {
+  font-size: 12px;
+}
+
+@include media-breakpoint-up(sm) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  html {
+    font-size: 16px;
+  }
+}
+
 /* Space out content a bit */
 
 body {
