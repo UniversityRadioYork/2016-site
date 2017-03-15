@@ -4,7 +4,7 @@
 			{{if .Current}}
 				<div class="current-and-next-img">
 					<img src="/images/show-current.png" alt="" />
-					<a href="https://ury.org.uk/listen" class="btn btn-lg btn-red current-and-next-btn mobile-hide" title="Listen Live" onclick="window.open('http://ury.org.uk/live', 'radioplayer', 'height=665,width=380'); return false;">Listen Live</a>
+					<a href="https://ury.org.uk/listen" class="btn btn-lg btn-primary current-and-next-btn mobile-hide" title="Listen Live" onclick="window.open('http://ury.org.uk/live', 'radioplayer', 'height=665,width=380'); return false;">Listen Live</a>
 				</div>
 				<div class="current-and-next-now">
 					<h2>Now</h2>
@@ -24,7 +24,7 @@
 
 {{define "current_next"}}
 {{if .Title}}
-<h4>
+<h3>
 	{{if .Url}}
 		<a href="{{.Url}}">
 	{{end}}
@@ -32,8 +32,8 @@
 	{{if .Url}}
 		</a>
 	{{end}}
-</h4>
-<p>{{.StartTime.Format "15:04"}} - {{.EndTime.Format "15:04"}}</p>
+</h3>
+<h4>{{.StartTime.Format "15:04"}} - {{.EndTime.Format "15:04"}}</h4>
 {{else}}
 <span>Looks like there is nothing coming up next yet.</span>
 {{end}}
