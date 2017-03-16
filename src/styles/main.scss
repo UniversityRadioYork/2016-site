@@ -4,7 +4,11 @@
 @import "elements/elements";
 
 
-
+.ellipsis {
+  white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 html {
   font-size: 12px;

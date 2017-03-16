@@ -6,7 +6,7 @@
 					<img src="/images/show-current.png" alt="" />
 					<a href="https://ury.org.uk/listen" class="btn btn-lg btn-primary current-and-next-btn mobile-hide" title="Listen Live" onclick="window.open('http://ury.org.uk/live', 'radioplayer', 'height=665,width=380'); return false;">Listen Live</a>
 				</div>
-				<div class="col-8 col-md p-3 current-and-next-now">
+				<div class="col-8 col-md p-2 pt-3 px-3 p-md-3 p-lg-4 current-and-next-now">
 					<h2>Now</h2>
 					{{template "current_next" .Current}}
 				</div>
@@ -24,7 +24,7 @@
 
 {{define "current_next"}}
 {{if .Title}}
-<h4>
+<h4 class="ellipsis">
 	{{if .Url}}
 		<a href="{{.Url}}">
 	{{end}}
