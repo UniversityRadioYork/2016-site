@@ -63,12 +63,13 @@ body {
 
 /* Custom page footer */
 
-.footer {
-  padding: 20px 30px;
-  font-size: 18px;
+footer {
   color: #777;
-  border-top: 3px solid #ddd;
   background: $content-bg-1;
+
+  .row {
+    min-height: 3em;
+  }
 
 }
 
