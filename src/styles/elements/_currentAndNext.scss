@@ -20,4 +20,11 @@
   .current-and-next-next {
     background: $current-next-next-bg;
   }
+  .current-and-next-btn {
+    position: absolute;
+    bottom: 0.5em;
+    right: 0;
+    left: 0;
+    margin: 0 1em;
+  }
 }
