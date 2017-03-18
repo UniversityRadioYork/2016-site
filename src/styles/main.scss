@@ -158,57 +158,28 @@ footer {
   }
 }
 
-/* Page 1 is the Shows/People template style of page. */
-.page1-content {
+/* User page styling. */
+.bg-off-white {
   background: $content-bg-1;
 }
-.page1-title {
-  color: $primary-color;
-  font-size: 40px;
-  font-weight: 300;
-}
-.page1-subtitle {
-  color: $primary-color;
-  font-weight: 300;
-}
-.page1-sidebar {
-  padding: 0 30px;
-  color: #032e59;
-  text-align: center;
-}
-.page1-sidebar h3 {
-  font-weight: 300;
-  font-size: 18px;
-  display: inline-block;
-  padding: 15px 10px;
-  border-bottom: #d6d6d6 2px solid;
-}
-.page1-sidebar h3:first-of-type {
-  border-right: #d6d6d6 2px solid;
-}
-.page1-image {
+.user-img {
   border: #e1e1e1 7px solid;
-  margin: -100px auto 20px auto;
-  max-width: 85%;
+  margin-top: -3em;
+  max-width: 100%;
+  object-fit: cover;
 }
-.page1-sidebar .row div {
-  padding: 5px;
+.show-img {
+  @extend .user-img;
 }
-.page1-bio {
-  .page1-title {
-    padding: 0 0 10px 40px;
-  }
-	.page1-bio-box {
-  	background: $secondary-color;
-  	color: #fff;
-  	padding: 10px 40px 40px 40px;
-  }
+.user-bio-container {
+  background: $secondary-color;
+  color: #fff;
 }
-.page1-credits-people {
+.user-credits-people {
 	background-color: $primary-color;
 	color: white;
 }
-.page1-on-demand {
+.user-on-demand {
   background-color: $secondary-color;
   color: white;
 }
@@ -251,12 +222,6 @@ footer {
   .jumbotron {
     border-bottom: 0;
   }
-  .container.outer {
-    width: 100%;
-  }
-  .container {
-    width: 600px;
-  }
   .mobile-only {
     display: none;
   }
@@ -275,16 +240,6 @@ footer {
   padding: 14px 24px;
   font-size: 21px;
 }
-@media (min-width: 982px) {
-  .container {
-    width: 800px;
-  }
-}
-@media (min-width: 1280px) {
-  .container {
-    width: 1200px;
-  }
-}
 @media screen and (max-width: 767px) {
   .mobile-hide {
     display: none;
@@ -292,15 +247,9 @@ footer {
   .header-large {
     height: 400px;
   }
-  .page1-profile {
+  .user-profile {
     margin-top: -320px;
     margin-bottom: 30px;
-  }
-  .container.outer {
-    width: 100%;
-  }
-  .container {
-    width: 90%;
   }
   .mobile-col-right {
     width: 66.66666666%;
