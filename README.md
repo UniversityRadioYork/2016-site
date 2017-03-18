@@ -11,5 +11,5 @@ to compile the SCSS files.
 
 ```bash
 $ make SASS_COMPILER=sassc # You may use the SASS compiler of your choice
-$ go run *.go
+$ make run
 ```
