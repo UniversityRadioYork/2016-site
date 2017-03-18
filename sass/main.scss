@@ -1,4 +1,4 @@
-@import "varaibles";
+@import "variables";
 @import "vendor/vendor";
 @import "partials/partials";
 @import "elements/elements";
@@ -73,7 +73,7 @@ body {
   .scroll-right {
     background-color: $primary-color;
   }
-  
+
 }
 .index-uryplayer, .index-videos{
   padding-right:0;
@@ -88,7 +88,7 @@ body {
       z-index: 1;
       [class*="row"] {
         overflow-x: scroll;
-        overflow-y: hidden; 
+        overflow-y: hidden;
         margin-right:-70px;
       }
       [class*="col"] {
