@@ -1,36 +1,36 @@
 {{define "content"}}
 
-	{{with .PageData}}
+  {{with .PageData}}
 
-		<div class="container-fluid header-large current-next">
-		  <div class="container mobile-hide">
-			{{template "current_and_next" .}}
-			</div><!-- /.container -->
-		</div><!-- /outer containter -->
-		<div class="container-fluid user-heading">
-			<div class="container">
-				<div class="row">
-					<div class="col-12 col-lg-3">
-						<img class="user-img rounded-circle img-fluid" src="
+    <div class="container-fluid header-large current-next">
+      <div class="container mobile-hide">
+      {{template "current_and_next" .}}
+      </div><!-- /.container -->
+    </div><!-- /outer containter -->
+    <div class="container-fluid user-heading">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-lg-3">
+            <img class="user-img rounded-circle img-fluid" src="
               {{if .ProfilePicture.Url}}
                 https://ury.org.uk{{.ProfilePicture.Url}}
               {{else}}
                 /images/people-profile.jpg
               {{end}}
-							" alt="Photo of {{.Name}}">
-					</div>
+              " alt="Photo of {{.Name}}">
+          </div>
           <div class="col-12 col-lg-9">
           <div class="row">
             <h1 class="user-name">{{.Name}} <hr/> </h1>
           </div>
           <div class="row">
             {{range limitShowMeta .ShowCredits 0 6}}
-							<div class="col-4 col-md-2 p-0">
-		            <a href="{{.MicroSiteLink.URL}}" title="View the {{.Title}} webpage.">
-		          		<img class="img-fluid" src="/images/show-logo.png" alt="{{.Title}} logo." />
-		          	</a>
-	          	</div>
-						{{end}}
+              <div class="col-4 col-md-2 p-0">
+                <a href="{{.MicroSiteLink.URL}}" title="View the {{.Title}} webpage.">
+                  <img class="img-fluid" src="https://ury.org.uk{{.Photo}}" alt="{{.Title}} logo." />
+                </a>
+              </div>
+            {{end}}
           </div>
           <div class="row">
             <div class="col">
@@ -41,31 +41,31 @@
             </div>
           </div>
           </div>
-					</div>
-	      </div>
-	    </div> <!-- /outer containter -->
+          </div>
+        </div>
+      </div> <!-- /outer containter -->
       <div class="container-fluid user-bio-container">
         <div class="container">
-         	<div class="">
-						<h2>Bio</h2>
-						<p>{{html .Bio}}</p>
+           <div class="">
+            <h2>Bio</h2>
+            <p>{{html .Bio}}</p>
             <h2>Officerships</h2>
-						<ul>
+            <ul>
             {{range .Officerships}}
-							<li>
-							{{.OfficerName}} - from {{.FromDate.Format "2006-01-02"}} to
-							{{if .TillDateRaw}}
-								{{.TillDate.Format "2006-01-02"}}
-							{{else}}
-								current
-							{{end}}
-							</li>
-						{{end}}
-  					</ul>
+              <li>
+              {{.OfficerName}} - from {{.FromDate.Format "2006-01-02"}} to
+              {{if .TillDateRaw}}
+                {{.TillDate.Format "2006-01-02"}}
+              {{else}}
+                current
+              {{end}}
+              </li>
+            {{end}}
+            </ul>
             
           </div>
         </div>
       </div>
-	{{end}}
+  {{end}}
 
 {{end}}
