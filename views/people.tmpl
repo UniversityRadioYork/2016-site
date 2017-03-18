@@ -2,81 +2,70 @@
 
 	{{with .PageData}}
 
-		<div class="container outer header-large current-next">
-		    <div class="container mobile-hide">
-
-				{{template "current_and_next" .}}
-
+		<div class="container-fluid header-large current-next">
+		  <div class="container mobile-hide">
+			{{template "current_and_next" .}}
 			</div><!-- /.container -->
 		</div><!-- /outer containter -->
-
-
-		<div class="container outer page1-content">
-
-		  <div class="row">
-	        <div class="col-xs-12 col-sm-4 page1-sidebar">
-	        	<img class="img-circle img-responsive page1-image" src="
-					      
-					      {{if .ProfilePicture.Url}}
-									https://ury.org.uk{{.ProfilePicture.Url}}
-								{{else}}
-									/images/people-profile.jpg
-								{{end}}
-
-							" alt="Photo of 
-								{{.Name}}
-							">
-	          	<h1 class="mobile-only page1-title">
-	          		{{.Name}}
-	          	</h1>
-	          	<h3>Shows: 10</h3><h3>Hours: 10</h3>
-	          	<h2>Credit</h2>
-	          <div class="row">
-	          	{{range .ShowCredits}}
-								<div class="col-xs-4">
-		          		<a href="{{.MicroSiteLink.URL}}" title="View the {{.Title}} webpage.">
-		          			<img class="img-responsive" src="/images/show-logo.png" alt="{{.Title}} logo." />
-		          		</a>
-	          		</div>
-							{{end}}
-	          </div>
-	        </div>
-
-	        <div class="col-xs-12 col-sm-8 page1-bio">
-	          <h1 class="mobile-hide page1-title">
-	        	{{.Name}}
-	          </h1>
-	          <div class="page1-bio-box">
-						  <h2>Bio</h2>
-						  <p>
-						  	{{html .Bio}}
-						  </p>
-
-							<h2>
-								Officerships
-							</h2>
-
-							<ul>
-								{{range .Officerships}}
-
-								<li>
-									{{.OfficerName}} - from {{.FromDate.Format "2006-01-02"}} to
-									{{if .TillDateRaw}}
-										{{.TillDate.Format "2006-01-02"}}
-									{{else}}
-										current
-									{{end}}
-								</li>
-
-								{{end}}
-							</ul>
-
-					  </div>
-	        </div>
+		<div class="container-fluid user-heading">
+			<div class="container">
+				<div class="row">
+					<div class="col-12 col-lg-3">
+						<img class="user-img rounded-circle img-fluid" src="
+              {{if .ProfilePicture.Url}}
+                https://ury.org.uk{{.ProfilePicture.Url}}
+              {{else}}
+                /images/people-profile.jpg
+              {{end}}
+							" alt="Photo of {{.Name}}">
+					</div>
+          <div class="col-12 col-lg-9">
+          <div class="row">
+            <h1 class="user-name">{{.Name}} <hr/> </h1>
+          </div>
+          <div class="row">
+            {{range limitShowMeta .ShowCredits 0 6}}
+							<div class="col-4 col-md-2 p-0">
+		            <a href="{{.MicroSiteLink.URL}}" title="View the {{.Title}} webpage.">
+		          		<img class="img-fluid" src="/images/show-logo.png" alt="{{.Title}} logo." />
+		          	</a>
+	          	</div>
+						{{end}}
+          </div>
+          <div class="row">
+            <div class="col">
+              <h4>Shows: 10</h4>
+            </div>
+            <div class="col">
+              <h4>Hours: 10</h4>
+            </div>
+          </div>
+          </div>
+					</div>
 	      </div>
-
 	    </div> <!-- /outer containter -->
-
+      <div class="container-fluid user-bio-container">
+        <div class="container">
+         	<div class="">
+						<h2>Bio</h2>
+						<p>{{html .Bio}}</p>
+            <h2>Officerships</h2>
+						<ul>
+            {{range .Officerships}}
+							<li>
+							{{.OfficerName}} - from {{.FromDate.Format "2006-01-02"}} to
+							{{if .TillDateRaw}}
+								{{.TillDate.Format "2006-01-02"}}
+							{{else}}
+								current
+							{{end}}
+							</li>
+						{{end}}
+  					</ul>
+            
+          </div>
+        </div>
+      </div>
 	{{end}}
 
 {{end}}
