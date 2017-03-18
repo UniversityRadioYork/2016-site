@@ -74,7 +74,7 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 		},
 		"showsToHours": func(shows []myradio.ShowMeta) int {
 			//TODO: finish This
-			return 10
+			return -5
 		},
 	})
 	t, err = t.ParseFiles(tmpls...)
