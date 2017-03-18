@@ -13,4 +13,7 @@ run: all
 build-sass: $(SASS_SRC)
 	$(SASS_COMPILER) $(MAIN_FILE) $(OUTPUT_FILE)
 
-.PHONY: build-sass run
+clean:
+	rm -f $(OUTPUT_FILE)
+
+.PHONY: build-sass run clean
