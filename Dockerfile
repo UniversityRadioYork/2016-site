@@ -32,8 +32,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends xz-utils \
 RUN mkdir -p /go/src/github.com/UniversityRadioYork/2016-site
 WORKDIR /go/src/github.com/UniversityRadioYork/2016-site
 
+COPY package.json /go/src/github.com/UniversityRadioYork/2016-site/
+RUN npm install && rm -rf ~/.npm
+
 COPY . /go/src/github.com/UniversityRadioYork/2016-site
-RUN go get -d -v && npm install && go install
+RUN go get -d -v && go install
 
 CMD ["bower", "install"]
 CMD ["grunt", "build"]
