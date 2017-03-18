@@ -63,6 +63,15 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 			return a[start:end]
 
 		},
+		//Takes a splice of seasons and returns the total number of episodes
+		"showCount": func(seasons []myradio.Season) int {
+			var c = 0
+			for _, season := range seasons {
+				//Something about JSON being read as a float 64 so needing to convert to an int
+				c += int(season.NumEpisodes.Value.(float64))
+			}
+			return c
+		},
 	})
 	t, err = t.ParseFiles(tmpls...)
 	if err != nil {

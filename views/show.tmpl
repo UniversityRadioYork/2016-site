@@ -1,47 +1,42 @@
 {{define "content"}}
 {{with .PageData}}
 
-	<div class="container outer header-large current-next">
+	<div class="container-fluid header-large current-next">
 		<div class="container mobile-hide">
 		</div>
 	</div>
-	
-	<div class="container outer page1-content">
+	<div class="container-fluid bg-off-white">
 		<div class="container">
 		  <div class="row">
-	        <div class="col-xs-12 col-sm-4 page1-sidebar">
-	        	<img class="img-responsive page1-image" src="
+	        <div class="col-12 col-lg-3">
+	        	<img class="img-fluid show-img" src="
 						{{if .Show.Photo}}
 									https://ury.org.uk{{.Show.Photo}}
 						{{else}}
 									/images/show-current.png
 						{{end}}		
 
-							" alt="
-								{{.Show.Title}} Logo
-							">
-	          	<h1 class="mobile-only">
-	          		{{.Show.Title}}
-	          	</h1>
-	          	<h3>Seasons: 10</h3><h3>Shows: 10</h3>
+							" alt="{{.Show.Title}} Logo">
+              <div class="row">
+                <div class="col-6 text-center">
+                  <h5>Seasons: {{len .Seasons}}</h5>
+                </div>
+                <div class="col-6 text-center">
+                  <h5>Shows: {{showCount .Seasons}}</h5>
+                </div>
+              </div>
 	        </div>
-
-	        <div class="col-xs-12 col-sm-8">
-	          <h1 class="mobile-hide page1-title">
+	        <div class="col-12 col-lg-9">
+	          <h1>
 	        	{{.Show.Title}}
 	          </h1>
 	          <hr>
-	          <!-- <div class="page1-bio-box">  Do we want the bio in a blue box? -->
-				  		<h2 class="page1-subtitle">Description</h2>
-				  		<p>
-								{{html .Show.Description}}
-							</p>
-
-			  		<!-- </div> -->
+				  	<h2>Description</h2>
+            <p>
+						  {{html .Show.Description}}
+						</p>
 	        </div>
-
 	      </div>
-	      <hr>
 	    </div>
 	  </div> <!-- /outer containter -->
 	  <div class="container outer page1-credits-people">
