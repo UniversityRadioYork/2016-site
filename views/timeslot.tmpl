@@ -2,12 +2,10 @@
 	{{with .PageData}}
 
 	  <div class="container-fluid header-large current-next">
-		  <div class="container mobile-hide">
+		  <div class="container ">
       {{if .MixcloudAvailable}}
-    <div class="container-fluid">
-      <div class="container">
         <div class="row justify-content-center">
-          <div class="col-10">
+          <div class="col-md-10 py-2 mixcloud">
             <h2>URY on Tap: Listen Again</h2>
             <iframe width="100%" height="120" src="https://www.mixcloud.com/widget/iframe/?feed={{.Timeslot.MixcloudStatus}}&hide_cover=1&light=1" frameborder="0"></iframe>				
             <a href="#">Listen to more shows on URY On Demand</a>
@@ -51,7 +49,7 @@
             <h3>Tags</h3>
               {{range .Timeslot.Tags}}
                 <a href="/search?term={{.}}" alt="Search for '{{.}}'.">
-                  <span class="label label-default">
+                  <span class="tag badge badge-default">
                     {{.}}
                   </span>
                 </a>

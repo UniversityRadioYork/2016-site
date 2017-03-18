@@ -168,9 +168,7 @@ footer {
   max-width: 100%;
   object-fit: cover;
 }
-.show-img {
-  @extend .user-img;
-}
+
 .user-bio-container {
   background: $secondary-color;
   color: #fff;
@@ -259,4 +257,19 @@ footer {
   .index-banner {
     display: none;
   }
+}
+
+
+/* Show/Season/Timeslot specific*/
+
+.mixcloud {
+  background: #FCFCFC;
+  color: #555;
+  border: 1px solid #D7D7D7;
+}
+.show-img {
+  @extend .user-img;
+}
+.tag {
+  font-size:0.8em;
 }
