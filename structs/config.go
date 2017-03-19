@@ -31,7 +31,10 @@ type PageContext struct {
 	NewsTwitter     string `toml:"newsTwitter"`
 	Pages           []Page
 	Youtube         youtube
-	SustainerName   string `toml:"sustainerName"`
+	Sustainer       struct {
+		Name string `toml:"name"`
+		Desc string `toml:"desc"`
+	} `toml:"sustainer"`
 }
 
 // Page is a structure describing a page in the website navigation system.

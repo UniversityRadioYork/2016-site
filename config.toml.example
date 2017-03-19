@@ -21,7 +21,6 @@
 	longName  = "University Radio York"
 	shortName = "URY"
 	siteDescription = "University Radio York (URY) is the student radio station for the University of York, broadcasting 24 hours a day during term time on 1350am across campus, and worldwide via this website."
-	sustainerName = "Overnight Owen"
 
 	urlPrefix = ""
 	fullURL = "https://ury.org.uk"
@@ -29,6 +28,10 @@
 	mainTwitter = "URY1350"
 	mainFacebook = "URY1350"
 	newsTwitter = "URYNews"
+
+	[pageContext.sustainer]
+		name = "Overnight Owen"
+		desc = "Non-stop tones from the URY jukebox."
 
 	[[pageContext.pages]]
 		name = "Search"

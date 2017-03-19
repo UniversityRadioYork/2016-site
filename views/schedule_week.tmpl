@@ -21,8 +21,8 @@
 			<tr>
 				<td>{{ .Hour | printf "%02d" }}:{{ .Minute | printf "%02d" }}</td>
 				{{ range .Cells }}
-					{{if ne .RowSpan 0}}
-					<td rowspan="{{.RowSpan}}">
+					{{ if ne .RowSpan 0 }}
+					<td rowspan="{{ .RowSpan }}" title="{{ showDesc .Item }}">
 						{{ showName .Item }}
 					</td>
 					{{ end }}

@@ -14,6 +14,11 @@ type ScheduleItem interface {
 	// The website page context is passed to resolve, for example, the sustainer name.
 	GetName(context *PageContext) string
 
+	// GetDesc gets the description of the schedule item.
+	// The website page context is passed to resolve, for example, the
+	// sustainer description.
+	GetDesc(context *PageContext) string
+
 	// GetStart gets the start time of the schedule item.
 	GetStart() time.Time
 
@@ -59,7 +64,12 @@ func NewTimeslotItem(t *myradio.Timeslot) *TimeslotItem {
 
 // GetName gets the display name of a SustainerItem.
 func (s *SustainerItem) GetName(context *PageContext) string {
-	return context.SustainerName
+	return context.Sustainer.Name
+}
+
+// GetDesc gets the description of a SustainerItem.
+func (s *SustainerItem) GetDesc(context *PageContext) string {
+	return context.Sustainer.Desc
 }
 
 // GetStart gets the start time of a SustainerItem.
@@ -89,6 +99,11 @@ func (s *SustainerItem) IsSustainer() bool {
 // GetName gets the display name of a TimeslotItem.
 func (t *TimeslotItem) GetName(context *PageContext) string {
 	return t.Timeslot.Title
+}
+
+// GetDesc gets the description of a TimeslotItem.
+func (t *TimeslotItem) GetDesc(context *PageContext) string {
+	return t.Timeslot.Description
 }
 
 // GetStart gets the start time of a TimeslotItem.
