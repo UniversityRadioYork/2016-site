@@ -4,43 +4,39 @@
 
 <div class="container">
 
-<h1>Schedule for week commencing {{.StartDate.Format "Jan 02 2006"}}</h1>
+<h1>Schedule for week commencing {{ (index .Dates 0).Format "Jan 02 2006" }}</h1>
 
-{{if .Table}}
+{{ if .Table }}
 <table>
 	<thead>
 		<tr>
 			<th>Time</th>
-			<th>Monday</th>
-			<th>Tuesday</th>
-			<th>Wednesday</th>
-			<th>Thursday</th>
-			<th>Friday</th>
-			<th>Saturday</th>
-			<th>Sunday</th>
+			{{ range .Dates }}
+			<th>{{ .Weekday }}</th>
+			{{end}}
 		</tr>
 	</thead>
 	<tbody>
-		{{range .Table}}
+		{{ range .Table }}
 			<tr>
 				<td>{{ .Hour | printf "%02d" }}:{{ .Minute | printf "%02d" }}</td>
-				{{range .Cells}}
+				{{ range .Cells }}
 					{{if ne .RowSpan 0}}
 					<td rowspan="{{.RowSpan}}">
-						{{showName .Item}}
+						{{ showName .Item }}
 					</td>
-					{{end}}
-				{{end}}
+					{{ end }}
+				{{ end }}
 			</tr>
-		{{end}}
+		{{ end }}
 	</tbody>
 </table>
-{{else}}
+{{ else }}
 	<p>Nothing today</p>
-{{end}}
+{{ end }}
 
 </div><!-- /.container -->
 
-{{end}}
-{{end}}
+{{ end }}
+{{ end }}
 

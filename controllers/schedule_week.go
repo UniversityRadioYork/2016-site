@@ -201,25 +201,19 @@ func calculateScheduleRows(items []structs.ScheduleItem) ([]WeekScheduleRow, err
 }
 
 // populateRows fills schedule rows with timeslots.
-// It takes schedule day start on the start and end days of the schedule to fill.
-func populateRows(start, finish time.Time, rows []WeekScheduleRow, items []structs.ScheduleItem) {
-	// How many days does this timetable actually span?
-	scheduleSpan := finish.Sub(start)
-	scheduleDays := int(scheduleSpan / time.Hour / 24)
-
+// It takes the list of schedule start times on the days the schedule spans,
+// the slice of rows to populate, and the schedule items to add.
+func populateRows(days []time.Time, rows []WeekScheduleRow, items []structs.ScheduleItem) {
 	currentItem := 0
 
-	// Handle each day individually
-	for d := 0; d < scheduleDays; d++ {
-		day := start.AddDate(0, 0, d)
-
+	for d, day := range days {
 		// We use this to find out when we've gone over midnight
 		lastHour := -1
 		// And this to find out where the current show started
 		thisShowIndex := -1
 
 		// Now, go through all the rows for this day.
-		// We have to be careful to make sure we tick over dayMidnight if we go past midnight.
+		// We have to be careful to make sure we tick over day if we go past midnight.
 		for i := range rows {
 			if rows[i].Hour < lastHour {
 				day = day.AddDate(0, 0, 1)
@@ -249,11 +243,8 @@ func populateRows(start, finish time.Time, rows []WeekScheduleRow, items []struc
 
 // weekSchedule is the type of week schedules.
 type WeekSchedule struct {
-	// StartDate is the schedule start time on which the schedule starts.
-	StartDate time.Time
-	// FinishDate is the schedule start time on which the schedule
-	// finishes.
-	FinishDate time.Time
+	// Dates enumerates the dates this week schedule covers.
+	Dates []time.Time
 	// Table is the actual week table.
 	// If there is no schedule for the given week, this will be nil.
 	Table []WeekScheduleRow
@@ -280,12 +271,15 @@ func hasShows(schedule []structs.ScheduleItem) bool {
 
 // generateWeekSchedule creates a schedule table from the given schedule slice.
 func generateWeekSchedule(start, finish time.Time, schedule []structs.ScheduleItem) (*WeekSchedule, error) {
+	days := []time.Time{}
+	for d := start; d.Before(finish); d = d.AddDate(0, 0, 1) {
+		days = append(days, d)
+	}
+
 	if !hasShows(schedule) {
 		return &WeekSchedule{
-			StartDate:   start,
-			FinishDate:  finish,
-			HasSchedule: false,
-			Table:       nil,
+			Dates: days,
+			Table: nil,
 		}, nil
 	}
 
@@ -294,13 +288,11 @@ func generateWeekSchedule(start, finish time.Time, schedule []structs.ScheduleIt
 		log.Println(err)
 		return nil, err
 	}
-	populateRows(start, finish, table, schedule)
+	populateRows(days, table, schedule)
 
 	return &WeekSchedule{
-		StartDate:   start,
-		FinishDate:  finish,
-		HasSchedule: true,
-		Table:       table,
+		Dates: days,
+		Table: table,
 	}, nil
 }
 
