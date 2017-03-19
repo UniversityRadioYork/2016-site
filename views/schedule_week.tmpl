@@ -23,7 +23,11 @@
 				{{ range .Cells }}
 					{{ if ne .RowSpan 0 }}
 					<td rowspan="{{ .RowSpan }}" title="{{ showDesc .Item }}">
-						{{ showName .Item }}
+						{{ if .Item.HasPage }}
+							<a href="{{ url .Item.GetPageURL }}">{{ showName .Item }}</a>
+						{{ else }}
+							{{ showName .Item }}
+						{{ end }}
 					</td>
 					{{ end }}
 				{{ end }}

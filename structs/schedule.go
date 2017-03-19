@@ -30,6 +30,12 @@ type ScheduleItem interface {
 
 	// IsSustainer gets whether this schedule item is the URY sustainer.
 	IsSustainer() bool
+
+	// HasPage is true when this schedule item has an associated page.
+	HasPage() bool
+
+	// GetPageURL gets the root-relative URL to this schedule item's page.
+	GetPageURL() string
 }
 
 // SustainerItem is a struct containing information about a sustainer (filler) item in a URY schedule.
@@ -92,6 +98,16 @@ func (s *SustainerItem) IsSustainer() bool {
 	return true
 }
 
+// HasPage gets whether a SustainerItem has a show page (it doesn't).
+func (s *SustainerItem) HasPage() bool {
+	return false
+}
+
+// GetPageUrl gets the root-relative URL to a SustainerItem's (non-existent) show page.
+func (s *SustainerItem) GetPageURL() string {
+	return ""
+}
+
 /*
  * Implementation of ScheduleItem for TimeslotItem
  */
@@ -125,6 +141,17 @@ func (t *TimeslotItem) GetBlock() string {
 // IsSustainer gets whether a TimeslotItem is sustainer (it isn't).
 func (t *TimeslotItem) IsSustainer() bool {
 	return false
+}
+
+// HasPage gets whether a TimeslotItem has a show page (it does).
+func (s *TimeslotItem) HasPage() bool {
+	return true
+}
+
+// GetPageUrl gets the root-relative URL to a TimeslotItem's show page.
+func (s *TimeslotItem) GetPageURL() string {
+	// TODO(MattWindsor91): don't hardcode this here.
+	return fmt.Sprintf("/schedule/shows/timeslots/%d/", s.Timeslot.TimeslotID)
 }
 
 /*
