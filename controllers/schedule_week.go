@@ -201,17 +201,17 @@ func calculateScheduleRows(items []structs.ScheduleItem) ([]WeekScheduleRow, err
 }
 
 // populateRows fills schedule rows with timeslots.
-// It takes local midnight on the start and end days of the schedule to fill.
-func populateRows(startMidnight, endMidnight time.Time, rows []WeekScheduleRow, items []structs.ScheduleItem) {
+// It takes schedule day start on the start and end days of the schedule to fill.
+func populateRows(start, finish time.Time, rows []WeekScheduleRow, items []structs.ScheduleItem) {
 	// How many days does this timetable actually span?
-	scheduleSpan := endMidnight.Sub(startMidnight)
+	scheduleSpan := finish.Sub(start)
 	scheduleDays := int(scheduleSpan / time.Hour / 24)
 
 	currentItem := 0
 
 	// Handle each day individually
 	for d := 0; d < scheduleDays; d++ {
-		dayMidnight := startMidnight.AddDate(0, 0, d)
+		day := start.AddDate(0, 0, d)
 
 		// We use this to find out when we've gone over midnight
 		lastHour := -1
@@ -222,11 +222,11 @@ func populateRows(startMidnight, endMidnight time.Time, rows []WeekScheduleRow, 
 		// We have to be careful to make sure we tick over dayMidnight if we go past midnight.
 		for i := range rows {
 			if rows[i].Hour < lastHour {
-				dayMidnight = dayMidnight.AddDate(0, 0, 1)
+				day = day.AddDate(0, 0, 1)
 			}
 			lastHour = rows[i].Hour
 
-			rowTime := time.Date(dayMidnight.Year(), dayMidnight.Month(), dayMidnight.Day(), rows[i].Hour, rows[i].Minute, 0, 0, time.Local)
+			rowTime := time.Date(day.Year(), day.Month(), day.Day(), rows[i].Hour, rows[i].Minute, 0, 0, time.Local)
 
 			// Seek forwards if the current show has finished.
 			for !items[currentItem].GetFinish().After(rowTime) {
@@ -245,6 +245,63 @@ func populateRows(startMidnight, endMidnight time.Time, rows []WeekScheduleRow, 
 			}
 		}
 	}
+}
+
+// weekSchedule is the type of week schedules.
+type WeekSchedule struct {
+	// StartDate is the schedule start time on which the schedule starts.
+	StartDate time.Time
+	// FinishDate is the schedule start time on which the schedule
+	// finishes.
+	FinishDate time.Time
+	// Table is the actual week table.
+	// If there is no schedule for the given week, this will be nil.
+	Table []WeekScheduleRow
+}
+
+// hasShows asks whether a schedule slice contains any non-sustainer shows.
+// It assumes the slice has been filled with sustainer.
+func hasShows(schedule []structs.ScheduleItem) bool {
+	// This shouldn't happen, but if it does, this is the right thing to
+	// do.
+	if len(schedule) == 0 {
+		return false
+	}
+
+	// We know that, if a slice is filled but has no non-sustainer, then
+	// the slice will contain only one sustainer item.  So, eliminate the
+	// other cases.
+	if 1 < len(schedule) || !schedule[0].IsSustainer() {
+		return true
+	}
+
+	return false
+}
+
+// generateWeekSchedule creates a schedule table from the given schedule slice.
+func generateWeekSchedule(start, finish time.Time, schedule []structs.ScheduleItem) (*WeekSchedule, error) {
+	if !hasShows(schedule) {
+		return &WeekSchedule{
+			StartDate:   start,
+			FinishDate:  finish,
+			HasSchedule: false,
+			Table:       nil,
+		}, nil
+	}
+
+	table, err := calculateScheduleRows(schedule)
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+	populateRows(start, finish, table, schedule)
+
+	return &WeekSchedule{
+		StartDate:   start,
+		FinishDate:  finish,
+		HasSchedule: true,
+		Table:       table,
+	}, nil
 }
 
 //
@@ -305,29 +362,18 @@ func (sc *ScheduleWeekController) GetByYearWeek(w http.ResponseWriter, r *http.R
 	}
 
 	// Now start filling from day start to day finish.
-	startUry := utils.StartOfDayOn(startDate)
-	finishUry := utils.StartOfDayOn(finishDate)
-	filled, err := structs.FillTimeslotSlice(startUry, finishUry, flat)
+	weekStart := utils.StartOfDayOn(startDate)
+	weekFinish := utils.StartOfDayOn(finishDate)
+	filled, err := structs.FillTimeslotSlice(weekStart, weekFinish, flat)
 	if err != nil {
 		log.Println(err)
 		return
 	}
 
-	table, err := calculateScheduleRows(filled)
+	data, err := generateWeekSchedule(weekStart, weekFinish, filled)
 	if err != nil {
 		log.Println(err)
 		return
-	}
-	populateRows(startDate, finishDate, table, filled)
-
-	data := struct {
-		StartDate  time.Time
-		FinishDate time.Time
-		Table      []WeekScheduleRow
-	}{
-		StartDate:  startUry,
-		FinishDate: finishUry,
-		Table:      table,
 	}
 
 	err = utils.RenderTemplate(w, sc.config.PageContext, data, "schedule_week.tmpl")
