@@ -1,11 +1,286 @@
 {{define "content"}}
 	{{with .PageData}}
 
-	<div class="container">
+	<div class="container outer current-next">
+    	<div class="container">
 
-		{{template "current_and_next" .}}
+			{{template "current_and_next" .}}
 
-	</div><!-- /.container -->
+
+			<div class="row index-banner">
+	  		<div id="index-banner-carousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner" role="listbox">
+          {{range $index, $Banners := .Banners}}
+          
+          <div class="item {{ if eq $index 0 }} active {{end}}">
+          	<a href="{{$Banners.Target}}">
+            	<img src="https://ury.org.uk{{$Banners.URL}}" alt="{{$Banners.Alt}}">
+            </a>
+          </div>
+          {{end}}
+        </div>
+        <a class="left carousel-control" href="#index-banner-carousel" role="button" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#index-banner-carousel" role="button" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+	  </div>
+
+		</div><!-- /.container -->
+	</div><!-- /outer containter -->
+
+	 <div class="container outer index-infobar">
+
+	  <div class="row">
+	  	<div class="col-lg-1"></div>
+        <div class="col-lg-4">
+          <h2>Send a Message</h2>
+          <hr>
+          <form id="sendMessage" action="">
+          		<textarea name="body">Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</textarea>
+          		<button type="submit">Send</button>
+          </form>
+        </div>
+
+        <div class="col-lg-6">
+          <h2>Get Involved</h2>
+          <hr>
+          <div class="row">
+          	<div class="col-lg-6">
+          		<p>University Radio York has been alive since 1967, when it became the first legal independant radio station in the UK!</p>
+          		<p>Help us continue our legacy by joining the URY team.</p>
+          		<p>Contact our teams to find out more.</p>
+          	</div>
+          	<div class="col-lg-6">
+          		<ul>
+          			<li>List of teams here.</li>
+          		</ul>
+          	</div>
+          	
+          </div>
+
+        </div>
+        <div class="col-lg-1"></div>
+      </div>
+
+    </div> <!-- /outer containter -->
+    
+    <div class="container outer index-schedule">
+		  <h2>Today's Schedule</h2>
+	  	<h3 style="text-align:center;">We're not broadcasting today, we'll be back on !!DATE!!.</h3>
+      <p style="text-align:center;">In the meantime, how about some On Demand content?</p>
+      <div class="container">
+        <div class="row">  
+            <figure class="col-md-6 large">
+              <img src="images/show-current.png" alt="img01">
+                <figcaption>
+                  <h3>!!Show Name!!</h3>
+                  <span>12:00 - 14:00</span>
+                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>	
+                </figcaption>
+            </figure>
+          <div class="col-md-6 small">
+            <div class="row">
+              <figure class="col-md-6">
+                <img src="images/show-current.png" alt="img01">
+                <figcaption>
+                  <h3>!!Show Name!!</h3>
+                  <span>12:00 - 14:00</span>
+                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
+                </figcaption>
+              </figure>
+              <figure class="col-md-6">
+                <img src="images/show-current.png" alt="img01">
+                <figcaption>
+                  <h3>!!Show Name!!</h3>
+                  <span>12:00 - 14:00</span>
+                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
+                </figcaption>
+              </figure>
+            </div>
+            <div class="row">
+              <figure class="col-md-6">
+                <img src="images/show-current.png" alt="img01">
+                <figcaption>
+                  <h3>!!Show Name!!</h3>
+                  <span>12:00 - 14:00</span>
+                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
+                </figcaption>
+              </figure>
+              <figure class="col-md-6">
+                <img src="images/show-current.png" alt="img01">
+                <figcaption>
+                  <h3>!!Show Name!!</h3>
+                  <span>12:00 - 14:00</span>
+                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+        <div class="row small">
+          <figure class="col-md-3">
+                <img src="images/show-current.png" alt="img01">
+                <figcaption>
+                  <h3>!!Show Name!!</h3>
+                  <span>12:00 - 14:00</span>
+                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
+                </figcaption>
+              </figure>
+              <figure class="col-md-3">
+                <img src="images/show-current.png" alt="img01">
+                <figcaption>
+                  <h3>!!Show Name!!</h3>
+                  <span>12:00 - 14:00</span>
+                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
+                </figcaption>
+              </figure>
+              <figure class="col-md-3">
+                <img src="images/show-current.png" alt="img01">
+                <figcaption>
+                  <h3>!!Show Name!!</h3>
+                  <span>12:00 - 14:00</span>
+                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
+                </figcaption>
+              </figure>
+              <figure class="col-md-3">
+                <img src="images/show-current.png" alt="img01">
+                <figcaption>
+                  <h3>!!Show Name!!</h3>
+                  <span>12:00 - 14:00</span>
+                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
+                </figcaption>
+              </figure>
+        </div>
+        <div class="row small">
+          <figure class="col-md-3">
+                <img src="images/show-current.png" alt="img01">
+                <figcaption>
+                  <h3>!!Show Name!!</h3>
+                  <span>12:00 - 14:00</span>
+                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
+                </figcaption>
+              </figure>
+              <figure class="col-md-3">
+                <img src="images/show-current.png" alt="img01">
+                <figcaption>
+                  <h3>!!Show Name!!</h3>
+                  <span>12:00 - 14:00</span>
+                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
+                </figcaption>
+              </figure>
+              <figure class="col-md-3">
+                <img src="images/show-current.png" alt="img01">
+                <figcaption>
+                  <h3>!!Show Name!!</h3>
+                  <span>12:00 - 14:00</span>
+                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
+                </figcaption>
+              </figure>
+              <figure class="col-md-3">
+                <img src="images/show-current.png" alt="img01">
+                <figcaption>
+                  <h3>!!Show Name!!</h3>
+                  <span>12:00 - 14:00</span>
+                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
+                </figcaption>
+              </figure>
+        </div>
+      </div>
+    </div> <!-- /outer containter -->
+
+    <div class="container outer index-videos">
+      <div id="video-container" class="scroll-container">
+        <div class="scroll-body">
+          <h2>URY Sessions</h2>
+          <div class="row">
+            <div class="col-sm-5 col-md-4 col-lg-3">
+              <div class="thumbnail">
+                <img src="http://img.youtube.com/vi/y2fCIG0l144/maxresdefault.jpg" alt="...">
+              </div>
+            </div>
+            <div class="col-sm-5 col-md-4 col-lg-3">
+              <div class="thumbnail">
+                <img src="http://img.youtube.com/vi/y2fCIG0l144/maxresdefault.jpg" alt="...">
+              </div>
+            </div>
+            <div class="col-sm-5 col-md-4 col-lg-3">
+              <div class="thumbnail">
+                <img src="http://img.youtube.com/vi/y2fCIG0l144/maxresdefault.jpg" alt="...">
+              </div>
+            </div>
+            <div class="col-sm-5 col-md-4 col-lg-3">
+              <div class="thumbnail">
+                <img src="http://img.youtube.com/vi/y2fCIG0l144/maxresdefault.jpg" alt="...">
+              </div>
+            </div>
+            <div class="col-sm-5 col-md-4 col-lg-3">
+              <div class="thumbnail">
+                <img src="http://img.youtube.com/vi/y2fCIG0l144/maxresdefault.jpg" alt="...">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="scroll-right">
+            &gt;
+        </div>
+      </div>
+
+    </div> <!-- /outer containter -->
+    
+    <div class="container outer index-uryplayer">
+      <div class="scroll-container">
+        <div class="scroll-body">
+          <h2>URY Player: Podcasts</h2>
+          <div class="row">
+            <div class="col-sm-4 col-md-3 col-lg-2">
+              <div class="thumbnail">
+                <p class="podcast-title">Thumbnail label</p>
+                <img src="images/show-current.png" alt="...">
+                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over af snackwave marfa gluten-free affogato truffaut iceland. Yuccie bushwick etsy, fingerstache kombucha biodiesel chambray brunch skateboard polaroid mixtape deep v mustache.</p>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-3 col-lg-2">
+              <div class="thumbnail">
+                <p class="podcast-title">Thumbnail label</p>
+                <img src="images/show-current.png" alt="...">
+                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over af snackwave marfa gluten-free affogato truffaut iceland. Yuccie bushwick etsy, fingerstache kombucha biodiesel chambray brunch skateboard polaroid mixtape deep v mustache.</p>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-3 col-lg-2">
+              <div class="thumbnail">
+                <p class="podcast-title">Thumbnail label</p>
+                <img src="images/show-current.png" alt="...">
+                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over af snackwave marfa gluten-free affogato truffaut iceland. Yuccie bushwick etsy, fingerstache kombucha biodiesel chambray brunch skateboard polaroid mixtape deep v mustache.</p>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-3 col-lg-2">
+              <div class="thumbnail">
+                <p class="podcast-title">Thumbnail label</p>
+                <img src="images/show-current.png" alt="...">
+                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over af snackwave marfa gluten-free affogato truffaut iceland. Yuccie bushwick etsy, fingerstache kombucha biodiesel chambray brunch skateboard polaroid mixtape deep v mustache.</p>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-3 col-lg-2">
+              <div class="thumbnail">
+                <p class="podcast-title">Thumbnail label</p>
+                <img src="images/show-current.png" alt="...">
+                  <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over af snackwave marfa gluten-free affogato truffaut iceland. Yuccie bushwick etsy, fingerstache kombucha biodiesel chambray brunch skateboard polaroid mixtape deep v mustache.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="scroll-right">
+            &gt;
+        </div>
+      </div>
+
+    </div> <!-- /outer containter -->
+	
 
 	{{end}}
 {{end}}

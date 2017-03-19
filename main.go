@@ -2,30 +2,28 @@ package main
 
 import (
 	"fmt"
-	"github.com/UniversityRadioYork/2016-site/utils"
-	"github.com/UniversityRadioYork/2016-site/web"
+	"github.com/BurntSushi/toml"
+	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/stretchr/graceful"
 	"log"
 	"time"
 )
 
 func main() {
-
 	log.SetFlags(log.Llongfile)
 
-	//Get the config from the config.yaml file
-	config, err := utils.GetConfigFromFile("./config.toml")
+	config := &structs.Config{}
+	_, err := toml.DecodeFile("config.toml", config)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	s, err := web.NewServer(config)
-
+	s, err := NewServer(config)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	l := fmt.Sprintf("%s:%d", config.Server.Address, config.Server.Port)
-
 	log.Printf("Listening on: %s", l)
-
 	graceful.Run(l, time.Duration(config.Server.Timeout), s)
-
 }

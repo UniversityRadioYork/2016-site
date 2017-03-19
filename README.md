@@ -1,22 +1,27 @@
 # 2016-site #
 
-#### Requirements ####
-
-If you wish to not use docker, you will need the following things installed:
- - [NodeJs](https://nodejs.org/en/ "NodeJs")
- - [Go 1.6](https://golang.org/ "Go")
-
-Otherwise, you only need [Docker](https://www.docker.com/)
-
 ## How to install ##
-# Install with Docker :whale:#
+Configuration for site is located in config.toml, and you'll need a
+[MyRadio](https://github.com/UniversityRadioYork/MyRadio) API key with the
+requisite permissions copied into a .myradio.key file in the same directory.
+
+Then follow the Requirements below.
+
+### Install with Docker :whale:###
+Alternatively, you only need [Docker](https://www.docker.com/)
+
 ```bash
 $ docker build -t 2016-site .
 $ docker run -p 3000:3000 -v $GOPATH/src/github.com/UniversityRadioYork/2016-site:/go/src/github.com/UniversityRadioYork/2016-site 2016-site
 ```
-# Install without Docker #
+
+## Requirements ##
+Requires [Go 1.6](https://golang.org/) to compile and run, along with `sassc` to
+compile the SCSS files. You may use other SASS compilers if you wish, but be
+prepared for unexpected results.
+
 ```bash
-$ ./install.sh
-$ go run main.go
+$ make run # Builds scss files, and runs the server
 ```
-### Development ###
+
+## Development ##
