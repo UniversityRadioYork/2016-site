@@ -285,7 +285,11 @@ func calculateScheduleRows(items []structs.ScheduleItem) ([]WeekScheduleRow, err
 	// Now translate the above into a row table.
 	wsrs := []WeekScheduleRow{}
 	for i := 0; i < 24; i++ {
-		ri := (i + URYStartHour) % 24
+		ri, err := startOffsetToHour(i)
+		if err != nil {
+			return nil, err
+		}
+
 		if rows[ri].Cull {
 			continue
 		}
