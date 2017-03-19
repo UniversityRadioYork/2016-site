@@ -1,4 +1,4 @@
-@import "variables";
+@import "base/base";
 @import "vendor/vendor";
 @import "partials/partials";
 @import "elements/elements";
@@ -180,41 +180,41 @@ body {
   .page1-title {
     padding: 0 0 10px 40px;
   }
-	.page1-bio-box {
-  	background: $secondary-color;
-  	color: #fff;
-  	padding: 10px 40px 40px 40px;
+  .page1-bio-box {
+    background: $secondary-color;
+    color: #fff;
+    padding: 10px 40px 40px 40px;
   }
 }
 .page1-credits-people {
-	background-color: $primary-color;
-	color: white;
+  background-color: $primary-color;
+  color: white;
 }
 .page1-on-demand {
   background-color: $secondary-color;
   color: white;
 }
-	.page404 {
-	 text-align:center;
-	 margin: 0 auto;
-	}
-	.page404 h1 {
-		font-size:200px;
-		padding-top: 25vw;
-		padding-bottom: 25vw;
-	}
-	.page404 .spinner {
-		display:inline-block;
-		width:160px;
-		height:160px;
-		font-size:50px;
-		text-align:center;
-		-webkit-animation:spin 4s linear infinite;
+.page404 {
+  text-align:center;
+  margin: 0 auto;
+  h1 {
+    font-size:25vmin;
+    padding-top: 25vh;
+    padding-bottom: 25vh;
+  }
+  .spinner {
+    display:inline-block;
+    width:25vmin;
+    height:25vmin;
+    position: relative;
+    top: 6vmin;
+    -webkit-animation:spin 4s linear infinite;
     -moz-animation:spin 4s linear infinite;
     animation:spin 4s linear infinite;
-    background: url("/images/URYrecord.png") center center;
+    background: url("/images/URYRecord.png") center center;
     background-size: contain;
-	}
+  }
+}
 
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
@@ -289,7 +289,7 @@ body {
     float: right;
     padding: 30px 15px;
   }
-  .index-banner {
+  .banner {
     display: none;
   }
 }

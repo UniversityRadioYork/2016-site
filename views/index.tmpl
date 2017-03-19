@@ -2,33 +2,12 @@
 	{{with .PageData}}
 
 	<div class="container outer current-next">
-    	<div class="container">
+	<div class="container">
 
 			{{template "current_and_next" .}}
 
+      {{template "banner" .}}
 
-			<div class="row index-banner">
-	  		<div id="index-banner-carousel" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner" role="listbox">
-          {{range $index, $Banners := .Banners}}
-          
-          <div class="item {{ if eq $index 0 }} active {{end}}">
-          	<a href="{{$Banners.Target}}">
-            	<img src="https://ury.org.uk{{$Banners.URL}}" alt="{{$Banners.Alt}}">
-            </a>
-          </div>
-          {{end}}
-        </div>
-        <a class="left carousel-control" href="#index-banner-carousel" role="button" data-slide="prev">
-          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#index-banner-carousel" role="button" data-slide="next">
-          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
-      </div>
-	  </div>
 
 		</div><!-- /.container -->
 	</div><!-- /outer containter -->
