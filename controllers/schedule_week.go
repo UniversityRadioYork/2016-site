@@ -169,7 +169,7 @@ type WeekScheduleRow struct {
 // It returns an error if the hour is invalid.
 func startOffsetToHour(hour int) (int, error) {
 	if 23 < hour || hour < 0 {
-		return 0, fmt.Errorf("startOffsetToHour: hour %i not between 0 and 23")
+		return 0, fmt.Errorf("startOffsetToHour: hour %d not between 0 and 23")
 	}
 	return (hour + URYStartHour) % 24, nil
 }
@@ -178,7 +178,7 @@ func startOffsetToHour(hour int) (int, error) {
 // It returns an error if the hour is invalid.
 func hourToStartOffset(hour int) (int, error) {
 	if 23 < hour || hour < 0 {
-		return 0, fmt.Errorf("hourToStartOffset: hour %i not between 0 and 23")
+		return 0, fmt.Errorf("hourToStartOffset: hour %d not between 0 and 23")
 	}
 	// Adding 24 to ensure we don't go negative.  Negative modulo is scary.
 	return ((hour + 24) - URYStartHour) % 24, nil
@@ -258,7 +258,7 @@ func calculateScheduleRows(items []structs.ScheduleItem) ([]WeekScheduleRow, err
 		return nil, err
 	}
 	if 23 < sOffset || sOffset < 0 || 23 < fOffset || fOffset < 0 || fOffset < sOffset {
-		return nil, fmt.Errorf("calculateScheduleRows: row boundaries %i to %i are invalid", sOffset, fOffset)
+		return nil, fmt.Errorf("calculateScheduleRows: row boundaries %d to %d are invalid", sOffset, fOffset)
 	}
 
 	// Go through each hour, culling ones before the boundaries, and adding on-the-hour minute marks to the others.
