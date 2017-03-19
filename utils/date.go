@@ -11,13 +11,13 @@ import (
 //
 
 // The hour of the day (local time) at which the scheduled day begins.
-const StartHour = 6
+const startHour = 6
 
 // StartOfDayOn gets the schedule start-of-day on a given date.
-// This is in terms of StartHour.
+// This is in terms of startHour.
 func StartOfDayOn(date time.Time) time.Time {
 	y, m, d := date.Date()
-	return time.Date(y, m, d, StartHour, 0, 0, 0, time.Local)
+	return time.Date(y, m, d, startHour, 0, 0, 0, time.Local)
 }
 
 // StartOffsetToHour takes a number of hours since the last day start (0-23) and gives the actual hour.
@@ -26,7 +26,7 @@ func StartOffsetToHour(hour int) (int, error) {
 	if 23 < hour || hour < 0 {
 		return 0, fmt.Errorf("StartOffsetToHour: hour %d not between 0 and 23")
 	}
-	return (hour + StartHour) % 24, nil
+	return (hour + startHour) % 24, nil
 }
 
 // HourToStartOffset takes an hour (0-23) and gives the number of hours elapsed since the last day start.
@@ -36,7 +36,7 @@ func HourToStartOffset(hour int) (int, error) {
 		return 0, fmt.Errorf("HourToStartOffset: hour %d not between 0 and 23")
 	}
 	// Adding 24 to ensure we don't go negative.  Negative modulo is scary.
-	return ((hour + 24) - StartHour) % 24, nil
+	return ((hour + 24) - startHour) % 24, nil
 }
 
 //
