@@ -11,16 +11,8 @@ import (
 	"log"
 	"net/http"
 	"sort"
-	"strconv"
 	"time"
 )
-
-const URYStartHour = 6
-
-//
-// Date manipulation functions
-// TODO(CaptainHayashi): move
-//
 
 // weekFromVars extracts the year, and week strings from vars.
 func weekFromVars(vars map[string]string) (string, string, error) {
@@ -54,91 +46,6 @@ func weekdayFromVars(vars map[string]string) (string, string, string, error) {
 	return y, w, d, nil
 }
 
-// parseIsoWeek parses an ISO weekday from year, week, and weekday strings.
-// It performs bounds checking.
-func parseIsoWeek(year, week, weekday string) (int, int, time.Weekday, error) {
-	y, err := strconv.Atoi(year)
-	if err != nil {
-		return 0, 0, 0, err
-	}
-	if y < 0 {
-		return 0, 0, 0, fmt.Errorf("Invalid year: %d", y)
-	}
-
-	w, err := strconv.Atoi(week)
-	if err != nil {
-		return 0, 0, 0, err
-	}
-	if w < 1 || 53 < w {
-		return 0, 0, 0, fmt.Errorf("Invalid week: %d", w)
-	}
-
-	// Two-stage conversion: first to int, then to Weekday.
-	// Go treats Sunday as day 0: we must correct this grave mistake.
-	dI, err := strconv.Atoi(weekday)
-	if err != nil {
-		return 0, 0, 0, err
-	}
-	if dI < 1 || 7 < dI {
-		return 0, 0, 0, fmt.Errorf("Invalid day: %d", dI)
-	}
-
-	var d time.Weekday
-	if dI == 7 {
-		d = time.Sunday
-	} else {
-		d = time.Weekday(dI)
-	}
-
-	return y, w, d, nil
-}
-
-// isoWeekToDate interprets year, week, and weekday strings as an ISO weekday.
-// The time is set to local midnight.
-func isoWeekToDate(year, week int, weekday time.Weekday) (time.Time, error) {
-	// This is based on the calculation given at:
-	// https://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
-
-	// We need to find the first week in the year.
-	// This always contains the 4th of January, so find that, and get
-	// ISOWeek on it.
-	fj := time.Date(year, time.January, 4, 0, 0, 0, 0, time.Local)
-
-	// Correct Go's stupid Sunday is 0 decision, making the weekdays ISO 8601 compliant
-	intWeekday := int(weekday)
-	if intWeekday == 0 {
-		intWeekday = 7
-	}
-	fjWeekday := int(fj.Weekday())
-	if fjWeekday == 0 {
-		fjWeekday = 7
-	}
-
-	// Sanity check to make sure time (and our intuition) is still working.
-	fjYear, fjWeek := fj.ISOWeek()
-	if fjYear != year {
-		return time.Time{}, fmt.Errorf("ISO weekday year %d != calendar year %d!", fjYear, year)
-	}
-	if fjWeek != 1 {
-		return time.Time{}, fmt.Errorf("ISO weekday week of 4 Jan (%d) not week 1!", fjWeek)
-	}
-
-	// The ISO 8601 ordinal date, which may belong to the next or previous
-	// year.
-	ord := (week * 7) + intWeekday - (fjWeekday + 3)
-
-	// The ordinal date is just the number of days since 1 Jan y plus one,
-	// so calculate the year from that.
-	oj := time.Date(year, time.January, 1, 0, 0, 0, 0, time.Local)
-	return oj.AddDate(0, 0, ord-1), nil
-}
-
-// uryStartOfDayOn gets the URY start of day on a given date.
-func uryStartOfDayOn(date time.Time) time.Time {
-	y, m, d := date.Date()
-	return time.Date(y, m, d, URYStartHour, 0, 0, 0, time.Local)
-}
-
 //
 // Week schedule algorithm
 // TODO(CaptainHayashi): move?
@@ -165,28 +72,9 @@ type WeekScheduleRow struct {
 	Cells []WeekScheduleCell
 }
 
-// startOffsetToHour takes a number of hours since the last URY start (0-23) and gives the actual hour.
-// It returns an error if the hour is invalid.
-func startOffsetToHour(hour int) (int, error) {
-	if 23 < hour || hour < 0 {
-		return 0, fmt.Errorf("startOffsetToHour: hour %d not between 0 and 23")
-	}
-	return (hour + URYStartHour) % 24, nil
-}
-
-// hourToStartOffset takes an hour (0-23) and gives the number of hours elapsed since the last URY start.
-// It returns an error if the hour is invalid.
-func hourToStartOffset(hour int) (int, error) {
-	if 23 < hour || hour < 0 {
-		return 0, fmt.Errorf("hourToStartOffset: hour %d not between 0 and 23")
-	}
-	// Adding 24 to ensure we don't go negative.  Negative modulo is scary.
-	return ((hour + 24) - URYStartHour) % 24, nil
-}
-
 // showStraddlesDay checks whether a show's start and finish cross over the boundary of a URY day.
 func showStraddlesDay(start, finish time.Time) bool {
-	nextDayStart := uryStartOfDayOn(start.AddDate(0, 0, 1))
+	nextDayStart := utils.StartOfDayOn(start.AddDate(0, 0, 1))
 	return finish.After(nextDayStart)
 }
 
@@ -209,7 +97,7 @@ func calculateScheduleBoundaries(items []structs.ScheduleItem) (sOffset, fOffset
 		finish := s.GetFinish()
 		if !s.IsSustainer() {
 			// Any show that isn't a sustainer affects the culling boundaries.
-			
+
 			if showStraddlesDay(start, finish) {
 				// A show that straddles the day crosses over from the end of a day to the start of the day.
 				// This means that we saturate the culling boundaries.
@@ -221,16 +109,16 @@ func calculateScheduleBoundaries(items []structs.ScheduleItem) (sOffset, fOffset
 
 			// Otherwise, if its start/finish as offsets from start time are outside the current boundaries, update them.
 			so := 0
-			so, err = hourToStartOffset(start.Hour())
+			so, err = utils.HourToStartOffset(start.Hour())
 			if err != nil {
-				return 
+				return
 			}
 			if so < sOffset {
 				sOffset = so
 			}
 
 			fo := 0
-			fo, err = hourToStartOffset(finish.Hour())
+			fo, err = utils.HourToStartOffset(finish.Hour())
 			if err != nil {
 				return
 			}
@@ -247,10 +135,9 @@ func calculateScheduleBoundaries(items []structs.ScheduleItem) (sOffset, fOffset
 func calculateScheduleRows(items []structs.ScheduleItem) ([]WeekScheduleRow, error) {
 	// Internally, we use a 24-hour array to store our decisions.
 	rows := make([]struct {
-		MinuteMarks     map[int]bool
-		Cull            bool
+		MinuteMarks map[int]bool
+		Cull        bool
 	}, 24)
-
 
 	// Now decide which rows to cull by calculating boundaries, then marking the rows outside of the boundaries.
 	sOffset, fOffset, err := calculateScheduleBoundaries(items)
@@ -264,7 +151,7 @@ func calculateScheduleRows(items []structs.ScheduleItem) ([]WeekScheduleRow, err
 	// Go through each hour, culling ones before the boundaries, and adding on-the-hour minute marks to the others.
 	// Boundaries are inclusive, so cull only things outside of them.
 	for i := 0; i < 24; i++ {
-		ri, err := startOffsetToHour(i)
+		ri, err := utils.StartOffsetToHour(i)
 		if err != nil {
 			return nil, err
 		}
@@ -275,7 +162,7 @@ func calculateScheduleRows(items []structs.ScheduleItem) ([]WeekScheduleRow, err
 		}
 	}
 	// Calculate the minute marks from non-on-the-hour show starts now.
-	for _, item := range(items) {
+	for _, item := range items {
 		h := item.GetStart().Hour()
 		if !rows[h].Cull {
 			rows[item.GetStart().Hour()].MinuteMarks[item.GetStart().Minute()] = true
@@ -285,7 +172,7 @@ func calculateScheduleRows(items []structs.ScheduleItem) ([]WeekScheduleRow, err
 	// Now translate the above into a row table.
 	wsrs := []WeekScheduleRow{}
 	for i := 0; i < 24; i++ {
-		ri, err := startOffsetToHour(i)
+		ri, err := utils.StartOffsetToHour(i)
 		if err != nil {
 			return nil, err
 		}
@@ -390,13 +277,13 @@ func (sc *ScheduleWeekController) GetByYearWeek(w http.ResponseWriter, r *http.R
 		return
 	}
 
-	yr, wk, dy, err := parseIsoWeek(year, week, "1")
+	yr, wk, dy, err := utils.ParseIsoWeek(year, week, "1")
 	if err != nil {
 		log.Println(err)
 		return
 	}
 
-	startDate, err := isoWeekToDate(yr, wk, dy)
+	startDate, err := utils.IsoWeekToDate(yr, wk, dy)
 	if err != nil {
 		log.Println(err)
 		return
@@ -417,9 +304,9 @@ func (sc *ScheduleWeekController) GetByYearWeek(w http.ResponseWriter, r *http.R
 		flat = append(flat, timeslots[d]...)
 	}
 
-	// Now start filling from URY start to URY start.
-	startUry := uryStartOfDayOn(startDate)
-	finishUry := uryStartOfDayOn(finishDate)
+	// Now start filling from day start to day finish.
+	startUry := utils.StartOfDayOn(startDate)
+	finishUry := utils.StartOfDayOn(finishDate)
 	filled, err := structs.FillTimeslotSlice(startUry, finishUry, flat)
 	if err != nil {
 		log.Println(err)
