@@ -95,6 +95,7 @@ footer {
 .scroll-horiz {
   overflow-x: scroll;
   flex-wrap: nowrap;
+  -webkit-overflow-scrolling: touch;
 }
 
 
