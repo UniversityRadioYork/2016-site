@@ -5,8 +5,13 @@ SASS_SRC    := $(shell find sass/ -name '*.scss')
 MAIN_FILE   := sass/main.scss
 OUTPUT_FILE := public/css/main.scss.css
 
-all: build-sass
-	go build
+SOURCES := $(shell find . -name '*.go')
+BINARY  := 2016-site
+
+all: build build-sass
+
+build: $(SOURCES)
+	go build -o $(BINARY)
 
 run: all
 	./2016-site
