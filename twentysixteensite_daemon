@@ -2,7 +2,7 @@
 
 # $FreeBSD$
 #
-# PROVIDE: 2016-site
+# PROVIDE: twentysixteensite
 # KEYWORD: shutdown
 #
 # This file runs 2016-site as a service on a FreeBSD system.
@@ -11,16 +11,16 @@
 # Add the following lines to /etc/rc.conf.local or /etc/rc.conf
 # to enable this service:
 #
-# 2016-site_enable (bool): Set to NO by default.
+# twentysixteensite_enable (bool): Set to NO by default.
 #                  Set it to YES to enable hawk.
 
 . /etc/rc.subr
 
-name=2016-site
-rcvar=2016-site_enable
-2016-site_enable=${2016-site_enable:-"NO"}
+name=twentysixteensite
+rcvar=twentysixteensite_enable
+twentysixteensite_enable=${twentysixteensite_enable:-"NO"}
 
-2016-site_chdir='/usr/local/www/2016-site' # TODO: This shouldn't be necessary
+twentysixteensite_chdir='/usr/local/www/2016-site' # TODO: This shouldn't be necessary
 
 command='/usr/local/www/2016-site/2016-site'
 pidfile='/var/run/2016-site.pid'
