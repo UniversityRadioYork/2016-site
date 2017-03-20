@@ -88,51 +88,13 @@ footer {
 .index-videos {
   background: $secondary-color;
   color: #fff;
-  .scroll-right {
-    background-color: $primary-color;
-  }
 
 }
-.index-uryplayer, .index-videos{
-  padding-right:0;
-  .scroll-container {
-    .scroll-body, .scroll-right {
-      display: table-cell;
-      vertical-align: middle;
-    }
-    .scroll-body {
-      white-space: nowrap;
-      position: relative;
-      z-index: 1;
-      [class*="row"] {
-        overflow-x: scroll;
-        overflow-y: hidden;
-        margin-right:-70px;
-      }
-      [class*="col"] {
-        display: inline-block;
-        float: none; /* Very important */
-        padding-right:0;
-      }
-      [class*="col"]:last-of-type {
-        margin-right:95px;
-      }
-      .thumbnail {
-        border-color:black;
-        padding:0;
-      }
-    }
-    .scroll-right {
-        padding: 0 10px;
-        width:80px;
-        font-size: 100px;
-        font-weight: 900;
-        color: white;
-        position: relative;
-        z-index: 2;
-        opacity: 0.7;
-      }
-  }
+
+/* Scroll horizontal, used for horizontal scrolling rows */
+.scroll-horiz {
+  overflow-x: scroll;
+  flex-wrap: nowrap;
 }
 
 
@@ -152,9 +114,6 @@ footer {
       padding:10px;
       white-space: normal;
     }
-  }
-  .scroll-right {
-    background-color: $secondary-color;
   }
 }
 
