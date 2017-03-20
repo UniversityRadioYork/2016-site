@@ -41,7 +41,7 @@ func (ic *IndexController) Get(w http.ResponseWriter, r *http.Request) {
 		Banners:        banners,
 	}
 
-	err = utils.RenderTemplate(w, ic.config.PageContext, data, "index.tmpl", "elements/current_and_next.tmpl")
+	err = utils.RenderTemplate(w, ic.config.PageContext, data, "index.tmpl", "elements/current_and_next.tmpl", "elements/banner.tmpl")
 	if err != nil {
 		log.Println(err)
 		return
