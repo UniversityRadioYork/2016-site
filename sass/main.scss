@@ -4,12 +4,39 @@
 @import "elements/elements";
 
 
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+html {
+  font-size: 12px;
+}
+
+@include media-breakpoint-up(sm) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  html {
+    font-size: 16px;
+  }
+}
 
 /* Space out content a bit */
 
 body {
   padding-top: 49px;
-  font-family: 'Raleway', sans-serif;
+
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -36,23 +63,14 @@ body {
 
 /* Custom page footer */
 
-.footer {
-  padding: 20px 30px;
-  font-size: 18px;
+footer {
   color: #777;
-  border-top: 3px solid #ddd;
   background: $content-bg-1;
-}
-.navbar-container {
-    max-width:1200px;
-    margin: 0 auto;
-    padding-right: 15px;
-}
-.navbar {
-  background: $primary-color;
-  img {
-    margin-top: -7px;
+
+  .row {
+    min-height: 3em;
   }
+
 }
 
 .index-infobar {
@@ -140,57 +158,25 @@ body {
   }
 }
 
-/* Page 1 is the Shows/People template style of page. */
-.page1-content {
+/* User page styling. */
+.bg-off-white {
   background: $content-bg-1;
 }
-.page1-title {
-  color: $primary-color;
-  font-size: 40px;
-  font-weight: 300;
-}
-.page1-subtitle {
-  color: $primary-color;
-  font-weight: 300;
-}
-.page1-sidebar {
-  padding: 0 30px;
-  color: #032e59;
-  text-align: center;
-}
-.page1-sidebar h3 {
-  font-weight: 300;
-  font-size: 18px;
-  display: inline-block;
-  padding: 15px 10px;
-  border-bottom: #d6d6d6 2px solid;
-}
-.page1-sidebar h3:first-of-type {
-  border-right: #d6d6d6 2px solid;
-}
-.page1-image {
+.user-img {
   border: #e1e1e1 7px solid;
-  margin: -100px auto 20px auto;
-  max-width: 85%;
+  margin-top: -3em;
+  max-width: 100%;
+  object-fit: cover;
 }
-.page1-sidebar .row div {
-  padding: 5px;
+.user-bio-container {
+  background: $secondary-color;
+  color: #fff;
 }
-.page1-bio {
-  .page1-title {
-    padding: 0 0 10px 40px;
-  }
-  .page1-bio-box {
-    background: $secondary-color;
-    color: #fff;
-    padding: 10px 40px 40px 40px;
-  }
-}
-.page1-credits-people {
+.user-credits-people {
   background-color: $primary-color;
   color: white;
 }
-.page1-on-demand {
+.user-on-demand {
   background-color: $secondary-color;
   color: white;
 }
@@ -233,12 +219,6 @@ body {
   .jumbotron {
     border-bottom: 0;
   }
-  .container.outer {
-    width: 100%;
-  }
-  .container {
-    width: 600px;
-  }
   .mobile-only {
     display: none;
   }
@@ -257,16 +237,6 @@ body {
   padding: 14px 24px;
   font-size: 21px;
 }
-@media (min-width: 982px) {
-  .container {
-    width: 800px;
-  }
-}
-@media (min-width: 1280px) {
-  .container {
-    width: 1200px;
-  }
-}
 @media screen and (max-width: 767px) {
   .mobile-hide {
     display: none;
@@ -274,15 +244,9 @@ body {
   .header-large {
     height: 400px;
   }
-  .page1-profile {
+  .user-profile {
     margin-top: -320px;
     margin-bottom: 30px;
-  }
-  .container.outer {
-    width: 100%;
-  }
-  .container {
-    width: 90%;
   }
   .mobile-col-right {
     width: 66.66666666%;
@@ -292,4 +256,18 @@ body {
   .banner {
     display: none;
   }
+}
+
+/* Show/Season/Timeslot specific*/
+
+.mixcloud {
+  background: #FCFCFC;
+  color: #555;
+  border: 1px solid #D7D7D7;
+}
+.show-img {
+  @extend .user-img;
+}
+.tag {
+  font-size:0.8em;
 }

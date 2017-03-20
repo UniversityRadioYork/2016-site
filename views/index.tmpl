@@ -1,31 +1,25 @@
 {{define "content"}}
 	{{with .PageData}}
 
-	<div class="container outer current-next">
-	<div class="container">
-
+	<div class="container-fluid current-next">
+	  <div class="container">
 			{{template "current_and_next" .}}
-
       {{template "banner" .}}
-
-
-		</div><!-- /.container -->
-	</div><!-- /outer containter -->
-
-	 <div class="container outer index-infobar">
-
-	  <div class="row">
-	  	<div class="col-lg-1"></div>
-        <div class="col-lg-4">
+    </div>
+  </div>
+	 <div class="container-fluid index-infobar">
+   <div class="container">
+   <div class="row justify-content-center">
+        <div class="col-md-3 col-lg-3 col-xl-3">
           <h2>Send a Message</h2>
           <hr>
           <form id="sendMessage" action="">
-          		<textarea name="body">Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</textarea>
-          		<button type="submit">Send</button>
+          		<textarea class="form-control" rows="5" name="body">Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</textarea>
+          		<button type="submit" class="btn btn-primary">Send</button>
           </form>
         </div>
 
-        <div class="col-lg-6">
+        <div class="col-lg-9">
           <h2>Get Involved</h2>
           <hr>
           <div class="row">
@@ -43,9 +37,9 @@
           </div>
 
         </div>
-        <div class="col-lg-1"></div>
       </div>
-
+      </div>
+      </div>
     </div> <!-- /outer containter -->
     
     <div class="container outer index-schedule">
