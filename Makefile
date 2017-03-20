@@ -6,9 +6,10 @@ MAIN_FILE   := sass/main.scss
 OUTPUT_FILE := public/css/main.scss.css
 
 all: build-sass
+	go build
 
 run: all
-	go run *.go
+	./2016-site
 
 build-sass: $(SASS_SRC)
 	$(SASS_COMPILER) $(MAIN_FILE) $(OUTPUT_FILE)
