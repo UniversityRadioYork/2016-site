@@ -11,7 +11,7 @@
 }
 
 html {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 @include media-breakpoint-up(sm) {
@@ -229,4 +229,8 @@ footer {
 }
 .tag {
   font-size:0.8em;
+}
+
+.card {
+  color: #555;
 }
