@@ -94,6 +94,7 @@ footer {
 /* Scroll horizontal, used for horizontal scrolling rows */
 .scroll-horiz {
   overflow-x: scroll;
+  overflow-y: hidden; 
   flex-wrap: nowrap;
   -webkit-overflow-scrolling: touch;
 }
