@@ -22,10 +22,12 @@ twentysixteensite_enable=${twentysixteensite_enable:-"NO"}
 
 twentysixteensite_chdir='/usr/local/www/2016-site' # TODO: This shouldn't be necessary
 
-command='/usr/local/www/2016-site/2016-site'
 pidfile='/var/run/2016-site.pid'
+logfile='/var/log/2016-site.log'
 
-start_cmd="/usr/sbin/daemon -u website -p ${pidfile} ${command}"
+command='/usr/local/www/2016-site/2016-site'
+twentysixteensite_program='/usr/sbin/daemon'
+command_args="-P ${pidfile} ${command} >> /var/log/2016-site.log"
 
 load_rc_config "$name"
 run_rc_command "$1"
