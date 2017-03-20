@@ -11,7 +11,7 @@ BINARY  := 2016-site
 all: build build-sass
 
 build: $(SOURCES)
-	go build -o $(BINARY)
+	go build
 
 run: all
 	./2016-site
