@@ -1,4 +1,4 @@
-@import "varaibles";
+@import "base/base";
 @import "vendor/vendor";
 @import "partials/partials";
 @import "elements/elements";
@@ -91,7 +91,7 @@ footer {
   .scroll-right {
     background-color: $primary-color;
   }
-  
+
 }
 .index-uryplayer, .index-videos{
   padding-right:0;
@@ -106,7 +106,7 @@ footer {
       z-index: 1;
       [class*="row"] {
         overflow-x: scroll;
-        overflow-y: hidden; 
+        overflow-y: hidden;
         margin-right:-70px;
       }
       [class*="col"] {
@@ -168,7 +168,6 @@ footer {
   max-width: 100%;
   object-fit: cover;
 }
-
 .user-bio-container {
   background: $secondary-color;
   color: #fff;
@@ -181,27 +180,27 @@ footer {
   background-color: $secondary-color;
   color: white;
 }
-	.page404 {
-	 text-align:center;
-	 margin: 0 auto;
-	}
-	.page404 h1 {
-		font-size:200px;
-		padding-top: 25vw;
-		padding-bottom: 25vw;
-	}
-	.page404 .spinner {
-		display:inline-block;
-		width:160px;
-		height:160px;
-		font-size:50px;
-		text-align:center;
-		-webkit-animation:spin 4s linear infinite;
+.page404 {
+  text-align:center;
+  margin: 0 auto;
+  h1 {
+    font-size:25vmin;
+    padding-top: 25vh;
+    padding-bottom: 25vh;
+  }
+  .spinner {
+    display:inline-block;
+    width:25vmin;
+    height:25vmin;
+    position: relative;
+    top: 6vmin;
+    -webkit-animation:spin 4s linear infinite;
     -moz-animation:spin 4s linear infinite;
     animation:spin 4s linear infinite;
-    background: url("/images/URYrecord.png") center center;
+    background: url("/images/URYRecord.png") center center;
     background-size: contain;
-	}
+  }
+}
 
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
 @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
@@ -254,11 +253,10 @@ footer {
     float: right;
     padding: 30px 15px;
   }
-  .index-banner {
+  .banner {
     display: none;
   }
 }
-
 
 /* Show/Season/Timeslot specific*/
 

@@ -1,4 +1,4 @@
-package web
+package main
 
 import (
 	"github.com/UniversityRadioYork/2016-site/controllers"
