@@ -189,6 +189,15 @@ footer {
 .bg-third-color {
   background: $third-color;
 }
+.bg-transparent {
+  background: none;
+}
+.key-contacts .card {
+  height: 100%;
+  a {
+    word-wrap: break-word;
+  }
+}
 .slash-divider {
   font-size:3em;
   vertical-align: middle;
@@ -264,10 +273,6 @@ footer {
 
 .container-narrow>hr {
   margin: 30px 0;
-}
-
-.card-deck.transparent .card {
-  background: none;
 }
 
 /* Main marketing message and sign up button */
