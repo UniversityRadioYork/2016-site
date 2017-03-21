@@ -85,24 +85,6 @@ footer {
   padding:10em 0;
 }
 
-.index-infobar {
-  background: $content-bg-1;
-  padding: 3em 0;
-  .row {
-    margin-right: auto;
-    margin-left: auto;
-  }
-}
-.index-infobar hr {
-  border-color: $primary-color;
-}
-
-.index-videos {
-  background: $secondary-color;
-  color: #fff;
-
-}
-
 /* Scroll horizontal, used for horizontal scrolling rows */
 .scroll-horiz {
   overflow-x: scroll;
@@ -111,25 +93,6 @@ footer {
   -webkit-overflow-scrolling: touch;
 }
 
-
-.index-uryplayer {
-  background: $third-color;
-  color: #fff;
-  .thumbnail {
-    background-color: $primary-color;
-    padding: 0;
-    .podcast-title {
-      margin:0;
-      padding:10px;
-      font-size: 24px;
-    }
-    p {
-      color: #fff;
-      padding:10px;
-      white-space: normal;
-    }
-  }
-}
 .key-contacts .card {
   height: 100%;
   a {
