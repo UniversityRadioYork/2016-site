@@ -73,6 +73,11 @@ footer {
 
 }
 
+.container-padded {
+  padding-top:2em;
+  padding-bottom:2em;
+}
+
 .index-infobar {
   background: $content-bg-1;
   padding: 3em 0;
@@ -162,9 +167,35 @@ footer {
 .bg-off-white {
   background: $content-bg-1;
 }
+.bg-primary-color, .bg-secondary-color, .bg-third-color {
+  color: #fff;
+  a {
+    color: #6Af
+  }
+}
+.bg-primary-color {
+  background: $primary-color;
+}
+.bg-secondary-color {
+  background: $secondary-color;
+}
+.bg-third-color {
+  background: $third-color;
+}
+.slash-divider {
+  font-size:3em;
+  vertical-align: middle;
+  font-family: sans-serif;
+  font-weight: 100;
+}
 .user-img {
   border: #e1e1e1 7px solid;
   margin-top: -3em;
+  max-width: 100%;
+  object-fit: cover;
+}
+.card .card-img-top.rounded-circle {
+  border: #e1e1e1 7px solid;
   max-width: 100%;
   object-fit: cover;
 }
@@ -223,8 +254,13 @@ footer {
     display: none;
   }
 }
+
 .container-narrow>hr {
   margin: 30px 0;
+}
+
+.card-deck.transparent .card {
+  background: none;
 }
 
 /* Main marketing message and sign up button */

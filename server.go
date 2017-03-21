@@ -48,7 +48,9 @@ func NewServer(c *structs.Config) (*Server, error) {
 	getRouter.HandleFunc("/people/{id:[0-9]+}/", pc.Get)
 
 	staticC := controllers.NewStaticController(c)
-	getRouter.HandleFunc("/about/", staticC.Get)
+	getRouter.HandleFunc("/about/", staticC.GetAbout)
+	getRouter.HandleFunc("/contact/", staticC.GetContact)
+	getRouter.HandleFunc("/getinvolved/", staticC.GetInvolved)
 
 	// End routes
 

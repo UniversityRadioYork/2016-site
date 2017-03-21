@@ -8,7 +8,7 @@ import (
 	"github.com/UniversityRadioYork/2016-site/utils"
 )
 
-// StaticController is the controller for the 404 error page.
+// StaticController is the controller for the static pages.
 type StaticController struct {
 	Controller
 }
@@ -19,9 +19,27 @@ func NewStaticController(c *structs.Config) *StaticController {
 	return &StaticController{Controller{config: c}}
 }
 
-// Get handles the HTTP GET request r for the 404 page, writing to w.
-func (staticC *StaticController) Get(w http.ResponseWriter, r *http.Request) {
+// GetAbout handles the HTTP GET request r for the About page, writing to w.
+func (staticC *StaticController) GetAbout(w http.ResponseWriter, r *http.Request) {
 	err := utils.RenderTemplate(w, staticC.config.PageContext, nil, "about.tmpl")
+	if err != nil {
+		log.Println(err)
+		return
+	}
+}
+
+// GetContact handles the HTTP GET request r for the Contact page, writing to w.
+func (staticC *StaticController) GetContact(w http.ResponseWriter, r *http.Request) {
+	err := utils.RenderTemplate(w, staticC.config.PageContext, nil, "contact.tmpl")
+	if err != nil {
+		log.Println(err)
+		return
+	}
+}
+
+// GetInvolved handles the HTTP GET request r for the Get Involved page, writing to w.
+func (staticC *StaticController) GetInvolved(w http.ResponseWriter, r *http.Request) {
+	err := utils.RenderTemplate(w, staticC.config.PageContext, nil, "getinvolved.tmpl")
 	if err != nil {
 		log.Println(err)
 		return
