@@ -1,19 +1,19 @@
 .bg-off-white {
   background: $content-bg-1;
 }
-.bg-primary-color, .bg-secondary-color, .bg-third-color {
+.bg-primary, .bg-secondary, .bg-third {
   color: #fff;
   a {
     color: #6Af
   }
 }
-.bg-primary-color {
+.bg-primary {
   background: $primary-color;
 }
-.bg-secondary-color {
+.bg-secondary {
   background: $secondary-color;
 }
-.bg-third-color {
+.bg-third {
   background: $third-color;
 }
 .bg-transparent {
