@@ -1,5 +1,5 @@
-@import "base/base";
 @import "vendor/vendor";
+@import "base/base";
 @import "partials/partials";
 @import "elements/elements";
 
@@ -169,29 +169,6 @@ footer {
     background-color: $secondary-color;
   }
 }
-
-/* User page styling. */
-.bg-off-white {
-  background: $content-bg-1;
-}
-.bg-primary-color, .bg-secondary-color, .bg-third-color {
-  color: #fff;
-  a {
-    color: #6Af
-  }
-}
-.bg-primary-color {
-  background: $primary-color;
-}
-.bg-secondary-color {
-  background: $secondary-color;
-}
-.bg-third-color {
-  background: $third-color;
-}
-.bg-transparent {
-  background: none;
-}
 .key-contacts .card {
   height: 100%;
   a {
@@ -204,6 +181,7 @@ footer {
   font-family: sans-serif;
   font-weight: 100;
 }
+/* User page styling. */
 .user-img {
   border: #e1e1e1 7px solid;
   margin-top: -3em;
