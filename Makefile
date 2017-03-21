@@ -20,6 +20,6 @@ build-sass: $(SASS_SRC)
 	$(SASS_COMPILER) $(MAIN_FILE) $(OUTPUT_FILE)
 
 clean:
-	rm -f $(OUTPUT_FILE)
+	rm -f $(OUTPUT_FILE) $(BINARY)
 
 .PHONY: build-sass run clean
