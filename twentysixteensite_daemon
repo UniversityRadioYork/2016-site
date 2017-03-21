@@ -27,7 +27,7 @@ logfile='/var/log/2016-site.log'
 
 command='/usr/local/www/2016-site/2016-site'
 twentysixteensite_program='/usr/sbin/daemon'
-command_args="-P ${pidfile} ${command} >> /var/log/2016-site.log"
+command_args="-P ${pidfile} ${command} >> /var/log/2016-site.log 2>&1"
 
 load_rc_config "$name"
 run_rc_command "$1"
