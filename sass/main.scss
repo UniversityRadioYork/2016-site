@@ -1,0 +1,227 @@
+@import "vendor/vendor";
+@import "base/base";
+@import "partials/partials";
+@import "elements/elements";
+
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+html {
+  font-size: 16px;
+}
+
+@include media-breakpoint-up(sm) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  html {
+    font-size: 16px;
+  }
+}
+
+/* Space out content a bit */
+
+body {
+  padding-top: 49px;
+
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+
+.header, .footer {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+/* Custom page header */
+
+.header {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+/* Make the masthead heading the same height as the navigation */
+
+.header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
+}
+
+/* Custom page footer */
+
+footer {
+  color: #777;
+  background: $content-bg-1;
+
+  .row {
+    min-height: 3em;
+  }
+
+}
+
+.container-padded {
+  padding-top:2em;
+  padding-bottom:2em;
+}
+
+.banner-2 {
+  background: url('/images/bg-banner-2.jpg') center center no-repeat;
+  background-size: cover;
+  color: white;
+  padding:10em 0;
+}
+
+/* Scroll horizontal, used for horizontal scrolling rows */
+.scroll-horiz {
+  overflow-x: scroll;
+  overflow-y: hidden; 
+  flex-wrap: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+.key-contacts .card {
+  height: 100%;
+  a {
+    word-wrap: break-word;
+  }
+}
+.slash-divider {
+  font-size:3em;
+  vertical-align: middle;
+  font-family: sans-serif;
+  font-weight: 100;
+}
+/* User page styling. */
+.user-img {
+  border: #e1e1e1 7px solid;
+  margin-top: -3em;
+  max-width: 100%;
+  object-fit: cover;
+}
+.card .card-img-top.rounded-circle {
+  border: #e1e1e1 7px solid;
+  max-width: 100%;
+  object-fit: cover;
+}
+.user-bio-container {
+  background: $secondary-color;
+  color: #fff;
+}
+.user-credits-people {
+  background-color: $primary-color;
+  color: white;
+}
+.user-on-demand {
+  background-color: $secondary-color;
+  color: white;
+}
+.page404 {
+  text-align:center;
+  margin: 0 auto;
+  h1 {
+    font-size:25vmin;
+    padding-top: 25vh;
+    padding-bottom: 25vh;
+  }
+  .spinner {
+    display:inline-block;
+    width:25vmin;
+    height:25vmin;
+    position: relative;
+    top: 6vmin;
+    -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+    background: url("/images/URYRecord.png") center center;
+    background-size: contain;
+  }
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+/* Responsive: Portrait tablets and up */
+
+@media screen and (min-width: 768px) {
+  /* Remove the padding we set earlier */
+  .header {
+    padding-right: 0;
+    padding-left: 0;
+    margin-bottom: 30px;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+  }
+  .mobile-only {
+    display: none;
+  }
+}
+
+.container-narrow>hr {
+  margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+
+.jumbotron {
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+}
+.jumbotron .btn {
+  padding: 14px 24px;
+  font-size: 21px;
+}
+@media screen and (max-width: 767px) {
+  .mobile-hide {
+    display: none;
+  }
+  .header-large {
+    height: 400px;
+  }
+  .user-profile {
+    margin-top: -320px;
+    margin-bottom: 30px;
+  }
+  .mobile-col-right {
+    width: 66.66666666%;
+    float: right;
+    padding: 30px 15px;
+  }
+  .banner {
+    display: none;
+  }
+}
+
+/* Show/Season/Timeslot specific*/
+
+.mixcloud {
+  background: #FCFCFC;
+  color: #555;
+  border: 1px solid #D7D7D7;
+}
+.show-img {
+  @extend .user-img;
+}
+.tag {
+  font-size:0.8em;
+}
+
+.podcast.card {
+  color: #555;
+}

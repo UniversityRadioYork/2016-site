@@ -48,7 +48,7 @@ func (ic *IndexController) Get(w http.ResponseWriter, r *http.Request) {
 		Sched4:         currentAndNext.Next[8:12],
 	}
 
-	err = utils.RenderTemplate(w, ic.config.PageContext, data, "index.tmpl", "elements/current_and_next.tmpl")
+	err = utils.RenderTemplate(w, ic.config.PageContext, data, "index.tmpl", "elements/current_and_next.tmpl", "elements/banner.tmpl")
 	if err != nil {
 		log.Println(err)
 		return

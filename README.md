@@ -2,15 +2,18 @@
 
 ## How to install ##
 
+Configuration for site is located in config.toml, and you'll need a
+[MyRadio](https://github.com/UniversityRadioYork/MyRadio) API key with the
+requisite permissions copied into a .myradio.key file in the same directory.
+
 ### Development ###
 
 #### Requirements ####
 
-You will need the following things installed:
- - [NodeJs](https://nodejs.org/en/ "NodeJs")
- - [Go 1.6](https://golang.org/ "Go")
- 
+Requires [Go 1.6](https://golang.org/) to compile and run, along with `sassc` to
+compile the SCSS files. You may use other SASS compilers if you wish, but be
+prepared for unexpected results.
+
 ```bash
-$ ./install.sh
-$ go run main.go
+$ make run # Builds scss files, and runs the server
 ```
