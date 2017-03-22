@@ -8,42 +8,13 @@
 	<div class="container-fluid bg-off-white">
 		<div class="container">
 		  <div class="row">
-<<<<<<< HEAD
-	        <div class="col-xs-12 col-sm-4 page1-sidebar">
-	        	<img class="img-responsive page1-image" src="
-								{{- if .Show.Photo -}}
-											https://ury.org.uk{{.Show.Photo}}
-								{{- else -}}
-											/images/show-current.png
-								{{- end -}}
-							" alt="
-								{{- .Show.Title}} Logo">
-	          	<h1 class="mobile-only">
-	          		{{- .Show.Title -}}
-	          	</h1>
-	          	<h3>Seasons: {{.NumSeasons}}</h3><h3>Episodes: {{.NumTimeslots}}</h3>
-	        </div>
-
-	        <div class="col-xs-12 col-sm-8">
-	          <h1 class="mobile-hide page1-title">
-	        	{{- .Show.Title -}}
-	          </h1>
-	          <hr>
-	          <!-- <div class="page1-bio-box">  Do we want the bio in a blue box? -->
-				  		<h2 class="page1-subtitle">Description</h2>
-				  		<p>
-								{{- html .Show.Description -}}
-							</p>
-
-			  		<!-- </div> -->
-=======
 	        <div class="col-12 col-lg-3">
 	        	<img class="img-fluid show-img" src="
 						{{if .Show.Photo}}
 									https://ury.org.uk{{.Show.Photo}}
 						{{else}}
 									/images/show-current.png
-						{{end}}		
+						{{end}}
 
 							" alt="{{.Show.Title}} Logo">
               <div class="row">
@@ -64,7 +35,6 @@
             <p>
 						  {{html .Show.Description}}
 						</p>
->>>>>>> development
 	        </div>
 	      </div>
 	    </div>
@@ -72,7 +42,7 @@
 	  <div class="container outer page1-credits-people">
 			<h2>Credits</h2>
 			<ul class="cards">
-				
+
 				<li class="cards__item">
 					<div class="card">
 						<div class="card__content">
@@ -86,8 +56,8 @@
 					</div>
 				</li>
 			</ul>
-	  	
-				
+
+
 
     </div> <!-- /outer containter -->
 
@@ -106,7 +76,7 @@
 								{{if ne .SeasonNum 0}}
 									<li class="timeslotFilterSeason">
 										<a data-SeasonID="{{.SeasonID}}">Seasion {{.SeasonNum}}: {{.FirstTime.Format "Monday, _2 Jan 2006 at 15:04"}} - {{.NumEpisodes.Value}} Episode(s)</a>
-										
+
 									</li>
 								{{end}}
 							{{end}}
@@ -141,13 +111,9 @@
 						{{end}}
 						</tbody>
 					</table>
-				</div>		
+				</div>
 
 		</div> <!-- /outer containter -->
-
-
-
-
 
 {{end}}
 {{end}}

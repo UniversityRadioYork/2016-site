@@ -2,15 +2,9 @@
 	{{with .CurrentAndNext}}
 		<div class="current-and-next row">
 			{{if .Current}}
-<<<<<<< HEAD
-				<div class="current-and-next-img">
-					<img src="{{if .Current.Photo}}https://ury.org.uk/{{.Current.Photo}}{{else}}/images/show-current.png{{end}}" alt="" />
-					<a href="https://ury.org.uk/listen" class="btn btn-lg btn-primary current-and-next-btn mobile-hide" title="Listen Live" onclick="window.open('http://ury.org.uk/live', 'radioplayer', 'height=665,width=380'); return false;">Listen Live</a>
-=======
 				<div class="col-4 col-lg-3 col-xl-2 p-0 current-and-next-img">
-					<img src="/images/show-current.png" alt="" />
+					<img src="{{if .Current.Photo}}https://ury.org.uk/{{.Current.Photo}}{{else}}/images/show-current.png{{end}}" alt="{{.Title}} show image." />
 					<a href="https://ury.org.uk/listen" class="btn btn-red listen-btn mobile-hide" title="Listen Live" onclick="window.open('http://ury.org.uk/live', 'radioplayer', 'height=665,width=380'); return false;">Listen Live</a>
->>>>>>> development
 				</div>
 				<div class="col-8 col-md p-2 pt-3 px-3 p-md-3 p-lg-4 current-and-next-now">
 					<h2>Now</h2>
