@@ -13,15 +13,14 @@
 # This is the config for the server
 [server]
 	address	= "localhost"
-	port 		= 3000
+	port    = 3000
 	timeout	= 0
 
-# This is data that will be passed into all mustache templates
+# This is data that will be passed into all templates
 [pageContext]
-	longName = "University Radio York"
+	longName  = "University Radio York"
 	shortName = "URY"
 
 	[[pageContext.pages]]
 		name = "Search"
-		url = "search/"
-
+		url  = "search/"
