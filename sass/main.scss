@@ -11,7 +11,7 @@
 }
 
 html {
-  font-size: 12px;
+  font-size: 16px;
 }
 
 @include media-breakpoint-up(sm) {
@@ -85,90 +85,14 @@ footer {
   padding:10em 0;
 }
 
-.index-infobar {
-  background: $content-bg-1;
-  padding: 3em 0;
-  .row {
-    margin-right: auto;
-    margin-left: auto;
-  }
-}
-.index-infobar hr {
-  border-color: $primary-color;
+/* Scroll horizontal, used for horizontal scrolling rows */
+.scroll-horiz {
+  overflow-x: scroll;
+  overflow-y: hidden; 
+  flex-wrap: nowrap;
+  -webkit-overflow-scrolling: touch;
 }
 
-.index-videos {
-  background: $secondary-color;
-  color: #fff;
-  .scroll-right {
-    background-color: $primary-color;
-  }
-
-}
-.index-uryplayer, .index-videos{
-  padding-right:0;
-  .scroll-container {
-    .scroll-body, .scroll-right {
-      display: table-cell;
-      vertical-align: middle;
-    }
-    .scroll-body {
-      white-space: nowrap;
-      position: relative;
-      z-index: 1;
-      [class*="row"] {
-        overflow-x: scroll;
-        overflow-y: hidden;
-        margin-right:-70px;
-      }
-      [class*="col"] {
-        display: inline-block;
-        float: none; /* Very important */
-        padding-right:0;
-      }
-      [class*="col"]:last-of-type {
-        margin-right:95px;
-      }
-      .thumbnail {
-        border-color:black;
-        padding:0;
-      }
-    }
-    .scroll-right {
-        padding: 0 10px;
-        width:80px;
-        font-size: 100px;
-        font-weight: 900;
-        color: white;
-        position: relative;
-        z-index: 2;
-        opacity: 0.7;
-      }
-  }
-}
-
-
-.index-uryplayer {
-  background: $third-color;
-  color: #fff;
-  .thumbnail {
-    background-color: $primary-color;
-    padding: 0;
-    .podcast-title {
-      margin:0;
-      padding:10px;
-      font-size: 24px;
-    }
-    p {
-      color: #fff;
-      padding:10px;
-      white-space: normal;
-    }
-  }
-  .scroll-right {
-    background-color: $secondary-color;
-  }
-}
 .key-contacts .card {
   height: 100%;
   a {
@@ -296,4 +220,8 @@ footer {
 }
 .tag {
   font-size:0.8em;
+}
+
+.podcast.card {
+  color: #555;
 }
