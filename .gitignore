@@ -28,3 +28,4 @@ _testmain.go
 2016-site
 public/css/*.scss.css
 .myradio.key
+config.toml
