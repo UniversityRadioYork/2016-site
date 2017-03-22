@@ -11,13 +11,10 @@
             <a href="#">Listen to more shows on URY On Demand</a>
           </div>
         </div>
-
-      </div>
+				{{end}}
+			</div>
     </div> <!-- /outer containter -->
-      {{end}}
-		  </div>
-	  </div>
-    <div class="container-fluid bg-off-white">
+    <div class="container-fluid container-padded bg-off-white">
       <div class="container">
         <div class="row">
           <div class="col-12 col-lg-3">
@@ -61,7 +58,7 @@
     </div> <!-- /outer containter -->
 
       {{if .Timeslot.Credits}}
-      <div class="container outer page1-credits-people">
+      <div class="container-fluid bg-secondary">
         <h2>Credits</h2>
         {{range .Timeslot.Credits}}
           <a href="/people/{{.User.Memberid}}/">{{.User.Fname}} {{.User.Sname}}</a> <br>
@@ -70,7 +67,7 @@
       </div> <!-- /outer containter -->
       {{end}}
       {{if .Tracklist}}
-      <div class="container outer page1-tracklist">
+      <div class="container-fluid user-tracklist">
         <div class="container">
           <h2>
             Tracklist

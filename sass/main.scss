@@ -88,7 +88,7 @@ footer {
 /* Scroll horizontal, used for horizontal scrolling rows */
 .scroll-horiz {
   overflow-x: scroll;
-  overflow-y: hidden; 
+  overflow-y: hidden;
   flex-wrap: nowrap;
   -webkit-overflow-scrolling: touch;
 }
@@ -117,18 +117,7 @@ footer {
   max-width: 100%;
   object-fit: cover;
 }
-.user-bio-container {
-  background: $secondary-color;
-  color: #fff;
-}
-.user-credits-people {
-  background-color: $primary-color;
-  color: white;
-}
-.user-on-demand {
-  background-color: $secondary-color;
-  color: white;
-}
+
 .page404 {
   text-align:center;
   margin: 0 auto;
