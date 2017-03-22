@@ -1,11 +1,13 @@
 package utils
 
 import (
-	"github.com/UniversityRadioYork/2016-site/structs"
+	"fmt"
 	"html/template"
 	"net/http"
 	"path/filepath"
-	"fmt"
+
+	"github.com/UniversityRadioYork/2016-site/structs"
+	myradio "github.com/UniversityRadioYork/myradio-go"
 )
 
 // TemplatePrefix is the constant containing the filepath prefix for templates.
@@ -50,10 +52,32 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 	}
 
 	t := template.New("base.tmpl")
-	t, err = t.ParseFiles(tmpls...)
 	t.Funcs(template.FuncMap{
 		"html": renderHTML,
+		"limitShowMeta": func(a []myradio.ShowMeta, start int, end int) []myradio.ShowMeta {
+			if len(a) < end {
+				return a[start:]
+			} else if len(a) < start {
+				return nil
+			}
+			return a[start:end]
+
+		},
+		//Takes a splice of seasons and returns the total number of episodes
+		"showCount": func(seasons []myradio.Season) int {
+			var c = 0
+			for _, season := range seasons {
+				//Something about JSON being read as a float 64 so needing to convert to an int
+				c += int(season.NumEpisodes.Value.(float64))
+			}
+			return c
+		},
+		"showsToHours": func(shows []myradio.ShowMeta) int {
+			//TODO: finish This
+			return -5
+		},
 	})
+	t, err = t.ParseFiles(tmpls...)
 	if err != nil {
 		return err
 	}
