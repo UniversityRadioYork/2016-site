@@ -45,11 +45,9 @@
             <hr>
             <h3>Tags</h3>
               {{range .Timeslot.Tags}}
-                <a href="/search?term={{.}}" alt="Search for '{{.}}'.">
-                  <span class="tag badge badge-default">
-                    {{.}}
-                  </span>
-                </a>
+								<span class="tag badge badge-default">
+                <a href="/search?term={{.}}" title="Search for tag: '{{.}}'.">{{.}}</a>
+								</span>
               {{end}}
             </div>
           </div>
@@ -57,42 +55,47 @@
       </div>
     </div> <!-- /outer containter -->
 
-      {{if .Timeslot.Credits}}
-      <div class="container-fluid bg-secondary">
-        <h2>Credits</h2>
-        {{range .Timeslot.Credits}}
-          <a href="/people/{{.User.Memberid}}/">{{.User.Fname}} {{.User.Sname}}</a> <br>
-        {{end}}
+		{{if .Timeslot.Credits}}
+		<div class="container-fluid container-padded bg-third">
+			<h2>Credits</h2>
+			<div class="row">
+			{{range .Timeslot.Credits}}
+				<div class="col-4 col-md-2 p-4 text-center">
+					<a href="/people/{{.User.Memberid}}/">
+						<img class="img-fluid rounded-circle" src="/images/people-profile.jpg" alt="Photo of {{.User.Fname}} {{.User.Sname}}" />
+						{{.User.Fname}} {{.User.Sname}}
+					</a>
+				</div>
+			{{end}}
+			</div>
+		</div> <!-- /outer containter -->
 
-      </div> <!-- /outer containter -->
-      {{end}}
-      {{if .Tracklist}}
-      <div class="container-fluid user-tracklist">
-        <div class="container">
-          <h2>
-            Tracklist
-          </h2>
-          <table class="table">
-            <thead>
-            <tr>
-              <th>Track</th>
-              <th>Artist</th>
-              <th>Time</th>
-            </tr>
-            </thead>
-            <tbody>
-            {{range .Tracklist}}
-            <tr>
-              <td>{{.Title}}</td>
-              <td>{{.Artist}}</td>
-              <td>{{.StartTime.Format "15:04"}}</td>
-            </tr>
-            {{end}}
-            </tbody>
-          </table>
-        </div>
-      </div> <!-- /outer containter -->
-      {{end}}
+		{{end}}
+		{{if .Tracklist}}
+		<div class="container-fluid container-padded">
+			<h2>Tracklist</h2>
+			<div class="container">
+				<table class="table">
+					<thead>
+					<tr>
+						<th>Track</th>
+						<th>Artist</th>
+						<th>Time</th>
+					</tr>
+					</thead>
+					<tbody>
+					{{range .Tracklist}}
+					<tr>
+						<td>{{.Title}}</td>
+						<td>{{.Artist}}</td>
+						<td>{{.StartTime.Format "15:04"}}</td>
+					</tr>
+					{{end}}
+					</tbody>
+				</table>
+			</div>
+		</div> <!-- /outer containter -->
+		{{end}}
 
 	{{end}}
 {{end}}
