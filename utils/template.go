@@ -53,7 +53,7 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 
 	t := template.New("base.tmpl")
 	t.Funcs(template.FuncMap{
-		"url":  func(s string) string { return fmt.Sprintf("%s%s", context.UrlPrefix, s) },
+		"url":  func(s string) string { return PrefixUrl(s, context.UrlPrefix) },
 		"html": renderHTML,
 		"limitShowMeta": func(a []myradio.ShowMeta, start int, end int) []myradio.ShowMeta {
 			if len(a) < end {

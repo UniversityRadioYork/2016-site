@@ -28,4 +28,7 @@ docker:
 clean:
 	rm -f $(OUTPUT_FILE) $(BINARY)
 
-.PHONY: build-sass run clean docker build-docker-image
+.PHONY: build-sass run clean docker build-docker-image test
+
+test:
+	cd utils && go test
