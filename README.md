@@ -7,21 +7,22 @@ requisite permissions copied into a .myradio.key file in the same directory.
 
 Then follow the Requirements below.
 
-### Install with Docker :whale:###
-Alternatively, you only need [Docker](https://www.docker.com/)
-
-```bash
-$ docker build -t 2016-site .
-$ docker run -p 3000:3000 -v $GOPATH/src/github.com/UniversityRadioYork/2016-site:/go/src/github.com/UniversityRadioYork/2016-site 2016-site
-```
-
 ## Requirements ##
 Requires [Go 1.6](https://golang.org/) to compile and run, along with `sassc` to
 compile the SCSS files. You may use other SASS compilers if you wish, but be
 prepared for unexpected results.
 
+Alternatively, you can use Docker alone
+
+## Running the site ##
+
+### Without Docker ###
 ```bash
 $ make run # Builds scss files, and runs the server
 ```
 
-## Development ##
+### With Docker :whale: ###
+```bash
+$ make build-docker-image #Builds the image, will only have to be re-run if you change the Dockerfile
+$ make docker #Runs the image
+```

@@ -11,6 +11,7 @@
 # Any changes to this config should be reflected in the struct `structs.Config`
 
 # This is the config for the server
+[server]
 	address	= "localhost"
 	port    = 3000
 	timeout	= 0
