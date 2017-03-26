@@ -14,7 +14,7 @@ build-sass: $(SASS_SRC)
 	$(SASS_COMPILER) $(MAIN_FILE) $(OUTPUT_FILE)
 
 build-docker-image:
-	(docker build -t 2016-site .)
+	docker build -t 2016-site .
 
 docker:
 	docker run -it --rm -p 3000:3000 -v $$GOPATH/src/github.com/UniversityRadioYork/2016-site:/go/src/github.com/UniversityRadioYork/2016-site 2016-site
@@ -22,4 +22,4 @@ docker:
 clean:
 	rm -f $(OUTPUT_FILE)
 
-.PHONY: build-sass run clean
+.PHONY: build-sass run clean docker build-docker-image
