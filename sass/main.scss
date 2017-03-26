@@ -1,15 +1,42 @@
-@import "base/base";
 @import "vendor/vendor";
+@import "base/base";
 @import "partials/partials";
 @import "elements/elements";
 
 
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+html {
+  font-size: 16px;
+}
+
+@include media-breakpoint-up(sm) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  html {
+    font-size: 16px;
+  }
+}
 
 /* Space out content a bit */
 
 body {
   padding-top: 49px;
-  font-family: 'Raleway', sans-serif;
+
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -36,161 +63,69 @@ body {
 
 /* Custom page footer */
 
-.footer {
-  padding: 20px 30px;
-  font-size: 18px;
+footer {
   color: #777;
-  border-top: 3px solid #ddd;
   background: $content-bg-1;
-}
-.navbar-container {
-    max-width:1200px;
-    margin: 0 auto;
-    padding-right: 15px;
-}
-.navbar {
-  background: $primary-color;
-  img {
-    margin-top: -7px;
-  }
-}
 
-.index-infobar {
-  background: $content-bg-1;
-  padding: 3em 0;
   .row {
-    margin-right: auto;
-    margin-left: auto;
+    min-height: 3em;
   }
-}
-.index-infobar hr {
-  border-color: $primary-color;
+
 }
 
-.index-videos {
+.container-padded {
+  padding-top:2em;
+  padding-bottom:2em;
+}
+
+.banner-2 {
+  background: url('/images/bg-banner-2.jpg') center center no-repeat;
+  background-size: cover;
+  color: white;
+  padding:10em 0;
+}
+
+/* Scroll horizontal, used for horizontal scrolling rows */
+.scroll-horiz {
+  overflow-x: scroll;
+  overflow-y: hidden; 
+  flex-wrap: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+.key-contacts .card {
+  height: 100%;
+  a {
+    word-wrap: break-word;
+  }
+}
+.slash-divider {
+  font-size:3em;
+  vertical-align: middle;
+  font-family: sans-serif;
+  font-weight: 100;
+}
+/* User page styling. */
+.user-img {
+  border: #e1e1e1 7px solid;
+  margin-top: -3em;
+  max-width: 100%;
+  object-fit: cover;
+}
+.card .card-img-top.rounded-circle {
+  border: #e1e1e1 7px solid;
+  max-width: 100%;
+  object-fit: cover;
+}
+.user-bio-container {
   background: $secondary-color;
   color: #fff;
-  .scroll-right {
-    background-color: $primary-color;
-  }
-
 }
-.index-uryplayer, .index-videos{
-  padding-right:0;
-  .scroll-container {
-    .scroll-body, .scroll-right {
-      display: table-cell;
-      vertical-align: middle;
-    }
-    .scroll-body {
-      white-space: nowrap;
-      position: relative;
-      z-index: 1;
-      [class*="row"] {
-        overflow-x: scroll;
-        overflow-y: hidden;
-        margin-right:-70px;
-      }
-      [class*="col"] {
-        display: inline-block;
-        float: none; /* Very important */
-        padding-right:0;
-      }
-      [class*="col"]:last-of-type {
-        margin-right:95px;
-      }
-      .thumbnail {
-        border-color:black;
-        padding:0;
-      }
-    }
-    .scroll-right {
-        padding: 0 10px;
-        width:80px;
-        font-size: 100px;
-        font-weight: 900;
-        color: white;
-        position: relative;
-        z-index: 2;
-        opacity: 0.7;
-      }
-  }
-}
-
-
-.index-uryplayer {
-  background: $third-color;
-  color: #fff;
-  .thumbnail {
-    background-color: $primary-color;
-    padding: 0;
-    .podcast-title {
-      margin:0;
-      padding:10px;
-      font-size: 24px;
-    }
-    p {
-      color: #fff;
-      padding:10px;
-      white-space: normal;
-    }
-  }
-  .scroll-right {
-    background-color: $secondary-color;
-  }
-}
-
-/* Page 1 is the Shows/People template style of page. */
-.page1-content {
-  background: $content-bg-1;
-}
-.page1-title {
-  color: $primary-color;
-  font-size: 40px;
-  font-weight: 300;
-}
-.page1-subtitle {
-  color: $primary-color;
-  font-weight: 300;
-}
-.page1-sidebar {
-  padding: 0 30px;
-  color: #032e59;
-  text-align: center;
-}
-.page1-sidebar h3 {
-  font-weight: 300;
-  font-size: 18px;
-  display: inline-block;
-  padding: 15px 10px;
-  border-bottom: #d6d6d6 2px solid;
-}
-.page1-sidebar h3:first-of-type {
-  border-right: #d6d6d6 2px solid;
-}
-.page1-image {
-  border: #e1e1e1 7px solid;
-  margin: -100px auto 20px auto;
-  max-width: 85%;
-}
-.page1-sidebar .row div {
-  padding: 5px;
-}
-.page1-bio {
-  .page1-title {
-    padding: 0 0 10px 40px;
-  }
-  .page1-bio-box {
-    background: $secondary-color;
-    color: #fff;
-    padding: 10px 40px 40px 40px;
-  }
-}
-.page1-credits-people {
+.user-credits-people {
   background-color: $primary-color;
   color: white;
 }
-.page1-on-demand {
+.user-on-demand {
   background-color: $secondary-color;
   color: white;
 }
@@ -233,16 +168,11 @@ body {
   .jumbotron {
     border-bottom: 0;
   }
-  .container.outer {
-    width: 100%;
-  }
-  .container {
-    width: 600px;
-  }
   .mobile-only {
     display: none;
   }
 }
+
 .container-narrow>hr {
   margin: 30px 0;
 }
@@ -257,16 +187,6 @@ body {
   padding: 14px 24px;
   font-size: 21px;
 }
-@media (min-width: 982px) {
-  .container {
-    width: 800px;
-  }
-}
-@media (min-width: 1280px) {
-  .container {
-    width: 1200px;
-  }
-}
 @media screen and (max-width: 767px) {
   .mobile-hide {
     display: none;
@@ -274,15 +194,9 @@ body {
   .header-large {
     height: 400px;
   }
-  .page1-profile {
+  .user-profile {
     margin-top: -320px;
     margin-bottom: 30px;
-  }
-  .container.outer {
-    width: 100%;
-  }
-  .container {
-    width: 90%;
   }
   .mobile-col-right {
     width: 66.66666666%;
@@ -292,4 +206,22 @@ body {
   .banner {
     display: none;
   }
+}
+
+/* Show/Season/Timeslot specific*/
+
+.mixcloud {
+  background: #FCFCFC;
+  color: #555;
+  border: 1px solid #D7D7D7;
+}
+.show-img {
+  @extend .user-img;
+}
+.tag {
+  font-size:0.8em;
+}
+
+.podcast.card {
+  color: #555;
 }
