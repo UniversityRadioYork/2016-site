@@ -1,7 +1,6 @@
 {{define "content"}}
 
   {{with .PageData}}
-
     <div class="container-fluid header-large current-next">
       <div class="container mobile-hide">
       {{template "current_and_next" .}}
@@ -20,52 +19,50 @@
               " alt="Photo of {{.Name}}">
           </div>
           <div class="col-12 col-lg-9">
-          <div class="row">
-            <h1 class="user-name p-2">{{.Name}} <hr/> </h1>
-          </div>
-          <div class="row">
-            {{range limitShowMeta .ShowCredits 0 6}}
-              <div class="col-4 col-md-2 p-0">
-                <a href="{{.MicroSiteLink.URL}}" title="View the {{.Title}} webpage.">
-                  <img class="img-fluid" src="https://ury.org.uk{{.Photo}}" alt="{{.Title}} logo." />
-                </a>
-              </div>
-            {{end}}
-          </div>
-          <div class="row">
-            <div class="col">
-              <h4>Shows: {{len .ShowCredits}}</h4>
-            </div>
-            <div class="col">
-              <h4>Hours: {{showsToHours .ShowCredits}}</h4>
-            </div>
-          </div>
-          </div>
-          </div>
-        </div>
-      </div> <!-- /outer containter -->
-      <div class="container-fluid user-bio-container">
-        <div class="container">
-           <div class="">
-            <h2>Bio</h2>
-            <p>{{html .Bio}}</p>
-            <h2>Officerships</h2>
-            <ul>
-            {{range .Officerships}}
-              <li>
-              {{.OfficerName}} - from {{.FromDate.Format "2006-01-02"}} to
-              {{if .TillDateRaw}}
-                {{.TillDate.Format "2006-01-02"}}
-              {{else}}
-                current
+            <h1 class="user-name pt-3">{{.Name}}</h1>
+            <hr>
+            <div class="row">
+              {{range limitShowMeta .ShowCredits 0 6}}
+                <div class="col-4 col-md-2 p-0">
+                  <a href="{{.MicroSiteLink.URL}}" title="View the {{.Title}} webpage.">
+                    <img class="img-fluid" src="https://ury.org.uk{{.Photo}}" alt="{{.Title}} logo." />
+                  </a>
+                </div>
               {{end}}
-              </li>
-            {{end}}
-            </ul>
-            
+            </div>
+            <div class="row">
+              <div class="col">
+                <h4>Shows: {{len .ShowCredits}}</h4>
+              </div>
+              <div class="col">
+                <h4>Hours: {{showsToHours .ShowCredits}}</h4>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+    </div> <!-- /outer containter -->
+    <div class="container-fluid user-bio-container">
+      <div class="container">
+        <div class="">
+          <h2>Bio</h2>
+          <p>{{html .Bio}}</p>
+          <h2>Officerships</h2>
+          <ul>
+          {{range .Officerships}}
+            <li>
+            {{.OfficerName}} - from {{.FromDate.Format "2006-01-02"}} to
+            {{if .TillDateRaw}}
+              {{.TillDate.Format "2006-01-02"}}
+            {{else}}
+              current
+            {{end}}
+            </li>
+          {{end}}
+          </ul>  
+        </div>
+      </div>
+    </div>
   {{end}}
 
 {{end}}
