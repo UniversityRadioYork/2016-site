@@ -14,10 +14,18 @@
     &:hover {
       background: #FFFFFF;
       color: $blue;
-      border: 2px solid #FFFFFF;
     }
   }
+  &.btn-primary-inverse {
+    background: #FFFFFF;
+    color: $blue;
+    border: 2px solid #FFFFFF;
 
+    &:hover {
+      background: $blue;
+      color: #FFFFFF; 
+    }
+  }
   &.btn-red {
     background: $red;
     color: #FFFFFF;
@@ -30,5 +38,10 @@
   }
   &.btn-square {
     border-radius: 0;
+  }
+  &.btn-xl {
+    padding: .8rem 1.5rem;
+    font-size: 2rem;
+    border-radius: 0.3em;
   }
 }
