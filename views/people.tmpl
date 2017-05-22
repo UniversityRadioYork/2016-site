@@ -22,7 +22,7 @@
             <h1 class="user-name pt-3">{{.Name}}</h1>
             <hr>
             <div class="row">
-              {{range limitShowMeta .ShowCredits 0 6}}
+              {{range getLastShowMeta .ShowCredits 6}}
                 <div class="col-4 col-md-2 p-0">
                   <a href="{{.MicroSiteLink.URL}}" title="View the {{.Title}} webpage.">
                     <img class="img-fluid" src="https://ury.org.uk{{.Photo}}" alt="{{.Title}} logo." />

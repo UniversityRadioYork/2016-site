@@ -54,13 +54,12 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 	t := template.New("base.tmpl")
 	t.Funcs(template.FuncMap{
 		"html": renderHTML,
-		"limitShowMeta": func(a []myradio.ShowMeta, start int, end int) []myradio.ShowMeta {
-			if len(a) < end {
-				return a[start:]
-			} else if len(a) < start {
-				return nil
+		//Takes a splice of show meta and returns the last x elements
+		"getLastShowMeta": func(a []myradio.ShowMeta, amount int) []myradio.ShowMeta {
+			if len(a) < amount {
+				return a
 			}
-			return a[start:end]
+			return a[len(a)-amount:]
 
 		},
 		//Takes a splice of seasons and returns the total number of episodes
