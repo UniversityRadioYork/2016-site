@@ -31,4 +31,4 @@ clean:
 .PHONY: build-sass run clean docker build-docker-image test
 
 test:
-	go test ./utils
+	go test ./...
