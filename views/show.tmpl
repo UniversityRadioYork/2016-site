@@ -10,12 +10,10 @@
 		<meta property="og:image" content="https://ury.org.uk/images/open_graph-general.jpg"/>
 	{{end}}	
 	<meta property="og:type" content="website"/>
+	<meta property="og:url" content="https://ury.org.uk/schedule/shows/{{.ShowID}}/"/>
 
 	//@TODO: Remove HTML, so it leaves plain text.
 	// <meta property="{{html .Show.Description}}"/>
-	
-	//@TODO: Get URL for page.
-	<meta property="og:url" content="https://ury.org.uk/"/>
 {{end}}
 {{define "content"}}
 {{with .PageData}}
