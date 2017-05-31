@@ -10,9 +10,10 @@
       <div class="container">
         <div class="row">
           <div class="col-12 col-lg-3">
-            
+             <img class="user-img rounded-circle img-fluid" src="https://ury.org.uk{{.User.Photo}}" alt="Photo of {{.User.Fname}} {{.User.Sname}}">
+            </div>
           <div class="col-12 col-lg-9">
-            <h1 class="user-name pt-3">{{.User.Fname}}</h1>
+            <h1 class="user-name pt-3">{{.User.Fname}} {{.User.Sname}}</h1>
             <hr>
             <div class="row">
               {{range getLastShowMeta .ShowCredits 6}}
