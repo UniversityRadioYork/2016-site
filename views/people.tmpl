@@ -10,16 +10,10 @@
       <div class="container">
         <div class="row">
           <div class="col-12 col-lg-3">
-            <img class="user-img rounded-circle img-fluid" src="
-              {{if .ProfilePicture.Url}}
-                https://ury.org.uk{{.ProfilePicture.Url}}
-              {{else}}
-                /images/people-profile.jpg
-              {{end}}
-              " alt="Photo of {{.Name}}">
+            <img class="user-img rounded-circle img-fluid" src="{{.User.Photo}}" alt="Photo of {{.User.Fname}} {{.User.Sname}}">
           </div>
           <div class="col-12 col-lg-9">
-            <h1 class="user-name pt-3">{{.Name}}</h1>
+            <h1 class="user-name pt-3">{{.User.Fname}} {{.User.Sname}}</h1>
             <hr>
             <div class="row">
               {{range getLastShowMeta .ShowCredits 6}}
@@ -46,7 +40,7 @@
       <div class="container">
         <div class="">
           <h2>Bio</h2>
-          <p>{{html .Bio}}</p>
+          <p>{{html .User.Bio}}</p>
           <h2>Officerships</h2>
           <ul>
           {{range .Officerships}}
