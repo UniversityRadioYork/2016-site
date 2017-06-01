@@ -1,61 +1,62 @@
 package utils_test
 
 import (
-	utils "github.com/UniversityRadioYork/2016-site/utils"
 	"testing"
+
+	utils "github.com/UniversityRadioYork/2016-site/utils"
 )
 
-// TestParseUrl tests whether ParseUrl works correctly.
-func TestParseUrl(t *testing.T) {
+// TestParseURL tests whether ParseURL works correctly.
+func TestParseURL(t *testing.T) {
 	cases := []struct {
 		Expected string
 		Prefix   string
-		Url      string
+		URL      string
 	}{
 		{
 			Expected: "/testsite/schedule",
 			Prefix:   "testsite",
-			Url:      "/schedule",
+			URL:      "/schedule",
 		},
 		{
 			Expected: "//schedule",
 			Prefix:   "testsite",
-			Url:      "//schedule",
+			URL:      "//schedule",
 		},
 		{
 			Expected: "schedule",
 			Prefix:   "testsite",
-			Url:      "schedule",
+			URL:      "schedule",
 		},
 		{
 			Expected: "/schedule",
 			Prefix:   "",
-			Url:      "/schedule",
+			URL:      "/schedule",
 		},
 		{
 			Expected: "//schedule",
 			Prefix:   "",
-			Url:      "//schedule",
+			URL:      "//schedule",
 		},
 		{
 			Expected: "schedule",
 			Prefix:   "",
-			Url:      "schedule",
+			URL:      "schedule",
 		},
 		{
 			Expected: "/testsite/schedule",
 			Prefix:   "/testsite",
-			Url:      "/schedule",
+			URL:      "/schedule",
 		},
 		{
 			Expected: "/testsite/schedule",
 			Prefix:   "testsite/",
-			Url:      "/schedule",
+			URL:      "/schedule",
 		},
 	}
 
 	for i, c := range cases {
-		got := utils.PrefixUrl(c.Url, c.Prefix)
+		got := utils.PrefixURL(c.URL, c.Prefix)
 		if c.Expected != got {
 			t.Errorf("case %d: expected: %s; got: %s", i+1, c.Expected, got)
 		}
