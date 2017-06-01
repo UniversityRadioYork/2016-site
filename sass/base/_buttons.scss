@@ -31,15 +31,16 @@ btn {
   }
 
   &.btn-primary-inverse {
-    background: #FFFFFF;
+    background: $button-color;
     color: $blue;
-    border: 2px solid #FFFFFF;
+    border: 2px solid $button-color;
 
     &:hover {
       background: $blue;
-      color: #FFFFFF; 
+      color: $button-color; 
     }
   }
+	
   &.btn-red {
     background: $red;
     color: $button-color;
