@@ -1,6 +1,8 @@
-.btn {
-  border-radius: 0.4em;
-  padding: 0.25em 1em;
+$button-color: #fff;
+
+btn {
+  border-radius: .4em;
+  padding: .25em 1em;
   font-family: $font-family-heading;
   font-weight: 500;
   font-size: $base-font-size;
@@ -8,14 +10,26 @@
 
   &.btn-primary {
     background: $blue;
-    color: #FFFFFF;
-    border: 2px solid #FFFFFF;
+    color: $button-color;
+    border: 2px solid $button-color;
 
     &:hover {
-      background: #FFFFFF;
+      background: $button-color;
       color: $blue;
     }
   }
+
+  &.btn-primary-inverse {
+    background: $button-color;
+    color: $blue;
+    border: 2px solid $button-color;
+
+    &:hover {
+      background: $blue;
+      color: $button-color;
+    }
+  }
+
   &.btn-primary-inverse {
     background: #FFFFFF;
     color: $blue;
@@ -28,20 +42,22 @@
   }
   &.btn-red {
     background: $red;
-    color: #FFFFFF;
-    border: 2px solid #FFFFFF;
+    color: $button-color;
+    border: 2px solid $button-color;
 
     &:hover {
-      background: #FFFFFF;
+      background: $button-color;
       color: $red;
     }
   }
+
   &.btn-square {
     border-radius: 0;
   }
+
   &.btn-xl {
-    padding: .8rem 1.5rem;
+    border-radius: .3em;
     font-size: 2rem;
-    border-radius: 0.3em;
+    padding: .8rem 1.5rem;
   }
 }
