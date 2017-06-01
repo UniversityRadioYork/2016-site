@@ -1,32 +1,18 @@
 {{define "content"}}
 {{with .PageData}}
 
-<div class="container">
-
-    <form method="GET" action="{{.BaseURL}}">
-
-        <input name="term" type="text" value="{{.Term}}">
-
-        <button type="submit">Search</button>
-
-    </form>
-
+<div class="container pt-5">
 	{{if .Searching}}
-        <p>
-            We are searching
-        </p>
-
         <h2>
-            #{{.NumResults}} Results
+            {{.NumResults}} Results for {{.Term}}
         </h2>
+        <hr>
 		{{range .Results}}
-            <p>
+            <h4 class="">
 				<a href="/schedule/shows/{{.ShowID}}/">{{.Title}}</a>
-            </p>
-
-            <p>
-				{{html .Description}}
-            </p>
+            </h4>
+		    {{html .Description}}
+            <hr>
 		{{else}}
             <p>
                 No Results
@@ -34,9 +20,6 @@
 		{{end}}
 
 	{{else}}
-        <p>
-            We are not searching
-        </p>
 	{{end}}
 
 </div><!-- /.container -->
