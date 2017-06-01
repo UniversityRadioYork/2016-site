@@ -3,24 +3,16 @@
     <meta name="twitter:site" content="@URY1350"/>
     <meta name="twitter:creator" content="@URY1350"/>
     <meta property="og:locale" content="en_GB" />
-
-    //@TODO: Get URL of page.
-    <meta property="og:url" content="https://ury.org.uk/"/>
+    <meta property="og:url" content="https://ury.org.uk/people/{{.User.MemberID}}"/>
     
-    <meta property="og:title" content="University Radio York | {{.Name}} Profile"/>
-
     //@TODO: Remove html so it is just plain text.
-    <meta property="og:description" content="{{html .Bio}}" />
+    <meta property="og:description" content="{{html .User.Bio}}" />
 
     <meta property="og:image" content="https://ury.org.uk{{.Photo}}"/>
     <meta property="og:type" content="profile"/> 
-    
-    //@TODO: Retrive Person ID.
-    //<meta property="profile:username" content=""/> 
-    
-    //@TODO: Need to retrive firstname and lastname seperately.  
-    //<meta property="profile:first_name" content=""/>
-    //<meta property="profile:last_name" content=""/> 
+    <meta property="profile:username" content="{{.User.MemberID}}"/> 
+    <meta property="profile:first_name" content="{{.User.Fname}}"/>
+    <meta property="profile:last_name" content="{{.User.Sname}}"/> 
 {{end}}
 
 {{define "content"}}
