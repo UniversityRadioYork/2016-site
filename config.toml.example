@@ -21,6 +21,8 @@
 	longName  = "University Radio York"
 	shortName = "URY"
 
+	urlPrefix = ""
+
 	[[pageContext.pages]]
 		name = "Search"
 		url  = "search/"
