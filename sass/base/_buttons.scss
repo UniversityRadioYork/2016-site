@@ -1,6 +1,6 @@
 .btn {
-  border-radius: 0.4em;
-  padding: 0.25em 1em;
+  border-radius: .4em;
+  padding: .25em 1em;
   font-family: $font-family-heading;
   font-weight: 500;
   font-size: $base-font-size;
@@ -8,40 +8,44 @@
 
   &.btn-primary {
     background: $blue;
-    color: #FFFFFF;
-    border: 2px solid #FFFFFF;
+    color: #FFF;
+    border: 2px solid #FFF;
 
     &:hover {
-      background: #FFFFFF;
+      background: #FFF;
       color: $blue;
     }
   }
+
   &.btn-primary-inverse {
-    background: #FFFFFF;
+    background: #FFF;
     color: $blue;
-    border: 2px solid #FFFFFF;
+    border: 2px solid #FFF;
 
     &:hover {
       background: $blue;
-      color: #FFFFFF; 
+      color: #FFF;
     }
   }
+
   &.btn-red {
     background: $red;
-    color: #FFFFFF;
-    border: 2px solid #FFFFFF;
+    color: #FFF;
+    border: 2px solid #FFF;
 
     &:hover {
-      background: #FFFFFF;
+      background: #FFF;
       color: $red;
     }
   }
+
   &.btn-square {
     border-radius: 0;
   }
+
   &.btn-xl {
-    padding: .8rem 1.5rem;
+    border-radius: .3em;
     font-size: 2rem;
-    border-radius: 0.3em;
+    padding: .8rem 1.5rem;
   }
 }
