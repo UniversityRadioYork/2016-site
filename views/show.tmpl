@@ -1,16 +1,18 @@
-{{define "title" .}}{{.shortName}} | {{with .PageData}}{{.Show.Title}}{{end}}{{end}}
+{{define "title"}}{{.PageContext.ShortName}} | {{with .PageData}}{{.Show.Title}}{{end}}{{end}}
 
-{{define "open-graph" .}}
+{{define "open-graph"}}
 	<meta name="twitter:card" content="summary_large_image"/>
 	<meta name="twitter:site" content="@URY1350"/>
 	<meta name="twitter:creator" content="@URY1350"/>
 	<meta property="og:locale" content="en_GB"/>
-	<meta property="og:title" content="{{.longName}} | {{.Show.Title}}"/>
+	<meta property="og:title" content="{{.PageContext.LongName}} | {{with .PageData}}{{.Show.Title}}{{end}}"/>
+	
 	{{if .Show.Photo}}
-		<meta property="og:image" content="{{url "/{{.Show.Photo}}"}}"/>
+	<meta property="og:image" content="{{url "/{{.Show.Photo}}"}}"/>
 	{{else}}
-		<meta property="og:image" content="{{url "/images/open_graph-general.jpg"}}"/>
+	<meta property="og:image" content="{{url "/images/open_graph-general.jpg"}}"/>
 	{{end}}	
+	
 	<meta property="og:type" content="website"/>
 	<meta property="og:url" content="{{url "/schedule/shows/{{.ShowID}}/"}}"/>
 

@@ -1,4 +1,4 @@
-{{define "title" .}}{{.shortName}} | Search {{.PageData.Term}}{{end}}
+{{define "title"}}{{.PageContext.ShortName}} | Search: {{.PageData.Term}}{{end}}
 {{define "content"}}
 {{with .PageData}}
 

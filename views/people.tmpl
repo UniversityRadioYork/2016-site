@@ -1,6 +1,6 @@
-{{define "title" .}}{{.shortName}} | {{with .PageData}}{{.User.Fname}} {{.User.Sname}}{{end}}  Profile{{end}}
+{{define "title"}}{{.PageContext.ShortName}} | {{with .PageData}}{{.User.Fname}} {{.User.Sname}}{{end}}  Profile{{end}}
 
-{{define "open-graph" .}}
+{{define "open-graph"}}
     <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:site" content="@URY1350"/>
     <meta name="twitter:creator" content="@URY1350"/>

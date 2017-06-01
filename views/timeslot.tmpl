@@ -1,4 +1,4 @@
-{{define "title" .}}{{.shortName}} | {{with .PageData}}{{.Show.Title}} {{.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}}{{end}}{{end}}
+{{define "title"}}{{.PageContext.ShortName}} | {{with .PageData}}{{.Show.Title}} {{.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}}{{end}}{{end}}
 
 {{define "content"}}
 	{{with .PageData}}
