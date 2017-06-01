@@ -23,6 +23,7 @@ type Server struct {
 type PageContext struct {
 	LongName  string `toml:"longName"`
 	ShortName string `toml:"shortName"`
+	URLPrefix string `toml:"urlPrefix"`
 	Pages     []Page
 }
 
