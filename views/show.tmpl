@@ -1,24 +1,25 @@
 {{define "title"}}{{.PageContext.ShortName}} | {{with .PageData}}{{.Show.Title}}{{end}}{{end}}
 
 {{define "open-graph"}}
-	<meta name="twitter:card" content="summary_large_image"/>
-	<meta name="twitter:site" content="@URY1350"/>
-	<meta name="twitter:creator" content="@URY1350"/>
-	<meta property="og:locale" content="en_GB"/>
-	<meta property="og:title" content="{{.PageContext.LongName}} | {{with .PageData}}{{.Show.Title}}{{end}}"/>
-	
-	{{if .Show.Photo}}
-	<meta property="og:image" content="{{url "/{{.Show.Photo}}"}}"/>
-	{{else}}
-	<meta property="og:image" content="{{url "/images/open_graph-general.jpg"}}"/>
-	{{end}}	
-	
-	<meta property="og:type" content="website"/>
-	<meta property="og:url" content="{{url "/schedule/shows/{{.ShowID}}/"}}"/>
+		<meta name="twitter:card" content="summary_large_image"/>
+		<meta name="twitter:site" content="@URY1350"/>
+		<meta name="twitter:creator" content="@URY1350"/>
+		<meta property="og:locale" content="en_GB"/>
+		<meta property="og:title" content="{{.PageContext.ShortName}} | {{with .PageData}}{{.Show.Title}}{{end}}"/>
 
-	<!-- @TODO: Remove HTML, so it leaves plain text.
-	<meta property="{{html .Show.Description}}"/> -->
+		<!--{{if .Show.Photo}}
+		<meta property="og:image" content="https://ury.org.uk/{{.Show.Photo}}"/>
+		{{else}}
+		<meta property="og:image" content="https://ury.org.uk/images/open_graph-general.jpg"/>
+		{{end}}-->
+		
+		<meta property="og:type" content="website"/>
+		<meta property="og:url" content="https://ury.org.uk/schedule/shows/{{.ShowID}}/"/>
+
+		<!-- @TODO: Remove HTML, so it leaves plain text.
+		<meta property="og:description" content="{{.Show.Description}}"/> -->
 {{end}}
+
 {{define "content"}}
 {{with .PageData}}
 

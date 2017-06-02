@@ -5,13 +5,13 @@
     <meta name="twitter:site" content="@URY1350"/>
     <meta name="twitter:creator" content="@URY1350"/>
     <meta property="og:locale" content="en_GB" />
-    <meta property="og:url" content="{{url "/people/{{.User.MemberID}}"}}"/>
+    <meta property="og:url" content="htpps://ury.org.uk/people/{{.User.MemberID}}"/>
     <meta property="og:title" content="{{.shortName}} | {{.User.Fname}} {{.User.Sname}}  Profile"/>
     
-    //@TODO: Remove html so it is just plain text.
-    <meta property="og:description" content="{{html .User.Bio}}" />
+    <!--@TODO: Remove html so it is just plain text. -->
+    <meta property="og:description" content="{{.User.Bio}}" />
 
-    <meta property="og:image" content="{{url "/{{.Photo}}"}}/>
+    <meta property="og:image" content="https://ury.org.uk/{{.Photo}}"/>
     <meta property="og:type" content="profile"/> 
     <meta property="profile:username" content="{{.User.MemberID}}"/> 
     <meta property="profile:first_name" content="{{.User.Fname}}"/>
