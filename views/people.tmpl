@@ -8,7 +8,7 @@
     <meta property="og:title" content="{{.PageContext.ShortName}} | {{with .PageData}}{{.User.Fname}} {{.User.Sname}}{{end}} Profile"/>
     
     {{with .PageData}}
-      <meta property="og:url" content="https://ury.org.uk/people/{{.MemberID}}"/>
+      <meta property="og:url" content="https://ury.org.uk/people/{{.User.MemberID}}"/>
       
       <!--@TODO: Remove html so it is just plain text. -->
       <meta property="og:description" content="{{.User.Bio}}" />
