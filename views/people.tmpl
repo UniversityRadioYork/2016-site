@@ -1,21 +1,24 @@
-{{define "title"}}{{.PageContext.ShortName}} | {{with .PageData}}{{.User.Fname}} {{.User.Sname}}{{end}}  Profile{{end}}
+{{define "title"}}{{.PageContext.ShortName}} | {{with .PageData}}{{.User.Fname}} {{.User.Sname}}{{end}} Profile{{end}}
 
 {{define "open-graph"}}
     <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:site" content="@URY1350"/>
     <meta name="twitter:creator" content="@URY1350"/>
     <meta property="og:locale" content="en_GB" />
-    <meta property="og:url" content="htpps://ury.org.uk/people/{{.User.MemberID}}"/>
-    <meta property="og:title" content="{{.shortName}} | {{.User.Fname}} {{.User.Sname}}  Profile"/>
+    <meta property="og:title" content="{{.PageContext.ShortName}} | {{with .PageData}}{{.User.Fname}} {{.User.Sname}}{{end}} Profile"/>
     
-    <!--@TODO: Remove html so it is just plain text. -->
-    <meta property="og:description" content="{{.User.Bio}}" />
+    {{with .PageData}}
+      <meta property="og:url" content="https://ury.org.uk/people/{{.MemberID}}"/>
+      
+      <!--@TODO: Remove html so it is just plain text. -->
+      <meta property="og:description" content="{{.User.Bio}}" />
 
-    <meta property="og:image" content="https://ury.org.uk/{{.Photo}}"/>
-    <meta property="og:type" content="profile"/> 
-    <meta property="profile:username" content="{{.User.MemberID}}"/> 
-    <meta property="profile:first_name" content="{{.User.Fname}}"/>
-    <meta property="profile:last_name" content="{{.User.Sname}}"/> 
+      <meta property="og:image" content="https://ury.org.uk/{{.User.Photo}}"/>
+      <meta property="og:type" content="profile"/> 
+      <meta property="profile:username" content="{{.User.MemberID}}"/> 
+      <meta property="profile:first_name" content="{{.User.Fname}}"/>
+      <meta property="profile:last_name" content="{{.User.Sname}}"/>
+    {{end}}
 {{end}}
 
 {{define "content"}}
