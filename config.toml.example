@@ -24,6 +24,10 @@
 	urlPrefix = ""
 	fullURL = "https://ury.org.uk"
 
+	mainTwitter = "URY1350"
+	mainFacebook = "URY1350"
+	newsTwitter = "URYNews"
+
 	[[pageContext.pages]]
 		name = "Search"
 		url  = "search/"
