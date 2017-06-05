@@ -7,7 +7,7 @@
     <meta property="og:type" content="website"/>
     <meta property="og:locale" content="en_GB" />
     <meta property="og:title" content="{{.PageContext.LongName}} | About"/>
-    <meta property="og:description" content="University Radio York (URY) is the student radio station for the University of York, broadcasting 24 hours a day during term time on 1350am across campus, and worldwide via this website."/>
+    <meta property="og:description" content="{{.PageContext.SiteDescription}}"/>
     <meta property="og:image" content="{{.PageContext.FullURL}}/images/open_graph-general.jpg"/>
     <meta property="og:url" content="{{.PageContext.FullURL}}/about/"/>
 {{end}}
@@ -29,7 +29,7 @@
     <div class="row">
       <div class="col-md-6 col-lg-3">
         <h2>Who are URY?</h2>
-        <p>University Radio York (URY) is the student radio station for the University of York, broadcasting 24 hours a day during term time on 1350am across the University's Heslington Campus and worldwide via this website.</p>
+        <p>{{.PageContext.SiteDescription}}</p>
         <p>The station is run by students for students, meaning the people behind the station understand what the listenership want to hear.</p>
         <p>With no playlist and no set format to many of our shows, our presenters have the chance to try whatever they like, as long as it's legal!</p>
       </div>
