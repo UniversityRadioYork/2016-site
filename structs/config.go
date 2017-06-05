@@ -24,6 +24,7 @@ type PageContext struct {
 	LongName  string `toml:"longName"`
 	ShortName string `toml:"shortName"`
 	URLPrefix string `toml:"urlPrefix"`
+	FullURL   string `toml:"fullURL"`
 	Pages     []Page
 }
 

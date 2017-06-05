@@ -5,9 +5,9 @@
 	<meta name="twitter:site" content="@URY1350"/>
 	<meta name="twitter:creator" content="@URY1350"/>
 	<meta property="og:locale" content="en_GB"/>
-	<meta property="og:title" content="{{.PageContext.ShortName}} | {{with .PageData}}{{.Season.Title}}{{end}}"/>
+	<meta property="og:title" content="{{.PageContext.ShortName}} | {{.PageData.Season.Title}}"/>
 	<!-- @TODO: Add Season image from Show. -->
-	<meta property="og:image" content="https://ury.org.uk/images/open_graph-general.jpg"/>
+	<meta property="og:image" content="{{.PageContext.FullURL}}/images/open_graph-general.jpg"/>
 {{end}}
 
 {{define "content"}}
