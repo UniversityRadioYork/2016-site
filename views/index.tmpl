@@ -260,8 +260,11 @@
       </div>
     </div>
   </div> <!-- /outer containter -->
-	<!-- Youtube slider script -->
-  <script src="js/index.js"></script>
-  <script src="https://apis.google.com/js/client.js?onload=onGoogleLoad"></script>
   {{end}}
+{{end}}
+
+{{define "footer-scripts"}}
+<!-- Youtube slider script -->
+<script src='{{url "js/index.js"}}'></script>
+<script src="https://apis.google.com/js/client.js?onload=onGoogleLoad"></script>
 {{end}}
