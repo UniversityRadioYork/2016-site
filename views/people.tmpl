@@ -11,6 +11,15 @@
         <div class="row">
           <div class="col-12 col-lg-3">
             <img class="user-img rounded-circle img-fluid" src="https://ury.org.uk{{.User.Photo}}" alt="Photo of {{.User.Fname}} {{.User.Sname}}">
+            <div class="row">
+              <div class="col text-center">
+                <span>Shows: {{len .ShowCredits}}</span>
+              </div>
+              
+              <div class="col text-center">
+                <span>Hours: {{showsToHours .ShowCredits}}</span>
+              </div>
+            </div>
           </div>
           <div class="col-12 col-lg-9">
             <h1 class="user-name pt-3">{{.User.Fname}} {{.User.Sname}}</h1>
@@ -26,10 +35,7 @@
             </div>
             <div class="row">
               <div class="col">
-                <h4>Shows: {{len .ShowCredits}}</h4>
-              </div>
-              <div class="col">
-                <h4>Hours: {{showsToHours .ShowCredits}}</h4>
+                <a class="float-right" href="#shows">All shows..</a>
               </div>
             </div>
           </div>
@@ -39,21 +45,34 @@
     <div class="container-fluid user-bio-container">
       <div class="container">
         <div class="">
-          <h2>Bio</h2>
-          <p>{{html .User.Bio}}</p>
-          <h2>Officerships</h2>
-          <ul>
-          {{range .Officerships}}
-            <li>
-            {{.OfficerName}} - from {{.FromDate.Format "2006-01-02"}} to
-            {{if .TillDateRaw}}
-              {{.TillDate.Format "2006-01-02"}}
-            {{else}}
-              current
+          {{if .User.Bio}}
+            <h2>Bio</h2>
+            <p>{{html .User.Bio}}</p>
+          {{end}}
+          {{if .Officerships}}
+            <h2>Officerships</h2>
+            <ul>
+            {{range .Officerships}}
+              <li>
+              {{.OfficerName}} - from {{.FromDate.Format "2006-01-02"}} to
+              {{if .TillDateRaw}}
+                {{.TillDate.Format "2006-01-02"}}
+              {{else}}
+                current
+              {{end}}
+              </li>
             {{end}}
+            </ul>
+          {{end}}
+          <h2 id="shows">Shows</h2>
+          This person has worked on the following shows: 
+          <ul>
+          {{range .ShowCredits}}
+            <li>
+              <a href="{{.MicroSiteLink.URL}}" title="View the {{.Title}} webpage.">{{.Title}}</a>
             </li>
           {{end}}
-          </ul>  
+          </uL>
         </div>
       </div>
     </div>
