@@ -1,5 +1,5 @@
 .bg-off-white {
-  background: $content-bg-1;
+  background: $off-white-color;
 }
 .bg-primary, .bg-secondary, .bg-third {
   color: #fff;
@@ -12,6 +12,9 @@
 }
 .bg-secondary {
   background: $secondary-color;
+  hr {
+    border-color: $off-white-color;
+  }
 }
 .bg-third {
   background: $third-color;

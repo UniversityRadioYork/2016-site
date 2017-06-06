@@ -65,7 +65,7 @@ body {
 
 footer {
   color: #777;
-  background: $content-bg-1;
+  background: $off-white-color;
 
   .row {
     min-height: 3em;
@@ -117,10 +117,7 @@ footer {
   max-width: 100%;
   object-fit: cover;
 }
-.user-bio-container {
-  background: $secondary-color;
-  color: #fff;
-}
+
 .user-credits-people {
   background-color: $primary-color;
   color: white;
