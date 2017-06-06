@@ -1,6 +1,6 @@
 // Splits a list into two even columns for anything above md and three for anything above xl
 // otherwise its one column
-ul.split-evenly {
+ul.split-evenly-3 {
   text-align: left;
   overflow: auto;
   width: 100%;
@@ -15,6 +15,21 @@ ul.split-evenly {
     li {
       float: left;
       width: 33%;
+    }
+  }
+}
+
+// Splits a list into two even columns for anything above md
+// otherwise its one column
+ul.split-evenly-2 {
+  text-align: left;
+  overflow: auto;
+  width: 100%;
+  @include media-breakpoint-up(md) {
+    li {
+      float: left;
+      width: 50%;
+      padding-right: 1em;
     }
   }
 }

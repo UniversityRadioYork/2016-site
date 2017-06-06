@@ -53,7 +53,7 @@
           {{if .Officerships}}
             <h2>Officerships</h2>
             <hr>
-            <ul class="split-evenly">
+            <ul class="split-evenly-2">
             {{range .Officerships}}
               <li>
               {{.OfficerName}} - from {{.FromDate.Format "2006-01-02"}} to
@@ -69,7 +69,7 @@
           <h2 id="shows">Shows</h2>
           <hr>
           This person has worked on the following shows: 
-          <ul class="split-evenly">
+          <ul class="split-evenly-3">
           {{range .ShowCredits}}
             <li>
               <a href="{{.MicroSiteLink.URL}}" title="View the {{.Title}} webpage.">{{.Title}}</a>
