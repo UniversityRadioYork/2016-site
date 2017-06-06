@@ -4,6 +4,7 @@ ul.split-evenly-3 {
   text-align: left;
   overflow: auto;
   width: 100%;
+
   @include media-breakpoint-up(md) {
     li {
       float: left;
@@ -11,6 +12,8 @@ ul.split-evenly-3 {
       padding-right: 1em;
     }
   }
+
+
   @include media-breakpoint-up(xl) {
     li {
       float: left;
@@ -25,6 +28,7 @@ ul.split-evenly-2 {
   text-align: left;
   overflow: auto;
   width: 100%;
+
   @include media-breakpoint-up(md) {
     li {
       float: left;
