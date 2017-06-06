@@ -1,6 +1,6 @@
 // Splits a list into two even columns for anything above md and three for anything above xl
 // otherwise its one column
-ul.split-evenly-2 {
+ul.split-evenly {
   text-align: left;
   overflow: auto;
   width: 100%;
