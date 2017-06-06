@@ -110,10 +110,24 @@ footer {
 
 /* User page styling. */
 .user-img {
-  border: #e1e1e1 7px solid;
+  //border: #e1e1e1 7px solid;
   margin-top: -3em;
-  max-width: 100%;
-  object-fit: cover;
+  background-color: $primary-color;
+  border-radius: 100%;
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 100%;
+  position: relative;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background: lightgreen;
+    position: absolute;
+    background-size: cover;
+    background-position: center center;
+  }  
 }
 
 .card .card-img-top.rounded-circle {
@@ -245,7 +259,8 @@ footer {
 }
 
 .show-img {
-  @extend .user-img;
+  border: #e1e1e1 7px solid;
+  margin-top: -3em;
 }
 
 .tag {
