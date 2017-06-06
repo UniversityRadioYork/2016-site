@@ -42,15 +42,17 @@
         </div>
       </div>
     </div> <!-- /outer containter -->
-    <div class="container-fluid user-bio-container">
+    <div class="container-fluid bg-secondary">
       <div class="container">
         <div class="">
           {{if .User.Bio}}
             <h2>Bio</h2>
+            <hr>
             <p>{{html .User.Bio}}</p>
           {{end}}
           {{if .Officerships}}
             <h2>Officerships</h2>
+            <hr>
             <ul>
             {{range .Officerships}}
               <li>
@@ -65,8 +67,9 @@
             </ul>
           {{end}}
           <h2 id="shows">Shows</h2>
+          <hr>
           This person has worked on the following shows: 
-          <ul>
+          <ul class="split-evenly-2">
           {{range .ShowCredits}}
             <li>
               <a href="{{.MicroSiteLink.URL}}" title="View the {{.Title}} webpage.">{{.Title}}</a>
