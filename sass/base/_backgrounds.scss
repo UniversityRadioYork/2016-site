@@ -1,21 +1,31 @@
 .bg-off-white {
-  background: $content-bg-1;
+  background: $off-white-color;
 }
+
 .bg-primary, .bg-secondary, .bg-third {
   color: #fff;
+
   a {
-    color: #6Af
+    color: #6Af;
   }
 }
+
 .bg-primary {
   background: $primary-color;
 }
+
 .bg-secondary {
   background: $secondary-color;
+
+  hr {
+    border-color: $off-white-color;
+  }
 }
+
 .bg-third {
   background: $third-color;
 }
+
 .bg-transparent {
   background: none;
 }
