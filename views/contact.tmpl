@@ -8,8 +8,8 @@
     <meta property="og:locale" content="en_GB" />
     <meta property="og:title" content="Say hi to URY!"/>
     <meta property="og:description" content="At URY, radio is a two-way medium. Send us a message or find us on social media."/>
-    <meta property="og:image" content="{{.PageContext.FullURL}}/images/open_graph-general.jpg"/>
-    <meta property="og:url" content="{{.PageContext.FullURL}}/contact/"/>
+    <meta property="og:image" content="{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}"/>
+    <meta property="og:url" content="{{.PageContext.FullURL}}{{url "/contact/"}}"/>
 {{end}}
 
 {{define "content"}}
