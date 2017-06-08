@@ -7,7 +7,7 @@
 	<meta property="og:locale" content="en_GB"/>
 	<meta property="og:title" content="{{.PageContext.ShortName}} | {{.PageData.Show.Title}}"/>
 	{{if .PageData.Show.Photo}}
-		<meta property="og:image" content="{{.PageContext.FullURL}}{{url ""}}{{.PageData.Show.Photo}}"/>
+		<meta property="og:image" content="{{.PageContext.FullURL}}{{url .PageData.Show.Photo}}"/>
 	{{else}}
 		<meta property="og:image" content="{{.PageContext.FullURL}}{{url "images/open_graph-general.jpg"}}"/>
 	{{end}}
