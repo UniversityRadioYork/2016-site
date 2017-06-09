@@ -1,13 +1,13 @@
 {{define "title"}}{{.PageContext.ShortName}} | {{with .PageData}}{{.Season.Title}}{{end}}{{end}}
 
 {{define "open-graph"}}
-	<meta name="twitter:card" content="summary"/>
-	<meta name="twitter:site" content="@{{.PageContext.MainTwitter}}"/>
-	<meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}"/>
-	<meta property="og:locale" content="en_GB"/>
-	<meta property="og:title" content="{{.PageContext.ShortName}} | {{.PageData.Season.Title}}"/>
-	<!-- @TODO: Add Season image from Show. -->
-	<meta property="og:image" content="{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:site" content="@{{.PageContext.MainTwitter}}"/>
+<meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}"/>
+<meta property="og:locale" content="en_GB"/>
+<meta property="og:title" content="{{.PageContext.ShortName}} | {{.PageData.Season.Title}}"/>
+<!-- @TODO: Add Season image from Show. -->
+<meta property="og:image" content="{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}"/>
 {{end}}
 
 {{define "content"}}
