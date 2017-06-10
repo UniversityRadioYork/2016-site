@@ -1,15 +1,15 @@
 {{define "title"}}{{.PageContext.ShortName}} | About{{end}}
 
 {{define "open-graph"}}
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:site" content="@{{.PageContext.MainTwitter}}"/>
-<meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}"/>
-<meta property="og:type" content="website"/>
-<meta property="og:locale" content="en_GB" />
-<meta property="og:title" content="{{.PageContext.LongName}} | About"/>
-<meta property="og:description" content="{{.PageContext.SiteDescription}}"/>
-<meta property="og:image" content="{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}"/>
-<meta property="og:url" content="{{.PageContext.FullURL}}{{url "/about/"}}"/>
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@{{.PageContext.MainTwitter}}">
+<meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="{{.PageContext.LongName}} | About">
+<meta property="og:description" content="{{.PageContext.SiteDescription}}">
+<meta property="og:image" content="{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}">
+<meta property="og:url" content="{{.PageContext.FullURL}}{{url "/about/"}}">
 {{end}}
 
 {{define "content"}}
