@@ -51,7 +51,7 @@ func NewServer(c *structs.Config) (*Server, error) {
 	getRouter.HandleFunc("/about/", staticC.GetAbout)
 	getRouter.HandleFunc("/contact/", staticC.GetContact)
 	getRouter.HandleFunc("/getinvolved/", staticC.GetInvolved)
-	getRouter.HandleFunc("/competition-terms/", staticC.GetCompetitionTerms)
+	getRouter.HandleFunc("/competitions/", staticC.GetCompetitions)
 
 	// End routes
 
