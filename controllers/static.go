@@ -46,7 +46,7 @@ func (staticC *StaticController) GetInvolved(w http.ResponseWriter, r *http.Requ
 	}
 }
 
-// GetCompetitionTerms handles the HTTP GET request r for the Get Involved page, writing to w.
+// GetCompetitions handles the HTTP GET request r for the Get Involved page, writing to w.
 func (staticC *StaticController) GetCompetitions(w http.ResponseWriter, r *http.Request) {
 	err := utils.RenderTemplate(w, staticC.config.PageContext, nil, "competitions.tmpl")
 	if err != nil {
