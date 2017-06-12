@@ -1,3 +1,22 @@
+{{define "title"}}{{.PageContext.ShortName}} | {{with .PageData}}{{.User.Fname}} {{.User.Sname}}{{end}} Profile{{end}}
+
+{{define "open-graph"}}
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@{{.PageContext.MainTwitter}}">
+<meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="{{.PageContext.ShortName}} | {{.PageData.User.Fname}} {{.PageData.User.Sname}} Profile">
+<meta property="og:url" content="{{.PageContext.FullURL}}{{url "/people/"}}{{.PageData.User.MemberID}}">     
+<!-- @TODO: Remove html so it is just plain text. -->
+<!-- @TODO: Check if the user has a bio, if not use general bio -->
+<meta property="og:description" content="{{.PageData.User.Bio}}">
+<meta property="og:image" content="{{.PageContext.FullURL}}{{url .PageData.User.Photo}}">
+<meta property="og:type" content="profile"> 
+<meta property="profile:username" content="{{.PageData.User.MemberID}}"> 
+<meta property="profile:first_name" content="{{.PageData.User.Fname}}">
+<meta property="profile:last_name" content="{{.PageData.User.Sname}}">
+  {{end}}
+
 {{define "content"}}
 
   {{with .PageData}}

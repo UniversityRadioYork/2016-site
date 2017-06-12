@@ -1,3 +1,22 @@
+{{define "title"}}{{.PageContext.ShortName}} | {{.PageData.Show.Title}}{{end}}
+
+{{define "open-graph"}}
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@{{.PageContext.MainTwitter}}">
+<meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="{{.PageContext.ShortName}} | {{.PageData.Show.Title}}">
+{{if .PageData.Show.Photo}}
+<meta property="og:image" content="{{.PageContext.FullURL}}{{url .PageData.Show.Photo}}">
+{{else}}
+<meta property="og:image" content="{{.PageContext.FullURL}}{{url "images/open_graph-general.jpg"}}">
+{{end}}
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{.PageContext.FullURL}}{{url "/schedule/shows/"}}{{.PageData.Show.ShowID}}">
+<!-- @TODO: Remove HTML, so it leaves plain text.-->
+<meta property="og:description" content="{{.PageData.Show.Description}}">
+{{end}}
+
 {{define "content"}}
 {{with .PageData}}
 
