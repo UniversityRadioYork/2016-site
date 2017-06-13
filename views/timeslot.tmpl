@@ -5,7 +5,7 @@
 <meta name="twitter:site" content="@{{.PageContext.MainTwitter}}">
 <meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}">
 <meta property="og:locale" content="en_GB">
-<meta property="og:title" content="{{.PageContext.ShortName}} | {{.PageData.Timeslot.Title}}">
+<meta property="og:title" content="{{.PageContext.ShortName}} | {{.PageData.Timeslot.Title}} {{.PageData.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}}">
 {{if .PageData.Timeslot.Season.ShowMeta.Photo}}
 <meta property="og:image" content="{{.PageContext.FullURL}}{{url .PageData.Timeslot.Season.ShowMeta.Photo}}">
 {{else}}
