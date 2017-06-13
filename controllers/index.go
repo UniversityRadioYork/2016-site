@@ -26,7 +26,7 @@ func (ic *IndexController) Get(w http.ResponseWriter, r *http.Request) {
 	// This is where any form params would be parsed
 	model := models.NewIndexModel(ic.session)
 
-	currentAndNext, banners, err := model.Get()
+	currentAndNext, banners, teams, err := model.Get()
 
 	if err != nil {
 		log.Println(err)
@@ -36,9 +36,11 @@ func (ic *IndexController) Get(w http.ResponseWriter, r *http.Request) {
 	data := struct {
 		CurrentAndNext *myradio.CurrentAndNext
 		Banners        []myradio.Banner
+		Teams          []myradio.Team
 	}{
 		CurrentAndNext: currentAndNext,
 		Banners:        banners,
+		Teams:          teams,
 	}
 
 	err = utils.RenderTemplate(w, ic.config.PageContext, data, "index.tmpl", "elements/current_and_next.tmpl", "elements/banner.tmpl")
