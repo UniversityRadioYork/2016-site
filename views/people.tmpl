@@ -23,12 +23,12 @@
 
   {{with .PageData}}
     <div class="container-fluid header-large current-next">
-      <div class="container mobile-hide">
+      <div class="container container-padded mobile-hide">
       {{template "current_and_next" .}}
-      </div><!-- /.container -->
+      </div><!-- /.container container-padded -->
     </div><!-- /outer containter -->
     <div class="container-fluid bg-off-white">
-      <div class="container">
+      <div class="container container-padded">
         <div class="row">
           <div class="col-12 col-lg-3">
             <div class="user-img">
@@ -66,7 +66,7 @@
       </div>
     </div> <!-- /outer containter -->
     <div class="container-fluid bg-secondary">
-      <div class="container">
+      <div class="container container-padded">
         <div>
           {{if .User.Bio}}
             <h2>Bio</h2>

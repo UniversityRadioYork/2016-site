@@ -1,27 +1,28 @@
 {{define "navbar"}}
-<nav class="navbar navbar-ury navbar-toggleable-md fixed-top">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsed" aria-controls="collapsed" aria-expanded="false" aria-label="Toggle navigation">
-    <i class="fa fa-bars" aria-hidden="true"></i>
-  </button>
-  <a class="navbar-brand" href="{{url "/"}}">
-    <img src="{{url "/images/logo.png"}}" height="34" alt="{{.PageContext.LongName}} Logo" >
-  </a>
-  <div class="navbar-collapse collapse" id="collapsed">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link" href="#">Schedule</a>
-      <a class="nav-item nav-link" href="#">Shows</a>
-      <a class="nav-item nav-link" href="#">URY Player</a>
-      <a class="nav-item nav-link" href="{{url "/about/"}}">About Us</a>
-      <a class="nav-item nav-link" href="{{url "/getinvolved/"}}">Get Involved</a>
-      <a class="nav-item nav-link" href="{{url "/contact/"}}">Contact Us</a>
+<header class="navbar navbar-ury navbar-toggleable-md fixed-top bd-navbar">
+  <nav class="container">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsed" aria-controls="collapsed" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fa fa-bars" aria-hidden="true"></i>
+    </button>
+    <a class="navbar-brand" href="{{url "/"}}">
+      <img src="{{url "/images/logo.png"}}" height="34" alt="{{.PageContext.LongName}} Logo" >
+    </a>
+    <div class="navbar-collapse collapse" id="collapsed">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="#">Schedule</a>
+        <a class="nav-item nav-link" href="#">Shows</a>
+        <a class="nav-item nav-link" href="#">URY Player</a>
+        <a class="nav-item nav-link" href="{{url "/about/"}}">About Us</a>
+        <a class="nav-item nav-link" href="{{url "/getinvolved/"}}">Get Involved</a>
+        <a class="nav-item nav-link" href="{{url "/contact/"}}">Contact Us</a>
+      </div>
+      <form action="{{url "/search/"}}" class="form-inline ml-auto search-box search-box-expand">
+          <button type="submit" class="" alt="Submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+          <div class="col px-0">
+            <input type="text" name="term" placeholder="Search...">
+          </div>
+      </form>
     </div>
-    <form action="{{url "/search/"}}" class="form-inline ml-auto search-box search-box-expand">
-        <button type="submit" class="" alt="Submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-        <div class="col px-0">
-          <input type="text" name="term" placeholder="Search...">
-        </div>
-    </form>
-  </div>
-</nav>
-
+  </nav>
+</header>
 {{end}}
