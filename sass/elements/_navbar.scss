@@ -1,0 +1,57 @@
+$nav-background: $primary-color;
+
+// How fast search expands and shrinks
+$search-transition-time: .5s;
+
+.navbar-ury {
+  background: $nav-background;
+}
+
+.search-box {
+  margin-top: auto;
+  margin-bottom: auto;
+  // 10 rem can be lower but if the font is enlarged on screen it doesnt look right
+  border-radius: 10rem;
+  background: $off-white-color;
+  width: auto;
+
+  input {
+    background: none;
+    border: none;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-right: 1rem;
+    height: 100%;
+
+    // only do the animation when the nav is not collapsed
+    @include media-breakpoint-up(md) {
+      width: 60px;
+      transition-duration: $search-transition-time;
+    }
+
+    &:focus {
+      outline: none;
+      background: none;
+      border: none;
+
+      // only do the animation when the nav is not collapsed
+      @include media-breakpoint-up(md) {
+        width: 150px;
+        transition-duration: $search-transition-time;
+      }
+    }
+
+  }
+
+  button {
+    color: grey;
+    border: none;
+    background: none;
+    padding: 0 0.7rem;
+    padding-top: 0.1px;
+
+    &:hover {
+      color: black;
+    }
+  }
+}

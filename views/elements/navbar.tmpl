@@ -1,5 +1,5 @@
 {{define "navbar"}}
-<nav class="navbar navbar-inverse bg-primary navbar-toggleable-md fixed-top">
+<nav class="navbar navbar-ury navbar-toggleable-md fixed-top">
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsed" aria-controls="collapsed" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -15,9 +15,10 @@
       <a class="nav-item nav-link" href="{{url "/getinvolved/"}}">Get Involved</a>
       <a class="nav-item nav-link" href="{{url "/contact/"}}">Contact Us</a>
     </div>
-    <form action="{{url "/search/"}}" class="form-inline ml-auto">
-        <input type="text" name="term" class="form-control" placeholder="Search">
-        <button type="submit" class="btn btn-outline-success" alt="Submit">Search</button>
+    <form action="{{url "/search/"}}" class="form-inline ml-auto search-box">
+        <button type="submit" class="" alt="Submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+        <input type="text" name="term" placeholder="Search...">
+       
     </form>
   </div>
 </nav>
