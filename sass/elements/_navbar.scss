@@ -54,6 +54,7 @@ $search-transition-time: .5s;
     @include media-breakpoint-up(md) {
       width: 60px;
       transition-duration: $search-transition-time;
+      transition-delay: 0.1s
     }
 
     &:focus {
