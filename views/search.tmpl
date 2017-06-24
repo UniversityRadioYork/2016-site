@@ -3,10 +3,14 @@
 {{with .PageData}}
 
 <div class="container pt-5">
+    <form action="{{url "/search/"}}" class="form-inline ml-auto search-box" style="font-size:2rem;">
+        <button type="submit" class="" alt="Submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+        <div class="col px-0">
+            <input type="text" name="term" placeholder="Search..." value="{{.Term}}" width="100%">  
+        </div>
+    </form>
 	{{if .Searching}}
-        <h2>
-            {{.NumResults}} Results for {{.Term}}
-        </h2>
+            {{.NumResults}} Results
         <hr>
 		{{range .Results}}
             <h4>
