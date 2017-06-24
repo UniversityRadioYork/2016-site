@@ -1,10 +1,11 @@
-$nav-background: #f4f4f4;
+$nav-background: rgba(255,255,255,0.88);
 
 // How fast search expands and shrinks
 $search-transition-time: .5s;
 
 .navbar-ury {
   background: $nav-background;
+  -webkit-backdrop-filter: blur(7px);
   border-bottom: 1px solid rgba(2, 45, 89, 0.3);
 
   a {
