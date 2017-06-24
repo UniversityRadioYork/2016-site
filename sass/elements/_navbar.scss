@@ -11,7 +11,7 @@ $search-transition-time: .5s;
   margin-top: auto;
   margin-bottom: auto;
   // 10 rem can be lower but if the font is enlarged on screen it doesnt look right
-  border-radius: 10rem;
+  border-radius: 10em;
   background: $off-white-color;
   width: auto;
 
@@ -20,7 +20,7 @@ $search-transition-time: .5s;
     border: none;
     margin-top: auto;
     margin-bottom: auto;
-    padding-right: 1rem;
+    padding-right: 1em;
     height: 100%;
 
     // only do the animation when the nav is not collapsed
@@ -47,7 +47,7 @@ $search-transition-time: .5s;
     color: grey;
     border: none;
     background: none;
-    padding: 0 0.7rem;
+    padding: 0 0.7em;
     padding-top: 0.1px;
 
     &:hover {
