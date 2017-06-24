@@ -27,6 +27,7 @@ $search-transition-time: .5s;
     margin-top: auto;
     margin-bottom: auto;
     padding-right: 0.5em;
+    padding-left: 0;
     height: 100%;
     width: 100%;
 
@@ -43,8 +44,8 @@ $search-transition-time: .5s;
     color: grey;
     border: none;
     background: none;
-    padding: 0 0.7em;
-    padding-top: 0.1px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 
     &:hover {
       color: black;
@@ -58,7 +59,7 @@ $search-transition-time: .5s;
   input {
     // only do the animation when the nav is not collapsed
     @include media-breakpoint-up(md) {
-      width: 60px;
+      width: 70px;
       transition-duration: $search-transition-time;
       transition-delay: 0.1s
     }
@@ -66,7 +67,7 @@ $search-transition-time: .5s;
     &:focus {
       // only do the animation when the nav is not collapsed
       @include media-breakpoint-up(md) {
-        width: 150px;
+        width: 170px;
         transition-duration: $search-transition-time;
       }
     }
