@@ -20,25 +20,15 @@ $search-transition-time: .5s;
     border: none;
     margin-top: auto;
     margin-bottom: auto;
-    padding-right: 1em;
+    padding-right: 0.5em;
     height: 100%;
-
-    // only do the animation when the nav is not collapsed
-    @include media-breakpoint-up(md) {
-      width: 60px;
-      transition-duration: $search-transition-time;
-    }
+    width: 100%;
 
     &:focus {
       outline: none;
       background: none;
       border: none;
 
-      // only do the animation when the nav is not collapsed
-      @include media-breakpoint-up(md) {
-        width: 150px;
-        transition-duration: $search-transition-time;
-      }
     }
 
   }
@@ -52,6 +42,26 @@ $search-transition-time: .5s;
 
     &:hover {
       color: black;
+    }
+  }
+}
+
+
+.search-box-expand {
+
+  input {
+    // only do the animation when the nav is not collapsed
+    @include media-breakpoint-up(md) {
+      width: 60px;
+      transition-duration: $search-transition-time;
+    }
+
+    &:focus {
+      // only do the animation when the nav is not collapsed
+      @include media-breakpoint-up(md) {
+        width: 150px;
+        transition-duration: $search-transition-time;
+      }
     }
   }
 }
