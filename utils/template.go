@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"path/filepath"
 	"time"
-	
+
 	"github.com/UniversityRadioYork/2016-site/structs"
 	myradio "github.com/UniversityRadioYork/myradio-go"
 )
