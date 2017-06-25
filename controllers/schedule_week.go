@@ -10,7 +10,9 @@ import (
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
+	"net/url"
 	"sort"
+	"strconv"
 	"time"
 )
 
@@ -303,12 +305,26 @@ func generateWeekSchedule(start, finish time.Time, schedule []structs.ScheduleIt
 // ScheduleWeekController is the controller for looking up week schedules.
 type ScheduleWeekController struct {
 	Controller
+
+	timeslotURLBuilder func(*myradio.Timeslot) (*url.URL, error)
 }
 
-// NewScheduleWeekController returns a new ShowController with the MyRadio session s
-// and configuration context c.
-func NewScheduleWeekController(s *myradio.Session, c *structs.Config) *ScheduleWeekController {
-	return &ScheduleWeekController{Controller{session: s, config: c}}
+// NewScheduleWeekController returns a new ScheduleWeekController with the MyRadio session s,
+// router r, and configuration context c.
+
+func NewScheduleWeekController(s *myradio.Session, r *mux.Router, c *structs.Config) *ScheduleWeekController {
+	// We pass in the router so we can generate URL reversal functions.
+	// Eventually we might want to clean this up, either by passing in
+	// something more loosely coupled or handling this at a higher level.
+	troute := r.Get("timeslot")
+	tbuilder := func(t *myradio.Timeslot) (*url.URL, error) {
+		return troute.URLPath("id", strconv.FormatUint(t.TimeslotID, 10))
+	}
+
+	return &ScheduleWeekController{
+		Controller:         Controller{session: s, config: c},
+		timeslotURLBuilder: tbuilder,
+	}
 }
 
 // Get handles the HTTP GET request r for all shows, writing to w.
@@ -356,7 +372,14 @@ func (sc *ScheduleWeekController) GetByYearWeek(w http.ResponseWriter, r *http.R
 	// Now start filling from day start to day finish.
 	weekStart := utils.StartOfDayOn(startDate)
 	weekFinish := utils.StartOfDayOn(finishDate)
-	filled, err := structs.FillTimeslotSlice(weekStart, weekFinish, flat)
+	tbuilder := func(t *myradio.Timeslot) (*structs.TimeslotItem, error) {
+		ts, err := structs.NewTimeslotItem(t, sc.timeslotURLBuilder)
+		if err == nil && ts == nil {
+			return nil, errors.New("NewTimeslotItem created nil timeslot item")
+		}
+		return ts, err
+	}
+	filled, err := structs.FillTimeslotSlice(weekStart, weekFinish, flat, tbuilder)
 	if err != nil {
 		log.Println(err)
 		return

@@ -3,8 +3,10 @@ package structs
 // TODO(CaptainHayashi): this probably doesn't belong in structs.
 
 import (
+	"errors"
 	"fmt"
 	"github.com/UniversityRadioYork/myradio-go"
+	"net/url"
 	"time"
 )
 
@@ -57,11 +59,20 @@ func NewSustainerItem(start, finish time.Time) *SustainerItem {
 // TimeslotItem adapts myradio.Timeslot into a ScheduleItem.
 type TimeslotItem struct {
 	Timeslot *myradio.Timeslot
+	PageURL  string
 }
 
 // NewTimeslotItem converts a myradio.Timeslot into a TimeslotItem.
-func NewTimeslotItem(t *myradio.Timeslot) *TimeslotItem {
-	return &TimeslotItem{Timeslot: t}
+func NewTimeslotItem(t *myradio.Timeslot, u func(*myradio.Timeslot) (*url.URL, error)) (*TimeslotItem, error) {
+	if t == nil {
+		return nil, errors.New("NewTimeslotItem: given nil timeslot")
+	}
+
+	url, err := u(t)
+	if err != nil {
+		return nil, err
+	}
+	return &TimeslotItem{Timeslot: t, PageURL: url.Path}, nil
 }
 
 /*
@@ -150,8 +161,7 @@ func (s *TimeslotItem) HasPage() bool {
 
 // GetPageUrl gets the root-relative URL to a TimeslotItem's show page.
 func (s *TimeslotItem) GetPageURL() string {
-	// TODO(MattWindsor91): don't hardcode this here.
-	return fmt.Sprintf("/schedule/shows/timeslots/%d/", s.Timeslot.TimeslotID)
+	return s.PageURL
 }
 
 /*
@@ -161,9 +171,10 @@ func (s *TimeslotItem) GetPageURL() string {
 
 // FillTimeslotSlice converts a slice of Timeslots to a slice of ScheduleItems.
 // It does so by filling in any gaps between the start time and the first show, the final show and the finish time, and any two shows.
+// It expects a constructor function for lifting Timeslots to TimeslotItems.
 // It will return an error if any two shows overlap.
 // It presumes the timeslot slice is already sorted in chronological order.
-func FillTimeslotSlice(start, finish time.Time, slots []myradio.Timeslot) ([]ScheduleItem, error) {
+func FillTimeslotSlice(start, finish time.Time, slots []myradio.Timeslot, tbuilder func(*myradio.Timeslot) (*TimeslotItem, error)) ([]ScheduleItem, error) {
 	nslots := len(slots)
 
 	// The maximum possible number of items is 2(nslots) + 1:
@@ -188,6 +199,7 @@ func FillTimeslotSlice(start, finish time.Time, slots []myradio.Timeslot) ([]Sch
 
 	// Now, if possible, start filling between.
 	// This will add all but the last show.
+	var err error
 	for j := range slots {
 		if j < nslots-1 {
 			first := &slots[j]
@@ -206,7 +218,10 @@ func FillTimeslotSlice(start, finish time.Time, slots []myradio.Timeslot) ([]Sch
 				)
 			}
 
-			items[i] = NewTimeslotItem(first)
+			items[i], err = tbuilder(first)
+			if err != nil {
+				return nil, err
+			}
 			i++
 			if firstFinish.Before(second.StartTime) {
 				items[i] = NewSustainerItem(firstFinish, second.StartTime)
@@ -217,7 +232,10 @@ func FillTimeslotSlice(start, finish time.Time, slots []myradio.Timeslot) ([]Sch
 	}
 
 	lastShow := &slots[nslots-1]
-	items[i] = NewTimeslotItem(lastShow)
+	items[i], err = tbuilder(lastShow)
+	if err != nil {
+		return nil, err
+	}
 	i++
 	lastFinish := lastShow.StartTime.Add(lastShow.Duration)
 	if lastFinish.Before(finish) {
