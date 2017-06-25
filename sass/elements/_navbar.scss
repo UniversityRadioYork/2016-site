@@ -18,6 +18,7 @@ $search-transition-time: .5s;
   margin-bottom: auto;
   // 10 rem can be lower but if the font is enlarged on screen it doesnt look right
   border-radius: 10em;
+  border: 1px solid rgba(152, 152, 152, 0.2);
   background: $off-white-color;
   width: auto;
 
