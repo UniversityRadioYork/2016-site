@@ -5,9 +5,10 @@ package structs
 import (
 	"errors"
 	"fmt"
-	"github.com/UniversityRadioYork/myradio-go"
 	"net/url"
 	"time"
+
+	"github.com/UniversityRadioYork/myradio-go"
 )
 
 // ScheduleItem is an interface containing information about one item in a URY schedule.

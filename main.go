@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"time"
+
 	"github.com/BurntSushi/toml"
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/stretchr/graceful"
-	"log"
-	"time"
 )
 
 func main() {

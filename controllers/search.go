@@ -1,12 +1,13 @@
 package controllers
 
 import (
+	"log"
+	"net/http"
+
 	"github.com/UniversityRadioYork/2016-site/models"
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/2016-site/utils"
 	"github.com/UniversityRadioYork/myradio-go"
-	"log"
-	"net/http"
 )
 
 // SearchController is the controller for the search page.

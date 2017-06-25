@@ -2,9 +2,10 @@ package utils
 
 import (
 	"bytes"
-	"golang.org/x/net/html"
 	"strings"
 	"unicode"
+
+	"golang.org/x/net/html"
 )
 
 // This is non-exhaustive, but captures most required nodes

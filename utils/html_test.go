@@ -1,8 +1,9 @@
 package utils_test
 
 import (
-	utils "github.com/UniversityRadioYork/2016-site/utils"
 	"testing"
+
+	utils "github.com/UniversityRadioYork/2016-site/utils"
 )
 
 // TestStripHtml tests StripHtml on various HTML fragments.

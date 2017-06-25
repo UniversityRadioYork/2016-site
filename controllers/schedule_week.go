@@ -3,17 +3,18 @@ package controllers
 import (
 	"errors"
 	"fmt"
-	"github.com/UniversityRadioYork/2016-site/models"
-	"github.com/UniversityRadioYork/2016-site/structs"
-	"github.com/UniversityRadioYork/2016-site/utils"
-	"github.com/UniversityRadioYork/myradio-go"
-	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 	"net/url"
 	"sort"
 	"strconv"
 	"time"
+
+	"github.com/UniversityRadioYork/2016-site/models"
+	"github.com/UniversityRadioYork/2016-site/structs"
+	"github.com/UniversityRadioYork/2016-site/utils"
+	"github.com/UniversityRadioYork/myradio-go"
+	"github.com/gorilla/mux"
 )
 
 // weekFromVars extracts the year, and week strings from vars.
