@@ -75,6 +75,11 @@ type WeekScheduleRow struct {
 	Cells []WeekScheduleCell
 }
 
+// addCell adds a cell with rowspan s and item i to the row r.
+func (r *WeekScheduleRow) addCell(s uint, i *structs.ScheduleItem) {
+	r.Cells = append(r.Cells, WeekScheduleCell{RowSpan: s, Item: i})
+}
+
 // showStraddlesDay checks whether a show's start and finish cross over the boundary of a URY day.
 func showStraddlesDay(start, finish time.Time) bool {
 	nextDayStart := utils.StartOfDayOn(start.AddDate(0, 0, 1))
@@ -234,14 +239,15 @@ func populateRows(days []time.Time, rows []WeekScheduleRow, items []structs.Sche
 				thisShowIndex = -1
 			}
 
-			// If this is not the first time we've seen this slot, update its rowspan
-			// and put in a placeholder.
+			// If this is not the first time we've seen this slot,
+			// update the rowspan in the first instance's cell and
+			// put in a placeholder.
 			if thisShowIndex != -1 {
 				rows[thisShowIndex].Cells[d].RowSpan++
-				rows[i].Cells = append(rows[i].Cells, WeekScheduleCell{RowSpan: 0, Item: nil})
+				rows[i].addCell(0, nil)
 			} else {
 				thisShowIndex = i
-				rows[i].Cells = append(rows[i].Cells, WeekScheduleCell{RowSpan: 1, Item: &(items[currentItem])})
+				rows[i].addCell(1, &(items[currentItem]))
 			}
 		}
 	}
@@ -275,8 +281,8 @@ func hasShows(schedule []structs.ScheduleItem) bool {
 	return false
 }
 
-// generateWeekSchedule creates a schedule table from the given schedule slice.
-func generateWeekSchedule(start, finish time.Time, schedule []structs.ScheduleItem) (*WeekSchedule, error) {
+// tabulateWeekSchedule creates a schedule table from the given schedule slice.
+func tabulateWeekSchedule(start, finish time.Time, schedule []structs.ScheduleItem) (*WeekSchedule, error) {
 	days := []time.Time{}
 	for d := start; d.Before(finish); d = d.AddDate(0, 0, 1) {
 		days = append(days, d)
@@ -330,39 +336,27 @@ func NewScheduleWeekController(s *myradio.Session, r *mux.Router, c *structs.Con
 	}
 }
 
-// GetByYearWeek handles the HTTP GET request r for week schedules by year/week date reference, writing to w.
-//
-// It takes two request variables--year and week--, which correspond to an ISO 8601 year-week date.
-func (sc *ScheduleWeekController) GetByYearWeek(w http.ResponseWriter, r *http.Request) {
-	sm := models.NewScheduleWeekModel(sc.session)
-
-	vars := mux.Vars(r)
-
-	year, week, err := weekFromVars(vars)
-	if err != nil {
-		log.Println(err)
-		return
+// makeTimeslotItem creates a TimeslotItem for a given MyRadio timeslot.
+func (sc *ScheduleWeekController) makeTimeslotItem(t *myradio.Timeslot) (*structs.TimeslotItem, error) {
+	ts, err := structs.NewTimeslotItem(t, sc.timeslotURLBuilder)
+	if err == nil && ts == nil {
+		return nil, errors.New("NewTimeslotItem created nil timeslot item")
 	}
+	return ts, err
+}
 
-	yr, wk, dy, err := utils.ParseIsoWeek(year, week, "1")
+// makeWeekSchedule gets the week schedule for a given ISO year and week.
+func (sc *ScheduleWeekController) makeWeekSchedule(yr, wk int) (*WeekSchedule, error) {
+	startDate, err := utils.IsoWeekToDate(yr, wk, time.Monday)
 	if err != nil {
-		log.Println(err)
-		return
-	}
-
-	startDate, err := utils.IsoWeekToDate(yr, wk, dy)
-	if err != nil {
-		log.Println(err)
-		return
+		return nil, err
 	}
 	finishDate := startDate.AddDate(0, 0, 7)
 
-	log.Printf("getting year %d week %d\n", yr, wk)
+	sm := models.NewScheduleWeekModel(sc.session)	
 	timeslots, err := sm.Get(yr, wk)
 	if err != nil {
-		//@TODO: Do something proper here, render 404 or something
-		log.Println(err)
-		return
+		return nil, err
 	}
 
 	// Flatten the timeslots into one stream
@@ -374,21 +368,35 @@ func (sc *ScheduleWeekController) GetByYearWeek(w http.ResponseWriter, r *http.R
 	// Now start filling from day start to day finish.
 	weekStart := utils.StartOfDayOn(startDate)
 	weekFinish := utils.StartOfDayOn(finishDate)
-	tbuilder := func(t *myradio.Timeslot) (*structs.TimeslotItem, error) {
-		ts, err := structs.NewTimeslotItem(t, sc.timeslotURLBuilder)
-		if err == nil && ts == nil {
-			return nil, errors.New("NewTimeslotItem created nil timeslot item")
-		}
-		return ts, err
+	filled, err := structs.FillTimeslotSlice(weekStart, weekFinish, flat, sc.makeTimeslotItem)
+	if err != nil {
+		return nil, err
 	}
-	filled, err := structs.FillTimeslotSlice(weekStart, weekFinish, flat, tbuilder)
+
+	return tabulateWeekSchedule(weekStart, weekFinish, filled)
+}
+
+// GetByYearWeek handles the HTTP GET request r for week schedules by year/week date reference, writing to w.
+//
+// It takes two request variables--year and week--, which correspond to an ISO 8601 year-week date.
+func (sc *ScheduleWeekController) GetByYearWeek(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+
+	year, week, err := weekFromVars(vars)
 	if err != nil {
 		log.Println(err)
 		return
 	}
 
-	data, err := generateWeekSchedule(weekStart, weekFinish, filled)
+	yr, wk, _, err := utils.ParseIsoWeek(year, week, "1")
 	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	data, err := sc.makeWeekSchedule(yr, wk)
+	if err != nil {
+		//@TODO: Do something proper here, render 404 or something
 		log.Println(err)
 		return
 	}
