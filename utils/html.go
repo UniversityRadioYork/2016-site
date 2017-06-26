@@ -11,8 +11,8 @@ import (
 // This is non-exhaustive, but captures most required nodes
 const stripAllowedNodes = "html body p a strong em span section div"
 
-// StripHtml strips HTML tags from a string, extracting all plain text.
-func StripHtml(htmls string) (string, error) {
+// StripHTML strips HTML tags from a string, extracting all plain text.
+func StripHTML(htmls string) (string, error) {
 	doc, err := html.Parse(strings.NewReader(htmls))
 	if err != nil {
 		return "", err

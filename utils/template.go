@@ -80,12 +80,11 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 		// TODO(CaptainHayashi): this is temporary
 		"showName": func(s structs.ScheduleItem) string { return s.GetName(&context) },
 		"showDesc": func(s structs.ScheduleItem) string {
-			d, err := StripHtml(s.GetDesc(&context))
-			if err == nil {
-				return d
-			} else {
+			d, err := StripHTML(s.GetDesc(&context))
+			if err != nil {
 				return "Error getting this show's description."
 			}
+			return d
 		},
 		"showStart":  func(s structs.ScheduleItem) time.Time { return s.GetStart() },
 		"showFinish": func(s structs.ScheduleItem) time.Time { return s.GetFinish() },

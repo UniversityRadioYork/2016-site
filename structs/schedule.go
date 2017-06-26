@@ -115,7 +115,7 @@ func (s *SustainerItem) HasPage() bool {
 	return false
 }
 
-// GetPageUrl gets the root-relative URL to a SustainerItem's (non-existent) show page.
+// GetPageURL gets the root-relative URL to a SustainerItem's (non-existent) show page.
 func (s *SustainerItem) GetPageURL() string {
 	return ""
 }
@@ -156,13 +156,13 @@ func (t *TimeslotItem) IsSustainer() bool {
 }
 
 // HasPage gets whether a TimeslotItem has a show page (it does).
-func (s *TimeslotItem) HasPage() bool {
+func (t *TimeslotItem) HasPage() bool {
 	return true
 }
 
-// GetPageUrl gets the root-relative URL to a TimeslotItem's show page.
-func (s *TimeslotItem) GetPageURL() string {
-	return s.PageURL
+// GetPageURL gets the root-relative URL to a TimeslotItem's show page.
+func (t *TimeslotItem) GetPageURL() string {
+	return t.PageURL
 }
 
 /*

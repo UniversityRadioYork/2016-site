@@ -40,7 +40,7 @@ type PageContext struct {
 // Page is a structure describing a page in the website navigation system.
 type Page struct {
 	Name string `toml:"name"`
-	Url  string `toml:"url"`
+	URL  string `toml:"url"`
 }
 
 type youtube struct {

@@ -98,36 +98,39 @@ func calculateScheduleBoundaries(items []structs.ScheduleItem) (sOffset, fOffset
 	for _, s := range items {
 		start := s.GetStart()
 		finish := s.GetFinish()
-		if !s.IsSustainer() {
-			// Any show that isn't a sustainer affects the culling boundaries.
 
-			if showStraddlesDay(start, finish) {
-				// A show that straddles the day crosses over from the end of a day to the start of the day.
-				// This means that we saturate the culling boundaries.
-				// As an optimisation we don't need to consider any other show.
-				sOffset = 0
-				fOffset = 23
-				return
-			}
+		// Any show that isn't a sustainer affects the culling boundaries.
+		if s.IsSustainer() {
+			continue
+		}
 
-			// Otherwise, if its start/finish as offsets from start time are outside the current boundaries, update them.
-			so := 0
-			so, err = utils.HourToStartOffset(start.Hour())
-			if err != nil {
-				return
-			}
-			if so < sOffset {
-				sOffset = so
-			}
 
-			fo := 0
-			fo, err = utils.HourToStartOffset(finish.Hour())
-			if err != nil {
-				return
-			}
-			if fOffset < fo {
-				fOffset = fo
-			}
+		if showStraddlesDay(start, finish) {
+			// A show that straddles the day crosses over from the end of a day to the start of the day.
+			// This means that we saturate the culling boundaries.
+			// As an optimisation we don't need to consider any other show.
+			sOffset = 0
+			fOffset = 23
+			return
+		}
+
+		// Otherwise, if its start/finish as offsets from start time are outside the current boundaries, update them.
+		so := 0
+		so, err = utils.HourToStartOffset(start.Hour())
+		if err != nil {
+			return
+		}
+		if so < sOffset {
+			sOffset = so
+		}
+		
+		fo := 0
+		fo, err = utils.HourToStartOffset(finish.Hour())
+		if err != nil {
+			return
+		}
+		if fOffset < fo {
+			fOffset = fo
 		}
 	}
 
@@ -186,7 +189,7 @@ func calculateScheduleRows(items []structs.ScheduleItem) ([]WeekScheduleRow, err
 
 		minutes := make([]int, len(rows[ri].MinuteMarks))
 		j := 0
-		for k, _ := range rows[ri].MinuteMarks {
+		for k := range rows[ri].MinuteMarks {
 			minutes[j] = k
 			j++
 		}
@@ -244,7 +247,7 @@ func populateRows(days []time.Time, rows []WeekScheduleRow, items []structs.Sche
 	}
 }
 
-// weekSchedule is the type of week schedules.
+// WeekSchedule is the type of week schedules.
 type WeekSchedule struct {
 	// Dates enumerates the dates this week schedule covers.
 	Dates []time.Time
@@ -312,7 +315,6 @@ type ScheduleWeekController struct {
 
 // NewScheduleWeekController returns a new ScheduleWeekController with the MyRadio session s,
 // router r, and configuration context c.
-
 func NewScheduleWeekController(s *myradio.Session, r *mux.Router, c *structs.Config) *ScheduleWeekController {
 	// We pass in the router so we can generate URL reversal functions.
 	// Eventually we might want to clean this up, either by passing in
@@ -328,10 +330,9 @@ func NewScheduleWeekController(s *myradio.Session, r *mux.Router, c *structs.Con
 	}
 }
 
-// Get handles the HTTP GET request r for all shows, writing to w.
+// GetByYearWeek handles the HTTP GET request r for week schedules by year/week date reference, writing to w.
 //
-// ScheduleWeek's Get takes two request variables--year and week--,
-// which correspond to an ISO 8601 year-week date.
+// It takes two request variables--year and week--, which correspond to an ISO 8601 year-week date.
 func (sc *ScheduleWeekController) GetByYearWeek(w http.ResponseWriter, r *http.Request) {
 	sm := models.NewScheduleWeekModel(sc.session)
 

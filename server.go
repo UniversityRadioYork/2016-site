@@ -10,10 +10,12 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// Server is the type of the main 2016site web application.
 type Server struct {
 	*negroni.Negroni
 }
 
+// NewServer creates a 2016site server based on the config c.
 func NewServer(c *structs.Config) (*Server, error) {
 
 	s := Server{negroni.Classic()}

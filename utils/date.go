@@ -24,7 +24,7 @@ func StartOfDayOn(date time.Time) time.Time {
 // It returns an error if the hour is invalid.
 func StartOffsetToHour(hour int) (int, error) {
 	if 23 < hour || hour < 0 {
-		return 0, fmt.Errorf("StartOffsetToHour: hour %d not between 0 and 23")
+		return 0, fmt.Errorf("StartOffsetToHour: hour %d not between 0 and 23", hour)
 	}
 	return (hour + startHour) % 24, nil
 }
@@ -33,7 +33,7 @@ func StartOffsetToHour(hour int) (int, error) {
 // It returns an error if the hour is invalid.
 func HourToStartOffset(hour int) (int, error) {
 	if 23 < hour || hour < 0 {
-		return 0, fmt.Errorf("HourToStartOffset: hour %d not between 0 and 23")
+		return 0, fmt.Errorf("HourToStartOffset: hour %d not between 0 and 23", hour)
 	}
 	// Adding 24 to ensure we don't go negative.  Negative modulo is scary.
 	return ((hour + 24) - startHour) % 24, nil
@@ -106,10 +106,10 @@ func IsoWeekToDate(year, week int, weekday time.Weekday) (time.Time, error) {
 	// Sanity check to make sure time (and our intuition) is still working.
 	fjYear, fjWeek := fj.ISOWeek()
 	if fjYear != year {
-		return time.Time{}, fmt.Errorf("ISO weekday year %d != calendar year %d!", fjYear, year)
+		return time.Time{}, fmt.Errorf("ISO weekday year %d != calendar year %d", fjYear, year)
 	}
 	if fjWeek != 1 {
-		return time.Time{}, fmt.Errorf("ISO weekday week of 4 Jan (%d) not week 1!", fjWeek)
+		return time.Time{}, fmt.Errorf("ISO weekday week of 4 Jan (%d) not week 1", fjWeek)
 	}
 
 	// The ISO 8601 ordinal date, which may belong to the next or previous
