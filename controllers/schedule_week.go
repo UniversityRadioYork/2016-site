@@ -109,7 +109,6 @@ func calculateScheduleBoundaries(items []structs.ScheduleItem) (sOffset, fOffset
 			continue
 		}
 
-
 		if showStraddlesDay(start, finish) {
 			// A show that straddles the day crosses over from the end of a day to the start of the day.
 			// This means that we saturate the culling boundaries.
@@ -128,7 +127,7 @@ func calculateScheduleBoundaries(items []structs.ScheduleItem) (sOffset, fOffset
 		if so < sOffset {
 			sOffset = so
 		}
-		
+
 		fo := 0
 		fo, err = utils.HourToStartOffset(finish.Hour())
 		if err != nil {
@@ -353,7 +352,7 @@ func (sc *ScheduleWeekController) makeWeekSchedule(yr, wk int) (*WeekSchedule, e
 	}
 	finishDate := startDate.AddDate(0, 0, 7)
 
-	sm := models.NewScheduleWeekModel(sc.session)	
+	sm := models.NewScheduleWeekModel(sc.session)
 	timeslots, err := sm.Get(yr, wk)
 	if err != nil {
 		return nil, err
@@ -376,25 +375,44 @@ func (sc *ScheduleWeekController) makeWeekSchedule(yr, wk int) (*WeekSchedule, e
 	return tabulateWeekSchedule(weekStart, weekFinish, filled)
 }
 
+// GetThisWeek handles the HTTP GET request r for this week's week schedule, writing to w.
+//
+// It takes no request variables.
+func (sc *ScheduleWeekController) GetThisWeek(w http.ResponseWriter, r *http.Request) {
+	/* Today's ISO week is the same as Monday's ISO week, so we need not do
+	   anything fancy like working out the Monday of this week.
+	   This seems obvious, but some bits of Go disagree with us on the first
+	   day of the week, so caution is always a good thing. */
+	today := time.Now()
+	year, week := today.ISOWeek()
+
+	sc.makeAndRenderWeek(w, year, week)
+}
+
 // GetByYearWeek handles the HTTP GET request r for week schedules by year/week date reference, writing to w.
 //
 // It takes two request variables--year and week--, which correspond to an ISO 8601 year-week date.
 func (sc *ScheduleWeekController) GetByYearWeek(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 
-	year, week, err := weekFromVars(vars)
+	ystr, wstr, err := weekFromVars(vars)
 	if err != nil {
 		log.Println(err)
 		return
 	}
 
-	yr, wk, _, err := utils.ParseIsoWeek(year, week, "1")
+	year, week, _, err := utils.ParseIsoWeek(ystr, wstr, "1")
 	if err != nil {
 		log.Println(err)
 		return
 	}
 
-	data, err := sc.makeWeekSchedule(yr, wk)
+	sc.makeAndRenderWeek(w, year, week)
+}
+
+/// makeAndRenderWeek makes and renders a week schedule for year and week, writing to w.
+func (sc *ScheduleWeekController) makeAndRenderWeek(w http.ResponseWriter, year, week int) {
+	data, err := sc.makeWeekSchedule(year, week)
 	if err != nil {
 		//@TODO: Do something proper here, render 404 or something
 		log.Println(err)
