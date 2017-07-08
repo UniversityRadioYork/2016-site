@@ -381,7 +381,7 @@ func (sc *ScheduleWeekController) makeWeekSchedule(yr, wk int) (*WeekSchedule, e
 	// Now start filling from day start to day finish.
 	weekStart := utils.StartOfDayOn(startDate)
 	weekFinish := utils.StartOfDayOn(finishDate)
-	filled, err := structs.FillTimeslotSlice(sc.config.PageContext.Sustainer, weekStart, weekFinish, flat, sc.makeTimeslotItem)
+	filled, err := structs.FillTimeslotSlice(sc.config.Schedule.Sustainer, weekStart, weekFinish, flat, sc.makeTimeslotItem)
 	if err != nil {
 		return nil, err
 	}
