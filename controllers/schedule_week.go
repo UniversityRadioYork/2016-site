@@ -138,13 +138,17 @@ func calculateScheduleBoundaries(items []*structs.ScheduleItem) (sOffset, fOffse
 	return
 }
 
+// rowDecision is an internal struct recording information about which rows to display in the week schedule.
+// Each struct represents an hour, and marks whether the hour is to be hidden and which minutes of the hour generate rows.
+type rowDecision struct {
+	minuteMarks map[int]struct{}
+	cull        bool
+}
+
 // calculateScheduleRows takes a schedule and determines which rows should be displayed.
 func calculateScheduleRows(items []*structs.ScheduleItem) ([]WeekScheduleRow, error) {
 	// Internally, we use a 24-hour array to store our decisions.
-	rows := make([]struct {
-		MinuteMarks map[int]bool
-		Cull        bool
-	}, 24)
+	rows := make([]rowDecision, 24)
 
 	// Now decide which rows to cull by calculating boundaries, then marking the rows outside of the boundaries.
 	sOffset, fOffset, err := calculateScheduleBoundaries(items)
@@ -163,16 +167,16 @@ func calculateScheduleRows(items []*structs.ScheduleItem) ([]WeekScheduleRow, er
 			return nil, err
 		}
 		if i < sOffset || fOffset < i {
-			rows[ri].Cull = true
+			rows[ri].cull = true
 		} else {
-			rows[ri].MinuteMarks = map[int]bool{0: true}
+			rows[ri].minuteMarks = map[int]struct{}{0: {}}
 		}
 	}
 	// Calculate the minute marks from non-on-the-hour show starts now.
 	for _, item := range items {
 		h := item.Start.Hour()
-		if !rows[h].Cull {
-			rows[item.Start.Hour()].MinuteMarks[item.Start.Minute()] = true
+		if !rows[h].cull {
+			rows[item.Start.Hour()].minuteMarks[item.Start.Minute()] = struct{}{}
 		}
 	}
 
@@ -184,13 +188,13 @@ func calculateScheduleRows(items []*structs.ScheduleItem) ([]WeekScheduleRow, er
 			return nil, err
 		}
 
-		if rows[ri].Cull {
+		if rows[ri].cull {
 			continue
 		}
 
-		minutes := make([]int, len(rows[ri].MinuteMarks))
+		minutes := make([]int, len(rows[ri].minuteMarks))
 		j := 0
-		for k := range rows[ri].MinuteMarks {
+		for k := range rows[ri].minuteMarks {
 			minutes[j] = k
 			j++
 		}
