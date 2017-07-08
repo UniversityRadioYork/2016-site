@@ -1,29 +1,43 @@
 {{define "content"}}
-
 {{with .PageData}}
 
+<!-- placeholder for current and next -->
+<div class="container-fluid header-large current-next">
+	<div class="container mobile-hide">
+	</div>
+</div>
+
+<!-- schedule header -->
+<div class="container-fluid bg-off-white">
+	<div class="container">
+		<div class="row">
+			<h1>Schedule <small class="muted">from {{(index .Schedule.Dates 0).Format "02 Jan 2006"}} to {{(index .Schedule.Dates 6).Format "02 Jan 2006"}}</small></h1>
+		</div>
+		<nav aria-label="Related Schedules" class="row nav justify-content-between">
+				<a class="nav-link" href="{{url .PrevURL}}">Previous week</a>
+				<a class="nav-link" href="{{url .CurrURL}}">Permalink</a>
+				<a class="nav-link" href="{{url .NextURL}}">Next week</a>
+		</nav>
+	</div>
+</div>
+
+<!-- schedule body -->
 <div class="container">
-
-<h1>Schedule for week commencing {{(index .Schedule.Dates 0).Format "Jan 02 2006"}}</h1>
-<a href="{{url .PrevURL}}">Previous week</a>
-<a href="{{url .CurrURL}}">Permalink</a>
-<a href="{{url .NextURL}}">Next week</a>
-
 {{with .Schedule}}
 {{if .Table}}
-<table>
+<table class="table table-responsive">
 	<thead>
 		<tr>
 			<th>Time</th>
 			{{range .Dates}}
-			<th>{{.Weekday}}</th>
+			<th>{{.Weekday}} {{.Format "02"}}</th>
 			{{end}}
 		</tr>
 	</thead>
 	<tbody>
 		{{range .Table}}
 			<tr>
-				<td>{{.Hour | printf "%02d"}}:{{ .Minute | printf "%02d" }}</td>
+				<th scope="row">{{.Hour | printf "%02d"}}:{{ .Minute | printf "%02d" }}</th>
 				{{range .Cells}}
 					{{if ne .RowSpan 0}}
 					<td rowspan="{{.RowSpan}}" title="{{ showDesc .Item }}">
