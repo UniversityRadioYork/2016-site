@@ -5,7 +5,6 @@ import (
 	"html/template"
 	"net/http"
 	"path/filepath"
-	"time"
 
 	"github.com/UniversityRadioYork/2016-site/structs"
 	myradio "github.com/UniversityRadioYork/myradio-go"
@@ -78,17 +77,14 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 			return -5
 		},
 		// TODO(CaptainHayashi): this is temporary
-		"showName": func(s structs.ScheduleItem) string { return s.GetName(&context) },
-		"showDesc": func(s structs.ScheduleItem) string {
-			d, err := StripHTML(s.GetDesc(&context))
+		"stripHTML": func(s string) string {
+			d, err := StripHTML(s)
 			if err != nil {
-				return "Error getting this show's description."
+				return "Error stripping HTML"
 			}
 			return d
 		},
-		"showStart":  func(s structs.ScheduleItem) time.Time { return s.GetStart() },
-		"showFinish": func(s structs.ScheduleItem) time.Time { return s.GetFinish() },
-		"week":       FormatWeekRelative,
+		"week": FormatWeekRelative,
 	})
 	t, err = t.ParseFiles(tmpls...)
 	if err != nil {

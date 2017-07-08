@@ -88,7 +88,7 @@ func showStraddlesDay(start, finish time.Time) bool {
 
 // calculateScheduleBoundaries works out the earliest and latest hours in the schedule that need to display.
 // It returns these as a pair of start and finish bound, both in terms of offsets from URY start time.
-func calculateScheduleBoundaries(items []structs.ScheduleItem) (sOffset, fOffset int, err error) {
+func calculateScheduleBoundaries(items []*structs.ScheduleItem) (sOffset, fOffset int, err error) {
 	if len(items) == 0 {
 		err = errors.New("calculateScheduleBoundaries: no schedule")
 		return
@@ -101,15 +101,12 @@ func calculateScheduleBoundaries(items []structs.ScheduleItem) (sOffset, fOffset
 	fOffset = -1
 
 	for _, s := range items {
-		start := s.GetStart()
-		finish := s.GetFinish()
-
 		// Any show that isn't a sustainer affects the culling boundaries.
 		if s.IsSustainer() {
 			continue
 		}
 
-		if showStraddlesDay(start, finish) {
+		if showStraddlesDay(s.Start, s.Finish) {
 			// A show that straddles the day crosses over from the end of a day to the start of the day.
 			// This means that we saturate the culling boundaries.
 			// As an optimisation we don't need to consider any other show.
@@ -120,7 +117,7 @@ func calculateScheduleBoundaries(items []structs.ScheduleItem) (sOffset, fOffset
 
 		// Otherwise, if its start/finish as offsets from start time are outside the current boundaries, update them.
 		so := 0
-		so, err = utils.HourToStartOffset(start.Hour())
+		so, err = utils.HourToStartOffset(s.Start.Hour())
 		if err != nil {
 			return
 		}
@@ -129,7 +126,7 @@ func calculateScheduleBoundaries(items []structs.ScheduleItem) (sOffset, fOffset
 		}
 
 		fo := 0
-		fo, err = utils.HourToStartOffset(finish.Hour())
+		fo, err = utils.HourToStartOffset(s.Finish.Hour())
 		if err != nil {
 			return
 		}
@@ -142,7 +139,7 @@ func calculateScheduleBoundaries(items []structs.ScheduleItem) (sOffset, fOffset
 }
 
 // calculateScheduleRows takes a schedule and determines which rows should be displayed.
-func calculateScheduleRows(items []structs.ScheduleItem) ([]WeekScheduleRow, error) {
+func calculateScheduleRows(items []*structs.ScheduleItem) ([]WeekScheduleRow, error) {
 	// Internally, we use a 24-hour array to store our decisions.
 	rows := make([]struct {
 		MinuteMarks map[int]bool
@@ -173,9 +170,9 @@ func calculateScheduleRows(items []structs.ScheduleItem) ([]WeekScheduleRow, err
 	}
 	// Calculate the minute marks from non-on-the-hour show starts now.
 	for _, item := range items {
-		h := item.GetStart().Hour()
+		h := item.Start.Hour()
 		if !rows[h].Cull {
-			rows[item.GetStart().Hour()].MinuteMarks[item.GetStart().Minute()] = true
+			rows[item.Start.Hour()].MinuteMarks[item.Start.Minute()] = true
 		}
 	}
 
@@ -213,7 +210,7 @@ func calculateScheduleRows(items []structs.ScheduleItem) ([]WeekScheduleRow, err
 // populateRows fills schedule rows with timeslots.
 // It takes the list of schedule start times on the days the schedule spans,
 // the slice of rows to populate, and the schedule items to add.
-func populateRows(days []time.Time, rows []WeekScheduleRow, items []structs.ScheduleItem) {
+func populateRows(days []time.Time, rows []WeekScheduleRow, items []*structs.ScheduleItem) {
 	currentItem := 0
 
 	for d, day := range days {
@@ -233,7 +230,7 @@ func populateRows(days []time.Time, rows []WeekScheduleRow, items []structs.Sche
 			rowTime := time.Date(day.Year(), day.Month(), day.Day(), rows[i].Hour, rows[i].Minute, 0, 0, time.Local)
 
 			// Seek forwards if the current show has finished.
-			for !items[currentItem].GetFinish().After(rowTime) {
+			for !items[currentItem].Finish.After(rowTime) {
 				currentItem++
 				thisShowIndex = -1
 			}
@@ -246,7 +243,7 @@ func populateRows(days []time.Time, rows []WeekScheduleRow, items []structs.Sche
 				rows[i].addCell(0, nil)
 			} else {
 				thisShowIndex = i
-				rows[i].addCell(1, &(items[currentItem]))
+				rows[i].addCell(1, items[currentItem])
 			}
 		}
 	}
@@ -263,7 +260,7 @@ type WeekSchedule struct {
 
 // hasShows asks whether a schedule slice contains any non-sustainer shows.
 // It assumes the slice has been filled with sustainer.
-func hasShows(schedule []structs.ScheduleItem) bool {
+func hasShows(schedule []*structs.ScheduleItem) bool {
 	// This shouldn't happen, but if it does, this is the right thing to
 	// do.
 	if len(schedule) == 0 {
@@ -281,7 +278,7 @@ func hasShows(schedule []structs.ScheduleItem) bool {
 }
 
 // tabulateWeekSchedule creates a schedule table from the given schedule slice.
-func tabulateWeekSchedule(start, finish time.Time, schedule []structs.ScheduleItem) (*WeekSchedule, error) {
+func tabulateWeekSchedule(start, finish time.Time, schedule []*structs.ScheduleItem) (*WeekSchedule, error) {
 	days := []time.Time{}
 	for d := start; d.Before(finish); d = d.AddDate(0, 0, 1) {
 		days = append(days, d)
@@ -353,7 +350,7 @@ func NewScheduleWeekController(s *myradio.Session, r *mux.Router, c *structs.Con
 }
 
 // makeTimeslotItem creates a TimeslotItem for a given MyRadio timeslot.
-func (sc *ScheduleWeekController) makeTimeslotItem(t *myradio.Timeslot) (*structs.TimeslotItem, error) {
+func (sc *ScheduleWeekController) makeTimeslotItem(t *myradio.Timeslot) (*structs.ScheduleItem, error) {
 	ts, err := structs.NewTimeslotItem(t, sc.timeslotURLBuilder)
 	if err == nil && ts == nil {
 		return nil, errors.New("NewTimeslotItem created nil timeslot item")
@@ -384,7 +381,7 @@ func (sc *ScheduleWeekController) makeWeekSchedule(yr, wk int) (*WeekSchedule, e
 	// Now start filling from day start to day finish.
 	weekStart := utils.StartOfDayOn(startDate)
 	weekFinish := utils.StartOfDayOn(finishDate)
-	filled, err := structs.FillTimeslotSlice(weekStart, weekFinish, flat, sc.makeTimeslotItem)
+	filled, err := structs.FillTimeslotSlice(sc.config.PageContext.Sustainer, weekStart, weekFinish, flat, sc.makeTimeslotItem)
 	if err != nil {
 		return nil, err
 	}

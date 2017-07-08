@@ -37,14 +37,14 @@
 	<tbody>
 		{{range .Table}}
 			<tr>
-				<th scope="row">{{.Hour | printf "%02d"}}:{{ .Minute | printf "%02d" }}</th>
+				<th scope="row">{{.Hour | printf "%02d"}}:{{.Minute | printf "%02d"}}</th>
 				{{range .Cells}}
 					{{if ne .RowSpan 0}}
-					<td rowspan="{{.RowSpan}}" title="{{ showDesc .Item }}">
-						{{if .Item.HasPage}}
-							<a href="{{url .Item.GetPageURL}}">{{ showName .Item }}</a>
+					<td rowspan="{{.RowSpan}}" class="schedule-timeslot schedule-blocks-{{.Item.Block}}" title="{{stripHTML .Item.Desc}}">
+						{{if .Item.PageURL}}
+							<a href="{{url .Item.PageURL}}">{{.Item.Name}}</a>
 						{{else}}
-							{{showName .Item}}
+							{{.Item.Name}}
 						{{end}}
 					</td>
 					{{end}}
