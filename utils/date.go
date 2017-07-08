@@ -121,3 +121,46 @@ func IsoWeekToDate(year, week int, weekday time.Weekday) (time.Time, error) {
 	oj := time.Date(year, time.January, 1, 0, 0, 0, 0, time.Local)
 	return oj.AddDate(0, 0, ord-1), nil
 }
+
+// MostRecentMonday returns the most recent Monday before d.
+func MostRecentMonday(d time.Time) time.Time {
+	/* The weekday is the number of days since the most recent Sunday, so
+	   shifting it by 1 modulo 7 gives us the correct result for Monday. */
+	dmon := int(d.Weekday()) - 1
+	if dmon < 0 {
+		// Correct for Sunday
+		dmon = 6
+	}
+
+	return d.AddDate(0, 0, -dmon)
+}
+
+// FormatWeekRelative pretty-prints the name of a week starting on start.
+// start must be a Monday.
+func FormatWeekRelative(start time.Time) string {
+	/* If we're on the same week, or the week either end of current, we can (and
+	   should) use short, human-friendly week names. */
+
+	// To work out which week we're in, get the boundaries of last, this, and next week.
+	tm := MostRecentMonday(time.Now())
+	lm := tm.AddDate(0, 0, -7)
+	nm := tm.AddDate(0, 0, 7)
+	fm := tm.AddDate(0, 0, 14)
+
+	switch {
+	case start.Before(lm):
+		break
+	case start.Before(tm):
+		return "last week"
+	case start.Before(nm):
+		return "this week"
+	case start.Before(fm):
+		return "next week"
+	default:
+		break
+	}
+
+	// If we got here, we can't give a fancy name to this week.
+	sun := start.AddDate(0, 0, 6)
+	return start.Format("02 Jan 2006") + " to " + sun.Format("02 Jan 2006")
+}

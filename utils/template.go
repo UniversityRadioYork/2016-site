@@ -88,6 +88,7 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 		},
 		"showStart":  func(s structs.ScheduleItem) time.Time { return s.GetStart() },
 		"showFinish": func(s structs.ScheduleItem) time.Time { return s.GetFinish() },
+		"week":       FormatWeekRelative,
 	})
 	t, err = t.ParseFiles(tmpls...)
 	if err != nil {
