@@ -315,23 +315,40 @@ func tabulateWeekSchedule(start, finish time.Time, schedule []structs.ScheduleIt
 type ScheduleWeekController struct {
 	Controller
 
-	timeslotURLBuilder func(*myradio.Timeslot) (*url.URL, error)
+	timeslotURLBuilder     func(*myradio.Timeslot) (*url.URL, error)
+	weekScheduleURLBuilder func(*time.Time) (*url.URL, error)
 }
 
 // NewScheduleWeekController returns a new ScheduleWeekController with the MyRadio session s,
 // router r, and configuration context c.
+// It assumes r already has routes installed for timeslots.
 func NewScheduleWeekController(s *myradio.Session, r *mux.Router, c *structs.Config) *ScheduleWeekController {
-	// We pass in the router so we can generate URL reversal functions.
-	// Eventually we might want to clean this up, either by passing in
-	// something more loosely coupled or handling this at a higher level.
+	/* We pass in the router so we can generate URL reversal functions.
+	   However, at the time we get the router, it hasn't set up the week
+	   schedule routes yet, so we make those URL functions look up the relevant
+	   routes whenever they're called.
+
+	   TODO(MattWindsor91):
+	       this is probably slow, but I didn't want to optimise prematurely. */
+	wbuilder := func(t *time.Time) (*url.URL, error) {
+		wroute := r.Get("schedule-week")
+		year, week := t.ISOWeek()
+		return wroute.URLPath(
+			"year", strconv.Itoa(year),
+			"week", strconv.Itoa(week))
+	}
+
+	/* The router should have timeslot routes installed already, so we can
+	   get the route eagerly. */
 	troute := r.Get("timeslot")
 	tbuilder := func(t *myradio.Timeslot) (*url.URL, error) {
 		return troute.URLPath("id", strconv.FormatUint(t.TimeslotID, 10))
 	}
 
 	return &ScheduleWeekController{
-		Controller:         Controller{session: s, config: c},
-		timeslotURLBuilder: tbuilder,
+		Controller:             Controller{session: s, config: c},
+		timeslotURLBuilder:     tbuilder,
+		weekScheduleURLBuilder: wbuilder,
 	}
 }
 
@@ -410,13 +427,30 @@ func (sc *ScheduleWeekController) GetByYearWeek(w http.ResponseWriter, r *http.R
 	sc.makeAndRenderWeek(w, year, week)
 }
 
-/// makeAndRenderWeek makes and renders a week schedule for year and week, writing to w.
+// makeAndRenderWeek makes and renders a week schedule for year and week, writing to w.
 func (sc *ScheduleWeekController) makeAndRenderWeek(w http.ResponseWriter, year, week int) {
-	data, err := sc.makeWeekSchedule(year, week)
+	ws, err := sc.makeWeekSchedule(year, week)
 	if err != nil {
 		//@TODO: Do something proper here, render 404 or something
 		log.Println(err)
 		return
+	}
+
+	purl, curl, nurl, err := sc.getRelatedScheduleURLs(ws)
+	if err != nil {
+		//@TODO: Do something proper here, render 404 or something
+		log.Println(err)
+		return
+	}
+
+	data := struct {
+		Schedule                  *WeekSchedule
+		PrevURL, CurrURL, NextURL string
+	}{
+		Schedule: ws,
+		PrevURL:  purl.Path,
+		CurrURL:  curl.Path,
+		NextURL:  nurl.Path,
 	}
 
 	err = utils.RenderTemplate(w, sc.config.PageContext, data, "schedule_week.tmpl")
@@ -424,4 +458,30 @@ func (sc *ScheduleWeekController) makeAndRenderWeek(w http.ResponseWriter, year,
 		log.Println(err)
 		return
 	}
+}
+
+// getRelatedScheduleURLs gets the URLs for the previous, current, and next schedules relative to ws.
+// It can fail with err if it can't generate the URLs.
+func (sc *ScheduleWeekController) getRelatedScheduleURLs(ws *WeekSchedule) (purl, curl, nurl *url.URL, err error) {
+	if len(ws.Dates) == 0 {
+		err = errors.New("week schedule has no assigned dates")
+		return
+	}
+
+	curr := ws.Dates[0]
+	curl, err = sc.weekScheduleURLBuilder(&curr)
+	if err != nil {
+		return
+	}
+
+	prev := curr.AddDate(0, 0, -7)
+	purl, err = sc.weekScheduleURLBuilder(&prev)
+	if err != nil {
+		return
+	}
+
+	next := curr.AddDate(0, 0, 7)
+	nurl, err = sc.weekScheduleURLBuilder(&next)
+
+	return
 }
