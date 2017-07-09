@@ -126,6 +126,12 @@ func calcScheduleBoundaries(items []*structs.ScheduleItem) (top, bot utils.Start
 		if cbot, err = utils.HourToStartOffset(s.Finish.Hour()); err != nil {
 			return
 		}
+		// cbot is the offset of the hour in which the item finishes.
+		// This is _one past_ the last row the item occupies if the item ends cleanly at :00:00.
+		if s.Finish.Minute() == 0 && s.Finish.Second() == 0 && s.Finish.Nanosecond() == 0 {
+			cbot--
+		}
+
 		if bot < cbot {
 			bot = cbot
 		}
