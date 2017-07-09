@@ -20,23 +20,31 @@ func StartOfDayOn(date time.Time) time.Time {
 	return time.Date(y, m, d, startHour, 0, 0, 0, time.Local)
 }
 
-// StartOffsetToHour takes a number of hours since the last day start (0-23) and gives the actual hour.
+// StartOffset is the type of offsets from the start hour of a schedule.
+type StartOffset int
+
+// Valid returns whether a StartOffset is within the 0-23 range required for it to index a schedule hour.
+func (h StartOffset) Valid() bool {
+	return 0 <= h && h <= 23
+}
+
+// ToHour takes a number of hours h since the last day start (0-23) and gives the actual hour.
 // It returns an error if the hour is invalid.
-func StartOffsetToHour(hour int) (int, error) {
-	if 23 < hour || hour < 0 {
-		return 0, fmt.Errorf("StartOffsetToHour: hour %d not between 0 and 23", hour)
+func (h StartOffset) ToHour() (int, error) {
+	if 23 < h || h < 0 {
+		return 0, fmt.Errorf("StartOffset.ToHour: offset %d not between 0 and 23", h)
 	}
-	return (hour + startHour) % 24, nil
+	return (int(h) + startHour) % 24, nil
 }
 
 // HourToStartOffset takes an hour (0-23) and gives the number of hours elapsed since the last day start.
 // It returns an error if the hour is invalid.
-func HourToStartOffset(hour int) (int, error) {
+func HourToStartOffset(hour int) (StartOffset, error) {
 	if 23 < hour || hour < 0 {
 		return 0, fmt.Errorf("HourToStartOffset: hour %d not between 0 and 23", hour)
 	}
 	// Adding 24 to ensure we don't go negative.  Negative modulo is scary.
-	return ((hour + 24) - startHour) % 24, nil
+	return StartOffset(((hour + 24) - startHour) % 24), nil
 }
 
 //

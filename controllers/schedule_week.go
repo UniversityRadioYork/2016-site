@@ -86,9 +86,9 @@ func showStraddlesDay(start, finish time.Time) bool {
 	return finish.After(nextDayStart)
 }
 
-// calculateScheduleBoundaries works out the earliest and latest hours in the schedule that need to display.
-// It returns these as a pair of start and finish bound, both in terms of offsets from URY start time.
-func calculateScheduleBoundaries(items []*structs.ScheduleItem) (sOffset, fOffset int, err error) {
+// calcScheduleBoundaries gets the offsets of the earliest and latest visible schedule hours.
+// It returns these as top and bot respectively.
+func calcScheduleBoundaries(items []*structs.ScheduleItem) (top, bot utils.StartOffset, err error) {
 	if len(items) == 0 {
 		err = errors.New("calculateScheduleBoundaries: no schedule")
 		return
@@ -97,8 +97,8 @@ func calculateScheduleBoundaries(items []*structs.ScheduleItem) (sOffset, fOffse
 	// These are the boundaries for culling, and are expanded upwards when we find shows that start earlier or finish later than the last-set boundary.
 	// Initially they are set to one past their worst case to make the updating logic easier.
 	// Since we assert we have a schedule, these values _will_ change.
-	sOffset = 24
-	fOffset = -1
+	top = utils.StartOffset(24)
+	bot = utils.StartOffset(-1)
 
 	for _, s := range items {
 		// Any show that isn't a sustainer affects the culling boundaries.
@@ -110,105 +110,133 @@ func calculateScheduleBoundaries(items []*structs.ScheduleItem) (sOffset, fOffse
 			// A show that straddles the day crosses over from the end of a day to the start of the day.
 			// This means that we saturate the culling boundaries.
 			// As an optimisation we don't need to consider any other show.
-			sOffset = 0
-			fOffset = 23
-			return
+			return utils.StartOffset(0), utils.StartOffset(23), nil
 		}
 
 		// Otherwise, if its start/finish as offsets from start time are outside the current boundaries, update them.
-		so := 0
-		so, err = utils.HourToStartOffset(s.Start.Hour())
-		if err != nil {
+		var ctop utils.StartOffset
+		if ctop, err = utils.HourToStartOffset(s.Start.Hour()); err != nil {
 			return
 		}
-		if so < sOffset {
-			sOffset = so
+		if ctop < top {
+			top = ctop
 		}
 
-		fo := 0
-		fo, err = utils.HourToStartOffset(s.Finish.Hour())
-		if err != nil {
+		var cbot utils.StartOffset
+		if cbot, err = utils.HourToStartOffset(s.Finish.Hour()); err != nil {
 			return
 		}
-		if fOffset < fo {
-			fOffset = fo
+		if bot < cbot {
+			bot = cbot
 		}
 	}
 
 	return
 }
 
-// rowDecision is an internal struct recording information about which rows to display in the week schedule.
-// Each struct represents an hour, and marks whether the hour is to be hidden and which minutes of the hour generate rows.
-type rowDecision struct {
-	minuteMarks map[int]struct{}
-	cull        bool
+// rowDecision is an internal type recording information about which rows to display in the week schedule.
+// It records, for one hour, the minute rows (00, 30, etc) that are switched 'on' for that row.
+type rowDecision map[int]struct{}
+
+// visible checks if the hour represented by row decision r is to be shown on the schedule.
+func (r rowDecision) visible() bool {
+	// Each visible row has its on-the-hour row set.
+	_, visible := r[0]
+	return visible
 }
 
-// calculateScheduleRows takes a schedule and determines which rows should be displayed.
-func calculateScheduleRows(items []*structs.ScheduleItem) ([]WeekScheduleRow, error) {
-	// Internally, we use a 24-hour array to store our decisions.
-	rows := make([]rowDecision, 24)
+// mark adds a mark for the given minute to row decision r.
+func (r rowDecision) mark(minute int) {
+	r[minute] = struct{}{}
+}
 
-	// Now decide which rows to cull by calculating boundaries, then marking the rows outside of the boundaries.
-	sOffset, fOffset, err := calculateScheduleBoundaries(items)
-	if err != nil {
-		return nil, err
+// toRow converts row decision r to a slice of schedule rows for the given hour.
+func (r rowDecision) toRows(hour int) []WeekScheduleRow {
+	minutes := make([]int, len(r))
+	j := 0
+	for k := range r {
+		minutes[j] = k
+		j++
 	}
-	if 23 < sOffset || sOffset < 0 || 23 < fOffset || fOffset < 0 || fOffset < sOffset {
-		return nil, fmt.Errorf("calculateScheduleRows: row boundaries %d to %d are invalid", sOffset, fOffset)
+	sort.Ints(minutes)
+
+	rows := make([]WeekScheduleRow, len(minutes))
+	for j, m := range minutes {
+		rows[j] = WeekScheduleRow{Hour: hour, Minute: m, Cells: []WeekScheduleCell{}}
 	}
+	return rows
+}
+
+// initRowDecisions creates 24 rowDecisions, from schedule start to schedule end.
+// Each is marked as visble or invisible depending on the offsets top and bot.
+func initRowDecisions(top, bot utils.StartOffset) ([]rowDecision, error) {
+	// Make sure the offsets are valid.
+	if !top.Valid() || !bot.Valid() {
+		return nil, fmt.Errorf("initRowDecisions: row boundaries %d to %d are invalid", int(top), int(bot))
+	}
+
+	rows := make([]rowDecision, 24)
 
 	// Go through each hour, culling ones before the boundaries, and adding on-the-hour minute marks to the others.
 	// Boundaries are inclusive, so cull only things outside of them.
-	for i := 0; i < 24; i++ {
-		ri, err := utils.StartOffsetToHour(i)
+	for i := utils.StartOffset(0); i < utils.StartOffset(24); i++ {
+		h, err := i.ToHour()
 		if err != nil {
 			return nil, err
 		}
-		if i < sOffset || fOffset < i {
-			rows[ri].cull = true
-		} else {
-			rows[ri].minuteMarks = map[int]struct{}{0: {}}
+
+		rows[h] = rowDecision{}
+		if top <= i && i <= bot {
+			// This has the effect of making the row visible.
+			rows[h].mark(0)
 		}
 	}
-	// Calculate the minute marks from non-on-the-hour show starts now.
+
+	return rows, nil
+}
+
+// addItemsToRowDecisions populates the row decision list rows with minute marks from schedule items not starting on the hour.
+func addItemsToRowDecisions(rows []rowDecision, items []*structs.ScheduleItem) {
 	for _, item := range items {
 		h := item.Start.Hour()
-		if !rows[h].cull {
-			rows[item.Start.Hour()].minuteMarks[item.Start.Minute()] = struct{}{}
+		if rows[h].visible() {
+			rows[h].mark(item.Start.Minute())
 		}
 	}
+}
 
-	// Now translate the above into a row table.
-	wsrs := []WeekScheduleRow{}
-	for i := 0; i < 24; i++ {
-		ri, err := utils.StartOffsetToHour(i)
+// rowDecisionsToRows generates rows based on the per-hourly row decisions in rdecs.
+func rowDecisionsToRows(rdecs []rowDecision) ([]WeekScheduleRow, error) {
+	rows := []WeekScheduleRow{}
+
+	for i := utils.StartOffset(0); i < utils.StartOffset(24); i++ {
+		h, err := i.ToHour()
 		if err != nil {
 			return nil, err
 		}
 
-		if rows[ri].cull {
-			continue
+		if rdecs[h].visible() {
+			rows = append(rows, rdecs[h].toRows(h)...)
 		}
-
-		minutes := make([]int, len(rows[ri].minuteMarks))
-		j := 0
-		for k := range rows[ri].minuteMarks {
-			minutes[j] = k
-			j++
-		}
-		sort.Ints(minutes)
-
-		hwsrs := make([]WeekScheduleRow, len(minutes))
-		for j, m := range minutes {
-			hwsrs[j] = WeekScheduleRow{Hour: ri, Minute: m, Cells: []WeekScheduleCell{}}
-		}
-
-		wsrs = append(wsrs, hwsrs...)
 	}
 
-	return wsrs, nil
+	return rows, nil
+}
+
+// initScheduleRows takes a schedule and determines which rows should be displayed.
+func initScheduleRows(items []*structs.ScheduleItem) ([]WeekScheduleRow, error) {
+	top, bot, err := calcScheduleBoundaries(items)
+	if err != nil {
+		return nil, err
+	}
+
+	rdecs, err := initRowDecisions(top, bot)
+	if err != nil {
+		return nil, err
+	}
+	addItemsToRowDecisions(rdecs, items)
+
+	return rowDecisionsToRows(rdecs)
 }
 
 // populateRows fills schedule rows with timeslots.
@@ -265,8 +293,7 @@ type WeekSchedule struct {
 // hasShows asks whether a schedule slice contains any non-sustainer shows.
 // It assumes the slice has been filled with sustainer.
 func hasShows(schedule []*structs.ScheduleItem) bool {
-	// This shouldn't happen, but if it does, this is the right thing to
-	// do.
+	// This shouldn't happen, but if it does, this is the right thing to do.
 	if len(schedule) == 0 {
 		return false
 	}
@@ -295,16 +322,16 @@ func tabulateWeekSchedule(start, finish time.Time, schedule []*structs.ScheduleI
 		}, nil
 	}
 
-	table, err := calculateScheduleRows(schedule)
+	rows, err := initScheduleRows(schedule)
 	if err != nil {
 		log.Println(err)
 		return nil, err
 	}
-	populateRows(days, table, schedule)
+	populateRows(days, rows, schedule)
 
 	return &WeekSchedule{
 		Dates: days,
-		Table: table,
+		Table: rows,
 	}, nil
 }
 
