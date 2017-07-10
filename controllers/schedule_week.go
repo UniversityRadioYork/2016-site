@@ -365,8 +365,17 @@ func NewScheduleWeekController(s *myradio.Session, r *mux.Router, c *structs.Con
 	   TODO(MattWindsor91):
 	       this is probably slow, but I didn't want to optimise prematurely. */
 	wbuilder := func(t *time.Time) (*url.URL, error) {
+		// TODO(MattWindsor91): use URL instead of string?
+
 		wroute := r.Get("schedule-week")
 		year, week := t.ISOWeek()
+
+		// The router can't handle years outside this range by design.
+		// Don't try to reverse them!
+		if year < 1000 || 9999 < year {
+			return nil, nil
+		}
+
 		return wroute.URLPath(
 			"year", strconv.Itoa(year),
 			"week", strconv.Itoa(week))
@@ -479,12 +488,12 @@ func (sc *ScheduleWeekController) makeAndRenderWeek(w http.ResponseWriter, year,
 
 	data := struct {
 		Schedule                  *WeekSchedule
-		PrevURL, CurrURL, NextURL string
+		PrevURL, CurrURL, NextURL *url.URL
 	}{
 		Schedule: ws,
-		PrevURL:  purl.Path,
-		CurrURL:  curl.Path,
-		NextURL:  nurl.Path,
+		PrevURL:  purl,
+		CurrURL:  curl,
+		NextURL:  nurl,
 	}
 
 	err = utils.RenderTemplate(w, sc.config.PageContext, data, "schedule_week.tmpl")
@@ -495,6 +504,7 @@ func (sc *ScheduleWeekController) makeAndRenderWeek(w http.ResponseWriter, year,
 }
 
 // getRelatedScheduleURLs gets the URLs for the previous, current, and next schedules relative to ws.
+// Any schedule that doesn't exist returns "" as an URL.
 // It can fail with err if it can't generate the URLs.
 func (sc *ScheduleWeekController) getRelatedScheduleURLs(ws *WeekSchedule) (purl, curl, nurl *url.URL, err error) {
 	if len(ws.Dates) == 0 {
@@ -502,20 +512,17 @@ func (sc *ScheduleWeekController) getRelatedScheduleURLs(ws *WeekSchedule) (purl
 		return
 	}
 
-	curr := ws.Dates[0]
-	curl, err = sc.weekScheduleURLBuilder(&curr)
-	if err != nil {
+	cdat := ws.Dates[0]
+	if curl, err = sc.weekScheduleURLBuilder(&cdat); err != nil {
 		return
 	}
 
-	prev := curr.AddDate(0, 0, -7)
-	purl, err = sc.weekScheduleURLBuilder(&prev)
-	if err != nil {
+	pdat := cdat.AddDate(0, 0, -7)
+	if purl, err = sc.weekScheduleURLBuilder(&pdat); err != nil {
 		return
 	}
 
-	next := curr.AddDate(0, 0, 7)
-	nurl, err = sc.weekScheduleURLBuilder(&next)
-
+	ndat := cdat.AddDate(0, 0, 7)
+	nurl, err = sc.weekScheduleURLBuilder(&ndat)
 	return
 }

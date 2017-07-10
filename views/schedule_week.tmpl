@@ -14,9 +14,15 @@
 			<h1>Schedule <small class="muted">for {{week (index .Schedule.Dates 0)}}</small></h1>
 		</div>
 		<nav aria-label="Related Schedules" class="row nav justify-content-between">
-				<a class="nav-link" href="{{url .PrevURL}}">Previous week</a>
-				<a class="nav-link" href="{{url .CurrURL}}">Permalink</a>
-				<a class="nav-link" href="{{url .NextURL}}">Next week</a>
+			{{if .PrevURL}}
+				<a class="nav-link" href="{{url .PrevURL.Path}}">Previous week</a>
+			{{end}}
+			{{if .CurrURL}}
+				<a class="nav-link" href="{{url .CurrURL.Path}}">Permalink</a>
+			{{end}}
+			{{if .NextURL}}
+				<a class="nav-link" href="{{url .NextURL.Path}}">Next week</a>
+			{{end}}
 		</nav>
 	</div>
 </div>
