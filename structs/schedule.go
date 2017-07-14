@@ -4,7 +4,7 @@ package structs
 
 import (
 	"errors"
-	"fmt"
+	"log"
 	"net/url"
 	"time"
 
@@ -52,7 +52,8 @@ func NewSustainerItem(c SustainerConfig, start, finish time.Time) *ScheduleItem 
 }
 
 // NewTimeslotItem converts a myradio.Timeslot into a TimeslotItem.
-func NewTimeslotItem(t *myradio.Timeslot, u func(*myradio.Timeslot) (*url.URL, error)) (*ScheduleItem, error) {
+// It accepts a separate finish time to account for any truncating that occurs when resolving overlaps.
+func NewTimeslotItem(t *myradio.Timeslot, finish time.Time, u func(*myradio.Timeslot) (*url.URL, error)) (*ScheduleItem, error) {
 	if t == nil {
 		return nil, errors.New("NewTimeslotItem: given nil timeslot")
 	}
@@ -65,85 +66,130 @@ func NewTimeslotItem(t *myradio.Timeslot, u func(*myradio.Timeslot) (*url.URL, e
 		Name:    t.Title,
 		Desc:    t.Description,
 		Start:   t.StartTime,
-		Finish:  t.StartTime.Add(t.Duration),
+		Finish:  finish,
 		Block:   "regular", // TODO(MattWindsor91): get this from elsewhere
 		PageURL: url.Path,
 	}, nil
 }
 
-// FillTimeslotSlice converts a slice of Timeslots to a slice of ScheduleItems.
+// scheduleBuilder is an internal type holding information about a schedule slice under construction.
+type scheduleBuilder struct {
+	// config is the sustainer config to use when creating sustainer slots.
+	config SustainerConfig
+	// slice is the schedule slice being constructed.
+	items []*ScheduleItem
+	// nitems is the number of items currently inside the schedule.
+	nitems int
+	// tbuilder is the function used to create schedule items from timeslots.
+	tbuilder func(*myradio.Timeslot, time.Time) (*ScheduleItem, error)
+	// err stores any error caused while building the schedule.
+	err error
+}
+
+// newScheduleBuilder creates an empty schedule builder for nslots shows, given config c and builder tbuilder.
+func newScheduleBuilder(c SustainerConfig, tbuilder func(*myradio.Timeslot, time.Time) (*ScheduleItem, error), nslots int) *scheduleBuilder {
+	return &scheduleBuilder{
+		config: c,
+		// nslots slots, (nslots - 1) sustainers in between, and 2 sustainers at the ends.
+		items:    make([]*ScheduleItem, ((2 * nslots) + 1)),
+		nitems:   0,
+		tbuilder: tbuilder,
+		err:      nil,
+	}
+}
+
+// add adds an item to the scheduleBuilder s.
+func (s *scheduleBuilder) add(i *ScheduleItem) {
+	s.items[s.nitems] = i
+	s.nitems++
+}
+
+// fill adds a sustainer timeslot between start and finish into the scheduleBuilder s if one needs to be there.
+func (s *scheduleBuilder) fill(start, finish time.Time) {
+	if start.Before(finish) {
+		s.add(NewSustainerItem(s.config, start, finish))
+	}
+}
+
+// addTimeslot converts a timeslot t to a schedule item, then adds it to the scheduleBuilder s.
+// It takes an overlap-adjusted finish, and does not add an item if this adjustment causes t to disappear.
+func (s *scheduleBuilder) addTimeslot(t *myradio.Timeslot, finish time.Time) {
+	if s.err != nil || !t.StartTime.Before(finish) {
+		return
+	}
+
+	var ts *ScheduleItem
+	if ts, s.err = s.tbuilder(t, finish); s.err != nil {
+		return
+	}
+
+	s.add(ts)
+}
+
+// schedule gets the schedule from a scheduleBuilder, or an err if schedule building failed.
+func (s *scheduleBuilder) schedule() ([]*ScheduleItem, error) {
+	if s.err != nil {
+		return nil, s.err
+	}
+	return s.items[:s.nitems], nil
+}
+
+// truncateOverlap clips finish to nextStart if the two overlap and nextShow exists.
+// If so, we log an overlap warning, whose content depends on show and nextShow.
+// If nextShow is nil, we've overlapped with the end of the schedule, which doesn't need truncating.
+func truncateOverlap(finish, nextStart time.Time, show, nextShow *myradio.Timeslot) time.Time {
+	if nextShow == nil || !finish.After(nextStart) {
+		return finish
+	}
+
+	log.Printf(
+		"Timeslot '%s', ID %d, finishing at %v overlaps with timeslot '%s', ID %d, starting at %v'",
+		show.Title,
+		show.TimeslotID,
+		finish,
+		nextShow.Title,
+		nextShow.TimeslotID,
+		nextStart,
+	)
+
+	return nextStart
+}
+
+// MakeScheduleSlice converts a slice of Timeslots to a slice of ScheduleItems.
 // It does so by filling in any gaps between the start time and the first show, the final show and the finish time, and any two shows.
-// It expects a constructor function for lifting Timeslots to TimeslotItems.
+// Any overlaps are resolved by truncating the timeslot finish time, and dropping it if this makes the timeslot disappear.
+// It expects a constructor function for lifting Timeslots (and overlap-adjusted finish times) to TimeslotItems.
 // It will return an error if any two shows overlap.
 // It presumes the timeslot slice is already sorted in chronological order.
-func FillTimeslotSlice(c SustainerConfig, start, finish time.Time, slots []myradio.Timeslot, tbuilder func(*myradio.Timeslot) (*ScheduleItem, error)) ([]*ScheduleItem, error) {
+func MakeScheduleSlice(c SustainerConfig, start, finish time.Time, slots []myradio.Timeslot, tbuilder func(*myradio.Timeslot, time.Time) (*ScheduleItem, error)) ([]*ScheduleItem, error) {
 	nslots := len(slots)
-
-	// The maximum possible number of items is 2(nslots) + 1:
-	// nslots slots, (nslots - 1) sustainers in between, and 2 sustainers at the ends.
-	items := make([]*ScheduleItem, (2*len(slots))+1)
-
-	// Now deal with the easy case--no slots.
 	if nslots == 0 {
-		items[0] = NewSustainerItem(c, start, finish)
-		return items, nil
+		return []*ScheduleItem{NewSustainerItem(c, start, finish)}, nil
 	}
 
-	// Otherwise, we now have to do some actual filling.
-	i := 0
-
-	// First, work out if we need to fill before the first show.
-	firstShow := slots[0]
-	if start.Before(firstShow.StartTime) {
-		items[i] = NewSustainerItem(c, start, firstShow.StartTime)
-		i++
-	}
+	s := newScheduleBuilder(c, tbuilder, nslots)
+	s.fill(start, slots[0].StartTime)
 
 	// Now, if possible, start filling between.
-	// This will add all but the last show.
-	var err error
-	for j := range slots {
-		if j < nslots-1 {
-			first := &slots[j]
-			second := &slots[j+1]
+	var show, nextShow *myradio.Timeslot
+	for i := range slots {
+		show = &slots[i]
+		rawShowFinish := show.StartTime.Add(show.Duration)
 
-			firstFinish := first.StartTime.Add(first.Duration)
-			if firstFinish.After(second.StartTime) {
-				return nil, fmt.Errorf(
-					"Timeslot '%s', ID %d, finishing at %v overlaps with timeslot '%s', ID %d, starting at %v'",
-					first.Title,
-					first.TimeslotID,
-					firstFinish,
-					second.Title,
-					second.TimeslotID,
-					second.StartTime,
-				)
-			}
-
-			items[i], err = tbuilder(first)
-			if err != nil {
-				return nil, err
-			}
-			i++
-			if firstFinish.Before(second.StartTime) {
-				items[i] = NewSustainerItem(c, firstFinish, second.StartTime)
-				i++
-			}
-			// Don't add second -- it'll either be the next first, or we'll add it at the end.
+		var nextStart time.Time
+		// Is the next start another show, or the end of the schedule?
+		if i < nslots-1 {
+			nextShow = &slots[i+1]
+			nextStart = nextShow.StartTime
+		} else {
+			nextShow = nil
+			nextStart = finish
 		}
+
+		showFinish := truncateOverlap(rawShowFinish, nextStart, show, nextShow)
+		s.addTimeslot(show, showFinish)
+		s.fill(showFinish, nextStart)
 	}
 
-	lastShow := &slots[nslots-1]
-	items[i], err = tbuilder(lastShow)
-	if err != nil {
-		return nil, err
-	}
-	i++
-	lastFinish := lastShow.StartTime.Add(lastShow.Duration)
-	if lastFinish.Before(finish) {
-		items[i] = NewSustainerItem(c, lastFinish, finish)
-		i++
-	}
-
-	return items[:i], nil
+	return s.schedule()
 }

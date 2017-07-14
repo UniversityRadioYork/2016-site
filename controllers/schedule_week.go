@@ -396,8 +396,8 @@ func NewScheduleWeekController(s *myradio.Session, r *mux.Router, c *structs.Con
 }
 
 // makeTimeslotItem creates a TimeslotItem for a given MyRadio timeslot.
-func (sc *ScheduleWeekController) makeTimeslotItem(t *myradio.Timeslot) (*structs.ScheduleItem, error) {
-	ts, err := structs.NewTimeslotItem(t, sc.timeslotURLBuilder)
+func (sc *ScheduleWeekController) makeTimeslotItem(t *myradio.Timeslot, finish time.Time) (*structs.ScheduleItem, error) {
+	ts, err := structs.NewTimeslotItem(t, finish, sc.timeslotURLBuilder)
 	if err == nil && ts == nil {
 		return nil, errors.New("NewTimeslotItem created nil timeslot item")
 	}
@@ -427,7 +427,7 @@ func (sc *ScheduleWeekController) makeWeekSchedule(yr, wk int) (*WeekSchedule, e
 	// Now start filling from day start to day finish.
 	weekStart := utils.StartOfDayOn(startDate)
 	weekFinish := utils.StartOfDayOn(finishDate)
-	filled, err := structs.FillTimeslotSlice(sc.config.Schedule.Sustainer, weekStart, weekFinish, flat, sc.makeTimeslotItem)
+	filled, err := structs.MakeScheduleSlice(sc.config.Schedule.Sustainer, weekStart, weekFinish, flat, sc.makeTimeslotItem)
 	if err != nil {
 		return nil, err
 	}
