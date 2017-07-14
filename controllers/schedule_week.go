@@ -31,24 +31,6 @@ func weekFromVars(vars map[string]string) (string, string, error) {
 	return y, w, nil
 }
 
-// weekdayFromVars extracts the year, week, and weekday strings from vars.
-func weekdayFromVars(vars map[string]string) (string, string, string, error) {
-	y, ok := vars["year"]
-	if !ok {
-		return "", "", "", errors.New("no year provided")
-	}
-	w, ok := vars["week"]
-	if !ok {
-		return "", "", "", errors.New("no week provided")
-	}
-	d, ok := vars["weekday"]
-	if !ok {
-		return "", "", "", errors.New("no weekday provided")
-	}
-
-	return y, w, d, nil
-}
-
 //
 // Week schedule algorithm
 // TODO(CaptainHayashi): move?
