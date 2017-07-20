@@ -1,90 +1,26 @@
-$nav-background: rgba(255,255,255,0.88);
+$nav-background: rgba(255,255,255,.88);
+$nav-bottom-border: 1px solid rgba(2, 45, 89, .3);
+$nav-links-color: rgb(2, 45, 89);
 
 // How fast search expands and shrinks
-$search-transition-time: .5s;
+
 
 .navbar-ury {
   background: $nav-background;
   -webkit-backdrop-filter: blur(7px);
-  border-bottom: 1px solid rgba(2, 45, 89, 0.3);
+  backdrop-filter: blur(7px);
+  border-bottom: $nav-bottom-border;
 
   a {
-    color: rgb(2, 45, 89);
+    color: $nav-links-color;
   }
 
   .navbar-toggler {
     line-height: inherit;
     right: 0;
-    
+
     .navbar-toggler-icon {
       background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
-    }
-  }
-}
-
-.search-box {
-  margin-top: auto;
-  margin-bottom: auto;
-  // 10 rem can be lower but if the font is enlarged on screen it doesnt look right
-  border-radius: 10em;
-  border: 1px solid rgba(152, 152, 152, 0.2);
-  background: $off-white-color;
-  width: auto;
-
-  input {
-    background: none;
-    border: none;
-    margin-top: auto;
-    margin-bottom: auto;
-    padding-right: 0.5em;
-    padding-left: 0;
-    height: 100%;
-    width: 100%;
-
-    &:focus {
-      outline: none;
-      background: none;
-      border: none;
-
-    }
-
-  }
-
-  button {
-    color: grey;
-    border: none;
-    background: none;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-
-    &:hover {
-      color: black;
-    }
-  }
-}
-
-
-.search-box-expand {
-
-  input {
-    // only do the animation when the nav is not collapsed
-    width: 70px;
-    transition-duration: $search-transition-time;
-    transition-delay: 0.1s;
-    @include media-breakpoint-down(md) {
-      transition: none;
-      width: 100%;
-    }
-
-
-    &:focus {
-      // only do the animation when the nav is not collapsed
-      width: 170px;
-      transition-duration: $search-transition-time;
-      @include media-breakpoint-down(md) {
-        transition: none;
-        width: 100%;
-      }
     }
   }
 }
