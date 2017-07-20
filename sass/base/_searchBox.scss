@@ -1,7 +1,7 @@
 $search-box-border: 1px solid rgba(152, 152, 152, .2);
 $search-transition-time: .5s;
 $search-button-color: #808080;
-$search-button-color-hover: #000000;
+$search-button-color-hover: #000;
 
 .search-box {
   background: $off-white-color;
@@ -16,24 +16,24 @@ $search-button-color-hover: #000000;
   input {
     background: none;
     border: 0;
-    margin-top: auto;
-    margin-bottom: auto;
-    padding-right: 0.5em;
-    padding-left: 0;
     height: 100%;
+    margin-bottom: auto;
+    margin-top: auto;
+    padding-left: 0;
+    padding-right: 0.5em;
     width: 100%;
 
     &:focus {
       outline: none;
       background: none;
-      border: none;
+      border: 0;
     }
 
   }
 
   button {
     color: $search-button-color;
-    border: none;
+    border: 0;
     background: none;
     padding-left: .5rem;
     padding-right: .5rem;
@@ -63,7 +63,6 @@ $search-button-color-hover: #000000;
       // only do the animation when the nav is not collapsed
       transition-duration: $search-transition-time;
       width: 170px;
-      
 
       @include media-breakpoint-down(md) {
         transition: none;
