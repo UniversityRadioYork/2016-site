@@ -10,7 +10,6 @@ $search-button-color-hover: #000;
   border-radius: 10em;
   margin-bottom: auto;
   margin-top: auto;
-
   width: auto;
 
   input {
@@ -28,7 +27,6 @@ $search-button-color-hover: #000;
       background: none;
       border: 0;
     }
-
   }
 
   button {
@@ -46,7 +44,6 @@ $search-button-color-hover: #000;
 
 
 .search-box-expand {
-
   input {
     // only do the animation when the nav is not collapsed
     width: 70px;
@@ -57,7 +54,6 @@ $search-button-color-hover: #000;
       transition: none;
       width: 100%;
     }
-
 
     &:focus {
       // only do the animation when the nav is not collapsed
