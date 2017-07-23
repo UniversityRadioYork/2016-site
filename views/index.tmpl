@@ -1,9 +1,13 @@
 {{define "content"}}
   {{with .PageData}}
   <div class="container-fluid current-next">
-    <div class="container container-padded">
-      {{template "current_and_next" .}}
-      {{template "banner" .}}
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-11 col-md-10">
+        {{template "current_and_next" .}}
+        {{template "banner" .}}
+        </div>
+      </div>
     </div>
   </div>
   <div id="index-infobar" class="container-fluid bg-off-white container-padded">
