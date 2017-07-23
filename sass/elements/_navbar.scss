@@ -1,0 +1,26 @@
+$nav-background: rgba(255, 255, 255, .88);
+$nav-bottom-border: 1px solid rgba(2, 45, 89, .3);
+$nav-links-color: rgb(2, 45, 89);
+
+// How fast search expands and shrinks
+
+
+.navbar-ury {
+  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px);
+  background: $nav-background;
+  border-bottom: $nav-bottom-border;
+
+  a {
+    color: $nav-links-color;
+  }
+
+  .navbar-toggler {
+    line-height: inherit;
+    right: 0;
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+    }
+  }
+}

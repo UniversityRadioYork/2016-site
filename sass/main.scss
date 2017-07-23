@@ -22,22 +22,16 @@ html {
 
 @include media-breakpoint-up(md) {
   html {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 
 
 @include media-breakpoint-up(lg) {
   html {
-    font-size: 16px;
+    font-size: 14px;
   }
-}
 
-
-/* Space out content a bit */
-
-body {
-  padding-top: 49px;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -71,11 +65,6 @@ footer {
   .row {
     min-height: 3em;
   }
-}
-
-.container-padded {
-  padding-top: 2em;
-  padding-bottom: 2em;
 }
 
 .banner-2 {
