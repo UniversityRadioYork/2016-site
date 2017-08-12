@@ -1,10 +1,10 @@
 //Youtube slideshow for index page
 function onGoogleLoad() {
-  gapi.client.setApiKey('AIzaSyCzI5Gvpq1hPlfjvB81EVc0vLv_11eW7NI');
+  gapi.client.setApiKey(youtubeAPIKey);
   gapi.client.load('youtube', 'v3', function() {
   var request = gapi.client.youtube.playlistItems.list({
     part: 'snippet',
-    playlistId: 'PLsxUDJzU4VKDudlmlYb-ImFKreFKAfFln',
+    playlistId: youtubePlaylistID,
     maxResults: 12
   });
 
