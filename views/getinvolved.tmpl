@@ -1,6 +1,19 @@
+{{define "title"}}{{.PageContext.ShortName}} | Get Involved{{end}}
+{{define "open-graph"}}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@{{.PageContext.MainTwitter}}">
+<meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}"> 
+<meta property="og:locale" content="en_GB">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Want to help York make incredible award winning radio?">
+<meta property="og:description" content="Want to join one of the best, largest and most diverse societies university has to offer? Whether you to hear your voice played out on the airwaves, break the biggest news stories as they happen, play with the state-of-the-art studios and computer systems, or just plain have fun, then URY is the place for you.">
+<meta property="og:image" content="{{.PageContext.FullURL}}{{url "/images/open_graph-get_involved.jpg"}}">
+<meta property="og:url" content="{{.PageContext.FullURL}}{{url "/getinvolved"}}">  
+{{end}}
+
 {{define "content"}}
 <div class="container-fluid banner-2 text-overlay">
-  <div class="container">
+  <div class="container container-padded">
     <div class="row justify-content-center">
       <div class="text-center">
         <h1 class="display-1">Radio</h1>
@@ -12,7 +25,7 @@
   </div>
 </div>
 <div class="container-fluid container-padded text-center bg-off-white">
-  <div class="container">
+  <div class="container container-padded">
     <div class="row">
       <div class="col">
         <h3>Want to help York make incredible <strong>Award Winning</strong> radio?</h3>
@@ -25,7 +38,7 @@
   </div>
 </div>
 <div class="container-fluid container-padded ">
-  <div class="container">
+  <div class="container container-padded">
     <div class="row">
       <h2>What Can I Do?</h2>
       <p>Of course, everyone wants to be on the radio! Presenting is as easy as baking a cake (disclaimer: I can't bake cakes)
@@ -39,7 +52,7 @@
   </div>
 </div>
 <div class="container-fluid container-padded  bg-primary">
-  <div class="container">
+  <div class="container container-padded">
     <div class="row">
       <h2>How Do I Get A Show?</h2>
       <p>Getting your own show is easy as pie! First thing is to make sure you are a paid member, you can do this through <a href="http://yusu.org" title="York University Students Union" target="_blank">YUSU</a>.</p>
@@ -52,17 +65,23 @@
   </div>
 </div>
 <div class="container-fluid container-padded  bg-third">
-  <div class="container">
-    <div class="row">
+  <div class="container container-padded">
       <h2>How Do I Join?</h2>
-      <p>If you're ready to sign up right now, you can fill in the form below to sign up to our mailing list and computer system. It's instant and of course there's no commitment to do anything.</p>
-      <p>You can also come and <a href="/contact/" title="Contact us page">visit our station</a> in Vanbrugh College, where there'll almost always be someone there to talk to you and get you set up.</p>
-    </div>
+      <p>If you’re ready to join URY right now, we have some very easy steps to get you started...</p>
+      <dl>
+        <dt>Pay Membership</dt>
+        <dd>The easiest way to pay membership is through the <a href="//yusu.org/groups/university-radio-york/" target="_blank">yusu.org</a> website.</dd>
+        <dt>Sign Up To MyRadio</dt>
+        <dd>MyRadio is our computer system for managing shows, members, and our mailing list. You can join MyRadio by completing the form below, it’s instant and of course there’s no commitment to do anything.</li>
+        <dt>Join Our Slack Team</dt>
+        <dd>Use <a href="//slack.com/is" title="Find out more about Slack!" target="_blank">Slack</a>; it's like Facebook Messenger but for URY team communication. Slack has the advantage of having a “channel” for each team, so you can join any channel and see what is happening. Our Slack team: <a href="//ury.slack.com" title="Join Our Slack Team" target="_blank">ury.slack.com</a> sign up using your university email address.</dd>
+      </dl>
+      <p>You can also come and <a href="{{url "/contact/"}}" title="Contact us page">visit our station</a> in Vanbrugh College, where there'll almost always be someone there to talk to you and get you set up.</p>
   </div>
 </div>
 <div class="container-fluid container-padded bg-secondary" id="signUp">
-  <div class="container">
-    <h1 class="">Sign up today!</h1>
+  <div class="container container-padded">
+    <h1>Sign up today!</h1>
     <hr>
     <form name="getInvolvedForm" class="form-getinvolved">
       <div class="row">

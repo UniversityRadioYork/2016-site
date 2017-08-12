@@ -1,6 +1,20 @@
+{{define "title"}}{{.PageContext.ShortName}} | Contact{{end}}
+
+{{define "open-graph"}}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@{{.PageContext.MainTwitter}}">
+<meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="Say hi to URY!">
+<meta property="og:description" content="At URY, radio is a two-way medium. Send us a message or find us on social media.">
+<meta property="og:image" content="{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}">
+<meta property="og:url" content="{{.PageContext.FullURL}}{{url "/contact/"}}">
+{{end}}
+
 {{define "content"}}
 <div class="container-fluid banner-2 text-overlay">
-  <div class="container">
+  <div class="container container-padded">
     <div class="row align-items-center text-center">
       <div class="col">
         <h1 class="display-2">Say hi to URY!</h1>
@@ -12,7 +26,7 @@
 <div class="container-fluid container-padded text-center">
   <div class="row">
     <div class="col-md-4">
-      <h2><a href="//twitter.com/URY1350" title="URY Twitter" target="_blank">@URY1350</a></h2>
+      <h2><a href="//twitter.com/{{.PageContext.MainTwitter}}" title="URY Twitter" target="_blank">@{{.PageContext.MainTwitter}}</a></h2>
       <span>On Twitter</span>
     </div>
     <div class="col-md-4">
@@ -21,7 +35,7 @@
     </div>
     <div class="col-md-4">
       <h2>
-        <a href="//facebook.com/URY1350" title="URY Facebook Page" target="_blank">/URY1350</a>
+        <a href="//facebook.com/{{.PageContext.MainFacebook}}" title="URY Facebook Page" target="_blank">/{{.PageContext.MainFacebook}}</a>
       </h2>
       <span>On Facebook</span>
     </div>
@@ -36,12 +50,12 @@
   </div>
   <div class="row">
     <div class="col">
-      <h2><a href="mailto:newsroom@ury.org.uk" title="Email URY Newsroom">newsroom@ury.org.uk</a> <span class="slash-divider">/</span> <a href="//twitter.com/URYNews" title="URY News Twitter" target="_blank">@URY1350</a></h2>
+      <h2><a href="mailto:newsroom@ury.org.uk" title="Email URY Newsroom">newsroom@ury.org.uk</a> <span class="slash-divider">/</span> <a href="//twitter.com/{{.PageContext.NewsTwitter}}" title="URY News Twitter" target="_blank">@{{.PageContext.NewsTwitter}}</a></h2>
     </div>
   </div>
 </div>
 <div class="container-fluid container-padded text-center bg-secondary key-contacts">
-  <div class="container">
+  <div class="container container-padded">
     <div class="row">
       <div class="col">
         <h1>Key Contacts</h1>
@@ -93,7 +107,7 @@
   </div>
 </div>
 <div class="container-fluid container-padded text-center bg-off-white">
-  <div class="container">
+  <div class="container container-padded">
     <div class="row">
       <div class="col">
         <h1>Everything Else</h1>
