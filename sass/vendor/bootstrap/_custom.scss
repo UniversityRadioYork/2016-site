@@ -2,21 +2,3 @@
 //
 // Copy variables from `_variables.scss` to this file to override default values
 // without modifying source files.
-
-$ury-blue: rgba(0, 51, 103, 1);
-
-$secondary-color: rgba(1, 26, 50, 1);
-
-
-$headings-font-family: 'Raleway', sans-serif;
-
-$theme-colors: (
-    primary: $ury-blue,
-    secondary: $secondary-color,
-    success: $green,
-    info: $cyan,
-    warning: $yellow,
-    danger: $red,
-    light: $gray-100,
-    dark: $gray-800
-  );
