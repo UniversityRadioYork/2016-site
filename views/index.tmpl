@@ -1,13 +1,13 @@
 {{define "content"}}
   {{with .PageData}}
   <div class="container-fluid current-next">
-    <div class="container">
+    <div class="container container-padded">
       {{template "current_and_next" .}}
       {{template "banner" .}}
     </div>
   </div>
   <div id="index-infobar" class="container-fluid bg-off-white container-padded">
-    <div class="container">
+    <div class="container container-padded">
       <div class="row justify-content-center">
         <div class="pb-4 col-lg-3">
           <h2>Send a Message</h2>
@@ -27,8 +27,10 @@
               <p>Contact our teams to find out more.</p>
             </div>
             <div class="col-lg-6">
-              <ul>
-                <li>List of teams here.</li>
+              <ul class="split-evenly-2 no-bullets">
+              {{range .Teams}}
+                <li>{{.Name}}</li>
+              {{end}}
               </ul>
             </div>    
           </div>
@@ -37,7 +39,7 @@
     </div>
   </div>
   <div id="index-schedule" class="container-fluid container-padded">  
-    <div class="container text-center">
+    <div class="container container-padded text-center">
       <h2>Today's Schedule</h2>
       <h3>We're not broadcasting today, we'll be back on !!DATE!!.</h3>
       <p>In the meantime, how about some On Demand content?</p>

@@ -7,9 +7,11 @@
 <meta property="og:locale" content="en_GB">
 <meta property="og:title" content="{{.PageContext.ShortName}} | {{.PageData.User.Fname}} {{.PageData.User.Sname}} Profile">
 <meta property="og:url" content="{{.PageContext.FullURL}}{{url "/people/"}}{{.PageData.User.MemberID}}">     
-<!-- @TODO: Remove html so it is just plain text. -->
-<!-- @TODO: Check if the user has a bio, if not use general bio -->
+{{if.PageData.User.Bio}}
 <meta property="og:description" content="{{.PageData.User.Bio}}">
+{{else}}
+<meta property="og:description" content="{{.PageData.User.Fname}}, a member of {{.PageContext.LongName}}, the UK’s oldest legal independent radio station. {{.PageContext.ShortName}} is a radio station run by students, for students. Broadcasting across campus on 1350am, and world-wide via our website.">
+{{end}}
 <meta property="og:image" content="{{.PageContext.FullURL}}{{url .PageData.User.Photo}}">
 <meta property="og:type" content="profile"> 
 <meta property="profile:username" content="{{.PageData.User.MemberID}}"> 
@@ -21,12 +23,12 @@
 
   {{with .PageData}}
     <div class="container-fluid header-large current-next">
-      <div class="container mobile-hide">
+      <div class="container container-padded mobile-hide">
       {{template "current_and_next" .}}
-      </div><!-- /.container -->
+      </div><!-- /.container container-padded -->
     </div><!-- /outer containter -->
     <div class="container-fluid bg-off-white">
-      <div class="container">
+      <div class="container container-padded">
         <div class="row">
           <div class="col-12 col-lg-3">
             <div class="user-img">
@@ -64,7 +66,7 @@
       </div>
     </div> <!-- /outer containter -->
     <div class="container-fluid bg-secondary">
-      <div class="container">
+      <div class="container container-padded">
         <div>
           {{if .User.Bio}}
             <h2>Bio</h2>

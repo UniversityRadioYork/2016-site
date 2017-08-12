@@ -1,10 +1,26 @@
 {{define "title"}}{{.PageContext.ShortName}} | {{.PageData.Timeslot.Title}} {{.PageData.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}}{{end}}
 
+{{define "open-graph"}}
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@{{.PageContext.MainTwitter}}">
+<meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="{{.PageContext.ShortName}} | {{.PageData.Timeslot.Title}} {{.PageData.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}}">
+{{if .PageData.Timeslot.Season.ShowMeta.Photo}}
+<meta property="og:image" content="{{.PageContext.FullURL}}{{url .PageData.Timeslot.Season.ShowMeta.Photo}}">
+{{else}}
+<meta property="og:image" content="{{.PageContext.FullURL}}{{url "images/open_graph-general.jpg"}}">
+{{end}}
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{.PageContext.FullURL}}{{url "/shows/timeslots/"}}{{.PageData.Timeslot.TimeslotID}}">
+<meta property="og:description" content="{{.PageData.Timeslot.Description}}">
+{{end}}
+
 {{define "content"}}
 	{{with .PageData}}
 
 	  <div class="container-fluid header-large current-next">
-		  <div class="container ">
+		  <div class="container container-padded ">
       {{if .MixcloudAvailable}}
         <div class="row justify-content-center">
           <div class="col-md-10 py-2 mixcloud">
@@ -17,7 +33,7 @@
 		  </div>
 	  </div>
     <div class="container-fluid bg-off-white">
-      <div class="container">
+      <div class="container container-padded">
         <div class="row">
           <div class="col-12 col-lg-3">
             <img class="img-fluid show-img" src="
@@ -59,20 +75,20 @@
           </div>
         </div>
       </div>
-    </div> <!-- /outer containter -->
+    </div>
     
       {{if .Timeslot.Credits}}
-      <div class="container outer page1-credits-people">
+      <div class="container container-padded outer page1-credits-people">
         <h2>Credits</h2>
         {{range .Timeslot.Credits}}
           <a href="/people/{{.User.MemberID}}/">{{.User.Fname}} {{.User.Sname}}</a> <br>
         {{end}}
 
-      </div> <!-- /outer containter -->
+      </div>
       {{end}}
       {{if .Tracklist}}
-      <div class="container outer page1-tracklist">
-        <div class="container">
+      <div class="container container-padded outer page1-tracklist">
+        <div class="container container-padded">
           <h2>
             Tracklist
           </h2>
@@ -95,7 +111,7 @@
             </tbody>
           </table>
         </div>
-      </div> <!-- /outer containter -->		
+      </div>	
       {{end}}
 
 	{{end}}

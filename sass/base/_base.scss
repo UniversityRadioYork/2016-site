@@ -1,6 +1,7 @@
 @import "variables";
 @import "typography";
 @import "buttons";
+@import "searchBox";
 @import "backgrounds";
 @import "utils";
 
@@ -8,7 +9,7 @@ html {
   font-size: $base-font-size;
 }
 
-.container {
+.container-padded {
   padding-top: 1em;
   padding-bottom: 1em;
 }

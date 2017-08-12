@@ -13,7 +13,6 @@
 {{end}}
 <meta property="og:type" content="website">
 <meta property="og:url" content="{{.PageContext.FullURL}}{{url "/schedule/shows/"}}{{.PageData.Show.ShowID}}">
-<!-- @TODO: Remove HTML, so it leaves plain text.-->
 <meta property="og:description" content="{{.PageData.Show.Description}}">
 {{end}}
 
@@ -21,11 +20,11 @@
 {{with .PageData}}
 
 	<div class="container-fluid header-large current-next">
-		<div class="container mobile-hide">
+		<div class="container container-padded mobile-hide">
 		</div>
 	</div>
 	<div class="container-fluid bg-off-white">
-		<div class="container">
+		<div class="container container-padded">
 		  <div class="row">
 	        <div class="col-12 col-lg-3">
 	        	<img class="img-fluid show-img" src="
@@ -57,19 +56,19 @@
 	        </div>
 	      </div>
 	    </div>
-	  </div> <!-- /outer containter -->
-	  <div class="container outer page1-credits-people">
+	  </div>
+	  <div class="container container-padded outer page1-credits-people">
 	  	{{range .Show.Credits}}
 				<a href="/people/{{.User.MemberID}}/">{{.User.Fname}} {{.User.Sname}}</a> <br>
 			{{end}}
 
-    </div> <!-- /outer containter -->
+    </div>
 
 
 
 
 
-<div class="container">
+<div class="container container-padded">
 
 
 	<h2>
@@ -93,8 +92,7 @@
 		{{end}}
 	</ul>
 
-</div><!-- /.container -->
-
+</div>
 
 
 
