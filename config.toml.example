@@ -32,3 +32,7 @@
 	[[pageContext.pages]]
 		name = "Search"
 		url  = "search/"
+
+	[pageContext.youtube]
+		APIKey = "AIzaSyCzI5Gvpq1hPlfjvB81EVc0vLv_11eW7NI"
+		playlistID = "PLsxUDJzU4VKDudlmlYb-ImFKreFKAfFln"
