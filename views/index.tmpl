@@ -1,9 +1,13 @@
 {{define "content"}}
   {{with .PageData}}
   <div class="container-fluid current-next">
-    <div class="container container-padded">
-      {{template "current_and_next" .}}
-      {{template "banner" .}}
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-11 col-md-10 box-shadow-1">
+        {{template "current_and_next" .}}
+        {{template "banner" .}}
+        </div>
+      </div>
     </div>
   </div>
   <div id="index-infobar" class="container-fluid bg-off-white container-padded">
@@ -164,22 +168,7 @@
   
   <div id="index-videos" class="container-fluid container-padded bg-secondary">
     <h2>URY Sessions</h2>
-    <div class="row scroll-horiz">
-      <div class="col-10 col-sm-7 col-md-4 col-lg-3">
-        <img src="http://img.youtube.com/vi/y2fCIG0l144/maxresdefault.jpg" class="img-fluid" alt="...">
-      </div>
-      <div class="col-10 col-sm-7 col-md-4 col-lg-3">
-        <img src="http://img.youtube.com/vi/y2fCIG0l144/maxresdefault.jpg" class="img-fluid" alt="...">
-      </div>
-      <div class="col-10 col-sm-7 col-md-4 col-lg-3">
-        <img src="http://img.youtube.com/vi/y2fCIG0l144/maxresdefault.jpg" class="img-fluid" alt="...">
-      </div>
-      <div class="col-10 col-sm-7 col-md-4 col-lg-3">
-        <img src="http://img.youtube.com/vi/y2fCIG0l144/maxresdefault.jpg" class="img-fluid" alt="...">
-      </div>
-      <div class="col-10 col-sm-7 col-md-4 col-lg-3">
-        <img src="http://img.youtube.com/vi/y2fCIG0l144/maxresdefault.jpg" class="img-fluid" alt="...">
-      </div>
+    <div id="youtube-video-slider" class="row scroll-horiz">
     </div>
   </div>
   <div id="index-uryplayer" class="container-fluid container-padded bg-third">
@@ -278,4 +267,14 @@
     </div>
   </div> <!-- /outer containter -->
   {{end}}
+{{end}}
+
+{{define "footer-scripts"}}
+<!-- Youtube slider script -->
+<script>
+var youtubeAPIKey = {{.PageContext.Youtube.APIKey}};
+var youtubePlaylistID = "{{.PageContext.Youtube.PlaylistID}}";
+</script>
+<script src='{{url "js/index.js"}}'></script>
+<script src="https://apis.google.com/js/client.js?onload=onGoogleLoad"></script>
 {{end}}

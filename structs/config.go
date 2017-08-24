@@ -30,10 +30,16 @@ type PageContext struct {
 	MainFacebook    string `toml:"mainFacebook"`
 	NewsTwitter     string `toml:"newsTwitter"`
 	Pages           []Page
+	Youtube         youtube
 }
 
 // Page is a structure describing a page in the website navigation system.
 type Page struct {
 	Name string `toml:"name"`
 	Url  string `toml:"url"`
+}
+
+type youtube struct {
+	APIKey     string `toml:"apiKey"`
+	PlaylistID string `toml:"playlistID"`
 }
