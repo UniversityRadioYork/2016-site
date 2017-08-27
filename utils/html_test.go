@@ -7,7 +7,7 @@ import (
 )
 
 // TestStripHtml tests StripHtml on various HTML fragments.
-func TestStripHtml(t *testing.T) {
+func TestStripHTML(t *testing.T) {
 	cases := []struct {
 		Expected string
 		Input    string
@@ -32,7 +32,7 @@ func TestStripHtml(t *testing.T) {
 	}
 
 	for _, c := range cases {
-		got, err := utils.StripHtml(c.Input)
+		got, err := utils.StripHTML(c.Input)
 		if err != nil {
 			t.Error(err)
 		} else if c.Expected != got {
