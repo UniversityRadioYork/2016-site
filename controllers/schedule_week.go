@@ -394,7 +394,7 @@ func (sc *ScheduleWeekController) makeWeekSchedule(yr, wk int) (*WeekSchedule, e
 	}
 	finishDate := startDate.AddDate(0, 0, 7)
 
-	sm := models.NewScheduleWeekModel(sc.session)
+	sm := models.NewScheduleModel(sc.session)
 	timeslots, err := sm.Get(yr, wk)
 	if err != nil {
 		return nil, err
