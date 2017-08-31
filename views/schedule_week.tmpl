@@ -3,28 +3,28 @@
 
 <!-- placeholder for current and next -->
 <div class="container-fluid header-large current-next">
-	<div class="container mobile-hide">
-	</div>
+  <div class="container mobile-hide">
+  </div>
 </div>
 
 <!-- schedule header -->
 <div class="container-fluid bg-off-white">
-	<div class="container">
-		<div class="row">
-			<h1>Schedule <small class="muted">for {{week (index .Schedule.Dates 0)}}</small></h1>
-		</div>
-		<nav aria-label="Related Schedules" class="row nav justify-content-between">
-			{{if .PrevURL}}
-				<a class="nav-link" href="{{url .PrevURL.Path}}">Previous week</a>
-			{{end}}
-			{{if .CurrURL}}
-				<a class="nav-link" href="{{url .CurrURL.Path}}">Permalink</a>
-			{{end}}
-			{{if .NextURL}}
-				<a class="nav-link" href="{{url .NextURL.Path}}">Next week</a>
-			{{end}}
-		</nav>
-	</div>
+  <div class="container">
+    <div class="row">
+      <h1>Schedule <small class="muted">for {{week (index .Schedule.Dates 0)}}</small></h1>
+    </div>
+    <nav aria-label="Related Schedules" class="row nav justify-content-between">
+      {{if .PrevURL}}
+        <a class="nav-link" href="{{url .PrevURL.Path}}">Previous week</a>
+      {{end}}
+      {{if .CurrURL}}
+        <a class="nav-link" href="{{url .CurrURL.Path}}">Permalink</a>
+      {{end}}
+      {{if .NextURL}}
+        <a class="nav-link" href="{{url .NextURL.Path}}">Next week</a>
+      {{end}}
+    </nav>
+  </div>
 </div>
 
 <!-- schedule body -->
@@ -32,35 +32,35 @@
 {{with .Schedule}}
 {{if .Table}}
 <table class="table table-responsive">
-	<thead>
-		<tr>
-			<th>Time</th>
-			{{range .Dates}}
-			<th>{{.Weekday}} {{.Format "02"}}</th>
-			{{end}}
-		</tr>
-	</thead>
-	<tbody>
-		{{range .Table}}
-			<tr>
-				<th scope="row">{{.Hour | printf "%02d"}}:{{.Minute | printf "%02d"}}</th>
-				{{range .Cells}}
-					{{if ne .RowSpan 0}}
-					<td rowspan="{{.RowSpan}}" class="schedule-timeslot schedule-blocks-{{.Item.Block}}" title="{{stripHTML .Item.Desc}}">
-						{{if .Item.PageURL}}
-							<a href="{{url .Item.PageURL}}">{{.Item.Name}}</a>
-						{{else}}
-							{{.Item.Name}}
-						{{end}}
-					</td>
-					{{end}}
-				{{end}}
-			</tr>
-		{{end}}
-	</tbody>
+  <thead>
+    <tr>
+      <th>Time</th>
+      {{range .Dates}}
+      <th>{{.Weekday}} {{.Format "02"}}</th>
+      {{end}}
+    </tr>
+  </thead>
+  <tbody>
+    {{range .Table}}
+      <tr>
+        <th scope="row">{{.Hour | printf "%02d"}}:{{.Minute | printf "%02d"}}</th>
+        {{range .Cells}}
+          {{if ne .RowSpan 0}}
+          <td rowspan="{{.RowSpan}}" class="schedule-timeslot schedule-blocks-{{.Item.Block}}" title="{{stripHTML .Item.Desc}}">
+            {{if .Item.PageURL}}
+              <a href="{{url .Item.PageURL}}">{{.Item.Name}}</a>
+            {{else}}
+              {{.Item.Name}}
+            {{end}}
+          </td>
+          {{end}}
+        {{end}}
+      </tr>
+    {{end}}
+  </tbody>
 </table>
 {{else}}
-	<p>Nothing today</p>
+  <p>Nothing today</p>
 {{end}}
 
 </div><!-- /.container -->

@@ -46,10 +46,7 @@ func NewServer(c *structs.Config) (*Server, error) {
 	getRouter.HandleFunc("/schedule/shows/timeslots/{id:[0-9]+}/", showC.GetTimeslot).Name("timeslot")
 	getRouter.HandleFunc("/schedule/shows/seasons/{id:[0-9]+}/", showC.GetSeason).Name("season")
 
-	/* NOTE: NewScheduleWeekController assumes the following routes are
-	   installed BEFORE it is called:
-
-	   - 'timeslot' */
+	// NOTE: NewScheduleWeekController assumes 'timeslot' is installed BEFORE it is called.
 	schedWeekC := controllers.NewScheduleWeekController(session, getRouter, c)
 	getRouter.HandleFunc("/schedule/thisweek/", schedWeekC.GetThisWeek).Name("schedule-thisweek")
 

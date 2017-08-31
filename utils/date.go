@@ -53,41 +53,42 @@ func HourToStartOffset(hour int) (StartOffset, error) {
 
 // ParseIsoWeek parses an ISO weekday from year, week, and weekday strings.
 // It performs bounds checking.
-func ParseIsoWeek(year, week, weekday string) (int, int, time.Weekday, error) {
-	y, err := strconv.Atoi(year)
-	if err != nil {
-		return 0, 0, 0, err
+// weekday must be an integer from 1 (Monday) to 7 (Sunday).
+func ParseIsoWeek(isoyear, isoweek, isoweekday string) (year int, week int, weekday time.Weekday, err error) {
+	if year, err = strconv.Atoi(isoyear); err != nil {
+		return
 	}
-	if y < 0 {
-		return 0, 0, 0, fmt.Errorf("Invalid year: %d", y)
+	if year < 0 {
+		err = fmt.Errorf("Invalid year: %d", year)
+		return
 	}
 
-	w, err := strconv.Atoi(week)
-	if err != nil {
-		return 0, 0, 0, err
+	if week, err = strconv.Atoi(isoweek); err != nil {
+		return
 	}
-	if w < 1 || 53 < w {
-		return 0, 0, 0, fmt.Errorf("Invalid week: %d", w)
+	if week < 1 || 53 < week {
+		err = fmt.Errorf("Invalid week: %d", week)
+		return
 	}
 
 	// Two-stage conversion: first to int, then to Weekday.
 	// Go treats Sunday as day 0: we must correct this grave mistake.
-	dI, err := strconv.Atoi(weekday)
-	if err != nil {
-		return 0, 0, 0, err
+	var di int
+	if di, err = strconv.Atoi(isoweekday); err != nil {
+		return
 	}
-	if dI < 1 || 7 < dI {
-		return 0, 0, 0, fmt.Errorf("Invalid day: %d", dI)
+	if di < 1 || 7 < di {
+		err = fmt.Errorf("Invalid day: %d", di)
+		return
 	}
 
-	var d time.Weekday
-	if dI == 7 {
-		d = time.Sunday
+	if di == 7 {
+		weekday = time.Sunday
 	} else {
-		d = time.Weekday(dI)
+		weekday = time.Weekday(di)
 	}
 
-	return y, w, d, nil
+	return
 }
 
 // IsoWeekToDate interprets year, week, and weekday strings as an ISO weekday.

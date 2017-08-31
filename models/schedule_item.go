@@ -1,7 +1,5 @@
 package models
 
-// TODO(CaptainHayashi): this probably doesn't belong in structs.
-
 import (
 	"errors"
 	"log"
