@@ -4,15 +4,16 @@ package structs
 //
 // See the comments for Server and PageContext for more details.
 type Config struct {
-	Server      Server      `toml:"server"`
-	PageContext PageContext `toml:"pageContext"`
+	Server      Server         `toml:"server"`
+	PageContext PageContext    `toml:"pageContext"`
+	Schedule    ScheduleConfig `toml:"schedule"`
 }
 
 // Server is a structure containing server configuration.
 type Server struct {
 	Address string `toml:"address"`
 	Port    int    `toml:"port"`
-	Timeout int    `toml:"timout"`
+	Timeout int    `toml:"timeout"`
 }
 
 // PageContext is a structure containing static information to provide
@@ -33,10 +34,21 @@ type PageContext struct {
 	Youtube         youtube
 }
 
+// ScheduleConfig is a structure configuring the schedule views.
+type ScheduleConfig struct {
+	Sustainer SustainerConfig `toml:"sustainer"`
+}
+
+// SustainerConfig is a structure describing the sustainer show.
+type SustainerConfig struct {
+	Name string `toml:"name"`
+	Desc string `toml:"desc"`
+}
+
 // Page is a structure describing a page in the website navigation system.
 type Page struct {
 	Name string `toml:"name"`
-	Url  string `toml:"url"`
+	URL  string `toml:"url"`
 }
 
 type youtube struct {

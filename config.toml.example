@@ -36,3 +36,10 @@
 	[pageContext.youtube]
 		APIKey = "AIzaSyCzI5Gvpq1hPlfjvB81EVc0vLv_11eW7NI"
 		playlistID = "PLsxUDJzU4VKDudlmlYb-ImFKreFKAfFln"
+
+# This is config for the schedule renderer
+[schedule]
+	[schedule.sustainer]
+		name = "Overnight Owen"
+		desc = "Non-stop tones from the URY jukebox."
+

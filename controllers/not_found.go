@@ -1,10 +1,11 @@
 package controllers
 
 import (
-	"github.com/UniversityRadioYork/2016-site/structs"
-	"github.com/UniversityRadioYork/2016-site/utils"
 	"log"
 	"net/http"
+
+	"github.com/UniversityRadioYork/2016-site/structs"
+	"github.com/UniversityRadioYork/2016-site/utils"
 )
 
 // NotFoundController is the controller for the 404 error page.
