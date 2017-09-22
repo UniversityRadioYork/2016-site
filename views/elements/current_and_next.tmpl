@@ -1,40 +1,39 @@
 {{define "current_and_next"}}
-	{{with .CurrentAndNext}}
-		<div class="current-and-next row">
-			{{if .Current}}
-				<div class="col-4 col-lg-3 col-xl-2 p-0 current-and-next-img">
-					<img src="/images/show-current.png" alt="" />
-					<a href="https://ury.org.uk/listen" class="btn btn-red listen-btn mobile-hide" title="Listen Live" onclick="window.open('http://ury.org.uk/live', 'radioplayer', 'height=665,width=380'); return false;">Listen Live</a>
-				</div>
-				<div class="col-8 col-md p-2 pt-3 px-3 p-md-3 p-lg-4 current-and-next-now">
-					<h2>Now</h2>
-					{{template "current_next" .Current}}
-				</div>
-			{{end}}
-			{{if .Next}}
-				<div class="col p-3 p-lg-4 current-and-next-next">
-					<h2>Next</h2>
-					{{template "current_next" .Next}}
-				</div>
-			{{end}}
-			<div class="col-12 mobile-only p-0">
-				<a href="https://ury.org.uk/listen" class="btn btn-lg btn-block btn-square btn-red listen-btn-mobile" title="Listen Live" onclick="window.open('http://ury.org.uk/live', 'radioplayer', 'height=665,width=380'); return false;">Listen Live</a>
-			</div>
-		</div>
-
-	{{end}}
+{{with .CurrentAndNext}}
+<div class="current-and-next row justify-content-center">
+  {{if .Current}}
+  <div class="col-4 col-lg-2 p-0 current-and-next-img">
+    <img src="/images/show-current.png" alt="" />
+    <a href="https://ury.org.uk/listen" class="btn btn-red listen-btn mobile-hide" title="Listen Live" onclick="window.open('http://ury.org.uk/live', 'radioplayer', 'height=665,width=380'); return false;">Listen Live</a>
+  </div>
+  <div class="col-8 col-lg-5 p-2 pt-3 px-3 p-md-3 p-lg-4 current-and-next-now">
+    <h2>Now</h2>
+    {{template "current_next" .Current}}
+  </div>
+  {{end}}
+  {{if .Next}}
+  <div class="col col-lg-5 p-3 p-lg-4 current-and-next-next">
+    <h2>Next</h2>
+    {{template "current_next" .Next}}
+  </div>
+  {{end}}
+  <div class="col-12 mobile-only p-0">
+    <a href="https://ury.org.uk/listen" class="btn btn-lg btn-block btn-square btn-red listen-btn-mobile" title="Listen Live" onclick="window.open('http://ury.org.uk/live', 'radioplayer', 'height=665,width=380'); return false;">Listen Live</a>
+  </div>
+</div>
+{{end}}
 {{end}}
 
 {{define "current_next"}}
 {{if .Title}}
 <h4 class="ellipsis">
-	{{if .Url}}
-		<a href="{{.Url}}">
-	{{end}}
-	{{.Title}}
-	{{if .Url}}
-		</a>
-	{{end}}
+  {{if .Url}}
+    <a href="{{.Url}}">
+  {{end}}
+  {{.Title}}
+  {{if .Url}}
+    </a>
+  {{end}}
 </h4>
 <h5>{{.StartTime.Format "15:04"}} - {{.EndTime.Format "15:04"}}</h5>
 {{else}}
