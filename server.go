@@ -57,7 +57,7 @@ func NewServer(c *structs.Config) (*Server, error) {
 	pc := controllers.NewPeopleController(session, c)
 	getRouter.HandleFunc("/people/{id:[0-9]+}/", pc.Get)
 
-	getinvolvedC := controllers.NewGetInvolvedController(session, getRouter, c)
+	getinvolvedC := controllers.NewGetInvolvedController(session, c)
 	getRouter.HandleFunc("/getinvolved/", getinvolvedC.Get)
 
 	staticC := controllers.NewStaticController(c)

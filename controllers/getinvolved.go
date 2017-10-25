@@ -3,13 +3,11 @@ package controllers
 import (
 	"log"
 	"net/http"
-	"strconv"
 
 	"github.com/UniversityRadioYork/2016-site/models"
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/2016-site/utils"
 	"github.com/UniversityRadioYork/myradio-go"
-	"github.com/gorilla/mux"
 )
 
 // GetInvolvedController is the controller for the get involved page.
@@ -28,10 +26,6 @@ func (gic *GetInvolvedController) Get(w http.ResponseWriter, r *http.Request) {
 
 	tm := models.NewTeamsModel(gic.session)
 
-	vars := mux.Vars(r)
-
-	id, _ := strconv.Atoi(vars["id"])
-
 	teams, err := tm.Get()
 
 	log.Println(teams)
@@ -43,12 +37,12 @@ func (gic *GetInvolvedController) Get(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := struct {
-		Teams:	[]myradio.Team
+		Teams	[]myradio.Team
 	}{
-		Teams:	teams
+		Teams:	teams,
 	}
 
-	err = utils.RenderTemplate(w, pc.config.PageContext, data, "getinvolved.tmpl")
+	err = utils.RenderTemplate(w, gic.config.PageContext, data, "getinvolved.tmpl")
 	if err != nil {
 		log.Println(err)
 		return

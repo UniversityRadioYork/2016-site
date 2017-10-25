@@ -16,10 +16,9 @@ func NewTeamsModel(s *myradio.Session) *TeamsModel {
 //
 // On success, it returns all the current teams
 // Otherwise, it returns undefined data and the error causing failure.
-func (m *TeamsModel) Get() (teams []myradio.Team, err error) {
-	currentTeams, err = m.session.GetCurrentTeams(teams)
+func (m *TeamsModel) Get() (currentTeams []myradio.Team, err error) {
+	currentTeams, err = m.session.GetCurrentTeams()
 	if err != nil {
-		log.Println(err)
 		return
 	}
 
