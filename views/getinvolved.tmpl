@@ -12,6 +12,7 @@
 {{end}}
 
 {{define "content"}}
+{{with .PageData}}
 <div class="container-fluid banner-2 text-overlay">
   <div class="container container-padded">
     <div class="row justify-content-center">
@@ -41,9 +42,6 @@
   <div class="container container-padded">
     <div class="row">
       <h2>What Can I Do?</h2>
-      {{range .Teams}}
-        <p>{{html .Description}}</p>
-      {{end}}
       <p>Of course, everyone wants to be on the radio! Presenting is as easy as baking a cake (disclaimer: I can't bake cakes)
         and you don't have to sign up at Freshers' Fair or at the start of a term to get your very own show!
         Take a look at our <a href="/schedule" title="The URY Schedule">schedule</a>. If you can see a gap, there's no reason you couldn't fill it.
@@ -127,35 +125,15 @@
         </fieldset>
         <fieldset id="getinvolved-interest" class="col-md-6">
           <legend>I'm interested in the…</legend>
-            <input type="checkbox" name="interest" id="interest-news" value="24">
-            <label for="interest-news">News Team</label>
+          {{range .Teams}}
+            <input type="checkbox" name="interest" id="interest-{{.Alias}}" value="{{.TeamID}}">
+            <label for="interest-{{.Alias}}" title="{{html .Description}}">{{.Name}}</label>
             <br>
-            <input type="checkbox" name="interest" id="interest-speech" value="28">
-            <label for="interest-speech">Speech Team</label>
-            <br>
-            <input type="checkbox" name="interest" id="interest-music" value="29">
-            <label for="interest-music">Music Team</label>
-            <br>
-            <input type="checkbox" name="interest" id="interest-production" value="26">
-            <label for="interest-production">Production Team</label>
-            <br>
-            <input type="checkbox" name="interest" id="interest-events" value="53">
-            <label for="interest-events">Events Team</label>
-            <br>
-            <input type="checkbox" name="interest" id="interest-marketing" value="25">
-            <label for="interest-marketing">Marketing Team</label>
-            <br>
-            <input type="checkbox" name="interest" id="interest-programming" value="27">
-            <label for="interest-programming">Programming Team</label>
-            <br>
-            <input type="checkbox" name="interest" id="interest-engineering" value="22">
-            <label for="interest-engineering">Engineering Team</label>
-            <br>
-            <input type="checkbox" name="interest" id="interest-computing" value="23">
-            <label for="interest-computing">Computing Team</label>
+          {{end}}
         </fieldset>
       </div>
     </form>
   </div>
 </div>
+{{end}}
 {{end}}

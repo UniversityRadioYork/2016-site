@@ -42,6 +42,8 @@ func (gic *GetInvolvedController) Get(w http.ResponseWriter, r *http.Request) {
 		Teams:	teams,
 	}
 
+	log.Println(data.Teams)
+
 	err = utils.RenderTemplate(w, gic.config.PageContext, data, "getinvolved.tmpl")
 	if err != nil {
 		log.Println(err)
