@@ -32,6 +32,7 @@ type PageContext struct {
 	NewsTwitter     string `toml:"newsTwitter"`
 	Pages           []Page
 	Youtube         youtube
+	Gmaps 			gmaps
 }
 
 // ScheduleConfig is a structure configuring the schedule views.
@@ -54,4 +55,8 @@ type Page struct {
 type youtube struct {
 	APIKey     string `toml:"apiKey"`
 	PlaylistID string `toml:"playlistID"`
+}
+
+type gmaps struct {
+	APIKey     string `toml:"apiKey"`
 }
