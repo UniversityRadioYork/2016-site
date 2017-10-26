@@ -36,10 +36,14 @@ func (gic *GetInvolvedController) Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	numTeams := len(teams)
+
 	data := struct {
-		Teams	[]myradio.Team
+		Teams		[]myradio.Team
+		NumTeams	int
 	}{
-		Teams:	teams,
+		Teams:		teams,
+		NumTeams: 	numTeams,
 	}
 
 	log.Println(data.Teams)
