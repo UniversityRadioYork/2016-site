@@ -1,7 +1,6 @@
 //global google
 
 $(document).ready(function () {
-
   //Google Maps JS
   //Set Map
   function initialize() {
