@@ -39,6 +39,8 @@
 
 	[pageContext.gmaps]
 		APIKey = "AIzaSyACeeyIgdIhiSxV01OIPiA3MyJDqrOspLQ"
+		latitude = 53.948193
+		longitude = -1.054030
 
 # This is config for the schedule renderer
 [schedule]

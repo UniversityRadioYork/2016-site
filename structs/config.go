@@ -58,5 +58,7 @@ type youtube struct {
 }
 
 type gmaps struct {
-	APIKey string `toml:"apiKey"`
+	APIKey string  `toml:"apiKey"`
+	Lat    float32 `toml:"latitude"`
+	Lng    float32 `toml:"longitude"`
 }

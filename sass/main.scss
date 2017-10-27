@@ -274,3 +274,19 @@ footer {
 .schedule-blocks-regular {
   @include schedule-blocks($blocks-regular-color);
 }
+
+
+/* Styling for responsive map */
+#map_container {
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 10px
+}
+
+#map {
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 22.25%;
+  padding-top: 30px
+}

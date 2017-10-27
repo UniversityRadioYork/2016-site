@@ -2,12 +2,12 @@ package models
 
 import "github.com/UniversityRadioYork/myradio-go"
 
-// GetInvolvedModel is the model for the GetInvolvedcontroller.
+// TeamsModel is the model for getting team data
 type TeamsModel struct {
 	Model
 }
 
-// NewPeopleModel returns a new PeopleModel on the MyRadio session s.
+// NewTeamsModel returns a new TeamsModel on the MyRadio session s.
 func NewTeamsModel(s *myradio.Session) *TeamsModel {
 	return &TeamsModel{Model{session: s}}
 }
@@ -18,9 +18,5 @@ func NewTeamsModel(s *myradio.Session) *TeamsModel {
 // Otherwise, it returns undefined data and the error causing failure.
 func (m *TeamsModel) Get() (currentTeams []myradio.Team, err error) {
 	currentTeams, err = m.session.GetCurrentTeams()
-	if err != nil {
-		return
-	}
-
 	return
 }
