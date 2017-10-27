@@ -1,4 +1,4 @@
-//global google
+/*global google, placeName*/
 
 $(document).ready(function () {
   //Google Maps JS
@@ -34,5 +34,5 @@ $(document).ready(function () {
     });
   }
 
-  google.maps.event.addDomListener(window, 'load', initialize);
+  google.maps.event.addDomListener(window, "load", initialize);
 });
