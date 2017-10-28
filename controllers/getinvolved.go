@@ -15,7 +15,7 @@ type GetInvolvedController struct {
 	Controller
 }
 
-// NewGetInvolvedController returns a new GetInvolvedController with the MyRadio 
+// NewGetInvolvedController returns a new GetInvolvedController with the MyRadio
 // session s and configuration context c.
 func NewGetInvolvedController(s *myradio.Session, c *structs.Config) *GetInvolvedController {
 	return &GetInvolvedController{Controller{session: s, config: c}}
@@ -28,8 +28,6 @@ func (gic *GetInvolvedController) Get(w http.ResponseWriter, r *http.Request) {
 
 	teams, err := tm.Get()
 
-	log.Println(teams)
-
 	if err != nil {
 		//@TODO: Do something proper here, render 404 or something
 		log.Println(err)
@@ -39,14 +37,12 @@ func (gic *GetInvolvedController) Get(w http.ResponseWriter, r *http.Request) {
 	numTeams := len(teams)
 
 	data := struct {
-		Teams		[]myradio.Team
-		NumTeams	int
+		Teams    []myradio.Team
+		NumTeams int
 	}{
-		Teams:		teams,
-		NumTeams: 	numTeams,
+		Teams:    teams,
+		NumTeams: numTeams,
 	}
-
-	log.Println(data.Teams)
 
 	err = utils.RenderTemplate(w, gic.config.PageContext, data, "getinvolved.tmpl")
 	if err != nil {
