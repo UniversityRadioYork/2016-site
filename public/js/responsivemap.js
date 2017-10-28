@@ -1,4 +1,4 @@
-/*global google placeName*/
+/*global google:true placeName*/
 
 $(document).ready(function () {
   //Google Maps JS
