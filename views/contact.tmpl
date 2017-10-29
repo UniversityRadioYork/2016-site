@@ -115,27 +115,43 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-5">
         <h2>Phone</h2>
         <p><strong>Internal Phone</strong><br>1350 (Free)</p>
         <p><strong>External Phone</strong><br>(+44)1904 32 1350 (Standard Rates)</p>
-      </div>
-      <div class="col-md-4">
+        <hr>
         <h2>Email</h2>
         <p><strong>Management Team</strong><br>
           <a href="mailto:ury@ury.org.uk" title="Email URY Management">ury@ury.org.uk</a>
         </p>
-      </div>
-      <div class="col-md-4">
-        <h2>Location</h2>
-        <p><strong>Postal Address</strong><br>
+        <hr>
+        <h2>Postal Address</h2>
+        <p>
           URY, Vanbrugh College<br>
           University of York<br>
           York<br>
           YO10 5DD
         </p>
       </div>
+      <div class="col-md-7">
+        <h2>Where to find us</h2>
+        <a name="map"></a>
+        <div class="map-container">
+          <div id="map" class="res-map"></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+{{end}}
+
+{{define "footer-scripts"}}
+<!-- Responsive map script -->
+<script>
+var placeName = "{{.PageContext.LongName}}";
+var Lat = {{.PageContext.Gmaps.Lat}};
+var Lng = {{.PageContext.Gmaps.Lng}};
+</script>
+<script src='{{url "/js/responsivemap.js"}}'></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key={{.PageContext.Gmaps.APIKey}}"></script>
 {{end}}

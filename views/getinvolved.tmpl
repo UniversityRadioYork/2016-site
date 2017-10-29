@@ -12,6 +12,7 @@
 {{end}}
 
 {{define "content"}}
+{{with .PageData}}
 <div class="container-fluid banner-2 text-overlay">
   <div class="container container-padded">
     <div class="row justify-content-center">
@@ -45,7 +46,7 @@
         and you don't have to sign up at Freshers' Fair or at the start of a term to get your very own show!
         Take a look at our <a href="/schedule" title="The URY Schedule">schedule</a>. If you can see a gap, there's no reason you couldn't fill it.
       </p>
-      <p>As well as just presenting, there are <strong><a href="#" title="Have a look at what our teams do!">!!NUMBER! Teams!</a></strong>
+      <p>As well as just presenting, there are <strong><a href="#" title="Have a look at what our teams do!">{{.NumTeams}} Teams</a></strong>
         of students that make content and keep URY running. You can see more about them at the bottom of this page.
       </p>
     </div>
@@ -55,12 +56,14 @@
   <div class="container container-padded">
     <div class="row">
       <h2>How Do I Get A Show?</h2>
-      <p>Getting your own show is easy as pie! First thing is to make sure you are a paid member, you can do this through <a href="http://yusu.org" title="York University Students Union" target="_blank">YUSU</a>.</p>
-      <p>Once you have paid, log in to <a href="/myradio/">MyRadio</a> and set up an account, from there you will be able to sign up to training! Under "Get On Air",
-        click "Get Studio Trained" and take your pick of training sessions you can attend, click join and you are good to go!
-        If there aren't any slots available, email our Training Co-ordinator at <a href="mailto:training@ury.org.uk" title="Email our Training Co-ordinator">training@ury.org.uk</a>.
-        During training, we will show you how to use the studio and how to apply for a show. Shows are typically one hour long, scheduled once a week.</p>
-      <p><strong>Easy peasy.</strong></p>
+      <div> <!-- Prevents bug where p would appear inline with h2 -->
+        <p>Getting your own show is easy as pie! First thing is to make sure you are a paid member, you can do this through <a href="http://yusu.org" title="York University Students Union" target="_blank">YUSU</a>.</p>
+        <p>Once you have paid, log in to <a href="/myradio/">MyRadio</a> and set up an account, from there you will be able to sign up to training! Under "Get On Air",
+          click "Get Studio Trained" and take your pick of training sessions you can attend, click join and you are good to go!
+          If there aren't any slots available, email our Training Co-ordinator at <a href="mailto:training@ury.org.uk" title="Email our Training Co-ordinator">training@ury.org.uk</a>.
+          During training, we will show you how to use the studio and how to apply for a show. Shows are typically one hour long, scheduled once a week.</p>
+        <p><strong>Easy peasy.</strong></p>
+    </div>
     </div>
   </div>
 </div>
@@ -76,7 +79,7 @@
         <dt>Join Our Slack Team</dt>
         <dd>Use <a href="//slack.com/is" title="Find out more about Slack!" target="_blank">Slack</a>; it's like Facebook Messenger but for URY team communication. Slack has the advantage of having a “channel” for each team, so you can join any channel and see what is happening. Our Slack team: <a href="//ury.slack.com" title="Join Our Slack Team" target="_blank">ury.slack.com</a> sign up using your university email address.</dd>
       </dl>
-      <p>You can also come and <a href="{{url "/contact/"}}" title="Contact us page">visit our station</a> in Vanbrugh College, where there'll almost always be someone there to talk to you and get you set up.</p>
+      <p>You can also come and <a href="{{url "/contact#map"}}" title="Contact us page">visit our station</a> in Vanbrugh College, where there'll almost always be someone there to talk to you and get you set up.</p>
   </div>
 </div>
 <div class="container-fluid container-padded bg-secondary" id="signUp">
@@ -124,35 +127,15 @@
         </fieldset>
         <fieldset id="getinvolved-interest" class="col-md-6">
           <legend>I'm interested in the…</legend>
-            <input type="checkbox" name="interest" id="interest-news" value="24">
-            <label for="interest-news">News Team</label>
+          {{range .Teams}}
+            <input type="checkbox" name="interest" id="interest-{{.Alias}}" value="{{.TeamID}}">
+            <label for="interest-{{.Alias}}" title="{{html .Description}}">{{.Name}}</label>
             <br>
-            <input type="checkbox" name="interest" id="interest-speech" value="28">
-            <label for="interest-speech">Speech Team</label>
-            <br>
-            <input type="checkbox" name="interest" id="interest-music" value="29">
-            <label for="interest-music">Music Team</label>
-            <br>
-            <input type="checkbox" name="interest" id="interest-production" value="26">
-            <label for="interest-production">Production Team</label>
-            <br>
-            <input type="checkbox" name="interest" id="interest-events" value="53">
-            <label for="interest-events">Events Team</label>
-            <br>
-            <input type="checkbox" name="interest" id="interest-marketing" value="25">
-            <label for="interest-marketing">Marketing Team</label>
-            <br>
-            <input type="checkbox" name="interest" id="interest-programming" value="27">
-            <label for="interest-programming">Programming Team</label>
-            <br>
-            <input type="checkbox" name="interest" id="interest-engineering" value="22">
-            <label for="interest-engineering">Engineering Team</label>
-            <br>
-            <input type="checkbox" name="interest" id="interest-computing" value="23">
-            <label for="interest-computing">Computing Team</label>
+          {{end}}
         </fieldset>
       </div>
     </form>
   </div>
 </div>
+{{end}}
 {{end}}
