@@ -1,5 +1,5 @@
 // Method to tint colors
-@function tint($color, $percent){
+@function tint($color, $percent) {
   @return mix(white, $color, 100% - $percent);
 }
 

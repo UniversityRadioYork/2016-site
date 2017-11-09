@@ -12,8 +12,8 @@ $news-maroon: #5A162E;
 $music-purple: #562179;
 
 $primary-color: $ury-blue-color;
-$secondary-color: tint(#002d5a, 80%);
-$third-color: tint(#002d5a, 60%);
+$secondary-color: tint($ury-blue-color, 80%);
+$third-color: tint($ury-blue-color, 60%);
 $off-white-color: #e1e1e1;
 
 $blue: #0073e6;
