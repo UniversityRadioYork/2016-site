@@ -1,6 +1,9 @@
 # 2016-site #
 
 ## How to install ##
+Full instructions for installation are available on [ceedox](https://ury.org.uk/ceedox/computing:software:in-house:2016site:get).
+If you already know what you're doing, the instructions below should suffice.
+
 Configuration for site is located in config.toml, and you'll need a
 [MyRadio](https://github.com/UniversityRadioYork/MyRadio) API key with the
 requisite permissions copied into a .myradio.key file in the same directory.
