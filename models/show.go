@@ -1,6 +1,8 @@
 package models
 
 import (
+	"fmt"
+
 	"github.com/UniversityRadioYork/myradio-go"
 )
 
@@ -26,15 +28,21 @@ func NewShowModel(s *myradio.Session) *ShowModel {
 //
 // On success, it returns the show's metadata, season list, and nil.
 // Otherwise, it returns undefined data and the error causing failure.
-func (m *ShowModel) GetShow(id int) (*myradio.ShowMeta, []myradio.Season, error) {
+func (m *ShowModel) GetShow(id int) (*myradio.ShowMeta, []myradio.Season, map[string][]myradio.User, error) {
 	show, err := m.session.GetShow(id)
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, nil, err
+	}
+
+	creditsToUsers, err := m.session.GetCreditsToUsers(id)
+
+	if err != nil {
+		fmt.Println(err)
 	}
 
 	seasons, err := m.session.GetSeasons(id)
 
-	return show, seasons, err
+	return show, seasons, creditsToUsers, err
 }
 
 // GetTimeslot gets the timeslot with ID id.

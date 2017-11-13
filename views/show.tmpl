@@ -58,11 +58,7 @@
 	    </div>
 	  </div>
 	  <div class="container container-padded outer page1-credits-people">
-	  	{{range .Show.Credits}}
-				<a href="/people/{{.User.MemberID}}/">{{.User.Fname}} {{.User.Sname}}</a> <br>
-			{{end}}
-
-    </div>
+		
 
 
 
@@ -70,13 +66,12 @@
 
 <div class="container container-padded">
 
-
-	<h2>
-		Presenters
-	</h2>
 	<p>
-		{{range .Show.Credits}}
-			<a href="/people/{{.User.MemberID}}/">{{.User.Fname}} {{.User.Sname}}</a> <br>
+		{{range $key, $value := .CreditsToUsers}}
+			<h2>{{$key}}</h2>
+			{{range $value}}
+			<a href="/people/{{.MemberID}}/">{{.Fname}} {{.Sname}}</a> <br>
+			{{end}}
 		{{end}}
 	</p>
 
@@ -94,11 +89,12 @@
 
 </div>
 
-
+</div>
 
 
 
 
 
 {{end}}
+
 {{end}}

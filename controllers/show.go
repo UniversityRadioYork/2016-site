@@ -43,14 +43,18 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 
 	id, _ := strconv.Atoi(vars["id"])
 
-	show, seasons, err := sm.GetShow(id)
+	show, seasons, creditsToUsers, err := sm.GetShow(id)
+
+	// Needed so that credits are grouped by type
 
 	data := struct {
-		Show    myradio.ShowMeta
-		Seasons []myradio.Season
+		Show           myradio.ShowMeta
+		Seasons        []myradio.Season
+		CreditsToUsers map[string][]myradio.User
 	}{
-		Show:    *show,
-		Seasons: seasons,
+		Show:           *show,
+		Seasons:        seasons,
+		CreditsToUsers: creditsToUsers,
 	}
 
 	if err != nil {
