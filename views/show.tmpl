@@ -18,83 +18,67 @@
 
 {{define "content"}}
 {{with .PageData}}
+<div class="container-fluid current-next">
 
-	<div class="container-fluid header-large current-next">
-		<div class="container container-padded mobile-hide">
-		</div>
-	</div>
-	<div class="container-fluid bg-off-white">
-		<div class="container container-padded">
-		  <div class="row">
-	        <div class="col-12 col-lg-3">
-	        	<img class="img-fluid show-img" src="
-						{{if .Show.Photo}}
-									https://ury.org.uk{{.Show.Photo}}
-						{{else}}
-									/images/show-current.png
-						{{end}}		
-
-							" alt="{{.Show.Title}} Logo">
-              <div class="row">
-                <div class="col-6 text-center">
-                  <h5>Seasons: {{len .Seasons}}</h5>
-                </div>
-                <div class="col-6 text-center">
-                  <h5>Shows: {{showCount .Seasons}}</h5>
-                </div>
-              </div>
-	        </div>
-	        <div class="col-12 col-lg-9">
-	          <h1>
-	        	{{.Show.Title}}
-	          </h1>
-	          <hr>
-				  	<h2>Description</h2>
-            <p>
-						  {{html .Show.Description}}
-						</p>
-	        </div>
-	      </div>
+</div>
+<div class="container-fluid bg-off-white">
+	<div class="container pt-3">
+	  <div class="row">
+	    <div class="col-12 col-sm-5 col-lg-3">
+	     	<img class="img-fluid show-img" src="
+				 {{if .Show.Photo}}
+				 https://ury.org.uk{{.Show.Photo}}
+				 {{else}}
+				 /images/show-current.png
+				 {{end}}"
+				 alt="{{.Show.Title}} Logo">
+        <div class="row">
+          <div class="col-6 text-center">
+            <h5>Seasons: {{len .Seasons}}</h5>
+          </div>
+          <div class="col-6 text-center">
+            <h5>Shows: {{showCount .Seasons}}</h5>
+          </div>
+        </div>
+	    </div>
+	    <div class="col-12 col-sm-7 col-lg-9">
+	      <h1>{{.Show.Title}}</h1>
+	      <hr>
+				<h2>Description</h2>
+        <p>{{html .Show.Description}}</p>
 	    </div>
 	  </div>
-	  <div class="container container-padded outer page1-credits-people">
-		
-
-
-
-
-
-<div class="container container-padded">
-
-	<p>
+	</div>
+</div>
+<div class="container-fluid">
+	<div class="container">
+		<div class="row">
 		{{range $key, $value := .CreditsToUsers}}
-			<h2>{{$key}}</h2>
-			{{range $value}}
-			<a href="/people/{{.MemberID}}/">{{.Fname}} {{.Sname}}</a> <br>
+			<div class="col-sm-4 pb-3">
+				<h3>{{$key}}</h3>
+				{{range $value}}
+				<a href="/people/{{.MemberID}}/">{{.Fname}} {{.Sname}}</a> <br>
+				{{end}}
+			</div>
 			{{end}}
-		{{end}}
-	</p>
-
-	<h2>
-		Seasons
-	</h2>
-
-	<ul>
-		{{range .Seasons}}
-			<li>
-				<a href="/schedule/shows/seasons/{{.SeasonID}}/">Seasion {{.SeasonNum}}: {{.FirstTime.Format "Monday, _2 Jan 2006 at 15:04"}} - {{.NumEpisodes.Value}} Episode(s)</a>
-			</li>
-		{{end}}
-	</ul>
-
+		</div>
+	</div>
 </div>
-
+<div class="container-fluid">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h2>Seasons</h2>
+				<ul>
+				{{range .Seasons}}
+					<li>
+						<a href="/schedule/shows/seasons/{{.SeasonID}}/">Seasion {{.SeasonNum}}: {{.FirstTime.Format "Monday, _2 Jan 2006 at 15:04"}} - {{.NumEpisodes.Value}} Episode(s)</a>
+					</li>
+				{{end}}
+				</ul>
+			</div>
+		</div>
+	</div>
 </div>
-
-
-
-
-
 {{end}}
-
 {{end}}

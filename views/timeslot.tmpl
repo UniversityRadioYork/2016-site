@@ -17,102 +17,88 @@
 {{end}}
 
 {{define "content"}}
-	{{with .PageData}}
-
-	  <div class="container-fluid header-large current-next">
-		  <div class="container container-padded ">
-      {{if .MixcloudAvailable}}
-        <div class="row justify-content-center">
-          <div class="col-md-10 py-2 mixcloud">
-            <h2>URY on Tap: Listen Again</h2>
-            <iframe width="100%" height="120" src="https://www.mixcloud.com/widget/iframe/?feed={{.Timeslot.MixcloudStatus}}&hide_cover=1&light=1" frameborder="0"></iframe>				
-            <a href="#">Listen to more shows on URY On Demand</a>
-          </div>
-        </div>
-      {{end}}        
-		  </div>
-	  </div>
-    <div class="container-fluid bg-off-white">
-      <div class="container container-padded">
-        <div class="row">
-          <div class="col-12 col-lg-3">
-            <img class="img-fluid show-img" src="
-              {{if .Timeslot.Season.ShowMeta.Photo}}
-                https://ury.org.uk{{.Timeslot.Season.ShowMeta.Photo}}
-              {{else}}
-                /images/show-current.png
-              {{end}}	
-              " alt="{{.Timeslot.Title}} Logo">
-            <div class="row">
-              <div class="col text-center">
-                <h5>Duration: {{.Timeslot.Duration}}</h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-lg-9">
-            <h1>
-              <a href="{{.Timeslot.Season.ShowMeta.MicroSiteLink.URL}}">{{.Timeslot.Title}}</a>
-            </h1>
-            <h4 class="text-muted">{{.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}}</h4>
-            <hr>
-            <h2 class="page1-subtitle">Description</h2>
-            <p>
-            {{html .Timeslot.Description}}
-            </p>
-            <hr>
-            <h3>Tags</h3>
-              {{range .Timeslot.Tags}}
-                <a href="/search?term={{.}}" alt="Search for '{{.}}'.">
-                  <span class="tag badge badge-default">
-                    {{.}}
-                  </span>
-                </a>
-              {{end}}
-
-              
-            </div>
-
-          </div>
-        </div>
+{{with .PageData}}
+<div class="container-fluid header-large current-next">
+  <div class="container container-padded ">
+  {{if .MixcloudAvailable}}
+    <div class="row justify-content-center">
+      <div class="col-md-10 py-2 mixcloud">
+        <h2>URY on Tap: Listen Again</h2>
+        <iframe width="100%" height="120" src="https://www.mixcloud.com/widget/iframe/?feed={{.Timeslot.MixcloudStatus}}&hide_cover=1&light=1" frameborder="0"></iframe>				
+        <a href="#">Listen to more shows on URY On Demand</a>
       </div>
     </div>
-    
-      {{if .Timeslot.Credits}}
-      <div class="container container-padded outer page1-credits-people">
-        <h2>Credits</h2>
-        {{range .Timeslot.Credits}}
-          <a href="/people/{{.User.MemberID}}/">{{.User.Fname}} {{.User.Sname}}</a> <br>
-        {{end}}
-
-      </div>
-      {{end}}
-      {{if .Tracklist}}
-      <div class="container container-padded outer page1-tracklist">
-        <div class="container container-padded">
-          <h2>
-            Tracklist
-          </h2>
-          <table class="table">
-            <thead>
-            <tr>
-              <th>Track</th>
-              <th>Artist</th>
-              <th>Time</th>
-            </tr>
-            </thead>
-            <tbody>
-            {{range .Tracklist}}
-            <tr>
-              <td>{{.Title}}</td>
-              <td>{{.Artist}}</td>
-              <td>{{.StartTime.Format "15:04"}}</td>
-            </tr>
-            {{end}}
-            </tbody>
-          </table>
+  {{end}}        
+	</div>
+</div>
+<div class="container-fluid bg-off-white">
+  <div class="container pt-3">
+    <div class="row">
+      <div class="col-12 col-sm-5 col-lg-3">
+        <img class="img-fluid show-img" src="
+        {{if .Timeslot.Season.ShowMeta.Photo}}
+        https://ury.org.uk{{.Timeslot.Season.ShowMeta.Photo}}
+        {{else}}
+        /images/show-current.png
+        {{end}}"
+        alt="{{.Timeslot.Title}} Logo">
+        <div class="row">
+          <div class="col text-center">
+            <h5>Duration: {{.Timeslot.Duration}}</h5>
+          </div>
         </div>
-      </div>	
+      </div>
+      <div class="col-12 col-sm-7 col-lg-9">
+        <h1><a href="{{.Timeslot.Season.ShowMeta.MicroSiteLink.URL}}">{{.Timeslot.Title}}</a></h1>
+        <h4 class="text-muted">{{.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}}</h4>
+        <hr>
+        <h2>Description</h2>
+        <p>{{html .Timeslot.Description}}</p>
+        <hr>
+        <h3>Tags</h3>
+        {{range .Timeslot.Tags}}
+        <a href="/search?term={{.}}" alt="Search for '{{.}}'.">
+          <span class="tag badge badge-default">{{.}}</span>
+        </a>
+        {{end}}
+	    </div>
+	  </div>
+	</div>
+</div>
+{{if .Timeslot.Credits}}
+<div class="container-fluid">
+  <div class="container pt-3">
+    <h2>Credits</h2>
+    {{range .Timeslot.Credits}}
+    <a href="/people/{{.User.MemberID}}/">{{.User.Fname}} {{.User.Sname}}</a> <br>
+    {{end}}
+  </div>
+</div>
+{{end}}
+{{if .Tracklist}}
+<div class="container-fluid">
+  <div class="container pt-3">
+    <h2>Tracklist</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Track</th>
+          <th>Artist</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+      {{range .Tracklist}}
+        <tr>
+          <td>{{.Title}}</td>
+          <td>{{.Artist}}</td>
+          <td>{{.StartTime.Format "15:04"}}</td>
+        </tr>
       {{end}}
-
-	{{end}}
+      </tbody>
+    </table>
+  </div>
+</div>
+{{end}}
+{{end}}
 {{end}}
