@@ -50,10 +50,12 @@
 	  </div>
 	</div>
 </div>
-<div class="container-fluid">
-	<div class="container">
+<div class="container-fluid bg-third">
+	<div class="container pt-3">
+		<h2>Credits</h2>
+		<hr>
 		<div class="row">
-		{{range $key, $value := .CreditsToUsers}}
+			{{range $key, $value := .CreditsToUsers}}
 			<div class="col-sm-4 pb-3">
 				<h3>{{$key}}</h3>
 				{{range $value}}
@@ -65,7 +67,7 @@
 	</div>
 </div>
 <div class="container-fluid">
-	<div class="container">
+	<div class="container pt-3">
 		<div class="row">
 			<div class="col">
 				<h2>Seasons</h2>
