@@ -34,7 +34,7 @@ func (m *ShowModel) GetShow(id int) (*myradio.ShowMeta, []myradio.Season, map[st
 		return nil, nil, nil, err
 	}
 
-	creditsToUsers, err := m.session.GetCreditsToUsers(id)
+	creditsToUsers, err := m.session.GetCreditsToUsers(id, false)
 
 	if err != nil {
 		fmt.Println(err)
@@ -49,11 +49,14 @@ func (m *ShowModel) GetShow(id int) (*myradio.ShowMeta, []myradio.Season, map[st
 //
 // On success, it returns the timeslot information, the tracklist and nil.
 // Otherwise, it returns undefined data and the error causing the failure.
-func (m *ShowModel) GetTimeslot(id int) (timeslot myradio.Timeslot, tracklist []myradio.TracklistItem, err error) {
+func (m *ShowModel) GetTimeslot(id int) (timeslot myradio.Timeslot, tracklist []myradio.TracklistItem, creditsToUsers map[string][]myradio.User, err error) {
 	timeslot, err = m.session.GetTimeslot(id)
 	if err != nil {
 		return
 	}
+
+	creditsToUsers, err = m.session.GetCreditsToUsers(id, true)
+
 	tracklist, err = m.session.GetTrackListForTimeslot(id)
 	return
 }

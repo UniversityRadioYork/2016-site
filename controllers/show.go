@@ -77,7 +77,7 @@ func (sc *ShowController) GetTimeslot(w http.ResponseWriter, r *http.Request) {
 
 	id, _ := strconv.Atoi(vars["id"])
 
-	timeslot, tracklist, err := sm.GetTimeslot(id)
+	timeslot, tracklist, creditsToUsers, err := sm.GetTimeslot(id)
 	mixcloudavailable := false
 
 	if strings.HasPrefix(timeslot.MixcloudStatus, "/URY1350/") {
@@ -87,10 +87,12 @@ func (sc *ShowController) GetTimeslot(w http.ResponseWriter, r *http.Request) {
 		Timeslot          myradio.Timeslot
 		Tracklist         []myradio.TracklistItem
 		MixcloudAvailable bool
+		CreditsToUsers    map[string][]myradio.User
 	}{
 		Timeslot:          timeslot,
 		Tracklist:         tracklist,
 		MixcloudAvailable: mixcloudavailable,
+		CreditsToUsers:    creditsToUsers,
 	}
 
 	if err != nil {
