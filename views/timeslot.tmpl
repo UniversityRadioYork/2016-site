@@ -29,7 +29,7 @@
       </div>
     </div>
   {{end}}        
-	</div>
+  </div>
 </div>
 <div class="container-fluid bg-off-white">
   <div class="container p-3">
@@ -61,26 +61,26 @@
           <span class="badge badge-secondary">{{.}}</span>
         </a>
         {{end}}
-	    </div>
-	  </div>
-	</div>
+      </div>
+    </div>
+  </div>
 </div>
 {{if .CreditsToUsers}}
 <div class="container-fluid bg-secondary">
   <div class="container pt-3">
-		<h2>Credits</h2>
-		<hr>
-		<div class="row">
-			{{range $key, $value := .CreditsToUsers}}
-			<div class="col-sm-4 pb-3">
-				<h3>{{$key}}</h3>
-				{{range $value}}
-				<a href="/people/{{.MemberID}}/">{{.Fname}} {{.Sname}}</a> <br>
-				{{end}}
-			</div>
-			{{end}}
-		</div>
-	</div>
+    <h2>Credits</h2>
+    <hr>
+    <div class="row">
+      {{range $key, $value := .CreditsToUsers}}
+      <div class="col-sm-4 pb-3">
+        <h3>{{$key}}</h3>
+        {{range $value}}
+        <a href="/people/{{.MemberID}}/">{{.Fname}} {{.Sname}}</a> <br>
+        {{end}}
+      </div>
+      {{end}}
+    </div>
+  </div>
 </div>
 {{end}}
 

@@ -22,16 +22,16 @@
 
 </div>
 <div class="container-fluid bg-off-white">
-	<div class="container p-3">
-	  <div class="row">
-	    <div class="col-12 col-sm-5 col-lg-3">
-	     	<img class="img-fluid show-img" src="
-				 {{if .Show.Photo}}
-				 https://ury.org.uk{{.Show.Photo}}
-				 {{else}}
-				 /images/show-current.png
-				 {{end}}"
-				 alt="{{.Show.Title}} Logo">
+  <div class="container p-3">
+    <div class="row">
+      <div class="col-12 col-sm-5 col-lg-3">
+         <img class="img-fluid show-img" src="
+         {{if .Show.Photo}}
+         https://ury.org.uk{{.Show.Photo}}
+         {{else}}
+         /images/show-current.png
+         {{end}}"
+         alt="{{.Show.Title}} Logo">
         <div class="row">
           <div class="col-6 text-center">
             <h5>Seasons: {{len .Seasons}}</h5>
@@ -40,47 +40,47 @@
             <h5>Shows: {{showCount .Seasons}}</h5>
           </div>
         </div>
-	    </div>
-	    <div class="col-12 col-sm-7 col-lg-9">
-	      <h1>{{.Show.Title}}</h1>
-	      <hr>
-				<h2>Description</h2>
+      </div>
+      <div class="col-12 col-sm-7 col-lg-9">
+        <h1>{{.Show.Title}}</h1>
+        <hr>
+        <h2>Description</h2>
         <p>{{html .Show.Description}}</p>
-	    </div>
-	  </div>
-	</div>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="container-fluid bg-third">
-	<div class="container pt-3">
-		<h2>Credits</h2>
-		<hr>
-		<div class="row">
-			{{range $key, $value := .CreditsToUsers}}
-			<div class="col-sm-4 pb-3">
-				<h3>{{$key}}</h3>
-				{{range $value}}
-				<a href="/people/{{.MemberID}}/">{{.Fname}} {{.Sname}}</a> <br>
-				{{end}}
-			</div>
-			{{end}}
-		</div>
-	</div>
+  <div class="container pt-3">
+    <h2>Credits</h2>
+    <hr>
+    <div class="row">
+      {{range $key, $value := .CreditsToUsers}}
+      <div class="col-sm-4 pb-3">
+        <h3>{{$key}}</h3>
+        {{range $value}}
+        <a href="/people/{{.MemberID}}/">{{.Fname}} {{.Sname}}</a> <br>
+        {{end}}
+      </div>
+      {{end}}
+    </div>
+  </div>
 </div>
 <div class="container-fluid">
-	<div class="container pt-3">
-		<div class="row">
-			<div class="col">
-				<h2>Seasons</h2>
-				<ul>
-				{{range .Seasons}}
-					<li>
-						<a href="/schedule/shows/seasons/{{.SeasonID}}/">Seasion {{.SeasonNum}}: {{.FirstTime.Format "Monday, _2 Jan 2006 at 15:04"}} - {{.NumEpisodes.Value}} Episode(s)</a>
-					</li>
-				{{end}}
-				</ul>
-			</div>
-		</div>
-	</div>
+  <div class="container pt-3">
+    <div class="row">
+      <div class="col">
+        <h2>Seasons</h2>
+        <ul>
+        {{range .Seasons}}
+          <li>
+            <a href="/schedule/shows/seasons/{{.SeasonID}}/">Seasion {{.SeasonNum}}: {{.FirstTime.Format "Monday, _2 Jan 2006 at 15:04"}} - {{.NumEpisodes.Value}} Episode(s)</a>
+          </li>
+        {{end}}
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
 {{end}}
 {{end}}
