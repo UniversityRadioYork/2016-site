@@ -1,0 +1,33 @@
+// Add percentage of white to a color
+@import "utils";
+
+$ury-blue-color: #002d5a;
+
+$computing-grey: #2E3540;
+
+$speech-green: #2A722B;
+
+$news-maroon: #5A162E;
+
+$music-purple: #562179;
+
+$primary-color: $ury-blue-color;
+$secondary-color: tint($ury-blue-color, 80%);
+$third-color: tint($ury-blue-color, 60%);
+$off-white-color: #e1e1e1;
+
+$blue: #0073e6;
+$red: #d0011b;
+
+//font
+$base-font-size: 16px;
+$mobile-font-size: 10px;
+$mobile-max-width: 770px;
+
+//Current and Next
+$current-next-now-bg: #003367;
+$current-next-next-bg: rgba(0, 51, 103, .85);
+
+//Schedule block colours
+$blocks-sustainer-color: $secondary-color;
+$blocks-regular-color: $off-white-color;

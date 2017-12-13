@@ -1,0 +1,53 @@
+$button-color: #fff;
+
+.btn {
+  border-radius: .4em;
+  padding: .25em 1em;
+  font-family: $font-family-heading;
+  font-weight: 500;
+  font-size: 1rem;
+  @extend .box-shadow-1;
+
+  &.btn-primary {
+    background: $blue;
+    color: $button-color;
+    border: 2px solid $button-color;
+
+    &:hover {
+      background: $button-color;
+      color: $blue;
+    }
+  }
+
+  &.btn-primary-inverse {
+    background: $button-color;
+    color: $blue;
+    border: 2px solid $button-color;
+
+    &:hover {
+      background: $blue;
+      color: $button-color;
+    }
+  }
+
+  &.btn-red {
+    background: $red;
+    color: $button-color;
+    border: 2px solid $button-color;
+
+    &:hover {
+      background: $button-color;
+      color: $red;
+    }
+  }
+
+  &.btn-square {
+    border-radius: 0;
+  }
+
+  &.btn-xl {
+    border-radius: .3em;
+    font-size: 2rem;
+    padding: .8rem 1.5rem;
+  }
+}

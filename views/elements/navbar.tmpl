@@ -1,30 +1,28 @@
 {{define "navbar"}}
-
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">{{.PageContext.ShortName}}</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">{{.PageContext.LongName}}</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
-				{{range .PageContext.Pages}}
-                    <li>
-                        <a class="{{if `Active`}}active{{end}}" href="/{{.Url}}">
-							{{.Name}}
-                        </a>
-                    </li>
-				{{end}}
-            </ul>
-        </div>
-        <!--/.nav-collapse -->
+<header class="navbar navbar-ury navbar-expand-md fixed-top bd-navbar">
+  <nav class="container">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsed" aria-controls="collapsed" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="{{url "/"}}">
+      <img src="{{url "/images/logo.png"}}" height="34" alt="{{.PageContext.LongName}} Logo" >
+    </a>
+    <div class="navbar-collapse collapse" id="collapsed">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="{{url "/schedule/thisweek" }}">Schedule</a>
+        <a class="nav-item nav-link" href="#">Shows</a>
+        <a class="nav-item nav-link" href="#">URY Player</a>
+        <a class="nav-item nav-link" href="{{url "/about/"}}">About Us</a>
+        <a class="nav-item nav-link" href="{{url "/getinvolved/"}}">Get Involved</a>
+        <a class="nav-item nav-link" href="{{url "/contact/"}}">Contact Us</a>
+      </div>
+      <form action="{{url "/search/"}}" class="form-inline ml-auto search-box search-box-expand">
+          <button type="submit" class="" alt="Submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+          <div class="col px-0">
+            <input type="text" name="term" placeholder="Search...">
+          </div>
+      </form>
     </div>
-</nav>
-
+  </nav>
+</header>
 {{end}}

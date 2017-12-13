@@ -1,24 +1,30 @@
 package controllers
 
 import (
-	"github.com/UniversityRadioYork/myradio-go"
-	"github.com/UniversityRadioYork/2016-site/structs"
-	"net/http"
-	"github.com/gorilla/mux"
-	"github.com/UniversityRadioYork/2016-site/models"
 	"log"
+	"net/http"
 	"strconv"
-	"html/template"
+	"strings"
+
+	"github.com/UniversityRadioYork/2016-site/models"
+	"github.com/UniversityRadioYork/2016-site/structs"
+	"github.com/UniversityRadioYork/2016-site/utils"
+	"github.com/UniversityRadioYork/myradio-go"
+	"github.com/gorilla/mux"
 )
 
+// ShowController is the controller for looking up shows.
 type ShowController struct {
 	Controller
 }
 
+// NewShowController returns a new ShowController with the MyRadio session s
+// and configuration context c.
 func NewShowController(s *myradio.Session, c *structs.Config) *ShowController {
-	return &ShowController{Controller{session:s, config:c}}
+	return &ShowController{Controller{session: s, config: c}}
 }
 
+// Get handles the HTTP GET request r for all shows, writing to w.
 func (sc *ShowController) Get(w http.ResponseWriter, r *http.Request) {
 
 	// Do the pagination!!
@@ -29,8 +35,8 @@ func (sc *ShowController) Get(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// GetShow handles the HTTP GET request r for an individual show, writing to w.
 func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
-
 	sm := models.NewShowModel(sc.session)
 
 	vars := mux.Vars(r)
@@ -39,41 +45,92 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 
 	show, seasons, err := sm.GetShow(id)
 
+	data := struct {
+		Show    myradio.ShowMeta
+		Seasons []myradio.Season
+	}{
+		Show:    *show,
+		Seasons: seasons,
+	}
+
+	if err != nil {
+		log.Println(err)
+		utils.RenderTemplate(w, sc.config.PageContext, data, "404.tmpl")
+		return
+	}
+
+	err = utils.RenderTemplate(w, sc.config.PageContext, data, "show.tmpl")
+	if err != nil {
+		log.Println(err)
+		return
+	}
+}
+
+func (sc *ShowController) GetTimeslot(w http.ResponseWriter, r *http.Request) {
+	sm := models.NewShowModel(sc.session)
+
+	vars := mux.Vars(r)
+
+	id, _ := strconv.Atoi(vars["id"])
+
+	timeslot, tracklist, err := sm.GetTimeslot(id)
+	mixcloudavailable := false
+
+	if strings.HasPrefix(timeslot.MixcloudStatus, "/URY1350/") {
+		mixcloudavailable = true
+	}
+	data := struct {
+		Timeslot          myradio.Timeslot
+		Tracklist         []myradio.TracklistItem
+		MixcloudAvailable bool
+	}{
+		Timeslot:          timeslot,
+		Tracklist:         tracklist,
+		MixcloudAvailable: mixcloudavailable,
+	}
+
+	if err != nil {
+		log.Println(err)
+		utils.RenderTemplate(w, sc.config.PageContext, data, "404.tmpl")
+		return
+	}
+
+	err = utils.RenderTemplate(w, sc.config.PageContext, data, "timeslot.tmpl")
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+}
+
+func (sc *ShowController) GetSeason(w http.ResponseWriter, r *http.Request) {
+	sm := models.NewShowModel(sc.session)
+
+	vars := mux.Vars(r)
+
+	id, _ := strconv.Atoi(vars["id"])
+
+	season, timeslots, err := sm.GetSeason(id)
+
+	data := struct {
+		Season    myradio.Season
+		Timeslots []myradio.Timeslot
+	}{
+		Season:    season,
+		Timeslots: timeslots,
+	}
+
 	if err != nil {
 		//@TODO: Do something proper here, render 404 or something
 		log.Println(err)
 		return
 	}
 
-	// Render Template
-	td := structs.Globals{
-		PageContext: sc.config.PageContext,
-		PageData: struct {
-			Show    myradio.ShowMeta
-			Seasons []myradio.Season
-		}{
-			Show: *show,
-			Seasons: seasons,
-		},
-	}
-
-	t := template.New("show.tmpl") // Create a template.
-	t, err = t.ParseFiles(
-		"views/show.tmpl",
-		"views/partials/header.tmpl",
-		"views/partials/footer.tmpl",
-		"views/elements/navbar.tmpl",
-	)  // Parse template file.
-
+	err = utils.RenderTemplate(w, sc.config.PageContext, data, "season.tmpl")
 	if err != nil {
 		log.Println(err)
+
 		return
-	}
-
-	err = t.Execute(w, td)  // merge.
-
-	if err != nil {
-		log.Println(err)
 	}
 
 }

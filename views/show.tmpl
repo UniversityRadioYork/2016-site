@@ -1,25 +1,104 @@
-{{template "header" .}}
+{{define "title"}}{{.PageContext.ShortName}} | {{.PageData.Show.Title}}{{end}}
 
-{{with .PageData}}
-
-<div class="container">
-
-	<p>
-		{{.Show.Title}}
-	</p>
-
-	<p>
-		{{.Show.Description}}
-	</p>
-
-	{{range .Seasons}}
-	<p>
-		{{.SeasonNum}} - {{.RequestedTime}}
-	</p>
-	{{end}}
-
-</div><!-- /.container -->
-
+{{define "open-graph"}}
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@{{.PageContext.MainTwitter}}">
+<meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="{{.PageContext.ShortName}} | {{.PageData.Show.Title}}">
+{{if .PageData.Show.Photo}}
+<meta property="og:image" content="{{.PageContext.FullURL}}{{url .PageData.Show.Photo}}">
+{{else}}
+<meta property="og:image" content="{{.PageContext.FullURL}}{{url "images/open_graph-general.jpg"}}">
+{{end}}
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{.PageContext.FullURL}}{{url "/schedule/shows/"}}{{.PageData.Show.ShowID}}">
+<meta property="og:description" content="{{.PageData.Show.Description}}">
 {{end}}
 
-{{template "footer" .}}
+{{define "content"}}
+{{with .PageData}}
+
+	<div class="container-fluid header-large current-next">
+		<div class="container container-padded mobile-hide">
+		</div>
+	</div>
+	<div class="container-fluid bg-off-white">
+		<div class="container container-padded">
+		  <div class="row">
+	        <div class="col-12 col-lg-3">
+	        	<img class="img-fluid show-img" src="
+						{{if .Show.Photo}}
+									https://ury.org.uk{{.Show.Photo}}
+						{{else}}
+									/images/show-current.png
+						{{end}}		
+
+							" alt="{{.Show.Title}} Logo">
+              <div class="row">
+                <div class="col-6 text-center">
+                  <h5>Seasons: {{len .Seasons}}</h5>
+                </div>
+                <div class="col-6 text-center">
+                  <h5>Shows: {{showCount .Seasons}}</h5>
+                </div>
+              </div>
+	        </div>
+	        <div class="col-12 col-lg-9">
+	          <h1>
+	        	{{.Show.Title}}
+	          </h1>
+	          <hr>
+				  	<h2>Description</h2>
+            <p>
+						  {{html .Show.Description}}
+						</p>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="container container-padded outer page1-credits-people">
+	  	{{range .Show.Credits}}
+				<a href="/people/{{.User.MemberID}}/">{{.User.Fname}} {{.User.Sname}}</a> <br>
+			{{end}}
+
+    </div>
+
+
+
+
+
+<div class="container container-padded">
+
+
+	<h2>
+		Presenters
+	</h2>
+	<p>
+		{{range .Show.Credits}}
+			<a href="/people/{{.User.MemberID}}/">{{.User.Fname}} {{.User.Sname}}</a> <br>
+		{{end}}
+	</p>
+
+	<h2>
+		Seasons
+	</h2>
+
+	<ul>
+		{{range .Seasons}}
+			<li>
+				<a href="/schedule/shows/seasons/{{.SeasonID}}/">Seasion {{.SeasonNum}}: {{.FirstTime.Format "Monday, _2 Jan 2006 at 15:04"}} - {{.NumEpisodes.Value}} Episode(s)</a>
+			</li>
+		{{end}}
+	</ul>
+
+</div>
+
+
+
+
+
+
+
+{{end}}
+{{end}}

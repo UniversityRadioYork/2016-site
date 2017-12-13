@@ -1,33 +1,280 @@
-{{define "now_next"}}
-<p>
-	{{.Title}}<br>
-	{{.Desc}}<br>
-	{{.Photo}}<br>
-	{{.StartTime.Format "2006 Jan 02"}}<br>
-	{{.EndTime.Format "2006 Jan 02"}}<br>
-	{{.Presenters}}<br>
-	{{.Url}}<br>
-	{{.Id}}<br>
-</p>
+{{define "content"}}
+  {{with .PageData}}
+  <div class="container-fluid current-next">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-11 col-md-10 box-shadow-1">
+        {{template "current_and_next" .}}
+        {{template "banner" .}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="index-infobar" class="container-fluid bg-off-white container-padded">
+    <div class="container container-padded">
+      <div class="row justify-content-center">
+        <div class="pb-4 col-lg-3">
+          <h2>Send a Message</h2>
+          <hr>
+          <form id="sendMessage" action="">
+            <textarea class="form-control" rows="5" name="body">Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</textarea>
+            <button type="submit" class="btn btn-primary btn-block">Send</button>
+          </form>
+        </div>
+        <div class="col-lg-9">
+          <h2>Get Involved</h2>
+          <hr>
+          <div class="row">
+            <div class="col-lg-6">
+              <p>University Radio York has been alive since 1968, when it became the first legal independent radio station in the UK!</p>
+              <p>Help us continue our legacy by joining the URY team.</p>
+              <p>Contact our teams to find out more.</p>
+            </div>
+            <div class="col-lg-6">
+              <ul class="split-evenly-2 no-bullets">
+              {{range .Teams}}
+                <li>{{.Name}}</li>
+              {{end}}
+              </ul>
+            </div>    
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="index-schedule" class="container-fluid container-padded">  
+    <div class="container container-padded text-center">
+      <h2>Today's Schedule</h2>
+      <h3>We're not broadcasting today, we'll be back on !!DATE!!.</h3>
+      <p>In the meantime, how about some On Demand content?</p>
+      <div class="row">  
+        <figure class="col-md-6 large">
+          <img src="images/show-current.png" alt="img01">
+          <figcaption>
+            <h3>!!Show Name!!</h3>
+            <span>12:00 - 14:00</span>
+            <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>	
+          </figcaption>
+        </figure>
+        <div class="col-md-6 small">
+          <div class="row">
+            <figure class="col-md-6">
+              <img src="images/show-current.png" alt="img01">
+              <figcaption>
+                <h3>!!Show Name!!</h3>
+                <span>12:00 - 14:00</span>
+                <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
+              </figcaption>
+            </figure>
+            <figure class="col-md-6">
+              <img src="images/show-current.png" alt="img01">
+              <figcaption>
+                <h3>!!Show Name!!</h3>
+                <span>12:00 - 14:00</span>
+                <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
+              </figcaption>
+            </figure>
+          </div>
+          <div class="row">
+            <figure class="col-md-6">
+              <img src="images/show-current.png" alt="img01">
+              <figcaption>
+                <h3>!!Show Name!!</h3>
+                <span>12:00 - 14:00</span>
+                <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
+              </figcaption>
+            </figure>
+            <figure class="col-md-6">
+              <img src="images/show-current.png" alt="img01">
+              <figcaption>
+                <h3>!!Show Name!!</h3>
+                <span>12:00 - 14:00</span>
+                <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+      <div class="row small">
+        <figure class="col-md-3">
+          <img src="images/show-current.png" alt="img01">
+          <figcaption>
+            <h3>!!Show Name!!</h3>
+            <span>12:00 - 14:00</span>
+            <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
+          </figcaption>
+        </figure>
+        <figure class="col-md-3">
+          <img src="images/show-current.png" alt="img01">
+          <figcaption>
+            <h3>!!Show Name!!</h3>
+            <span>12:00 - 14:00</span>
+            <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
+          </figcaption>
+        </figure>
+        <figure class="col-md-3">
+          <img src="images/show-current.png" alt="img01">
+          <figcaption>
+            <h3>!!Show Name!!</h3>
+            <span>12:00 - 14:00</span>
+            <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
+          </figcaption>
+        </figure>
+        <figure class="col-md-3">
+          <img src="images/show-current.png" alt="img01">
+          <figcaption>
+            <h3>!!Show Name!!</h3>
+            <span>12:00 - 14:00</span>
+            <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
+          </figcaption>
+        </figure>
+      </div>
+      <div class="row small">
+        <figure class="col-md-3">
+          <img src="images/show-current.png" alt="img01">
+          <figcaption>
+            <h3>!!Show Name!!</h3>
+            <span>12:00 - 14:00</span>
+            <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
+          </figcaption>
+        </figure>
+        <figure class="col-md-3">
+          <img src="images/show-current.png" alt="img01">
+          <figcaption>
+            <h3>!!Show Name!!</h3>
+            <span>12:00 - 14:00</span>
+            <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
+          </figcaption>
+        </figure>
+        <figure class="col-md-3">
+          <img src="images/show-current.png" alt="img01">
+          <figcaption>
+            <h3>!!Show Name!!</h3>
+            <span>12:00 - 14:00</span>
+            <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
+          </figcaption>
+        </figure>
+        <figure class="col-md-3">
+          <img src="images/show-current.png" alt="img01">
+          <figcaption>
+            <h3>!!Show Name!!</h3>
+            <span>12:00 - 14:00</span>
+            <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div> <!-- /outer containter -->
+  
+  <div id="index-videos" class="container-fluid container-padded bg-secondary">
+    <h2>URY Sessions</h2>
+    <div id="youtube-video-slider" class="row scroll-horiz">
+    </div>
+  </div>
+  <div id="index-uryplayer" class="container-fluid container-padded bg-third">
+    <h2>Podcasts</h2>
+    <div class="row scroll-horiz">
+      <div class="col-11 col-sm-7 col-md-3">
+        <div class="card podcast">
+          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
+          <div class="card-block">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-11 col-sm-7 col-md-3">
+        <div class="card podcast">
+          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
+          <div class="card-block">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-11 col-sm-7 col-md-3">
+        <div class="card podcast">
+          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
+          <div class="card-block">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-11 col-sm-7 col-md-3">
+        <div class="card podcast">
+          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
+          <div class="card-block">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-11 col-sm-7 col-md-3">
+        <div class="card podcast">
+          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
+          <div class="card-block">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-11 col-sm-7 col-md-3">
+        <div class="card podcast">
+          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
+          <div class="card-block">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-11 col-sm-7 col-md-3">
+        <div class="card podcast">
+          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
+          <div class="card-block">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-11 col-sm-7 col-md-3">
+        <div class="card podcast">
+          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
+          <div class="card-block">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-11 col-md-3">
+        <div class="card podcast">
+          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
+          <div class="card-block">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-11 col-md-3">
+        <div class="card podcast">
+          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
+          <div class="card-block">
+            <h4 class="card-title">Card title</h4>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!-- /outer containter -->
+  {{end}}
 {{end}}
 
-
-{{template "header" .}}
-
-{{with .PageData}}
-
-<div class="container">
-
-	{{if .Current}}
-		{{template "now_next" .Current}}
-	{{end}}
-
-	{{if .Next}}
-	{{template "now_next" .Next}}
-	{{end}}
-
-</div><!-- /.container -->
-
+{{define "footer-scripts"}}
+<!-- Youtube slider script -->
+<script>
+var youtubeAPIKey = {{.PageContext.Youtube.APIKey}};
+var youtubePlaylistID = "{{.PageContext.Youtube.PlaylistID}}";
+</script>
+<script src='{{url "js/index.js"}}'></script>
+<script src="https://apis.google.com/js/client.js?onload=onGoogleLoad"></script>
 {{end}}
-
-{{template "footer" .}}

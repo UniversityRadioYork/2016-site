@@ -1,0 +1,97 @@
+#index-schedule {
+  background: $primary-color;
+  color: #fff;
+
+  [class*="col"] {
+    padding: 0;
+    position: relative;
+  }
+
+  [class*="row"] {
+    margin: 0;
+  }
+
+  figure {
+    img {
+      max-width: 100%;
+      display: block;
+      position: relative;
+    }
+
+    figcaption {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 20px;
+      background: #2c3f52;
+      color: #ed4e6e;
+
+      h3 {
+        margin: 0;
+        padding: 0;
+        color: #fff;
+      }
+
+      a {
+        text-align: center;
+        padding: 5px 10px;
+        border-radius: 2px;
+        display: inline-block;
+        background: #ed4e6e;
+        color: #fff;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  .small {
+    figcaption {
+      width: 100%;
+      opacity: 0;
+      text-align: center;
+      z-index: 3;
+      overflow: hidden;
+      backface-visibility: hidden;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    figure:hover figcaption, figure.cs-hover figcaption {
+      opacity: 1;
+      transform: translate(15px, 15px);
+    }
+
+    figcaption span {
+      display: block;
+    }
+
+    figcaption a {
+      margin-top: 30px;
+    }
+  }
+
+  .large {
+    img {
+      z-index: 10;
+      transition: transform 0.4s;
+    }
+
+    figcaption {
+      height: 100%;
+      width: 100%;
+    }
+
+    figcaption h3 {
+      margin-top: 60%;
+    }
+
+    figcaption a {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+    }
+  }
+
+  .large:hover img {
+    transform: translateY(-70px) scale(0.5);
+  }
+}

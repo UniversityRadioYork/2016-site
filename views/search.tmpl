@@ -1,33 +1,23 @@
-{{template "header" .}}
-
+{{define "title"}}{{.PageContext.ShortName}} | Search: {{.PageData.Term}}{{end}}
+{{define "content"}}
 {{with .PageData}}
 
-<div class="container">
-
-    <form method="GET" action="{{.BaseURL}}">
-
-        <input name="term" type="text" value="{{.Term}}">
-
-        <button type="submit">Search</button>
-
+<div class="container container-padded pt-5 mt-5">
+    <form action="{{url "/search/"}}" class="form-inline ml-auto search-box" style="font-size:2rem;">
+        <button type="submit" class="" alt="Submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+        <div class="col px-0">
+            <input type="text" name="term" placeholder="Search..." value="{{.Term}}" width="100%">  
+        </div>
     </form>
-
 	{{if .Searching}}
-        <p>
-            We are searching
-        </p>
-
-        <h2>
-            #{{.NumResults}} Results
-        </h2>
+        <div class="pt-3" style="text-align: right;">{{.NumResults}} Results</div>
+        <hr>
 		{{range .Results}}
-            <p>
+            <h4>
 				<a href="/schedule/shows/{{.ShowID}}/">{{.Title}}</a>
-            </p>
-
-            <p>
-				{{.Description}}
-            </p>
+            </h4>
+		    {{html .Description}}
+            <hr>
 		{{else}}
             <p>
                 No Results
@@ -35,13 +25,9 @@
 		{{end}}
 
 	{{else}}
-        <p>
-            We are not searching
-        </p>
 	{{end}}
 
-</div><!-- /.container -->
+</div><!-- /.container container-padded -->
 
 {{end}}
-
-{{template "footer" .}}
+{{end}}

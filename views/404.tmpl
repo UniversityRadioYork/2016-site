@@ -1,3 +1,10 @@
-{{template "header" .}}
-404: Not Found
-{{template "footer" .}}
+{{define "content"}}
+<div class="container container-padded outer page404">
+	<div class="container container-padded">
+		<div>
+			<h1>4 <div class="spinner"></div> 4</h1>
+			<h2>Looks like we couldn't find that page. Oops!</h2>
+		</div>
+	</div>
+</div>
+{{end}}
