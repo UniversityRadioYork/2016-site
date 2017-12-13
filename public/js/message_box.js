@@ -3,7 +3,7 @@ function getCurrentShow() {
         if (data.status === "OK") {
             return data.payload.current;
         } else {
-            console.log("API Error: " + data.status + " - " + data.payload);
+            console.error("API Error: " + data.status + " - " + data.payload);
             return;
         }
     });
@@ -11,7 +11,7 @@ function getCurrentShow() {
 
 function messageSendError() {
     $("#comments").val("");
-    $("#comments").attr("placeholder", "Message cannot be sent at this time. Is Jukebox on Air?")
+    $("#comments").attr("placeholder", "Message cannot be sent at this time. Is Jukebox on Air?");
 }
 
 
