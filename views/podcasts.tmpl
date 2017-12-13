@@ -1,0 +1,22 @@
+{{define "title"}}{{.PageContext.ShortName}} | URYPlayer: Podcasts{{end}}
+{{define "content"}}
+{{with .PageData}}
+
+<div class="container container-padded pt-5 mt-5">
+  <div class="pt-3" style="text-align: right;">URYPlayer: Podcasts</div>
+  <hr>
+  {{range .Podcasts}}
+    <h4>
+      <a href="{{.MicrositeLink.URL}}/">{{.Title}}</a>
+    </h4>
+    {{html .Description}}
+    <hr>
+  {{else}}
+  <p>
+    We haven't got any podcasts right now, please try again later.
+  </p>
+  {{end}}
+</div><!-- /.container container-padded -->
+
+{{end}}
+{{end}}
