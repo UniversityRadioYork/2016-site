@@ -19,7 +19,7 @@ func NewIndexModel(s *myradio.Session) *IndexModel {
 //
 // On success, it returns the current and next show, and nil.
 // Otherwise, it returns undefined data and the error causing failure.
-func (m *IndexModel) Get() (currentAndNext *myradio.CurrentAndNext, banners []myradio.Banner, teams []myradio.Team, err error) {
+func (m *IndexModel) Get() (currentAndNext *myradio.CurrentAndNext, banners []myradio.Banner, teams []myradio.Team, podcasts []myradio.Podcast, err error) {
 	currentAndNext, err = m.session.GetCurrentAndNext()
 	if err != nil {
 		return
@@ -30,6 +30,11 @@ func (m *IndexModel) Get() (currentAndNext *myradio.CurrentAndNext, banners []my
 	}
 
 	teams, err = m.session.GetCurrentTeams()
+	if err != nil {
+		return
+	}
+
+	podcasts, err = m.session.GetAllPodcasts()
 	if err != nil {
 		return
 	}

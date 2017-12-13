@@ -36,24 +36,24 @@
                 <li>{{.Name}}</li>
               {{end}}
               </ul>
-            </div>    
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div id="index-schedule" class="container-fluid container-padded">  
+  <div id="index-schedule" class="container-fluid container-padded">
     <div class="container container-padded text-center">
       <h2>Today's Schedule</h2>
       <h3>We're not broadcasting today, we'll be back on !!DATE!!.</h3>
       <p>In the meantime, how about some On Demand content?</p>
-      <div class="row">  
+      <div class="row">
         <figure class="col-md-6 large">
           <img src="images/show-current.png" alt="img01">
           <figcaption>
             <h3>!!Show Name!!</h3>
             <span>12:00 - 14:00</span>
-            <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>	
+            <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
           </figcaption>
         </figure>
         <div class="col-md-6 small">
@@ -165,7 +165,7 @@
       </div>
     </div>
   </div> <!-- /outer containter -->
-  
+
   <div id="index-videos" class="container-fluid container-padded bg-secondary">
     <h2>URY Sessions</h2>
     <div id="youtube-video-slider" class="row scroll-horiz">
@@ -174,96 +174,20 @@
   <div id="index-uryplayer" class="container-fluid container-padded bg-third">
     <h2>Podcasts</h2>
     <div class="row scroll-horiz">
+			{{range .Podcasts}}
       <div class="col-11 col-sm-7 col-md-3">
-        <div class="card podcast">
-          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
-          <div class="card-block">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-11 col-sm-7 col-md-3">
-        <div class="card podcast">
-          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
-          <div class="card-block">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-11 col-sm-7 col-md-3">
-        <div class="card podcast">
-          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
-          <div class="card-block">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-11 col-sm-7 col-md-3">
-        <div class="card podcast">
-          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
-          <div class="card-block">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-11 col-sm-7 col-md-3">
-        <div class="card podcast">
-          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
-          <div class="card-block">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-11 col-sm-7 col-md-3">
-        <div class="card podcast">
-          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
-          <div class="card-block">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-11 col-sm-7 col-md-3">
-        <div class="card podcast">
-          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
-          <div class="card-block">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-11 col-sm-7 col-md-3">
-        <div class="card podcast">
-          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
-          <div class="card-block">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-11 col-md-3">
-        <div class="card podcast">
-          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
-          <div class="card-block">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-11 col-md-3">
-        <div class="card podcast">
-          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
-          <div class="card-block">
-            <h4 class="card-title">Card title</h4>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-        </div>
-      </div>
+				<a href="{{.MicrositeLink.URL}}" title="URY Podcast: {{.Title}}">
+					<div class="card podcast">
+						<img class="card-img-top img-fluid" src="https://ury.org.uk{{.Photo}}" alt="URY Podcast: {{.Title}}">
+						<div class="card-block bg-primary">
+							<h4 class="card-title ellipsis">{{.Title}}</h4>
+							<h5>{{.Time.Format "Monday, _2 Jan 2006"}}</h5>
+							<p class="card-text ellipsis">{{html .Description}}</p>
+						</div>
+					</div>
+				</a>
+			</div>
+			{{end}}
     </div>
   </div> <!-- /outer containter -->
   {{end}}
