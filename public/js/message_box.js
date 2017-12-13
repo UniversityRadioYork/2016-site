@@ -1,3 +1,6 @@
+/*global myRadioAPIKey:false*/
+/*eslint no-undef: "error"*/
+
 function getCurrentShow() {
     $.getJSON("https://ury.org.uk/api/v2/timeslot/currentandnext/?api_key=" + myRadioAPIKey, (data) => {
         if (data.status === "OK") {
