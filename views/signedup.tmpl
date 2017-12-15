@@ -1,0 +1,53 @@
+{{define "title"}}{{.PageContext.ShortName}} | Sign Up{{end}}
+
+{{define "open-graph"}}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@{{.PageContext.MainTwitter}}">
+<meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="{{.PageContext.LongName}} | Sign Up">
+<meta property="og:description" content="{{.PageContext.SiteDescription}}">
+<meta property="og:image" content="{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}">
+<meta property="og:url" content="{{.PageContext.FullURL}}{{url "/signup/"}}">
+{{end}}
+
+{{define "content"}}
+{{with .PageData}}
+
+<div class="container-fluid banner-2">
+  <div class="container container-padded">
+    <div class="row align-items-center text-center">
+      <div class="col">
+        <h1 class="display-3">On Air, Online, On Demand</h1>
+        <h2 class="display-4">Broadcasting since 1968.</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid container-padded bg-off-white">
+	<div class="container container-padded">
+  	{{if .Feedback}}
+      <h1 class="text-center">Error in signup:</h1>
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+          <ul>
+            {{range .Feedback}}
+              <li>{{.}}</li>
+            {{end}}
+          </ul>
+        </div>
+        <div class="col-md-1"></div>
+      </div>
+    {{else}}
+      <h1 class="text-center">Success!</h1>
+      <h3 class="text-center">We've registered you on our computers, and you'll soon get an email telling you all about what happens next!</h3>
+      <!-- TO DO: Make a pretty "What next?" page -->
+    {{end}}
+  </div>
+</div>
+
+{{end}}
+{{end}}
