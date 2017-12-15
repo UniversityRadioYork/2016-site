@@ -26,28 +26,75 @@
   </div>
 </div>
 
-<div class="container-fluid container-padded bg-off-white">
+<div class="container-fluid container-padded bg-primary">
 	<div class="container container-padded">
-  	{{if .Feedback}}
-      <h1 class="text-center">Error in signup:</h1>
-      <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
-          <ul>
-            {{range .Feedback}}
-              <li>{{.}}</li>
-            {{end}}
-          </ul>
-        </div>
-        <div class="col-md-1"></div>
+{{if .Feedback}}
+    <h1 class="text-center">Unsuccessful Sign up:</h1>
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <ul>
+          {{range .Feedback}}
+            <li>{{.}}</li>
+          {{end}}
+        </ul>
+        <br>
+        <p class="text-center"><a href="/getinvolved#getInvolvedForm">&lt; Back to the form</a></p>
       </div>
-    {{else}}
-      <h1 class="text-center">Success!</h1>
-      <h3 class="text-center">We've registered you on our computers, and you'll soon get an email telling you all about what happens next!</h3>
-      <!-- TO DO: Make a pretty "What next?" page -->
-    {{end}}
+      <div class="col-md-3"></div>
+    </div>
   </div>
 </div>
+{{else}}
+    <h1 class="text-center">Success!</h1>
+    <h3 class="text-center">We've registered you on our computers, and you'll soon get an email telling you all about what happens next!</h3>
+    <p class="text-center">For now, here's some other useful things to do:</p>
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+      </div>
+      <div class="col-md-1"></div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-padded bg-off-white">
+  <div class="container container-padded">
+    <div class="row"> <br> </div>
+    <div class="row">
+
+      <div class="col-md-3 bg-primary rounded">
+        <br>
+        <img src="https://cdn-images-1.medium.com/max/1200/1*TiKyhAN2gx4PpbOsiBhYcw.png" class="img-fluid rounded" alt="Slack Logo">
+        <p></p>
+        <p class="text-center">Find the URY slack channel at <a href="ury.slack.com">ury.slack.com</a> and join all the channels you're interested in.</p>
+      </div>
+
+      <div class="col-md-1"><br></div>
+
+      <div class="col-md-4 bg-primary">
+        <br>
+        <h1 class="text-center">Come see us!</h1>
+        <br>
+        <p class="text-center">We have a calendar of <a href="https://calendar.google.com/calendar/embed?src=5ada1ep7d13ojs4tioifqcl53o@group.calendar.google.com&ctz=Europe/London">all our meetings</a>, to which new members are always welcome, and you can drop by the station almost any time and there'll be someone to talk to.</p>
+        <br>
+        <p class="text-center">All of our meetings are held in Vanbrugh Arms (V&nbsp;Bar), which is right next to the radio station</p>
+        <br>
+        <a class="text-center" href="/contact#map"><h3>Map of where to find us</h3></a>
+      </div>
+
+      <div class="col-md-1"><br></div>
+
+      <div class="col-md-3 bg-primary rounded">
+        <br>
+        <img src="https://ury.org.uk/myradio/img/myradio-logo.svg" class="img-fluid rounded mx-auto d-block" alt="Slack Logo" style="margin-top: 30%; margin-bottom: 30%">
+        <p></p>
+        <p class="text-center">Once you get your confirmation email, you'll be able to log in to <a href="ury.org.uk/myradio/">MyRadio</a>. This is where you'll be able to book training, request shows and do other magical things.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+{{end}}
 
 {{end}}
 {{end}}
