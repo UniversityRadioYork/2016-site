@@ -106,8 +106,6 @@ func (podcastsC *PodcastController) GetEmbed(w http.ResponseWriter, r *http.Requ
 		Podcast: podcast,
 	}
 
-	podcastsC.config.PageContext.PageNoOuter = true
-
 	err = utils.RenderTemplate(w, podcastsC.config.PageContext, data, "podcast_player.tmpl")
 
 	if err != nil {
