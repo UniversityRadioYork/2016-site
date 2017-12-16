@@ -31,12 +31,6 @@ func (gic *SignUpController) Get(w http.ResponseWriter, r *http.Request) {
 
 	feedback, err := sm.Post(formParams)
 
-	log.Println(feedback)
-
-	if err != nil {
-		log.Println(err)
-	}
-
 	data := struct {
 		Feedback []string
 	}{
@@ -44,6 +38,7 @@ func (gic *SignUpController) Get(w http.ResponseWriter, r *http.Request) {
 	}
 
 	err = utils.RenderTemplate(w, gic.config.PageContext, data, "signedup.tmpl")
+
 	if err != nil {
 		log.Println(err)
 		return

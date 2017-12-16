@@ -1,7 +1,11 @@
 package models
 
-import "github.com/UniversityRadioYork/myradio-go"
-import "log"
+import (
+	"log"
+	"regexp"
+
+	"github.com/UniversityRadioYork/myradio-go"
+)
 
 // SignUpModel is the model for getting team data
 type SignUpModel struct {
@@ -28,12 +32,20 @@ func (m *SignUpModel) Post(formParams map[string][]string) (feedback []string, e
 	}
 	if formParams["eduroam"][0] == "" {
 		feedback = append(feedback, "You need to provide your york email")
+	} else {
+		match, _ := regexp.MatchString("^[a-z]{1,6}[0-9]{1,6}$", formParams["eduroam"][0])
+		if !match {
+			feedback = append(feedback, "The @york.ac.uk email you provided seems invalid")
+		}
 	}
 	if formParams["phone"][0] == "" {
 		delete(formParams, "phone")
 	}
 	if len(feedback) == 0 {
 		err = m.session.CreateNewUser(formParams)
+		if err != nil {
+			feedback = append(feedback, "Oops. Something went wrong on our end.")
+		}
 	}
 	return
 }
