@@ -29,6 +29,8 @@
 	mainFacebook = "URY1350"
 	newsTwitter = "URYNews"
 
+	odName = "((URY)) on Tap"
+
 	[[pageContext.pages]]
 		name = "Search"
 		url  = "search/"

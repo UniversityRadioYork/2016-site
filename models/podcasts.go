@@ -12,11 +12,11 @@ func NewPodcastModel(s *myradio.Session) *PodcastModel {
 	return &PodcastModel{Model{session: s}}
 }
 
-// Get gets the data required for the Podcast controller from MyRadio.
+// GetAllPodcasts gets the data required for the Podcast controller from MyRadio.
 //
 // On success, it returns the podcasts and nil
 // Otherwise, it returns undefined data and the error causing failure.
-func (m *PodcastModel) Get() (podcasts []myradio.Podcast, err error) {
+func (m *PodcastModel) GetAllPodcasts() (podcasts []myradio.Podcast, err error) {
 	podcasts, err = m.session.GetAllPodcasts()
 	if err != nil {
 		return
@@ -25,12 +25,12 @@ func (m *PodcastModel) Get() (podcasts []myradio.Podcast, err error) {
 	return
 }
 
-// GetPodcast gets the data required for the Podcast controller from MyRadio.
+// Get gets the data required for the Podcast controller from MyRadio.
 //
 // On success, it returns the users name, bio, a list of officerships, their photo if they have one and nil
 // Otherwise, it returns undefined data and the error causing failure.
-func (m *PodcastModel) GetPodcast(id) (podcast []myradio.Podcast, err error) {
-	podcasts, err = m.session.GetPodcast(id)
+func (m *PodcastModel) Get(id int) (podcast *myradio.Podcast, err error) {
+	podcast, err = m.session.Get(id)
 	if err != nil {
 		return
 	}

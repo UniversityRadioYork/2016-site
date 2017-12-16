@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"GitHub.com/gorilla/mux"
+	"github.com/gorilla/mux"
 
 	"github.com/UniversityRadioYork/2016-site/models"
 	"github.com/UniversityRadioYork/2016-site/structs"
@@ -24,12 +24,12 @@ func NewPodcastController(s *myradio.Session, c *structs.Config) *PodcastControl
 	return &PodcastController{Controller{session: s, config: c}}
 }
 
-// GetPodcasts handles the HTTP GET request r for the all postcasts page, writing to w.
-func (podcastsC *PodcastController) GetPodcasts(w http.ResponseWriter, r *http.Request) {
+// GetAllPodcasts handles the HTTP GET request r for the all postcasts page, writing to w.
+func (podcastsC *PodcastController) GetAllPodcasts(w http.ResponseWriter, r *http.Request) {
 
 	podcastm := models.NewPodcastModel(podcastsC.session)
 
-	podcasts, err := podcastm.Get()
+	podcasts, err := podcastm.GetAllPodcasts()
 
 	if err != nil {
 		//@TODO: Do something proper here, render 404 or something
@@ -74,7 +74,42 @@ func (podcastsC *PodcastController) Get(w http.ResponseWriter, r *http.Request) 
 		Podcast: podcast,
 	}
 
-	err = utils.RenderTemplate(w, podcastsC.config.PageContext, data, "podcast.tmpl")
+	err = utils.RenderTemplate(w, podcastsC.config.PageContext, data, "podcast.tmpl", "elements/podcast_player.tmpl")
+
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+}
+
+// GetEmbed handles the HTTP GET request r for a singular podcast embed, writing to w.
+func (podcastsC *PodcastController) GetEmbed(w http.ResponseWriter, r *http.Request) {
+
+	podcastm := models.NewPodcastModel(podcastsC.session)
+
+	vars := mux.Vars(r)
+
+	id, _ := strconv.Atoi(vars["id"])
+
+	podcast, err := podcastm.Get(id)
+
+	if err != nil {
+		//@TODO: Do something proper here, render 404 or something
+		log.Println(err)
+		return
+	}
+
+	data := struct {
+		Podcast *myradio.Podcast
+	}{
+		Podcast: podcast,
+	}
+
+	podcastsC.config.PageContext.PageNoOuter = true
+
+	err = utils.RenderTemplate(w, podcastsC.config.PageContext, data, "podcast_player.tmpl")
+
 	if err != nil {
 		log.Println(err)
 		return

@@ -54,9 +54,13 @@ func NewServer(c *structs.Config) (*Server, error) {
 	// This route exists so that day schedule links from the previous website aren't broken.
 	getRouter.HandleFunc("/schedule/{year:[1-9][0-9][0-9][0-9]}/w{week:[0-5]?[0-9]}/{day:[1-7]}/", schedWeekC.GetByYearWeek).Name("schedule-week-day-compat")
 
+	onDemandC := controllers.NewOnDemandController(session, c)
+	getRouter.HandleFunc("/uryplayer/", onDemandC.Get)
+
 	podcastsC := controllers.NewPodcastController(session, c)
-	getRouter.HandleFunc("/uryplayer/podcasts/", podcastsC.GetPodcasts)
+	getRouter.HandleFunc("/uryplayer/podcasts/", podcastsC.GetAllPodcasts)
 	getRouter.HandleFunc("/uryplayer/podcasts/{id:[0-9]+}/", podcastsC.Get)
+	getRouter.HandleFunc("/uryplayer/podcasts/{id:[0-9]+}/player/", podcastsC.GetEmbed)
 
 	pc := controllers.NewPeopleController(session, c)
 	getRouter.HandleFunc("/people/{id:[0-9]+}/", pc.Get)
