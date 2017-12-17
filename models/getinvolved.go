@@ -1,6 +1,5 @@
 package models
 
-import "fmt"
 import "github.com/UniversityRadioYork/myradio-go"
 
 // GetInvolvedModel is the model for getting data for the getinvolved controller
@@ -47,10 +46,5 @@ func (m *GetInvolvedModel) Get() (numTeams int, teamInterestLists map[int]*myrad
 			}
 		}
 	}
-	for k, v := range teamInterestLists {
-		fmt.Println(k)
-		fmt.Println(*v)
-	}
-
 	return
 }
