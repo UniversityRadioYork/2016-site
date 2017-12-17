@@ -1,7 +1,9 @@
 package models
 
 import (
+	"fmt"
 	"log"
+	"strconv"
 
 	"github.com/UniversityRadioYork/myradio-go"
 )
@@ -18,15 +20,25 @@ func NewSignUpModel(s *myradio.Session) *SignUpModel {
 
 // Post posts the data from the sign up form to the api
 //
-// On success, it returns undefined (lack of an error)
-// Otherwise, it returns feedback to the user and the error causing failure.
+// Returns an error or lack thereof based on success
 func (m *SignUpModel) Post(formParams map[string][]string) (err error) {
 	user, err := m.session.CreateNewUser(formParams)
 	if err != nil {
 		log.Println(err)
 		return
 	}
-	log.Println(user.MemberID)
-	log.Println(formParams["interest"])
+	for _, listID := range formParams["interest"] {
+		LID, err := strconv.Atoi(listID)
+		if err != nil {
+			fmt.Println(err)
+			fmt.Printf("Failed to subscribe to list %d:", LID)
+			continue
+		}
+		err = m.session.OptIn(user.MemberID, LID)
+		if err != nil {
+			fmt.Printf("Failed to subscribe to list %d:", LID)
+			fmt.Println(err)
+		}
+	}
 	return
 }
