@@ -8,7 +8,7 @@ type GetInvolvedModel struct {
 	Model
 }
 
-// NewTeamsModel returns a new GetInvolvedModel on the MyRadio session s.
+// NewGetInvolvedModel returns a new GetInvolvedModel on the MyRadio session s.
 func NewGetInvolvedModel(s *myradio.Session) *GetInvolvedModel {
 	return &GetInvolvedModel{Model{session: s}}
 }
