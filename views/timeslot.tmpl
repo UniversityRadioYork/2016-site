@@ -84,10 +84,11 @@
 </div>
 {{end}}
 
-{{if .Tracklist}}
+
 <div class="container-fluid bg-third">
   <div class="container p-3">
     <h2>Tracklist</h2>
+    {{if .Tracklist}}
     <table class="table">
       <thead>
         <tr>
@@ -106,8 +107,10 @@
       {{end}}
       </tbody>
     </table>
+    {{else}}
+    No tracklisting currently available.
+    {{end}}
   </div>
 </div>
-{{end}}
 {{end}}
 {{end}}
