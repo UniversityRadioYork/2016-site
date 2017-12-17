@@ -1,17 +1,5 @@
 {{define "title"}}{{.PageContext.ShortName}} | Sign Up{{end}}
 
-{{define "open-graph"}}
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@{{.PageContext.MainTwitter}}">
-<meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="en_GB">
-<meta property="og:title" content="{{.PageContext.LongName}} | Sign Up">
-<meta property="og:description" content="{{.PageContext.SiteDescription}}">
-<meta property="og:image" content="{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}">
-<meta property="og:url" content="{{.PageContext.FullURL}}{{url "/signup/"}}">
-{{end}}
-
 {{define "content"}}
 {{with .PageData}}
 
@@ -27,7 +15,7 @@
 </div>
 
 <div class="container-fluid container-padded bg-primary">
-	<div class="container container-padded">
+  <div class="container container-padded">
 {{if .Feedback}}
     <h1 class="text-center">Unsuccessful Sign up:</h1>
     <div class="row">
