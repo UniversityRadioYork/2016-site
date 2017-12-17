@@ -29,13 +29,13 @@ func (gic *SignUpController) Get(w http.ResponseWriter, r *http.Request) {
 
 	//Validate that necessary params are present and correct(enough)
 	if formParams["fname"][0] == "" {
-		feedback = append(feedback, "You need to provide your first name")
+		feedback = append(feedback, "You need to provide your First Name")
 	}
 	if formParams["sname"][0] == "" {
-		feedback = append(feedback, "You need to provide your second name")
+		feedback = append(feedback, "You need to provide your Last Name")
 	}
 	if formParams["eduroam"][0] == "" {
-		feedback = append(feedback, "You need to provide your york email")
+		feedback = append(feedback, "You need to provide your York Email")
 	} else {
 		match, _ := regexp.MatchString("^[a-z]{1,6}[0-9]{1,6}$", formParams["eduroam"][0])
 		if !match {
@@ -53,6 +53,7 @@ func (gic *SignUpController) Get(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Println(err)
 			feedback = append(feedback, "Oops. Something went wrong on our end.")
+			feedback = append(feedback, "Please try again later")
 		}
 	}
 

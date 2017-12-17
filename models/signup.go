@@ -30,14 +30,13 @@ func (m *SignUpModel) Post(formParams map[string][]string) (err error) {
 	for _, listID := range formParams["interest"] {
 		LID, err := strconv.Atoi(listID)
 		if err != nil {
-			fmt.Printf("Failed to subscribe to list %d:", LID)
-			fmt.Println(err)
+			log.Println(err)
 			continue
 		}
 		err = m.session.OptIn(user.MemberID, LID)
 		if err != nil {
 			fmt.Printf("Failed to subscribe to list %d:", LID)
-			fmt.Println(err)
+			log.Println(err)
 		}
 	}
 	return
