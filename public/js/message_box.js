@@ -5,7 +5,7 @@ function getCurrentShow() {
         if (data.status === "OK") {
             return data.payload.current;
         } else {
-            // eslint-disable-line no-console
+            // eslint-disable-next-line no-console
             console.error("API Error: " + data.status + " - " + data.payload);
             return;
         }
