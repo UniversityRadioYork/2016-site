@@ -1,12 +1,11 @@
 /*global myRadioAPIKey:false*/
-/*eslint no-undef: "error"*/
-/*eslint no-console: ["error", { allow: ["warn", "error"] }] */
 
 function getCurrentShow() {
     $.getJSON("https://ury.org.uk/api/v2/timeslot/currentandnext/?api_key=" + myRadioAPIKey, (data) => {
         if (data.status === "OK") {
             return data.payload.current;
         } else {
+            // eslint-disable-line no-console
             console.error("API Error: " + data.status + " - " + data.payload);
             return;
         }
