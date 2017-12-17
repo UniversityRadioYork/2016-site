@@ -3,6 +3,7 @@ package controllers
 import (
 	"log"
 	"net/http"
+	"regexp"
 
 	"github.com/UniversityRadioYork/2016-site/models"
 	"github.com/UniversityRadioYork/2016-site/structs"
@@ -23,13 +24,37 @@ func NewSignUpController(s *myradio.Session, c *structs.Config) *SignUpControlle
 
 // Post handles the HTTP POST request r for the get involved, writing to w.
 func (gic *SignUpController) Get(w http.ResponseWriter, r *http.Request) {
-
 	formParams := r.URL.Query()
-	log.Println(formParams)
+	var feedback []string
 
-	sm := models.NewSignUpModel(gic.session)
+	//Validate that necessary params are present and correct(enough)
+	if formParams["fname"][0] == "" {
+		feedback = append(feedback, "You need to provide your first name")
+	}
+	if formParams["sname"][0] == "" {
+		feedback = append(feedback, "You need to provide your second name")
+	}
+	if formParams["eduroam"][0] == "" {
+		feedback = append(feedback, "You need to provide your york email")
+	} else {
+		match, _ := regexp.MatchString("^[a-z]{1,6}[0-9]{1,6}$", formParams["eduroam"][0])
+		if !match {
+			feedback = append(feedback, "The @york.ac.uk email you provided seems invalid")
+		}
+	}
+	if formParams["phone"][0] == "" {
+		delete(formParams, "phone")
+	}
 
-	feedback, err := sm.Post(formParams)
+	//If they are then post them off to the API
+	if len(feedback) == 0 {
+		sm := models.NewSignUpModel(gic.session)
+		err := sm.Post(formParams)
+		if err != nil {
+			log.Println(err)
+			feedback = append(feedback, "Oops. Something went wrong on our end.")
+		}
+	}
 
 	data := struct {
 		Feedback []string
@@ -37,7 +62,7 @@ func (gic *SignUpController) Get(w http.ResponseWriter, r *http.Request) {
 		Feedback: feedback,
 	}
 
-	err = utils.RenderTemplate(w, gic.config.PageContext, data, "signedup.tmpl")
+	err := utils.RenderTemplate(w, gic.config.PageContext, data, "signedup.tmpl")
 
 	if err != nil {
 		log.Println(err)

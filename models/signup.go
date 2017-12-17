@@ -2,7 +2,6 @@ package models
 
 import (
 	"log"
-	"regexp"
 
 	"github.com/UniversityRadioYork/myradio-go"
 )
@@ -21,31 +20,13 @@ func NewSignUpModel(s *myradio.Session) *SignUpModel {
 //
 // On success, it returns undefined (lack of an error)
 // Otherwise, it returns feedback to the user and the error causing failure.
-func (m *SignUpModel) Post(formParams map[string][]string) (feedback []string, err error) {
-	//Validate that necessary params are present
-	log.Println("Length of fname list:")
-	if formParams["fname"][0] == "" {
-		feedback = append(feedback, "You need to provide your first name")
+func (m *SignUpModel) Post(formParams map[string][]string) (err error) {
+	user, err := m.session.CreateNewUser(formParams)
+	if err != nil {
+		log.Println(err)
+		return
 	}
-	if formParams["sname"][0] == "" {
-		feedback = append(feedback, "You need to provide your second name")
-	}
-	if formParams["eduroam"][0] == "" {
-		feedback = append(feedback, "You need to provide your york email")
-	} else {
-		match, _ := regexp.MatchString("^[a-z]{1,6}[0-9]{1,6}$", formParams["eduroam"][0])
-		if !match {
-			feedback = append(feedback, "The @york.ac.uk email you provided seems invalid")
-		}
-	}
-	if formParams["phone"][0] == "" {
-		delete(formParams, "phone")
-	}
-	if len(feedback) == 0 {
-		err = m.session.CreateNewUser(formParams)
-		if err != nil {
-			feedback = append(feedback, "Oops. Something went wrong on our end.")
-		}
-	}
+	log.Println(user.MemberID)
+	log.Println(formParams["interest"])
 	return
 }
