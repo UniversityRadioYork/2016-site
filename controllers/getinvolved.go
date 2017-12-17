@@ -24,9 +24,9 @@ func NewGetInvolvedController(s *myradio.Session, c *structs.Config) *GetInvolve
 // Get handles the HTTP GET request r for the get involved, writing to w.
 func (gic *GetInvolvedController) Get(w http.ResponseWriter, r *http.Request) {
 
-	tm := models.NewTeamsModel(gic.session)
+	gim := models.NewGetInvolvedModel(gic.session)
 
-	teams, err := tm.Get()
+	numTeams, listTeamMap, err := gim.Get()
 
 	if err != nil {
 		//@TODO: Do something proper here, render 404 or something
@@ -34,14 +34,12 @@ func (gic *GetInvolvedController) Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	numTeams := len(teams)
-
 	data := struct {
-		Teams    []myradio.Team
-		NumTeams int
+		NumTeams    int
+		ListTeamMap map[int]*myradio.Team
 	}{
-		Teams:    teams,
-		NumTeams: numTeams,
+		NumTeams:    numTeams,
+		ListTeamMap: listTeamMap,
 	}
 
 	err = utils.RenderTemplate(w, gic.config.PageContext, data, "getinvolved.tmpl")

@@ -125,24 +125,13 @@
               </select>
           </div>
         </fieldset>
-        <!-- More teams will be re-added once they have interest mailing lists -->
         <fieldset id="getinvolved-interest" class="col-md-6">
           <legend>I'm interested in the…</legend>
-          <input type="checkbox" name="interest" id="interest-ProdPres" value="26">
-          <label for="interest-ProdPres">Production &amp; Presenting Team</label>
-          <br>
-          <input type="checkbox" name="interest" id="interest-Music" value="29">
-          <label for="interest-Music">Music Team</label>
-          <br>
-          <input type="checkbox" name="interest" id="interest-News" value="24">
-          <label for="interest-News">News Team</label>
-          <br>
-          <input type="checkbox" name="interest" id="interest-Speech" value="28">
-          <label for="interest-Speech">Speech Team</label>
-          <br>
-          <input type="checkbox" name="interest" id="interest-Comp" value="23">
-          <label for="interest-Comp">Computing Team</label>
-          <br>
+          {{range $listID, $Team := .ListTeamMap}}
+            <input type="checkbox" name="interest" id="interest-{{$Team.Alias}}" value="{{$listID}}">
+            <label for="interest-{{$Team.Alias}}" title="{{html $Team.Description}}">{{$Team.Name}}</label>
+            <br>
+          {{end}}
           <br>
           <input type="submit" class="form-control">
         </fieldset>
