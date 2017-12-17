@@ -46,23 +46,21 @@ $search-button-color-hover: #000;
 .search-box-expand {
   input {
     // only do the animation when the nav is not collapsed
-    width: 70px;
-    transition-duration: $search-transition-time;
-    transition-delay: .1s;
+    width: 100%;
 
-    @include media-breakpoint-down(md) {
-      transition: none;
-      width: 100%;
+    @include media-breakpoint-up(md) {
+      width: 70px;
+      transition-duration: $search-transition-time;
+      transition-delay: .1s;
     }
 
     &:focus {
       // only do the animation when the nav is not collapsed
-      transition-duration: $search-transition-time;
-      width: 170px;
+      width: 100%;
 
-      @include media-breakpoint-down(md) {
-        transition: none;
-        width: 100%;
+      @include media-breakpoint-up(md) {
+        width: 170px;
+        transition-duration: $search-transition-time;
       }
     }
   }
