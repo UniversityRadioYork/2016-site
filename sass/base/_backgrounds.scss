@@ -24,6 +24,10 @@
 
 .bg-third {
   background: $third-color !important;
+
+  hr {
+    border-color: $off-white-color;
+  }
 }
 
 .bg-transparent {

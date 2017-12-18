@@ -1,0 +1,11 @@
+{{define "message_box"}}
+{{with .}}
+<h2>Send a Message</h2>
+<hr>
+<form id="studiomessage">
+  <textarea class="form-control" id="comments" name="comments" rows="4" placeholder="Why not send a message to the studio presenters? Have a bit of banter, share your opinions or simply request your favourite song?"></textarea>
+  <button id="messagesend"  class="btn btn-primary btn-block" type="submit" value="SEND MESSAGE">Send Message</button>
+</form>
+<p class="pt-1">You can also text on <a href="sms:+447851101313">07851 101 313</a></p>
+{{end}}
+{{end}}
