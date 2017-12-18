@@ -296,3 +296,19 @@ footer {
   margin-left: -15px;
   margin-right: -15px;
 }
+
+// Signed up page
+.card-logo-container {
+  height: 15rem;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  img {
+    max-width: 80%;
+    max-height: 80%;
+    width: auto;
+    height: auto;
+  }
+}
