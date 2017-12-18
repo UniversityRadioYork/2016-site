@@ -22,17 +22,15 @@ html {
   }
 
   &::-webkit-scrollbar-track {
-    background: $custom-scrollbar-color;
-    opacity: 0.1;
+    background: transparentize($custom-scrollbar-color, 0.9);
   }
 
   &::-webkit-scrollbar-thumb {
     border-radius: 7.5px;
-    background: $custom-scrollbar-color;
-    opacity: 0.7;
+    background: transparentize($custom-scrollbar-color, 0.3);
 
     &:hover {
-      opacity: 1;
+      background: $custom-scrollbar-color;
     }
   }
 }
