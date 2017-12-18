@@ -24,9 +24,13 @@ func NewOnDemandController(s *myradio.Session, c *structs.Config) *OnDemandContr
 // Get handles the HTTP GET request r for the  page, writing to w.
 func (onDemandC *OnDemandController) Get(w http.ResponseWriter, r *http.Request) {
 
-	OnDemandm := models.NewPodcastModel(onDemandC.session)
+	PodcastsM := models.NewPodcastModel(onDemandC.session)
 
-	latestPodcasts, err := OnDemandm.GetAllPodcasts()
+	latestPodcasts, err := PodcastsM.GetAllPodcasts()
+
+	OnDemandM := models.NewOnDemandModel(onDemandC.session)
+
+	latestTimeslots, err := OnDemandM.GetLastMixcloudTimeslots()
 
 	if err != nil {
 		//@TODO: Do something proper here, render 404 or something
@@ -35,9 +39,11 @@ func (onDemandC *OnDemandController) Get(w http.ResponseWriter, r *http.Request)
 	}
 
 	data := struct {
-		LatestPodcasts []myradio.Podcast
+		LatestPodcasts  []myradio.Podcast
+		LatestTimeslots *myradio.Timeslot
 	}{
-		LatestPodcasts: latestPodcasts,
+		LatestPodcasts:  latestPodcasts,
+		LatestTimeslots: latestTimeslots,
 	}
 
 	err = utils.RenderTemplate(w, onDemandC.config.PageContext, data, "on_demand.tmpl")

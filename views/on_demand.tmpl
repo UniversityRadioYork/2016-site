@@ -1,4 +1,4 @@
-{{define "title"}}{{.PageContext.ShortName}} | About{{end}}
+{{define "title"}}{{.PageContext.ShortName}} | {{.PageContext.ODName}}{{end}}
 
 {{define "open-graph"}}
 <meta name="twitter:card" content="summary_large_image">
@@ -13,7 +13,7 @@
 {{end}}
 
 {{define "content"}}
-<div class="container-fluid banner-2">
+<div class="container-fluid on-demand">
   <div class="container container-padded">
     <div class="row align-items-center text-center">
       <div class="col">
@@ -25,31 +25,30 @@
 </div>
 <div id="index-just-missed" class="container-fluid container-padded bg-primary">
   <h2>You Just Missed...</h2>
-  <div class="card-deck">
-    <div class="card">
-      <img class="card-img-top" src="..." alt="Card image cap">
-      <div class="card-block">
-        <h4 class="card-title">Card title</h4>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+  <div class="row scroll-horiz">
+    {{with .PageData.LatestTimeslots}}
+      <div class="col-11 col-sm-7 col-md-5 col-lg-4">
+        <div class="row">
+          <div class="col-md-4">
+            <img class="card-img-top img-fluid" src="
+            {{if .Season.ShowMeta.Photo}}
+            https://ury.org.uk{{.Season.ShowMeta.Photo}}
+            {{else}}
+              /images/show-current.png
+            {{end}}
+          " alt="{{.Title}} Logo">
+          </div>
+          <div class="col-md-8">
+            <div class="card-block bg-primary">
+              <h4 class="card-title ellipsis"><a href="/schedule/shows/timeslots/{{.TimeslotID}}/">{{.Title}}</a></h4>
+              <h5>{{.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}}</h5>
+              <p class="card-text ellipsis">{{html .Description}}</p>
+              <a href="/schedule/shows/timeslots/{{.TimeslotID}}/">Listen back...</a>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="card">
-      <img class="card-img-top" src="..." alt="Card image cap">
-      <div class="card-block">
-        <h4 class="card-title">Card title</h4>
-        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-      </div>
-    </div>
-    <div class="card">
-      <img class="card-img-top" src="..." alt="Card image cap">
-      <div class="card-block">
-        <h4 class="card-title">Card title</h4>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-      </div>
-    </div>
+    {{end}}
   </div>
 </div>
 <div id="index-videos" class="container-fluid container-padded bg-secondary">
@@ -114,6 +113,6 @@
 var youtubeAPIKey = {{.PageContext.Youtube.APIKey}};
 var youtubePlaylistID = "{{.PageContext.Youtube.PlaylistID}}";
 </script>
-<script src='{{url "js/index.js"}}'></script>
+<script src='{{url "/js/index.js"}}'></script>
 <script src="https://apis.google.com/js/client.js?onload=onGoogleLoad"></script>
 {{end}}
