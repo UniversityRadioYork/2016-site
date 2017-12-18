@@ -13,3 +13,16 @@ html {
   padding-top: 1em;
   padding-bottom: 1em;
 }
+
+
+.custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 15px;
+    height: 15px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+	&::-webkit-scrollbar-thumb {
+    border-radius: 7.5px;
+    background: white;
+	}
+}
