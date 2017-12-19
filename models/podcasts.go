@@ -18,9 +18,16 @@ func NewPodcastModel(s *myradio.Session) *PodcastModel {
 // Otherwise, it returns undefined data and the error causing failure.
 func (m *PodcastModel) GetAllPodcasts() (podcasts []myradio.Podcast, err error) {
 	//Get 10 podcasts from page 0 (the latest podcasts)
-	podcasts, err = m.session.GetAllPodcasts(10, 0)
+	allpodcasts := make([]myradio.Podcast, 10)
+	allpodcasts, err = m.session.GetAllPodcasts(10, 0)
 	if err != nil {
 		return
+	}
+
+	for i, p := range allpodcasts {
+		if p.Status == "Published" {
+			podcasts = append(podcasts, allpodcasts[i])
+		}
 	}
 
 	return

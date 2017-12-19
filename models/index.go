@@ -33,10 +33,18 @@ func (m *IndexModel) Get() (currentAndNext *myradio.CurrentAndNext, banners []my
 	if err != nil {
 		return
 	}
-	//Get 10 podcasts from the latest page (page 0)
-	podcasts, err = m.session.GetAllPodcasts(10, 0)
+
+	//Get 10 podcasts from page 0 (the latest podcasts)
+	allpodcasts := make([]myradio.Podcast, 10)
+	allpodcasts, err = m.session.GetAllPodcasts(10, 0)
 	if err != nil {
 		return
+	}
+
+	for i, p := range allpodcasts {
+		if p.Status == "Published" {
+			podcasts = append(podcasts, allpodcasts[i])
+		}
 	}
 
 	return
