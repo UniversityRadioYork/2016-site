@@ -12,7 +12,7 @@ import (
 	"github.com/UniversityRadioYork/myradio-go"
 )
 
-// So I can sort colleges properly
+// CollegeSorter exists so I can sort colleges properly
 type CollegeSorter []myradio.College
 
 // Implement sort.Interface
@@ -24,7 +24,7 @@ func (s CollegeSorter) Swap(i, j int) {
 }
 func (s CollegeSorter) Less(i, j int) bool {
 	if strings.Contains(s[i].CollegeName, "N/A") || strings.Contains(s[i].CollegeName, "Unknown") {
-		return false
+		return true
 	}
 	return s[i].CollegeName < s[j].CollegeName
 }
