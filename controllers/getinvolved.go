@@ -53,7 +53,7 @@ func (gic *GetInvolvedController) Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//Sort Colleges Alphabetically, with N/A and Unknown at the end
+	//Sort Colleges Alphabetically, with N/A and Unknown at the start
 	sort.Sort(CollegeSorter(colleges))
 
 	data := struct {
