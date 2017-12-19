@@ -29,7 +29,6 @@ func NewServer(c *structs.Config) (*Server, error) {
 	router := mux.NewRouter().StrictSlash(true)
 
 	getRouter := router.Methods("GET").Subrouter()
-	//postRouter := router.Methods("POST").Subrouter()
 
 	// Routes go in here
 	nfc := controllers.NewNotFoundController(c)
