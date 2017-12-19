@@ -17,7 +17,8 @@ func NewPodcastModel(s *myradio.Session) *PodcastModel {
 // On success, it returns the podcasts and nil
 // Otherwise, it returns undefined data and the error causing failure.
 func (m *PodcastModel) GetAllPodcasts() (podcasts []myradio.Podcast, err error) {
-	podcasts, err = m.session.GetAllPodcasts()
+	//Get 10 podcasts from page 0 (the latest podcasts)
+	podcasts, err = m.session.GetAllPodcasts(10, 0)
 	if err != nil {
 		return
 	}
