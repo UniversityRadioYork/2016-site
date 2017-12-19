@@ -3,12 +3,31 @@ package controllers
 import (
 	"log"
 	"net/http"
+	"sort"
+	"strings"
 
 	"github.com/UniversityRadioYork/2016-site/models"
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/2016-site/utils"
 	"github.com/UniversityRadioYork/myradio-go"
 )
+
+// CollegeSorter exists so I can sort colleges properly
+type CollegeSorter []myradio.College
+
+// Implement sort.Interface
+func (s CollegeSorter) Len() int {
+	return len(s)
+}
+func (s CollegeSorter) Swap(i, j int) {
+	s[i], s[j] = s[j], s[i]
+}
+func (s CollegeSorter) Less(i, j int) bool {
+	if strings.Contains(s[i].CollegeName, "N/A") || strings.Contains(s[i].CollegeName, "Unknown") {
+		return true
+	}
+	return s[i].CollegeName < s[j].CollegeName
+}
 
 // GetInvolvedController is the controller for the get involved page.
 type GetInvolvedController struct {
@@ -24,9 +43,9 @@ func NewGetInvolvedController(s *myradio.Session, c *structs.Config) *GetInvolve
 // Get handles the HTTP GET request r for the get involved, writing to w.
 func (gic *GetInvolvedController) Get(w http.ResponseWriter, r *http.Request) {
 
-	tm := models.NewTeamsModel(gic.session)
+	gim := models.NewGetInvolvedModel(gic.session)
 
-	teams, err := tm.Get()
+	colleges, numTeams, listTeamMap, err := gim.Get()
 
 	if err != nil {
 		//@TODO: Do something proper here, render 404 or something
@@ -34,14 +53,17 @@ func (gic *GetInvolvedController) Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	numTeams := len(teams)
+	//Sort Colleges Alphabetically, with N/A and Unknown at the start
+	sort.Sort(CollegeSorter(colleges))
 
 	data := struct {
-		Teams    []myradio.Team
-		NumTeams int
+		Colleges    []myradio.College
+		NumTeams    int
+		ListTeamMap map[int]*myradio.Team
 	}{
-		Teams:    teams,
-		NumTeams: numTeams,
+		Colleges:    colleges,
+		NumTeams:    numTeams,
+		ListTeamMap: listTeamMap,
 	}
 
 	err = utils.RenderTemplate(w, gic.config.PageContext, data, "getinvolved.tmpl")
