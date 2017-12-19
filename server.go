@@ -29,7 +29,7 @@ func NewServer(c *structs.Config) (*Server, error) {
 	router := mux.NewRouter().StrictSlash(true)
 
 	getRouter := router.Methods("GET").Subrouter()
-	//postRouter := router.Methods("POST").Subrouter()
+	postRouter := router.Methods("POST").Subrouter()
 
 	// Routes go in here
 	nfc := controllers.NewNotFoundController(c)
@@ -62,7 +62,7 @@ func NewServer(c *structs.Config) (*Server, error) {
 	getRouter.HandleFunc("/getinvolved/", getinvolvedC.Get)
 
 	signupC := controllers.NewSignUpController(session, c)
-	getRouter.HandleFunc("/signup/", signupC.Get)
+	postRouter.HandleFunc("/signup/", signupC.Post)
 
 	staticC := controllers.NewStaticController(c)
 	getRouter.HandleFunc("/about/", staticC.GetAbout)

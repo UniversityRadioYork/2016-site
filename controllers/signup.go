@@ -22,9 +22,10 @@ func NewSignUpController(s *myradio.Session, c *structs.Config) *SignUpControlle
 	return &SignUpController{Controller{session: s, config: c}}
 }
 
-// Get handles the HTTP GET request r for the get involved, writing to w.
-func (gic *SignUpController) Get(w http.ResponseWriter, r *http.Request) {
-	formParams := r.URL.Query()
+// Post handles the HTTP POST request r for the get involved, writing to w.
+func (gic *SignUpController) Post(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	formParams := r.Form
 	var feedback []string
 
 	//Validate that necessary params are present and correct(enough)
