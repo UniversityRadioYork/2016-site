@@ -17,7 +17,12 @@ func NewGetInvolvedModel(s *myradio.Session) *GetInvolvedModel {
 // On success, it returns all the current teams, and a map from listID to
 //     the team associated with that list
 // Otherwise, it returns undefined data and the error causing failure.
-func (m *GetInvolvedModel) Get() (numTeams int, teamInterestLists map[int]*myradio.Team, err error) {
+func (m *GetInvolvedModel) Get() (colleges []myradio.College, numTeams int, teamInterestLists map[int]*myradio.Team, err error) {
+	// Get a list of the colleges and IDs
+	colleges, err = m.session.GetColleges()
+	if err != nil {
+		return
+	}
 	// Get the currently active teams
 	currentTeams, err := m.session.GetCurrentTeams()
 	if err != nil {

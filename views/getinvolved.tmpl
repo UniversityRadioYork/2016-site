@@ -118,16 +118,9 @@
               <div class="form-group">
                   <label for="college">College</label>
                   <select id="college" name="college" class="form-control">
-                    <option value="10">Unknown</option>
-                    <option value="1">Alcuin</option>
-                    <option value="11">Constantine</option>
-                    <option value="2">Derwent</option>
-                    <option value="3">Goodricke</option>
-                    <option value="4">Halifax</option>
-                    <option value="5">James</option>
-                    <option value="6">Langwith</option>
-                    <option value="7">Vanbrugh</option>
-                    <option value="8">Wentworth</option>
+                    {{range .Colleges}}
+                      <option value="{{.CollegeId}}">{{.CollegeName}}</option>
+                    {{end}}
                   </select>
               </div>
             </fieldset>

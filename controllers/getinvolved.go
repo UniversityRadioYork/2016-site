@@ -26,7 +26,7 @@ func (gic *GetInvolvedController) Get(w http.ResponseWriter, r *http.Request) {
 
 	gim := models.NewGetInvolvedModel(gic.session)
 
-	numTeams, listTeamMap, err := gim.Get()
+	colleges, numTeams, listTeamMap, err := gim.Get()
 
 	if err != nil {
 		//@TODO: Do something proper here, render 404 or something
@@ -35,9 +35,11 @@ func (gic *GetInvolvedController) Get(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := struct {
+		Colleges    []myradio.College
 		NumTeams    int
 		ListTeamMap map[int]*myradio.Team
 	}{
+		Colleges:    colleges,
 		NumTeams:    numTeams,
 		ListTeamMap: listTeamMap,
 	}
