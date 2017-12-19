@@ -19,12 +19,12 @@ html {
   &::-webkit-scrollbar {
     width: 12px;
     height: 12px;
-	}
+  }
 
-	&::-webkit-scrollbar-track {
-		background: $custom-scrollbar-color;
-		opacity: 0.1;
-	}
+  &::-webkit-scrollbar-track {
+    background: $custom-scrollbar-color;
+    opacity: 0.1;
+  }
 
   &::-webkit-scrollbar-thumb {
     border-radius: 7.5px;
