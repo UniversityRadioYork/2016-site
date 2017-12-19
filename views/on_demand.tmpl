@@ -56,6 +56,7 @@
   <div id="youtube-video-slider" class="row scroll-horiz">
   </div>
 </div>
+{{if .PageData.LatestPodcasts}}
 <div id="index-uryplayer" class="container-fluid container-padded bg-third">
   <h2>Latest Podcasts</h2>
   <div class="row scroll-horiz">
@@ -74,7 +75,8 @@
     </div>
     {{end}}
   </div>
-</div> <!-- /outer containter -->
+</div>
+{{end}}
 {{end}}
 
 {{define "footer-scripts"}}
