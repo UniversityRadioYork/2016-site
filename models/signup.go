@@ -22,7 +22,7 @@ func NewSignUpModel(s *myradio.Session) *SignUpModel {
 //
 // Returns an error or lack thereof based on success
 func (m *SignUpModel) Post(formParams map[string][]string) (err error) {
-	user, err := m.session.CreateNewUser(formParams)
+	user, err := m.session.CreateOrActivateUser(formParams)
 	if err != nil {
 		log.Println(err)
 		return
