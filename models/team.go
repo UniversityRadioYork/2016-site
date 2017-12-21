@@ -16,8 +16,19 @@ func NewTeamModel(s *myradio.Session) *TeamModel {
 //
 // On success, it returns the users name, bio, a list of officerships, their photo if they have one and nil
 // Otherwise, it returns undefined data and the error causing failure.
-func (m *TeamModel) Get(id int) (currentAndNext *myradio.CurrentAndNext, err error) {
-	currentAndNext, err = m.session.GetCurrentAndNext()
+func (m *TeamModel) Get(alias string) (team myradio.Team, heads []myradio.Officer, assistants []myradio.Officer, err error) {
+	team, err = m.session.GetTeamWithOfficers(alias)
+	if err != nil {
+		return
+	}
+	var teamID int
+	teamID = int(team.TeamID)
+
+	heads, err = m.session.GetTeamHeadPositions(teamID, nil)
+	if err != nil {
+		return
+	}
+	assistants, err = m.session.GetTeamAssistantHeadPositions(teamID, nil)
 	if err != nil {
 		return
 	}

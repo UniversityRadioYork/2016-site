@@ -3,7 +3,6 @@ package controllers
 import (
 	"log"
 	"net/http"
-	"strconv"
 
 	"github.com/UniversityRadioYork/2016-site/models"
 	"github.com/UniversityRadioYork/2016-site/structs"
@@ -30,9 +29,9 @@ func (teamC *TeamController) Get(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
 
-	id, _ := strconv.Atoi(vars["id"])
+	alias, _ := vars["alias"]
 
-	currentAndNext, err := teamM.Get(id)
+	team, heads, assistants, err := teamM.Get(alias)
 
 	if err != nil {
 		//@TODO: Do something proper here, render 404 or something
@@ -41,12 +40,16 @@ func (teamC *TeamController) Get(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := struct {
-		CurrentAndNext *myradio.CurrentAndNext
+		Team       myradio.Team
+		Heads      []myradio.Officer
+		Assistants []myradio.Officer
 	}{
-		CurrentAndNext: currentAndNext,
+		Team:       team,
+		Heads:      heads,
+		Assistants: assistants,
 	}
 
-	err = utils.RenderTemplate(w, teamC.config.PageContext, data, "team.tmpl", "elements/current_and_next.tmpl")
+	err = utils.RenderTemplate(w, teamC.config.PageContext, data, "team.tmpl")
 	if err != nil {
 		log.Println(err)
 		return

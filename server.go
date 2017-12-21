@@ -60,7 +60,7 @@ func NewServer(c *structs.Config) (*Server, error) {
 
 	teamC := controllers.NewTeamController(session, c)
 	getRouter.HandleFunc("/teams/", teamC.GetAll)
-	getRouter.HandleFunc("/teams/{id:[0-9]+}/", teamC.Get)
+	getRouter.HandleFunc("/teams/{alias}/", teamC.Get)
 
 	getinvolvedC := controllers.NewGetInvolvedController(session, c)
 	getRouter.HandleFunc("/getinvolved/", getinvolvedC.Get)

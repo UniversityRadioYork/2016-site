@@ -1,65 +1,55 @@
 {{define "content"}}
 	{{with .PageData}}
-			<div class="container outer header-large current-next">
-		    <div class="container mobile-hide">
-
-				{{template "current_and_next" .}}
-
-			</div><!-- /.container -->
-		</div><!-- /outer containter -->
-
-		<div class="container outer">
-			<div class="container">
-				<h1 class="page-title">Computing Team</h1>
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam porta sed nulla vitae porta. Phasellus gravida ipsum ac malesuada commodo. Vestibulum ut turpis non arcu hendrerit efficitur in eu odio. Aenean feugiat risus tempus hendrerit euismod. Donec est elit, elementum sed sem ut, luctus fringilla magna. Phasellus pellentesque enim ac vulputate pulvinar. Pellentesque luctus dignissim enim, sed maximus nunc egestas vitae.
-				</p>
-				<p>
-					Morbi imperdiet magna vel massa interdum laoreet. Cras diam tellus, gravida vel justo vel, laoreet posuere augue. In vel nisl placerat, blandit velit sed, lobortis tellus. In eget ipsum risus. Cras bibendum, justo sit amet consequat ornare, eros arcu interdum erat, aliquet vestibulum dolor purus sed erat. Integer fringilla est ut nisl blandit, ut facilisis augue ultrices. Mauris sit amet quam aliquet, auctor ex tristique, egestas elit. Aenean eget enim sit amet ex imperdiet tempor. Donec fringilla leo vitae hendrerit dapibus. Ut augue elit, commodo eu mauris nec, eleifend sagittis ipsum. In sit amet vestibulum arcu, eget fringilla ante.
-				</p>
-				<p>
-					Sed at luctus turpis, quis consectetur nibh. Aenean posuere, tellus a ultrices ornare, diam lorem tincidunt ligula, vitae tempus eros velit eget ante. Cras ullamcorper ac nisi in congue. Pellentesque velit dui, ultricies sed est vel, vestibulum laoreet ex. Mauris sit amet consequat tortor, non lobortis lorem. Fusce nisl arcu, commodo vitae justo tristique, venenatis mattis metus. Nulla condimentum tortor eget fermentum congue. Proin in varius nulla. Nunc vel imperdiet lacus. Donec nunc mi, venenatis vitae venenatis euismod, vehicula ac dui. Ut laoreet felis sit amet massa venenatis, eu tempor diam eleifend. Interdum et malesuada fames ac ante ipsum primis in faucibus.
-				</p>
+		<div class="container-fluid banner-2 text-overlay">
+			<div class="container container-padded">
+				<div class="row justify-content-center">
+					<div class="text-center">
+						<h1 class="display-4">Our Teams</h1>
+						<h2 class="display-5">The people who make URY happen!</h2>
+						<br>
+						<a href="/getinvolved/#signUp" class="btn btn-primary-inverse btn-md">Be part of one!</a>
+					</div>
+				</div>
 			</div>
-    </div> <!-- /outer containter -->
-		<div class="container outer container-darkBlue">
-			<div class="container">
-				<h2>The Team</h2>
+		</div>
+		{{with .Team}}
+		<div class="container-fluid">
+			<div class="container container-padded">
+				<h1 class="page-title">{{.Name}}</h1>
+				<p>{{html .Description}}</p>
+			</div>
+		</div>
+		{{end}}
+		<div class="container-fluid bg-third">
+			<div class="container container-padded">
+				<h2>Team Officers</h2>
 				<div class="row">
-					<div class="col-md-6">
-						<h3>Head of Computing <a href="mailto:head-of-computing@ury.org.uk"><span class="glyphicon glyphicon-envelope"></span></a></h3>
-						<ul class="people-credits-list">
-							<li>
+				{{range .Heads}}
+					<div class="col-12 col-sm-6 col-md-4 col-lg-3">
+						<h3>{{.Position.Name}}<a href="mailto:head-of-computing@ury.org.uk"><span class="glyphicon glyphicon-envelope"></span></a></h3>
 								<figure>
-									<a href="#" title="Goto Brooke Hatton's profile">
-										<img src="/images/people-profile.jpg" alt="Photo of Brooke Hatton">
-										<figcaption>Brooke Hatton</figcaption>
+									<a href="/people/{{.User.MemberID}}" title="Goto {{.User.Fname}} {{.User.Sname}}'s profile">
+										<div class="user-img">
+											<img class="img-fluid" src="https://ury.org.uk{{.User.Photo}}" alt="Photo of {{.User.Fname}} {{.User.Sname}}">
+										</div>
+										<figcaption>{{.User.Fname}} {{.User.Sname}}</figcaption>
 									</a>
 								</figure>
-							</li>
-						</ul>
 					</div>
-					<div class="col-md-6">
-						<h3>Assistant Head of Computing <a href="mailto:assistant-of-computing@ury.org.uk"><span class="glyphicon glyphicon-envelope"></span></a></h3>
-						<ul class="people-credits-list">
-							<li>
+				{{end}}
+				{{range .Assistants}}
+					<div class="col-12 col-sm-6 col-md-4 col-lg-3">
+						<h3>{{.Position.Name}}<a href="mailto:head-of-computing@ury.org.uk"><span class="glyphicon glyphicon-envelope"></span></a></h3>
 								<figure>
-									<a href="#" title="Goto Brooke Hatton's profile">
-										<img src="/images/people-profile.jpg" alt="Photo of Brooke Hatton">
-										<figcaption>Brooke Hatton</figcaption>
+									<a href="/people/{{.User.MemberID}}" title="Goto {{.User.Fname}} {{.User.Sname}}'s profile">
+										<div class="user-img">
+											<img class="img-fluid" src="https://ury.org.uk{{.User.Photo}}" alt="Photo of {{.User.Fname}} {{.User.Sname}}">
+										</div>
+										<figcaption>{{.User.Fname}} {{.User.Sname}}</figcaption>
 									</a>
 								</figure>
-							</li>
-							<li>
-								<figure>
-									<a href="#" title="Goto Brooke Hatton's profile">
-										<img src="/images/people-profile.jpg" alt="Photo of Brooke Hatton">
-										<figcaption>Brooke Hatton</figcaption>
-									</a>
-								</figure>
-							</li>
-						</ul>
 					</div>
+				{{end}}
 				</div>
 			</div>
 		</div>
