@@ -43,7 +43,7 @@ func (ic *IndexController) Get(w http.ResponseWriter, r *http.Request) {
 		Teams:          teams,
 	}
 
-	err = utils.RenderTemplate(w, ic.config.PageContext, data, "index.tmpl", "elements/current_and_next.tmpl", "elements/banner.tmpl")
+	err = utils.RenderTemplate(w, ic.config.PageContext, data, "index.tmpl", "elements/current_and_next.tmpl", "elements/banner.tmpl", "elements/message_box.tmpl")
 	if err != nil {
 		log.Println(err)
 		return

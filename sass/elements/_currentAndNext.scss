@@ -2,7 +2,15 @@
   background: url("/images/bg-banner-1.jpg") center center no-repeat;
   background-size: cover;
   color: white;
-  padding: 10em 0;
+
+  // Padding for mobile
+  padding: calc(5em + 60px) 0 5em;
+
+  // Padding for desktop
+  @include media-breakpoint-up(md) {
+    // Remove the height of the nav bar roughly 60px
+    padding: calc(8em + 60px) 0 8em;
+  }
 }
 
 .current-and-next {

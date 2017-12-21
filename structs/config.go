@@ -30,8 +30,10 @@ type PageContext struct {
 	MainTwitter     string `toml:"mainTwitter"`
 	MainFacebook    string `toml:"mainFacebook"`
 	NewsTwitter     string `toml:"newsTwitter"`
+	MyRadioAPIKey   string `toml:"myRadioAPIKey"`
 	Pages           []Page
 	Youtube         youtube
+	Gmaps           gmaps
 }
 
 // ScheduleConfig is a structure configuring the schedule views.
@@ -54,4 +56,10 @@ type Page struct {
 type youtube struct {
 	APIKey     string `toml:"apiKey"`
 	PlaylistID string `toml:"playlistID"`
+}
+
+type gmaps struct {
+	APIKey string  `toml:"apiKey"`
+	Lat    float32 `toml:"latitude"`
+	Lng    float32 `toml:"longitude"`
 }

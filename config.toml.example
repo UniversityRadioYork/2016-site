@@ -29,6 +29,8 @@
 	mainFacebook = "URY1350"
 	newsTwitter = "URYNews"
 
+	myRadioAPIKey = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
 	[[pageContext.pages]]
 		name = "Search"
 		url  = "search/"
@@ -36,6 +38,11 @@
 	[pageContext.youtube]
 		APIKey = "AIzaSyCzI5Gvpq1hPlfjvB81EVc0vLv_11eW7NI"
 		playlistID = "PLsxUDJzU4VKDudlmlYb-ImFKreFKAfFln"
+
+	[pageContext.gmaps]
+		APIKey = "AIzaSyACeeyIgdIhiSxV01OIPiA3MyJDqrOspLQ"
+		latitude = 53.948193
+		longitude = -1.054030
 
 # This is config for the schedule renderer
 [schedule]

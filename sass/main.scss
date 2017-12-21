@@ -34,6 +34,12 @@ html {
 
 }
 
+@include media-breakpoint-down(lg) {
+  .container {
+    max-width: none;
+  }
+}
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 
 .header, .footer {
@@ -113,7 +119,7 @@ footer {
     background-size: cover;
     position: absolute;
     width: 100%;
-  }  
+  }
 }
 
 .card .card-img-top.rounded-circle {
@@ -195,10 +201,6 @@ footer {
   }
 }
 
-.container-narrow > hr {
-  margin: 30px 0;
-}
-
 /* Main marketing message and sign up button */
 
 .jumbotron {
@@ -246,7 +248,10 @@ footer {
 
 .show-img {
   border: #e1e1e1 7px solid;
-  margin-top: -3em;
+
+  @include media-breakpoint-up(md) {
+    margin-top: -3em;
+  }
 }
 
 .tag {
@@ -273,4 +278,36 @@ footer {
 
 .schedule-blocks-regular {
   @include schedule-blocks($blocks-regular-color);
+}
+
+
+// Styling for responsive map
+.map-container {
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.res-map {
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 22.25%;
+  padding-top: 30px;
+}
+
+// Signed up page
+.card-logo-container {
+  height: 15rem;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  img {
+    max-width: 80%;
+    max-height: 80%;
+    width: auto;
+    height: auto;
+  }
 }
