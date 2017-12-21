@@ -53,3 +53,30 @@ func (teamC *TeamController) Get(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
+
+// GetAll handles the HTTP GET request r for the all teams page, writing to w.
+func (teamC *TeamController) GetAll(w http.ResponseWriter, r *http.Request) {
+
+	teamM := models.NewTeamModel(teamC.session)
+
+	currentAndNext, err := teamM.GetAll()
+
+	if err != nil {
+		//@TODO: Do something proper here, render 404 or something
+		log.Println(err)
+		return
+	}
+
+	data := struct {
+		CurrentAndNext *myradio.CurrentAndNext
+	}{
+		CurrentAndNext: currentAndNext,
+	}
+
+	err = utils.RenderTemplate(w, teamC.config.PageContext, data, "teams.tmpl", "elements/current_and_next.tmpl")
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+}
