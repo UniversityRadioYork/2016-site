@@ -28,10 +28,12 @@ func (m *TeamModel) Get(id int) (currentAndNext *myradio.CurrentAndNext, err err
 //
 // On success, it returns the team information and nil
 // Otherwise, it returns undefined data and the error causing failure.
-func (m *TeamModel) GetAll() (currentAndNext *myradio.CurrentAndNext, err error) {
-	currentAndNext, err = m.session.GetCurrentAndNext()
+func (m *TeamModel) GetAll() (teams []myradio.Team, err error) {
+
+	teams, err = m.session.GetCurrentTeams()
 	if err != nil {
 		return
 	}
+
 	return
 }
