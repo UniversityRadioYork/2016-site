@@ -1,48 +1,47 @@
 {{define "content"}}
 	{{with .PageData}}
 	<div class="container-fluid banner-2 text-overlay">
-		<div class="container container-padded">
+		<div class="container">
 			<div class="row justify-content-center">
 				<div class="text-center">
-					<h1 class="display-2">Our Teams</h1>
+					<h1 class="display-3">Our Teams</h1>
 					<h2 class="display-4">The people who make URY happen!</h2>
 					<br>
-					<a href="/getinvolved/#signUp" class="btn btn-primary-inverse btn-xl">Be part of one!</a>
+					<a href="{{url "/getinvolved/#signUp"}}" class="btn btn-primary-inverse btn-lg">Be part of one!</a>
 				</div>
 			</div>
 		</div>
 	</div>
-
-		<div class="container-fluid bg-third">
-			<div class="container">
-				<h1 class="page-title">Maybe a group?</h1>
-				<div class="row">
-					{{range .Teams}}
-					<div class="col-12 col-sm-6 col-md-4 mb-4">
-						<div class="card text-dark">
-							<img class="card-img-top" src="/images/show-current.png" alt="Card image">
-							<div class="card-body">
-								<h4 class="card-title">
-									<a href="{{.Alias}}/" title="Goto the {{.Name}} page.">{{.Name}}</a>
-								</h4>
-								<p class="card-text">{{html .Description}}</p>
-							</div>
+	<div class="container-fluid bg-primary">
+		<div class="container container-padded">
+			<h3>Get Involved</h3>
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam porta sed nulla vitae porta. Phasellus gravida ipsum ac malesuada commodo. Vestibulum ut turpis non arcu hendrerit efficitur in eu odio. Aenean feugiat risus tempus hendrerit euismod. Donec est elit, elementum sed sem ut, luctus fringilla magna. Phasellus pellentesque enim ac vulputate pulvinar. Pellentesque luctus dignissim enim, sed maximus nunc egestas vitae.
+			</p>
+			<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam porta sed nulla vitae porta. Phasellus gravida ipsum ac malesuada commodo. Vestibulum ut turpis non arcu hendrerit efficitur in eu odio. Aenean feugiat risus tempus hendrerit euismod. Donec est elit, elementum sed sem ut, luctus fringilla magna. Phasellus pellentesque enim ac vulputate pulvinar. Pellentesque luctus dignissim enim, sed maximus nunc egestas vitae.
+			</p>
+		</div>
+	</div>
+	<div class="container-fluid bg-third">
+		<div class="container container-padded">
+			<h1 class="page-title">Maybe a group?</h1>
+			<div class="row">
+				{{range .Teams}}
+				<div class="col-12 col-sm-6 col-md-4 my-3">
+					<div class="card text-dark">
+						<img class="card-img-top" src="/images/show-current.png" alt="Card image">
+						<div class="card-body">
+							<h4 class="card-title">
+								<a href="{{.Alias}}/" title="Goto the {{.Name}} page.">{{.Name}}</a>
+							</h4>
+							<p class="card-text">{{html .Description}}</p>
 						</div>
 					</div>
-					{{end}}
 				</div>
-			</div>
-    </div> <!-- /outer containter -->
-		<div class="container outer container-blue">
-			<div class="container">
-				<h2>Get Involved</h2>
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam porta sed nulla vitae porta. Phasellus gravida ipsum ac malesuada commodo. Vestibulum ut turpis non arcu hendrerit efficitur in eu odio. Aenean feugiat risus tempus hendrerit euismod. Donec est elit, elementum sed sem ut, luctus fringilla magna. Phasellus pellentesque enim ac vulputate pulvinar. Pellentesque luctus dignissim enim, sed maximus nunc egestas vitae.
-				</p>
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam porta sed nulla vitae porta. Phasellus gravida ipsum ac malesuada commodo. Vestibulum ut turpis non arcu hendrerit efficitur in eu odio. Aenean feugiat risus tempus hendrerit euismod. Donec est elit, elementum sed sem ut, luctus fringilla magna. Phasellus pellentesque enim ac vulputate pulvinar. Pellentesque luctus dignissim enim, sed maximus nunc egestas vitae.
-				</p>
+				{{end}}
 			</div>
 		</div>
+	</div>
 	{{end}}
 {{end}}
