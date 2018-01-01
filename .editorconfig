@@ -2,6 +2,7 @@
 root = true
 
 [*]
+indent_size = 2
 indent_style = space
 charset = utf-8
 trim_trailing_whitespace = true
@@ -9,13 +10,11 @@ insert_final_newline = true
 
 [*.md]
 trim_trailing_whitespace = false
+indent_size = 4
 
 [Makefile]
 indent_style = tab
-
-; YAML, TOML
-[*.{yaml,yml,toml,tml,js,scss}]
-indent_size = 2
+indent_size = 4
 
 ; MyRadio API Key
 [.myradio.key]
