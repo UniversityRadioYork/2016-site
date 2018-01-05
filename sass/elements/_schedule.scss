@@ -1,0 +1,90 @@
+.schedule-blocks-regular {
+    background-color: $primary-color;
+    a {
+        color: $off-white-color;
+    } 
+    &:hover {
+        background-color: tint($primary-color, 60%);
+    } 
+}
+
+.schedule-blocks-sustainer {
+    background-color: $secondary-color;
+    color: $off-white-color;
+}
+
+.schedule-blocks-flagship {
+    background-color: $gold;
+    a {
+        color: $black;
+    }
+    &:hover {
+        background-color: tint($gold, 60%);
+    }
+}
+
+.schedule-blocks-news {
+    background-color: $news-maroon;
+    a {
+        color: $off-white-color;
+    }
+    &:hover {
+        background-color: tint($news-maroon, 60%);
+    }
+}
+
+.schedule-blocks-speech {
+    background-color: $speech-green;
+    a {
+        color: $off-white-color;
+    }
+    &:hover {
+        background-color: tint($speech-green, 60%);
+    }
+}
+
+.schedule-blocks-music {
+    background-color: $music-purple;
+    a {
+        color: $off-white-color;
+    }
+    &:hover {
+        background-color: tint($music-purple, 60%);
+    }
+}
+
+.schedule-blocks-event {
+    background-color: $red;
+    a {
+        color: $off-white-color;
+    }
+    &:hover {
+        background-color: tint($red, 60%);
+    }
+}
+
+.schedule-blocks-specialistMusic {
+    background-color: tint($music-purple,60%);
+    a {
+        color: $white;
+    }
+    &:hover {
+        background-color: tint($music-purple, 20%);
+        a {
+            color: $black;
+        }
+    }
+}
+
+.schedule-blocks-specialistInterest {
+    background-color: tint($speech-green,60%);
+    a {
+        color: $white;
+    }
+    &:hover {
+        background-color: tint($speech-green, 20%);
+        a {
+            color: $black;
+        }
+    }
+}
