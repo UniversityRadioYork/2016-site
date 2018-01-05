@@ -5,12 +5,11 @@ import (
 	"log"
 	"net/url"
 	"time"
+	"strings"
 	
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/myradio-go"
 )
-
-import s "strings"
 
 // ScheduleItem contains information about one item in a URY schedule.
 type ScheduleItem struct {
@@ -68,97 +67,72 @@ func NewTimeslotItem(t *myradio.Timeslot, finish time.Time, u func(*myradio.Time
 		Desc:    t.Description,
 		Start:   t.StartTime,
 		Finish:  finish,
-		Block:   getBock(t.Title, t.StartTime), // TODO(MattWindsor91): get this from elsewhere
+		Block:   getBlock(t.Title, t.StartTime),
 		PageURL: url.Path,
 	}, nil
 }
 
-func getBock(name string, StartTime time.Time) string{
-	name = s.ToLower(name)
-	if s.Contains(name, s.ToLower("ury: early morning")) {
-		return "flagship"
-	} else if s.Contains(name, s.ToLower("ury breakfast")) {
-		return "flagship"
-	} else if s.Contains(name, s.ToLower("ury lunch")) {
-		return "flagship"
-	} else if s.Contains(name, s.ToLower("ury brunch")) {
-		return "flagship"
-	} else if s.Contains(name, s.ToLower("URY Brunch")) {
-		return "flagship"
-	} else if s.Contains(name, s.ToLower("URY Afternoon Tea:")) {
-		return "flagship"
-	} else if s.Contains(name, s.ToLower("URY:PM")) {
-		return "flagship"
-	} else if s.Contains(name, s.ToLower("ury news")) {
-		return "news"
-	} else if s.Contains(name, s.ToLower("ury sports")) {
-		return "news"
-	} else if s.Contains(name, s.ToLower("ury football")) {
-		return "news"
-	} else if s.Contains(name, s.ToLower("york sport report")) {
-		return "news"
-	} else if s.Contains(name, s.ToLower("university radio talk")) {
-		return "news"
-	} else if s.Contains(name, s.ToLower("candidate interview night")) {
-		return "news"
-	} else if s.Contains(name, s.ToLower("election results night")) {
-		return "news"
-	} else if s.Contains(name, s.ToLower("yusu election")) {
-		return "news"
-	} else if s.Contains(name, s.ToLower("The Second Half With Josh Kerr")) {
-		return "news"
-	} else if s.Contains(name, s.ToLower("URY SPORT")) {
-		return "news"
-	} else if s.Contains(name, s.ToLower("ury speech")) {
-		return "speech"
-	} else if s.Contains(name, s.ToLower("yorworld")) {
-		return "speech"
-	} else if s.Contains(name, s.ToLower("in the stalls")) {
-		return "speech"
-	} else if s.Contains(name, s.ToLower("screen")) {
-		return "speech"
-	} else if s.Contains(name, s.ToLower("stage")) {
-		return "speech"
-	} else if s.Contains(name, s.ToLower("game breaking")) {
-		return "speech"
-	} else if s.Contains(name, s.ToLower("radio drama")) {
-		return "speech"
-	} else if s.Contains(name, s.ToLower("Book Corner")) {
-		return "speech"
-	} else if s.Contains(name, s.ToLower("Saturated Facts")) {
-		return "speech"
-	} else if s.Contains(name, s.ToLower("URWatch")) {
-		return "speech"
-	} else if s.Contains(name, s.ToLower("Society Challenge")) {
-		return "speech"
-	} else if s.Contains(name, s.ToLower("Speech Showcase")) {
-		return "speech"
-	} else if s.Contains(name, s.ToLower("roses live 201")) {
-		return "event"
-	} else if s.Contains(name, s.ToLower("roses 201")) {
-		return "event"
-	} else if s.Contains(name, s.ToLower("woodstock")) {
-		return "event"
-	} else if s.Contains(name, s.ToLower("movember")) {
-		return "event"
-	} else if s.Contains(name, s.ToLower("panto")) {
-		return "event"
-	} else if s.HasPrefix(name, s.ToLower("101:")) {
-		return "event"
-	} else if s.Contains(name, s.ToLower("Vanbrugh Chair Debate")) {
-		return "event"
-	} else if s.Contains(name, s.ToLower("URY Does RAG Courtyard Takeover")) {
-		return "event"
-	} else if s.Contains(name, s.ToLower("URY Presents")) {
-		return "event"
-	} else if s.Contains(name, s.ToLower("URYOnTour")) {
-		return "event"
-	} else if s.Contains(name, s.ToLower("URY On Tour")) {
-		return "event"
-	} else if (StartTime.Hour() >= 21) || (StartTime.Hour() < 5) {
+func getBlock(name string, StartTime time.Time) string{
+	name = strings.ToLower(name)
+
+	type blockMatch struct {
+		nameFragment string
+		block string
+	}
+	var blockMatches = []blockMatch {
+		{"ury: early morning", "flagship"},
+		{"ury breakfast", "flagship"},
+		{"ury lunch", "flagship"},
+		{"ury brunch", "flagship"},
+		{"URY Brunch", "flagship"},
+		{"URY Afternoon Tea:", "flagship"},
+		{"URY:PM", "flagship"},
+		{"ury news", "news"},
+		{"ury sports", "news"},
+		{"ury football", "news"},
+		{"york sport report", "news"},
+		{"university radio talk", "news"},
+		{"candidate interview night", "news"},
+		{"election results night", "news"},
+		{"yusu election", "news"},
+		{"The Second Half With Josh Kerr", "news"},
+		{"URY SPORT", "news"},
+		{"ury speech", "speech"},
+		{"yorworld", "speech"},
+		{"in the stalls", "speech"},
+		{"screen", "speech"},
+		{"stage", "speech"},
+		{"game breaking", "speech"},
+		{"radio drama", "speech"},
+		{"Book Corner", "speech"},
+		{"Saturated Facts", "speech"},
+		{"URWatch", "speech"},
+		{"Society Challenge", "speech"},
+		{"Speech Showcase", "speech"},
+		{"roses live 201", "event"},
+		{"roses 201", "event"},
+		{"woodstock", "event"},
+		{"movember", "event"},
+		{"panto", "event"},
+		{"101:", "event"},
+		{"Vanbrugh Chair Debate", "event"},
+		{"URY Does RAG Courtyard Takeover", "event"},
+		{"URY Presents", "event"},
+		{"URYOnTour", "event"},
+		{"URY On Tour", "event"},
+	}	
+	for _, bm := range blockMatches {
+		if strings.Contains(name, strings.ToLower(bm.nameFragment)) {
+			return bm.block
+		}
+	}
+	// certain times of the day correspond to a specific show type.
+	if (StartTime.Hour() >= 21) || (StartTime.Hour() < 5) { // speacialist music
 		return "specialistMusic"
-	} else if (StartTime.Hour() == 18) {
+	} else if (StartTime.Hour() == 18) { // specialsit speech and interest
 		return "specialistInterest"
+	}	else if (StartTime.Hour() == 11) || (StartTime.Hour() == 19) { // missed flagship
+		return "flagship"
 	}
 	return "regular"
 }
