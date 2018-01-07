@@ -144,22 +144,27 @@ func MostRecentMonday(d time.Time) time.Time {
 	return d.AddDate(0, 0, -dmon)
 }
 
-// FormatWeekRelative pretty-prints the name of a week starting on start.
+// FormatWeekRelative pretty-prints the name of a week starting on start, relative to today.
 // start must be a Monday.
 func FormatWeekRelative(start time.Time) string {
+	return FormatWeekRelativeTo(start, MostRecentMonday(time.Now()))
+}
+
+// FormatWeekRelativeTo pretty-prints the name of a week starting on start, relative to the week starting on now.
+// start and now must be a Monday.
+func FormatWeekRelativeTo(start, now time.Time) string {
 	/* If we're on the same week, or the week either end of current, we can (and
 	   should) use short, human-friendly week names. */
 
 	// To work out which week we're in, get the boundaries of last, this, and next week.
-	tm := MostRecentMonday(time.Now())
-	lm := tm.AddDate(0, 0, -7)
-	nm := tm.AddDate(0, 0, 7)
-	fm := tm.AddDate(0, 0, 14)
+	lm := now.AddDate(0, 0, -7)
+	nm := now.AddDate(0, 0, 7)
+	fm := now.AddDate(0, 0, 14)
 
 	switch {
 	case start.Before(lm):
 		break
-	case start.Before(tm):
+	case start.Before(now):
 		return "last week"
 	case start.Before(nm):
 		return "this week"
