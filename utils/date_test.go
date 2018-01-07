@@ -14,13 +14,13 @@ type offset struct {
 }
 
 // buildOffsetsTable builds a table of day and hour offsets to use to test FormatWeekRelativeTo.
-// It contains the cartesian product of every day offset 0--6 and every hour offset 0--23.
+// It contains the cartesian product of every day offset 0--6 and every quarter-day offset 0, 6, 12, 18.
 func buildOffsetsTable(t *testing.T) []offset {
 	t.Helper()
 
 	offsets := []offset{}
 	for d := 0; d < 7; d++ {
-		for h := 0; h < 23; h++ {
+		for h := 0; h < 24; h += 6 {
 			offsets = append(offsets, offset{d, time.Duration(h)})
 		}
 	}
