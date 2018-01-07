@@ -132,6 +132,7 @@ func IsoWeekToDate(year, week int, weekday time.Weekday) (time.Time, error) {
 }
 
 // MostRecentMonday returns the most recent Monday before d.
+// The resulting date has the same time as d.
 func MostRecentMonday(d time.Time) time.Time {
 	/* The weekday is the number of days since the most recent Sunday, so
 	   shifting it by 1 modulo 7 gives us the correct result for Monday. */
@@ -153,8 +154,9 @@ func FormatWeekRelative(start time.Time) string {
 // FormatWeekRelativeTo pretty-prints the name of the current week of start, relative to the current week of now.
 func FormatWeekRelativeTo(start, now time.Time) string {
 	// To simplify calculations, reduce start and now to their Monday.
-	startm := MostRecentMonday(start)
-	nowm := MostRecentMonday(now)
+	// Since we're going to be comparing start and now based on their date, not their time, set their timestamps equal.
+	startm := StartOfDayOn(MostRecentMonday(start))
+	nowm := StartOfDayOn(MostRecentMonday(now))
 
 	/* If we're on the same week, or the week either end of current, we can (and
 	   should) use short, human-friendly week names. */
@@ -165,13 +167,13 @@ func FormatWeekRelativeTo(start, now time.Time) string {
 	fm := nowm.AddDate(0, 0, 14)
 
 	switch {
-	case start.Before(lm):
+	case startm.Before(lm):
 		break
-	case start.Before(nowm):
+	case startm.Before(nowm):
 		return "last week"
-	case start.Before(nm):
+	case startm.Before(nm):
 		return "this week"
-	case start.Before(fm):
+	case startm.Before(fm):
 		return "next week"
 	default:
 		break
