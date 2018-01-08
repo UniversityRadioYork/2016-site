@@ -36,8 +36,6 @@ func (m *ShowModel) GetShow(id int) (show *myradio.ShowMeta, seasons []myradio.S
 
 	creditsToUsers, err = m.session.GetCreditsToUsers(id, false)
 
-	creditsToUsers = PluralCredits(creditsToUsers)
-
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -58,8 +56,6 @@ func (m *ShowModel) GetTimeslot(id int) (timeslot myradio.Timeslot, tracklist []
 
 	creditsToUsers, err = m.session.GetCreditsToUsers(id, true)
 
-	creditsToUsers = PluralCredits(creditsToUsers)
-
 	tracklist, err = m.session.GetTrackListForTimeslot(id)
 	return
 }
@@ -75,19 +71,4 @@ func (m *ShowModel) GetSeason(id int) (season myradio.Season, timeslots []myradi
 	}
 	timeslots, err = m.session.GetTimeslotsForSeason(id)
 	return
-}
-
-// PluralCredits takes a list of credits and makes roles plural if necessary
-//
-// On success, it returns the map with pluralised role names
-func PluralCredits(dict map[string][]myradio.User) map[string][]myradio.User {
-	new_dict := make(map[string][]myradio.User)
-	for k, v := range dict {
-		if len(v) > 1 {
-			new_dict[k+"s"] = v
-		} else {
-			new_dict[k] = v
-		}
-	}
-	return new_dict
 }
