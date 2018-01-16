@@ -29,10 +29,12 @@ func (gic *SignUpController) Post(w http.ResponseWriter, r *http.Request) {
 	var feedback []string
 
 	//Validate that necessary params are present and correct(enough)
-	if formParams["fname"][0] == "" {
+	_, ok := formParams["fname"]
+	if !ok || formParams["fname"][0] == "" {
 		feedback = append(feedback, "You need to provide your First Name")
 	}
-	if formParams["sname"][0] == "" {
+	_, ok = formParams["sname"]
+	if !ok || formParams["sname"][0] == "" {
 		feedback = append(feedback, "You need to provide your Last Name")
 	}
 	// Check an eduroam value is submitted
@@ -47,11 +49,12 @@ func (gic *SignUpController) Post(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	} else {
-		if _, ok := formParams["email"]; !ok {
+		if _, ok = formParams["email"]; !ok {
 			feedback = append(feedback, "You need to provide your email address")
 		}
 	}
-	if formParams["phone"][0] == "" {
+	_, ok = formParams["phone"]
+	if !ok || formParams["phone"][0] == "" {
 		delete(formParams, "phone")
 	}
 
