@@ -35,12 +35,20 @@ func (gic *SignUpController) Post(w http.ResponseWriter, r *http.Request) {
 	if formParams["sname"][0] == "" {
 		feedback = append(feedback, "You need to provide your Last Name")
 	}
-	if formParams["eduroam"][0] == "" {
-		feedback = append(feedback, "You need to provide your York Email")
+	// Check an eduroam value is submitted
+	// If not then the user is signing up using a personal email
+	if _, ok := formParams["eduroam"]; ok {
+		if formParams["eduroam"][0] == "" {
+			feedback = append(feedback, "You need to provide your York Email")
+		} else {
+			match, _ := regexp.MatchString("^[a-z]{1,6}[0-9]{1,6}$", formParams["eduroam"][0])
+			if !match {
+				feedback = append(feedback, "The @york.ac.uk email you provided seems invalid")
+			}
+		}
 	} else {
-		match, _ := regexp.MatchString("^[a-z]{1,6}[0-9]{1,6}$", formParams["eduroam"][0])
-		if !match {
-			feedback = append(feedback, "The @york.ac.uk email you provided seems invalid")
+		if _, ok := formParams["email"]; !ok {
+			feedback = append(feedback, "You need to provide your email address")
 		}
 	}
 	if formParams["phone"][0] == "" {
