@@ -1,3 +1,4 @@
+{{define "title"}}{{.PageContext.ShortName}} | {{with .PageData.Team}}{{.Name}}{{end}}{{end}}
 {{define "officer"}}
 <div class="col-12 col-sm-6 col-md-4 col-lg-3">
   <a href="/people/{{.User.MemberID}}" title="Goto {{.User.Fname}} {{.User.Sname}}'s profile">
@@ -33,6 +34,7 @@
     {{if .Description}}
     <div class="container-fluid bg-secondary">
       <div class="container container-padded">
+        <h2>Team Description</h2>
         <p>{{html .Description}}</p>
       </div>
     </div>
