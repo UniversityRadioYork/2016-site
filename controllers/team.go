@@ -27,7 +27,7 @@ func (teamC *TeamController) Get(w http.ResponseWriter, r *http.Request) {
 	teamM := models.NewTeamModel(teamC.session)
 	vars := mux.Vars(r)
 	alias, _ := vars["alias"]
-	team, heads, assistants, err := teamM.Get(alias)
+	team, heads, assistants, officers, err := teamM.Get(alias)
 	if err != nil {
 		log.Println(err)
 		utils.RenderTemplate(w, teamC.config.PageContext, nil, "404.tmpl")
@@ -37,10 +37,12 @@ func (teamC *TeamController) Get(w http.ResponseWriter, r *http.Request) {
 		Team       myradio.Team
 		Heads      []myradio.Officer
 		Assistants []myradio.Officer
+		Officers   []myradio.Officer
 	}{
 		Team:       team,
 		Heads:      heads,
 		Assistants: assistants,
+		Officers:   officers,
 	}
 	err = utils.RenderTemplate(w, teamC.config.PageContext, data, "team.tmpl")
 	if err != nil {

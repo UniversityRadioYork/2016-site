@@ -1,6 +1,6 @@
 {{define "title"}}{{.PageContext.ShortName}} | {{with .PageData.Team}}{{.Name}}{{end}}{{end}}
 {{define "officer"}}
-<div class="col-12 col-sm-6 col-md-4 col-lg-3">
+<div class="col-12 col-sm-6 col-md-3 col-lg-2">
   <a href="/people/{{.User.MemberID}}" title="Goto {{.User.Fname}} {{.User.Sname}}'s profile">
     <div class="user-img my-3">
       <img class="img-fluid" src="https://ury.org.uk{{.User.Photo}}" alt="Photo of {{.User.Fname}} {{.User.Sname}}">
@@ -48,6 +48,9 @@
             {{template "officer" .}}
           {{end}}
           {{range .Assistants}}
+            {{template "officer" .}}
+          {{end}}
+          {{range .Officers}}
             {{template "officer" .}}
           {{end}}
         </div>
