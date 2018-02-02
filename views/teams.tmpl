@@ -26,20 +26,29 @@
   </div>
   <div class="container-fluid bg-third">
     <div class="container container-padded">
-      <h1 class="page-title">Maybe a group?</h1>
       <div class="row">
         {{range .Teams}}
-        <div class="col-12 col-sm-6 col-md-4 my-3">
-          <div class="card text-dark">
-            <img class="card-img-top" src="/images/show-current.png" alt="Card image">
-            <div class="card-body">
-              <h4 class="card-title">
-                <a href="{{.Alias}}/" title="Goto the {{.Name}} page.">{{.Name}}</a>
-              </h4>
-              <p class="card-text">{{html .Description}}</p>
+          {{if .Alias}}
+          <div class="col-12 col-sm-6 col-md-4 my-3 team-card">
+            <div class="card text-dark">
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a href="{{.Alias}}/" title="Goto the {{.Name}} page.">{{.Name}}</a>
+                </h4>
+                <p class="card-text ellipsis">
+                {{if .Description}}
+                  {{html .Description}}
+                {{else}}
+                  This team does not currently have a description.
+                {{end}}
+                </p>
+              </div>
+              <div class="card-footer">
+                <a href="{{.Alias}}/" title="Goto the {{.Name}} page.">Read More...</a>
+              </div>
             </div>
           </div>
-        </div>
+          {{end}}
         {{end}}
       </div>
     </div>
