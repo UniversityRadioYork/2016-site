@@ -29,13 +29,13 @@
       <div class="row">
         {{range .Teams}}
           {{if .Alias}}
-          <div class="col-12 col-sm-6 col-md-4 my-3 team-card">
+          <div class="col-12 col-sm-6 col-lg-4 my-3 team-card">
             <div class="card text-dark">
               <div class="card-body">
                 <h4 class="card-title">
                   <a href="{{.Alias}}/" title="Goto the {{.Name}} page.">{{.Name}}</a>
                 </h4>
-                <p class="card-text ellipsis">
+                <p class="card-text">
                 {{if .Description}}
                   {{html .Description}}
                 {{else}}
