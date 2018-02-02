@@ -1,18 +1,43 @@
 @mixin schedule-block($bg-color, $txt-color) {
-  background-color: $bg-color;
+  border-bottom: $bg-color solid 10px;
+  background: white;
+  padding: 5px;
+  margin:5px;
   a {
-    color: $txt-color;
-  } 
+    color: black;
+  }
   &:hover {
     background-color: tint($bg-color, 60%);
-  } 
+  }
+  box-shadow: 0px 2px 4px rgba(0,0,0,0.5);
 }
-
+tr {
+  height:80px;
+}
 .schedule-blocks-sustainer {
   background-color: $secondary-color;
   color: $off-white-color;
-}
+  visibility: hidden;
 
+}
+.schedule-table {
+  border-collapse: separate;
+  table-layout: fixed;
+  border-spacing: 15px;
+
+  thead {
+    th {
+      border: none;
+    }
+  }
+  th {
+      border: none;
+  }
+  td {
+    border-top: none;
+  }
+
+}
 .schedule-blocks-regular {
   @include schedule-block($primary-color, $off-white-color);
 }
