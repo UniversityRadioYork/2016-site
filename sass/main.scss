@@ -152,9 +152,10 @@ footer {
 
   .card-text {
     position: relative;
-    height: 7.5em; /* exactly 5 lines */
+    height: 7.5em; // exactly 5 lines
     overflow: hidden;
-    &:after {
+
+    &::after {
       content: "";
       text-align: right;
       position: absolute;
