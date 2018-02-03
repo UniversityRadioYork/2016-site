@@ -40,21 +40,21 @@ html {
   }
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
+// Everything but the jumbotron gets side spacing for mobile first views
 
 .header, .footer {
   padding-right: 15px;
   padding-left: 15px;
 }
 
-/* Custom page header */
+// Custom page header
 
 .header {
   padding-bottom: 20px;
   border-bottom: 1px solid #e5e5e5;
 }
 
-/* Make the masthead heading the same height as the navigation */
+// Make the masthead heading the same height as the navigation
 
 .header h3 {
   margin-top: 0;
@@ -62,7 +62,7 @@ html {
   line-height: 40px;
 }
 
-/* Custom page footer */
+// Custom page footer
 
 footer {
   color: #777;
@@ -78,13 +78,12 @@ footer {
   background-size: cover;
   color: white;
   padding: 10em 0;
+  .slim {
+    padding: 6em 0 3em;
+  }
 }
 
-.banner-2.slim {
-  padding: 6em 0 3em 0;
-}
-
-/* Scroll horizontal, used for horizontal scrolling rows */
+// Scroll horizontal, used for horizontal scrolling rows
 .scroll-horiz {
   overflow-x: scroll;
   overflow-y: hidden;
@@ -107,7 +106,7 @@ footer {
   font-weight: 100;
 }
 
-/* User page styling. */
+// User page styling.
 .user-img {
   //border: #e1e1e1 7px solid;
   background-color: $primary-color;
@@ -149,46 +148,46 @@ footer {
   height: 11em;
 }
 
-/* styles for '...' */
+// styles for '...'
 .team-card .card-text {
-  /* hide text if it more than N lines  */
+  //hide text if it more than N lines
   overflow: hidden;
-  /* for set '...' in absolute position */
+  // for set '...' in absolute position
   position: relative;
-  /* use this value to count block height */
+  // use this value to count block height
   line-height: 1.2em;
-  /* max-height = line-height (1.2) * lines max number (3) */
+  // max-height = line-height (1.2) * lines max number (3)
   max-height: 5.9em;
-  /* fix problem when last visible word doesn't adjoin right side  */
+  // fix problem when last visible word doesn't adjoin right side
   text-align: justify;
-  /* place for '...' */
+  // place for '...'
   margin-right: -1em;
   padding-right: 1em;
 }
-/* create the ... */
-.team-card .card-text:before {
-  /* points in the end */
-  content: '...';
-  /* absolute position */
+// create the ...
+.team-card .card-text::before {
+  // points in the end
+  content: "...";
+  // absolute position
   position: absolute;
-  /* set position to right bottom corner of block */
+  // set position to right bottom corner of block
   right: 1em;
   bottom: 0.2em;
-  background: #fff;
+  background: white;
 }
-/* hide ... if we have text, which is less than or equal to max lines */
-.team-card .card-text:after {
-  /* points in the end */
-  content: '';
-  /* absolute position */
+// hide ... if we have text, which is less than or equal to max lines
+.team-card .card-text::after {
+  // points in the end
+  content: "";
+  // absolute position
   position: absolute;
-  /* set position to right bottom corner of text */
+  // set position to right bottom corner of text
   right: 1em;
-  /* set width and height */
+  // set width and height
   width: 1em;
   height: 1em;
   margin-top: 0.2em;
-  /* bg color = bg color under block */
+  // bg color = bg color under block
   background: white;
 }
 
@@ -235,17 +234,17 @@ footer {
   }
 }
 
-/* Responsive: Portrait tablets and up */
+// Responsive: Portrait tablets and up
 
 @media screen and (min-width: 768px) {
-  /* Remove the padding we set earlier */
+  // Remove the padding we set earlier
   .header {
     padding-right: 0;
     padding-left: 0;
     margin-bottom: 30px;
   }
 
-  /* Remove the bottom border on the jumbotron for visual effect */
+  // Remove the bottom border on the jumbotron for visual effect
   .jumbotron {
     border-bottom: 0;
   }
@@ -255,7 +254,7 @@ footer {
   }
 }
 
-/* Main marketing message and sign up button */
+// Main marketing message and sign up button
 
 .jumbotron {
   text-align: center;
@@ -292,7 +291,7 @@ footer {
   }
 }
 
-/* Show/Season/Timeslot specific*/
+// Show/Season/Timeslot specific
 
 .mixcloud {
   background: #FCFCFC;
