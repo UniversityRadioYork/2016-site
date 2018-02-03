@@ -145,51 +145,26 @@ footer {
   color: $white;
 }
 
-.team-card .card-body {
-  height: 11em;
-}
+.team-card {
+  .card-body {
+    height: 12em;
+  }
 
-// styles for '...'
-.team-card .card-text {
-  //hide text if it more than N lines
-  overflow: hidden;
-  // for set '...' in absolute position
-  position: relative;
-  // use this value to count block height
-  line-height: 1.2em;
-  // max-height = line-height (1.2) * lines max number (3)
-  max-height: 5.9em;
-  // fix problem when last visible word doesn't adjoin right side
-  text-align: justify;
-  // place for '...'
-  margin-right: -1em;
-  padding-right: 1em;
-}
-// create the ...
-.team-card .card-text::before {
-  // points in the end
-  content: "...";
-  // absolute position
-  position: absolute;
-  // set position to right bottom corner of block
-  right: 1em;
-  bottom: 0.2em;
-  background: $white;
-}
-// hide ... if we have text, which is less than or equal to max lines
-.team-card .card-text::after {
-  // points in the end
-  content: "";
-  // absolute position
-  position: absolute;
-  // set position to right bottom corner of text
-  right: 1em;
-  // set width and height
-  width: 1em;
-  height: 1em;
-  margin-top: 0.2em;
-  // bg color = bg color under block
-  background: $white;
+  .card-text {
+    position: relative;
+    height: 7.5em; /* exactly 5 lines */
+    overflow: hidden;
+    &:after {
+      content: "";
+      text-align: right;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 70%;
+      height: 1.5em;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%); // scss-lint:disable ColorVariable
+    }
+  }
 }
 
 .page404 {
