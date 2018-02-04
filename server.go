@@ -56,9 +56,15 @@ func NewServer(c *structs.Config) (*Server, error) {
 	getRouter.HandleFunc("/schedule/{year:[1-9][0-9][0-9][0-9]}/w{week:[0-5]?[0-9]}/{day:[1-7]}/", schedWeekC.GetByYearWeek).Name("schedule-week-day-compat")
 
 	onDemandC := controllers.NewOnDemandController(session, c)
+	getRouter.HandleFunc("/ontap/", onDemandC.Get)
+	// Backwards compatability with previous sites
 	getRouter.HandleFunc("/uryplayer/", onDemandC.Get)
 
 	podcastsC := controllers.NewPodcastController(session, c)
+	getRouter.HandleFunc("/podcasts/", podcastsC.GetAllPodcasts)
+	getRouter.HandleFunc("/podcasts/{id:[0-9]+}/", podcastsC.Get)
+	getRouter.HandleFunc("/podcasts/{id:[0-9]+}/player/", podcastsC.GetEmbed)
+	// Backwards compatability with previous sites
 	getRouter.HandleFunc("/uryplayer/podcasts/", podcastsC.GetAllPodcasts)
 	getRouter.HandleFunc("/uryplayer/podcasts/{id:[0-9]+}/", podcastsC.Get)
 	getRouter.HandleFunc("/uryplayer/podcasts/{id:[0-9]+}/player/", podcastsC.GetEmbed)
