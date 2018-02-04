@@ -1,0 +1,57 @@
+{{define "title"}}{{.PageContext.ShortName}} | Our Teams{{end}}
+{{define "content"}}
+  {{with .PageData}}
+  <div class="container-fluid banner-2 text-overlay">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="text-center">
+          <h1 class="display-3">Our Teams</h1>
+          <h2 class="display-4">The people who make URY happen!</h2>
+          <br>
+          <a href="{{url "/getinvolved/#signUp"}}" class="btn btn-primary-inverse btn-xl">Be part of one!</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid bg-primary">
+    <div class="container container-padded">
+      <h3>Get Involved</h3>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam porta sed nulla vitae porta. Phasellus gravida ipsum ac malesuada commodo. Vestibulum ut turpis non arcu hendrerit efficitur in eu odio. Aenean feugiat risus tempus hendrerit euismod. Donec est elit, elementum sed sem ut, luctus fringilla magna. Phasellus pellentesque enim ac vulputate pulvinar. Pellentesque luctus dignissim enim, sed maximus nunc egestas vitae.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam porta sed nulla vitae porta. Phasellus gravida ipsum ac malesuada commodo. Vestibulum ut turpis non arcu hendrerit efficitur in eu odio. Aenean feugiat risus tempus hendrerit euismod. Donec est elit, elementum sed sem ut, luctus fringilla magna. Phasellus pellentesque enim ac vulputate pulvinar. Pellentesque luctus dignissim enim, sed maximus nunc egestas vitae.
+      </p>
+    </div>
+  </div>
+  <div class="container-fluid bg-third">
+    <div class="container container-padded">
+      <div class="row">
+        {{range .Teams}}
+          {{if .Alias}}
+          <div class="col-12 col-sm-6 col-lg-4 my-3 team-card">
+            <div class="card text-dark">
+              <div class="card-body">
+                <h4 class="card-title">
+                  <a href="{{.Alias}}/" title="Goto the {{.Name}} page.">{{.Name}}</a>
+                </h4>
+                <p class="card-text">
+                {{if .Description}}
+                  {{html .Description}}
+                {{else}}
+                  This team does not currently have a description.
+                {{end}}
+                </p>
+              </div>
+              <div class="card-footer">
+                <a href="{{.Alias}}/" title="Goto the {{.Name}} page.">Read More...</a>
+              </div>
+            </div>
+          </div>
+          {{end}}
+        {{end}}
+      </div>
+    </div>
+  </div>
+  {{end}}
+{{end}}

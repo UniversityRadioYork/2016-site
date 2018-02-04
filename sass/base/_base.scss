@@ -13,3 +13,24 @@ html {
   padding-top: 1em;
   padding-bottom: 1em;
 }
+
+
+.custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparentize($custom-scrollbar-color, 0.9);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 7.5px;
+    background: transparentize($custom-scrollbar-color, 0.3);
+
+    &:hover {
+      background: $custom-scrollbar-color;
+    }
+  }
+}

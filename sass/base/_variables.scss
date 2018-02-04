@@ -16,6 +16,7 @@ $secondary-color: tint($ury-blue-color, 80%);
 $third-color: tint($ury-blue-color, 60%);
 $off-white-color: #e1e1e1;
 
+$white: #ffffff;
 $blue: #0073e6;
 $red: #d0011b;
 
@@ -31,3 +32,6 @@ $current-next-next-bg: rgba(0, 51, 103, .85);
 //Schedule block colours
 $blocks-sustainer-color: $secondary-color;
 $blocks-regular-color: $off-white-color;
+
+//custom scroll bar
+$custom-scrollbar-color: #FFF;

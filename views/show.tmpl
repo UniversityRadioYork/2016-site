@@ -58,7 +58,11 @@
     <div class="row">
       {{range $key, $value := .CreditsToUsers}}
       <div class="col-sm-4 pb-3">
-        <h3>{{$key}}</h3>
+        {{if gt (len $value) 1}}
+          <h3>{{plural $key}}</h3>
+        {{else}}
+          <h3>{{$key}}</h3>
+        {{end}}
         {{range $value}}
         <a href="/people/{{.MemberID}}/">{{.Fname}} {{.Sname}}</a> <br>
         {{end}}

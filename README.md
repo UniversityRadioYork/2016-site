@@ -29,3 +29,7 @@ $ make run # Builds scss files, and runs the server
 $ make build-docker-image #Builds the image, will only have to be re-run if you change the Dockerfile
 $ make docker #Runs the image
 ```
+
+
+## Editor Config
+There is a handy editor config file included in this repo, most editors/IDE's have support for this either natively or through a plugin, see [here](http://editorconfig.org/#download).

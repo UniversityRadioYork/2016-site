@@ -29,6 +29,7 @@ func NewServer(c *structs.Config) (*Server, error) {
 	router := mux.NewRouter().StrictSlash(true)
 
 	getRouter := router.Methods("GET").Subrouter()
+	postRouter := router.Methods("POST").Subrouter()
 
 	// Routes go in here
 	nfc := controllers.NewNotFoundController(c)
@@ -65,8 +66,15 @@ func NewServer(c *structs.Config) (*Server, error) {
 	pc := controllers.NewPeopleController(session, c)
 	getRouter.HandleFunc("/people/{id:[0-9]+}/", pc.Get)
 
+	teamC := controllers.NewTeamController(session, c)
+	getRouter.HandleFunc("/teams/", teamC.GetAll)
+	getRouter.HandleFunc("/teams/{alias}/", teamC.Get)
+
 	getinvolvedC := controllers.NewGetInvolvedController(session, c)
 	getRouter.HandleFunc("/getinvolved/", getinvolvedC.Get)
+
+	signupC := controllers.NewSignUpController(session, c)
+	postRouter.HandleFunc("/signup/", signupC.Post)
 
 	staticC := controllers.NewStaticController(c)
 	getRouter.HandleFunc("/about/", staticC.GetAbout)
