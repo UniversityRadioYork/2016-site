@@ -139,21 +139,10 @@ footer {
 }
 
 .on-demand {
-  background: url("/images/bg-banner-2.jpg") center center no-repeat;
+  background: url("/images/bg-banner-1.jpg") center center no-repeat;
   background-size: cover;
   color: white;
-  padding: 10em 0;
-}
-
-.section-title {
-  color: white;
-  margin-top: -8em;
-
-  .section-title-text .od-brand {
-    color: $primary-color;
-    display: inline-block;
-  }
-
+  padding: 6em 0;
 }
 
 .uryplayer-podcast {
