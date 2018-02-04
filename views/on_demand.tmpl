@@ -26,7 +26,7 @@
 <div id="index-just-missed" class="container-fluid container-padded bg-primary">
   <h2>You Just Missed...</h2>
   <div class="row scroll-horiz">
-    {{with .PageData.LatestTimeslots}}
+    {{range .PageData.LatestTimeslots}}
       <div class="col-11 col-sm-7 col-md-5 col-lg-4">
         <div class="row">
           <div class="col-md-4">
@@ -41,7 +41,7 @@
           <div class="col-md-8">
             <div class="card-block bg-primary">
               <h4 class="card-title ellipsis"><a href="/schedule/shows/timeslots/{{.TimeslotID}}/">{{.Title}}</a></h4>
-              <h5>{{.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}}</h5>
+              <h5>{{.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}} - {{.Duration}}</h5>
               <p class="card-text ellipsis">{{html .Description}}</p>
               <a href="/schedule/shows/timeslots/{{.TimeslotID}}/">Listen back...</a>
             </div>

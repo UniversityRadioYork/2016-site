@@ -40,7 +40,7 @@ func (onDemandC *OnDemandController) Get(w http.ResponseWriter, r *http.Request)
 
 	data := struct {
 		LatestPodcasts  []myradio.Podcast
-		LatestTimeslots *myradio.Timeslot
+		LatestTimeslots []myradio.Timeslot
 	}{
 		LatestPodcasts:  latestPodcasts,
 		LatestTimeslots: latestTimeslots,
