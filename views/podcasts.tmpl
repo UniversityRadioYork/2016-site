@@ -1,16 +1,49 @@
-{{define "title"}}{{.PageContext.ShortName}} | URYPlayer | Podcasts{{end}}
+{{define "title"}}{{.PageContext.ShortName}} | {{.PageContext.ODName}} | Podcasts{{end}}
 {{define "content"}}
-{{with .PageData}}
 
-<div class="container container-padded pt-5 mt-5">
-  <div class="pt-3" style="text-align: right;">URYPlayer: Podcasts</div>
+
+<div class="container-fluid on-demand">
+		<div class="container container-padded">
+				<div class="row align-items-end text-center">
+					<div class="col">
+						<h1 class="header-title">
+								<a href="/uryplayer/" title="Go back to {{.PageContext.ODName}}">
+									{{- .PageContext.ODName -}}
+								</a>
+								Podcasts
+						</h1>
+					</div>
+				</div>
+		</div>
+  </div>
+
+{{with .PageData}}
+<div class="container container-padded bg-off-white pt-5 mt-5">
+  <div class="pt-3" style="text-align: right;">All Podcasts</div>
   <hr>
   {{range .Podcasts}}
-    <h4>
-      <a href="{{.MicrositeLink.URL}}/">{{.Title}}</a>
-    </h4>
-    {{html .Description}}
-    <hr>
+  <div class="row">
+    <div class="mobile-hide col-12 col-md-3 col-lg-2">
+      <img class="img-fluid" src="
+      {{if .Photo}}
+            https://ury.org.uk{{.Photo}}
+      {{else}}
+            /images/podcast.png
+      {{end}}
+
+        " alt="{{.Title}} Logo">
+    </div>
+    <div class="col-12 col-md-9 col-lg-10">
+      <h4>
+        <a href="{{.MicrositeLink.URL}}/">{{.Title}}</a>
+      </h4>
+      <h5>
+        {{.Time.Format "Monday, _2 Jan 2006"}}
+      </h5>
+      <p class="ellipsis">{{html .Description}}</p>
+    </div>
+  </div>
+  <hr>
   {{else}}
   <p>
     We haven't got any podcasts right now, please try again later.

@@ -3,21 +3,22 @@
 
 {{define "content"}}
 
-{{with .PageData}}
+	<div class="container-fluid on-demand">
+		<div class="container container-padded">
+				<div class="row align-items-end text-center">
+					<div class="col">
+						<h1 class="header-title">
+								<a href="/uryplayer/" title="Go back to {{.PageContext.ODName}}">
+									{{- .PageContext.ODName -}}
+								</a>
+								<a href="/uryplayer/podcasts/" title="Go back to all podcasts.">Podcast</a>
+						</h1>
+					</div>
+				</div>
+		</div>
+  </div>
 
-	<div class="container-fluid header-large current-next">
-  </div>
-  <div class="container-fluid header-large section-title">
-    <div class="container">
-      <div class="row justify-content-end">
-        <div class="col-12 col-lg-9">
-          <h1 class="section-title-text">
-              <div class="od-brand">((URY)) on Tap</div> Podcast
-          </h1>
-        </div>
-      </div>
-    </div>
-  </div>
+	{{with .PageData}}
 	<div class="container-fluid bg-off-white">
 		<div class="container container-padded">
 		  <div class="row">
@@ -36,7 +37,7 @@
 	        	{{.Podcast.Title}}
             </h1>
             <h3>
-              Published on {{.Podcast.Time.Format "Monday, _2 Jan 2006"}}
+              {{.Podcast.Time.Format "Monday, _2 Jan 2006"}}
             </h3>
 	          <hr>
 				  	<h2>Description</h2>
