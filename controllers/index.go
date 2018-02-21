@@ -37,12 +37,57 @@ func (ic *IndexController) Get(w http.ResponseWriter, r *http.Request) {
 		CurrentAndNext *myradio.CurrentAndNext
 		Banners        []myradio.Banner
 		Teams          []myradio.Team
+		MsgBoxPrompt   bool
 	}{
 		CurrentAndNext: currentAndNext,
 		Banners:        banners,
 		Teams:          teams,
 	}
 
+	err = utils.RenderTemplate(w, ic.config.PageContext, data, "index.tmpl", "elements/current_and_next.tmpl", "elements/banner.tmpl", "elements/message_box.tmpl")
+	if err != nil {
+		log.Println(err)
+		return
+	}
+}
+
+// Post handles the HTTP POST request r to the index page that sends a message. Writes to w.
+func (ic *IndexController) Post(w http.ResponseWriter, r *http.Request) {
+	// Parse message from request
+	r.ParseForm()
+	msg := r.Form.Get("message")
+
+	// Get all the data for the webpage
+	model := models.NewIndexModel(ic.session)
+
+	currentAndNext, banners, teams, err := model.Get()
+
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	data := struct {
+		CurrentAndNext *myradio.CurrentAndNext
+		Banners        []myradio.Banner
+		Teams          []myradio.Team
+		MsgBoxPrompt   bool
+	}{
+		CurrentAndNext: currentAndNext,
+		Banners:        banners,
+		Teams:          teams,
+	}
+
+	// Create the message model and send the message
+	msgmodel := models.NewMessageModel(ic.session)
+	err = msgmodel.Put(msg)
+	if err != nil {
+		// Set prompt if send fails
+		data.MsgBoxPrompt = true
+		log.Println(err)
+	}
+
+	// Render page
 	err = utils.RenderTemplate(w, ic.config.PageContext, data, "index.tmpl", "elements/current_and_next.tmpl", "elements/banner.tmpl", "elements/message_box.tmpl")
 	if err != nil {
 		log.Println(err)
