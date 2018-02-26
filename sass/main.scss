@@ -171,23 +171,28 @@ footer {
 .on-demand {
   background: url("/images/bg-banner-1.jpg") center center no-repeat;
   background-size: cover;
-  color: white;
+  color: #ffffff;
   padding: 6em 0;
 }
 
 .uryplayer-podcast {
-  border: 2px solid rgba(0,0,0,.1);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+
   .section.img {
-    padding-right:0;
+    padding-right: 0;
+
     .podcast-img {
       height: 100vh;
     }
+
   }
   .section.info {
-    border-bottom: 2px solid rgba(0,0,0,.1);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+
     .podcast-title {
       font-size: 1.5rem;
     }
+
   }
   .podcast-audio {
     width: 100%;
