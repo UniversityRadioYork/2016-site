@@ -70,6 +70,7 @@ func (ic *IndexController) Post(w http.ResponseWriter, r *http.Request) {
 		CurrentAndNext: currentAndNext,
 		Banners:        banners,
 		Teams:          teams,
+		MsgBoxError:    false,
 	}
 
 	// Create the message model and send the message
@@ -87,7 +88,7 @@ func (ic *IndexController) Post(w http.ResponseWriter, r *http.Request) {
 
 func (ic *IndexController) render(w http.ResponseWriter, data RenderData) {
 	// Render page
-	err := utils.RenderTemplate(w, ic.config.PageContext, data, "index.tmpl", "elements/current_and_next.tmpl", "elements/banner.tmpl", "elements/message_box.tmpl")
+	err := utils.RenderTemplate(w, ic.config.PageCotext, data, "index.tmpl", "elements/current_and_next.tmpl", "elements/banner.tmpl", "elements/message_box.tmpl")
 	if err != nil {
 		log.Println(err)
 		return
