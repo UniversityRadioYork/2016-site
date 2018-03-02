@@ -15,6 +15,13 @@ type IndexController struct {
 	Controller
 }
 
+type RenderData struct {
+	CurrentAndNext *myradio.CurrentAndNext
+	Banners        []myradio.Banner
+	Teams          []myradio.Team
+	MsgBoxError    bool
+}
+
 // NewIndexController returns a new IndexController with the MyRadio session s
 // and configuration context c.
 func NewIndexController(s *myradio.Session, c *structs.Config) *IndexController {
@@ -33,22 +40,14 @@ func (ic *IndexController) Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data := struct {
-		CurrentAndNext *myradio.CurrentAndNext
-		Banners        []myradio.Banner
-		Teams          []myradio.Team
-		MsgBoxPrompt   bool
-	}{
+	data := RenderData{
 		CurrentAndNext: currentAndNext,
 		Banners:        banners,
 		Teams:          teams,
+		MsgBoxError:    false,
 	}
 
-	err = utils.RenderTemplate(w, ic.config.PageContext, data, "index.tmpl", "elements/current_and_next.tmpl", "elements/banner.tmpl", "elements/message_box.tmpl")
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	ic.render(w, data)
 }
 
 // Post handles the HTTP POST request r to the index page that sends a message. Writes to w.
@@ -67,12 +66,7 @@ func (ic *IndexController) Post(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data := struct {
-		CurrentAndNext *myradio.CurrentAndNext
-		Banners        []myradio.Banner
-		Teams          []myradio.Team
-		MsgBoxPrompt   bool
-	}{
+	data := RenderData{
 		CurrentAndNext: currentAndNext,
 		Banners:        banners,
 		Teams:          teams,
@@ -83,12 +77,17 @@ func (ic *IndexController) Post(w http.ResponseWriter, r *http.Request) {
 	err = msgmodel.Put(msg)
 	if err != nil {
 		// Set prompt if send fails
-		data.MsgBoxPrompt = true
+		data.MsgBoxError = true
 		log.Println(err)
 	}
 
+	ic.render(w, data)
+
+}
+
+func (ic *IndexController) render(w http.ResponseWriter, data RenderData) {
 	// Render page
-	err = utils.RenderTemplate(w, ic.config.PageContext, data, "index.tmpl", "elements/current_and_next.tmpl", "elements/banner.tmpl", "elements/message_box.tmpl")
+	err := utils.RenderTemplate(w, ic.config.PageContext, data, "index.tmpl", "elements/current_and_next.tmpl", "elements/banner.tmpl", "elements/message_box.tmpl")
 	if err != nil {
 		log.Println(err)
 		return
