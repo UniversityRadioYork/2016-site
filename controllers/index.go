@@ -83,7 +83,6 @@ func (ic *IndexController) Post(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		// Set prompt if send fails
 		data.MsgBoxError = true
-		log.Println(err)
 	}
 
 	ic.render(w, data)
