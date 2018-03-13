@@ -15,6 +15,7 @@ type IndexController struct {
 	Controller
 }
 
+// Renderdata is used to pass parameters into a common render function
 type RenderData struct {
 	CurrentAndNext *myradio.CurrentAndNext
 	Banners        []myradio.Banner
