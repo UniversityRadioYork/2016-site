@@ -8,6 +8,12 @@ $button-color: #fff;
   font-size: 1rem;
   @extend .box-shadow-1;
 
+  &:disabled,
+  &.disabled {
+    filter: grayscale(100%);
+    box-shadow: none;
+  }
+
   &.btn-primary {
     background: $blue;
     color: $button-color;
