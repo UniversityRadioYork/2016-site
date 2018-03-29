@@ -46,27 +46,26 @@
   <div id="index-podcasts" class="container-fluid container-padded bg-third">
     <h2>Podcasts</h2>
     <div class="row scroll-horiz pb-3 custom-scrollbar">
-      {{range .Podcasts}}
-      <div class="col-11 col-sm-7 col-md-3 col-xl-2">
-          <div class="card podcast bg-secondary">
-            <a href="{{.MicrositeLink.URL}}" title="URY Podcast: {{.Title}}">
-              <img class="card-img-top" src="https://ury.org.uk{{.Photo}}" alt="URY Podcast: {{.Title}}">
-            </a>
-            <div class="card-body bg-secondary">
-              <a href="{{.MicrositeLink.URL}}" title="URY Podcast: {{.Title}}">
-                <h4 class="card-title">{{.Title}}</h4>
-                <h5>{{.Time.Format "Monday, _2 Jan 2006"}}</h5>
-              </a>
-              <p class="card-text">{{html .Description}}</p>
-            </div>
-            <a href="{{.MicrositeLink.URL}}" title="URY Podcast: {{.Title}}">
-              <div class="card-footer bg-primary">
-                Listen Now
+
+        {{range .Podcasts}}
+            <div class="col-11 col-sm-6 col-lg-4">
+              <div class="row bg-primary m-1 uryplayer-podcast">
+                <div class="col-md-4 p-0">
+                  <img class="card-img-top img-fluid p-0" src="https://ury.org.uk{{.Photo}}" alt="URY Podcast: {{.Title}}">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-block">
+                    <h4 class="card-title ellipsis"><a href="{{.MicrositeLink.URL}}" title="URY Podcast: {{.Title}}">{{.Title}}</a></h4>
+                    <h5>{{.Time.Format "Monday, _2 Jan 2006"}}</h5>
+                    <div class="podcast-description card-text ellipsis">
+                      <p>{{html .Description}}</p>
+                    </div>
+                    <a href="{{.MicrositeLink.URL}}" title="URY Podcast: {{.Title}}">Listen Now</a>
+                  </div>
+                </div>
               </div>
-            </a>
-          </div>
-      </div>
-      {{end}}
+            </div>
+        {{end}}
     </div>
   </div>
   {{end}}
