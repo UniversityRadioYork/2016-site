@@ -57,6 +57,7 @@ type Page struct {
 type youtube struct {
 	APIKey     string `toml:"apiKey"`
 	PlaylistID string `toml:"playlistID"`
+	ChannelURL string `toml:"channelURL"`
 }
 
 type gmaps struct {
