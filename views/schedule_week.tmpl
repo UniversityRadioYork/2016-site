@@ -31,34 +31,36 @@
   <div class="container">
   {{with .Schedule}}
   {{if .Table}}
-  <table class="table schedule-table">
-    <thead>
-      <tr style="height:50px">
-        <th width="50px">Time</th>
-        {{range .Dates}}
-        <th>{{.Weekday}} {{.Format "02"}}</th>
-        {{end}}
-      </tr>
-    </thead>
-    <tbody>
+  <div class="table schedule-table" style="width: 100%" >
+    <div style="width: 100%">
       {{range .Table}}
-        <tr>
-          <th scope="row">{{.Hour | printf "%02d"}}:{{.Minute | printf "%02d"}}</th>
-          {{range .Cells}}
-            {{if ne .RowSpan 0}}
-            <td rowspan="{{.RowSpan}}" class="schedule-timeslot schedule-blocks-{{.Item.Block}}" title="{{stripHTML .Item.Desc}}">
-              {{if .Item.PageURL}}
-                <a href="{{url .Item.PageURL}}">{{.Item.Name}}</a>
-              {{else}}
-                {{.Item.Name}}
-              {{end}}
+        <table style="width: 14%; display: inline-block; vertical-align: top">
+          <tr>
+            <th>
+              Time
+            </th>
+            <td>
+              {{.Day.Weekday}} {{.Day.Format "02"}}
             </td>
-            {{end}}
+          </tr>
+          {{range .Cells}}
+            <tr>
+              <th>88:88</th>
+              {{if ne .RowSpan 0}}
+              <td rowspan="{{.RowSpan}}" class="schedule-timeslot schedule-blocks-{{.Item.Block}}" title="{{stripHTML .Item.Desc}}" style="display: table-cell;">
+                {{if .Item.PageURL}}
+                  <a href="{{url .Item.PageURL}}">{{.Item.Name}}</a>
+                {{else}}
+                  {{.Item.Name}}
+                {{end}}
+              </td>
+              {{end}}
+            </tr>
           {{end}}
-        </tr>
+        </td>
       {{end}}
-    </tbody>
-  </table>
+    </div>
+  </div>
   {{else}}
     <p>Nothing today</p>
   {{end}}

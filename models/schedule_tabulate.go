@@ -268,7 +268,7 @@ type WeekSchedule struct {
 	Dates []time.Time
 	// Table is the actual week table.
 	// If there is no schedule for the given week, this will be nil.
-	Table []WeekScheduleRow
+	Table []WeekScheduleCol
 }
 
 // hasShows asks whether a schedule slice contains any non-sustainer shows.
@@ -287,6 +287,36 @@ func hasShows(schedule []*ScheduleItem) bool {
 	}
 
 	return false
+}
+
+// Flippin that table
+
+// WeekScheduleCol represents one day in the week schedule.
+type WeekScheduleCol struct {
+	// The day of the show.
+	Day time.Time
+	// The cells inside this row.
+	Cells []WeekScheduleCell
+}
+
+// addCell adds a cell with rowspan s and item i to the column c.
+func (c *WeekScheduleCol) addCell(s uint, i *ScheduleItem) {
+	c.Cells = append(c.Cells, WeekScheduleCell{RowSpan: s, Item: i})
+}
+
+// tableFilp flips the schedule table such that it becomes a list of days which have a list
+// of shows on that day.
+func tableFilp(rows []WeekScheduleRow, dates []time.Time) []WeekScheduleCol {
+	days := make([]WeekScheduleCol, 7)
+	for i, _ := range days {
+		days[i].Day = dates[i]
+	}
+	for _, row := range rows {
+		for i, cell := range row.Cells {
+			days[i].addCell(cell.RowSpan, cell.Item)
+		}
+	}
+	return days
 }
 
 // tabulateWeekSchedule creates a schedule table from the given schedule slice.
@@ -310,8 +340,14 @@ func tabulateWeekSchedule(start, finish time.Time, schedule []*ScheduleItem) (*W
 	}
 	populateRows(days, rows, schedule)
 
-	return &WeekSchedule{
+	table := tableFilp(rows, days)
+
+	sch := WeekSchedule{
 		Dates: days,
-		Table: rows,
-	}, nil
+		Table: table,
+	}
+
+	fmt.Println(sch)
+
+	return &sch, nil
 }
