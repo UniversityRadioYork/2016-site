@@ -2,18 +2,24 @@ $button-color: #fff;
 
 .btn {
   border-radius: .4em;
-  padding: .25em 1em;
+  padding: .25em 0;
   font-family: $font-family-heading;
   font-weight: 500;
   font-size: 1rem;
   @extend .box-shadow-1;
+
+  &:disabled,
+  &.disabled {
+    filter: grayscale(100%);
+    box-shadow: none;
+  }
 
   &.btn-primary {
     background: $blue;
     color: $button-color;
     border: 2px solid $button-color;
 
-    &:hover {
+    &:hover:not(:disabled) {
       background: $button-color;
       color: $blue;
     }
@@ -24,7 +30,7 @@ $button-color: #fff;
     color: $blue;
     border: 2px solid $button-color;
 
-    &:hover {
+    &:hover:not(:disabled) {
       background: $blue;
       color: $button-color;
     }
@@ -35,7 +41,7 @@ $button-color: #fff;
     color: $button-color;
     border: 2px solid $button-color;
 
-    &:hover {
+    &:hover:not(:disabled) {
       background: $button-color;
       color: $red;
     }
