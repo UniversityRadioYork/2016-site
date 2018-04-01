@@ -32,17 +32,30 @@
   {{with .Schedule}}
   {{if .Table}}
     <div class="tables-container table">
+      <table class="schedule-table mobile-hidden row-headers">
+        <colgroup>
+          <col class="mobile-hidden time-col">
+        </colgroup>
+        <tr></tr>
+        {{with index .Table 0}}
+          {{range .Cells}}
+            <tr>
+              <td class="time-header">{{.Hour | printf "%02d"}}:{{.Minute | printf "%02d"}}</td>
+            </tr>
+          {{end}}
+        {{end}}
+      </table>
       {{range .Table}}
         <table class="schedule-table">
           <colgroup>
             <col class="mobile-only time-col">
           </colgroup>
-          <tr>
+          <tr class="col-headers">
             <th class="day-header" colspan=2>{{.Day.Weekday}}&nbsp;{{.Day.Format "02"}}</th>
           </tr>
           {{range .Cells}}
             <tr>
-              <td class="time-header">88:88</td>
+              <td class="time-header mobile-only">{{.Hour | printf "%02d"}}:{{.Minute | printf "%02d"}}</td>
               {{if ne .RowSpan 0}}
               <td rowspan="{{.RowSpan}}" class="schedule-timeslot schedule-blocks-{{.Item.Block}}" title="{{stripHTML .Item.Desc}}">
                 {{if .Item.PageURL}}
@@ -61,7 +74,7 @@
     <p>Nothing today</p>
   {{end}}
 
-  </div><!-- /.container -->
+  </div>
 </div>
 
 {{end}}

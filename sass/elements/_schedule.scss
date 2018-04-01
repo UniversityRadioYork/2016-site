@@ -11,9 +11,6 @@
   }
   box-shadow: 0px 2px 4px rgba(0,0,0,0.5);
 }
-tr {
-  height:84px;
-}
 .schedule-blocks-sustainer {
   background-color: $secondary-color;
   color: $off-white-color;
@@ -30,29 +27,48 @@ tr {
   border-collapse: separate;
   table-layout: fixed;
   border-spacing: 2px;
-  width: 13%;
   display: inline-block;
   vertical-align: top;
   text-align: left;
+  width: 11%;
 
   thead {
     th {
       border: none;
     }
   }
-  .time-header {
-      border: none;
-      display: none;
+
+  tr {
+    height:84px;
   }
+
   td, th {
     border-top: none;
     overflow-y: hidden;
     a {
       display: block;
-      height: 0px;
+      width: 100%;
+      height: 30px;
     }
   }
+
+  .time-header {
+    border: none;
+    text-align: center;
+    .mobile-only{
+      display: none;
+    }
+  }
+
+  .col-headers{
+    height:24px;
+  }
 }
+
+.tables-container .row-headers{
+  width: 8%;
+}
+
 .schedule-blocks-regular {
   @include schedule-block($primary-color, $off-white-color);
 }
@@ -86,9 +102,10 @@ tr {
 }
 
 @media (max-width: 767px) {
-  /*.mobile-only {
-    display: none
-  }*/
+  .mobile-hidden {
+    display: none !important;
+  }
+
   .schedule-table {
     display: table;
     width: 100%;
@@ -97,6 +114,7 @@ tr {
     margin-bottom: 10px;
     padding: 10px;
     border-radius: 2px;
+
 
     .day-header, .time-header {
       display: table-cell;

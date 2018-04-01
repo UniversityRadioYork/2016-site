@@ -38,6 +38,12 @@ type WeekScheduleCell struct {
 	// Pointer to the timeslot in this cell, if any.
 	// Will be nil if 'RowSpan' is 0.
 	Item *ScheduleItem
+
+	// Hour stores which hour (row) the cell is in
+	Hour int
+
+	// Minute stores the minute for this row
+	Minute int
 }
 
 // WeekScheduleRow represents one row in the week schedule.
@@ -300,8 +306,8 @@ type WeekScheduleCol struct {
 }
 
 // addCell adds a cell with rowspan s and item i to the column c.
-func (c *WeekScheduleCol) addCell(s uint, i *ScheduleItem) {
-	c.Cells = append(c.Cells, WeekScheduleCell{RowSpan: s, Item: i})
+func (c *WeekScheduleCol) addCell(s uint, i *ScheduleItem, h int, m int) {
+	c.Cells = append(c.Cells, WeekScheduleCell{RowSpan: s, Item: i, Hour: h, Minute: m})
 }
 
 // tableFilp flips the schedule table such that it becomes a list of days which have a list
@@ -313,7 +319,7 @@ func tableFilp(rows []WeekScheduleRow, dates []time.Time) []WeekScheduleCol {
 	}
 	for _, row := range rows {
 		for i, cell := range row.Cells {
-			days[i].addCell(cell.RowSpan, cell.Item)
+			days[i].addCell(cell.RowSpan, cell.Item, row.Hour, row.Minute)
 		}
 	}
 	return days
@@ -338,6 +344,7 @@ func tabulateWeekSchedule(start, finish time.Time, schedule []*ScheduleItem) (*W
 		log.Println(err)
 		return nil, err
 	}
+
 	populateRows(days, rows, schedule)
 
 	table := tableFilp(rows, days)
