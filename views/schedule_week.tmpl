@@ -31,23 +31,20 @@
   <div class="container">
   {{with .Schedule}}
   {{if .Table}}
-  <div class="table schedule-table" style="width: 100%" >
-    <div style="width: 100%">
+    <div class="tables-container table">
       {{range .Table}}
-        <table style="width: 14%; display: inline-block; vertical-align: top">
+        <table class="schedule-table">
+          <colgroup>
+            <col class="mobile-only time-col">
+          </colgroup>
           <tr>
-            <th>
-              Time
-            </th>
-            <td>
-              {{.Day.Weekday}} {{.Day.Format "02"}}
-            </td>
+            <th class="day-header" colspan=2>{{.Day.Weekday}}&nbsp;{{.Day.Format "02"}}</th>
           </tr>
           {{range .Cells}}
             <tr>
-              <th>88:88</th>
+              <td class="time-header">88:88</td>
               {{if ne .RowSpan 0}}
-              <td rowspan="{{.RowSpan}}" class="schedule-timeslot schedule-blocks-{{.Item.Block}}" title="{{stripHTML .Item.Desc}}" style="display: table-cell;">
+              <td rowspan="{{.RowSpan}}" class="schedule-timeslot schedule-blocks-{{.Item.Block}}" title="{{stripHTML .Item.Desc}}">
                 {{if .Item.PageURL}}
                   <a href="{{url .Item.PageURL}}">{{.Item.Name}}</a>
                 {{else}}
@@ -57,10 +54,9 @@
               {{end}}
             </tr>
           {{end}}
-        </td>
+        </table>
       {{end}}
     </div>
-  </div>
   {{else}}
     <p>Nothing today</p>
   {{end}}

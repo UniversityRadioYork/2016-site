@@ -12,7 +12,7 @@
   box-shadow: 0px 2px 4px rgba(0,0,0,0.5);
 }
 tr {
-  height:80px;
+  height:84px;
 }
 .schedule-blocks-sustainer {
   background-color: $secondary-color;
@@ -20,23 +20,38 @@ tr {
   visibility: hidden;
 
 }
+
+.tables-container {
+  width: 100%;
+  text-align: center;
+}
+
 .schedule-table {
   border-collapse: separate;
   table-layout: fixed;
-  border-spacing: 15px;
+  border-spacing: 2px;
+  width: 13%;
+  display: inline-block;
+  vertical-align: top;
+  text-align: left;
 
   thead {
     th {
       border: none;
     }
   }
-  th {
+  .time-header {
       border: none;
+      display: none;
   }
-  td {
+  td, th {
     border-top: none;
+    overflow-y: hidden;
+    a {
+      display: block;
+      height: 0px;
+    }
   }
-
 }
 .schedule-blocks-regular {
   @include schedule-block($primary-color, $off-white-color);
@@ -68,4 +83,34 @@ tr {
 
 .schedule-blocks-specialistInterest {
   @include schedule-block(tint($speech-green,60%),$white);
+}
+
+@media (max-width: 767px) {
+  /*.mobile-only {
+    display: none
+  }*/
+  .schedule-table {
+    display: table;
+    width: 100%;
+    background-color: $secondary-color;
+    margin: auto;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 2px;
+
+    .day-header, .time-header {
+      display: table-cell;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    .day-header {
+      font-size: 2rem;
+      text-align: center
+    }
+
+    .time-col {
+      width: 25%;
+    }
+  }
 }
