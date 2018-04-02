@@ -292,25 +292,6 @@ footer {
   color: #555;
 }
 
-// Schedule blocks
-@mixin schedule-blocks($color) {
-  background-color: $color;
-
-  // TODO(MattWindsor91): this is probably wrong.
-  @if (lightness($color) < 50) {
-    color: $off-white-color;
-  }
-}
-
-.schedule-blocks-sustainer {
-  @include schedule-blocks($blocks-sustainer-color);
-}
-
-.schedule-blocks-regular {
-  @include schedule-blocks($blocks-regular-color);
-}
-
-
 // Styling for responsive map
 .map-container {
   width: 100%;

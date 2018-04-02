@@ -1,0 +1,46 @@
+@mixin schedule-block($bg-color, $txt-color) {
+  background-color: $bg-color;
+  a {
+    color: $txt-color;
+  } 
+  &:hover {
+    background-color: tint($bg-color, 60%);
+  } 
+}
+
+.schedule-blocks-sustainer {
+  background-color: $secondary-color;
+  color: $off-white-color;
+}
+
+.schedule-blocks-regular {
+  @include schedule-block($primary-color, $off-white-color);
+}
+
+.schedule-blocks-flagship {
+  @include schedule-block($flagship, $black);
+}
+
+.schedule-blocks-news {
+  @include schedule-block($news-maroon, $off-white-color);
+}
+
+.schedule-blocks-speech {
+  @include schedule-block($speech-green, $off-white-color);
+}
+
+.schedule-blocks-music {
+  @include schedule-block($music-purple,$off-white-color);
+}
+
+.schedule-blocks-event {
+  @include schedule-block($red, $off-white-color);
+}
+
+.schedule-blocks-specialistMusic {
+  @include schedule-block(tint($music-purple,60%),$white);
+}
+
+.schedule-blocks-specialistInterest {
+  @include schedule-block(tint($speech-green,60%),$white);
+}
