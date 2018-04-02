@@ -314,7 +314,7 @@ func (c *WeekScheduleCol) addCell(s uint, i *ScheduleItem, h int, m int) {
 // of shows on that day.
 func tableFilp(rows []WeekScheduleRow, dates []time.Time) []WeekScheduleCol {
 	days := make([]WeekScheduleCol, 7)
-	for i, _ := range days {
+	for i := range days {
 		days[i].Day = dates[i]
 	}
 	for _, row := range rows {

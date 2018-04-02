@@ -1,16 +1,24 @@
+$white: #ffffff;
+$black: #000000;
+$shadow: rgba(0, 0, 0, 0.5);
+
 @mixin schedule-block($bg-color, $txt-color) {
   border-bottom: $bg-color solid 10px;
-  background: white;
+  background: $white;
   padding: 5px;
-  margin:5px;
+  margin: 5px;
+
   a {
-    color: black;
+    color: $black;
   }
+
   &:hover {
     background-color: tint($bg-color, 60%);
   }
-  box-shadow: 0px 2px 4px rgba(0,0,0,0.5);
+
+  box-shadow: 0 2px 4px $shadow;
 }
+
 .schedule-blocks-sustainer {
   background-color: $secondary-color;
   color: $off-white-color;
@@ -21,6 +29,10 @@
 .tables-container {
   width: 100%;
   text-align: center;
+
+  .row-headers {
+    width: 8%;
+  }
 }
 
 .schedule-table {
@@ -34,17 +46,19 @@
 
   thead {
     th {
-      border: none;
+      border: 0;
     }
   }
 
   tr {
-    height:84px;
+    height: 84px;
   }
 
-  td, th {
-    border-top: none;
+  td, 
+  th {
+    border-top: 0;
     overflow-y: hidden;
+
     a {
       display: block;
       width: 100%;
@@ -55,18 +69,14 @@
   .time-header {
     border: none;
     text-align: center;
-    .mobile-only{
+    .mobile-only {
       display: none;
     }
   }
 
-  .col-headers{
-    height:24px;
+  .col-headers {
+    height: 24px;
   }
-}
-
-.tables-container .row-headers{
-  width: 8%;
 }
 
 .schedule-blocks-regular {
@@ -86,7 +96,7 @@
 }
 
 .schedule-blocks-music {
-  @include schedule-block($music-purple,$off-white-color);
+  @include schedule-block($music-purple, $off-white-color);
 }
 
 .schedule-blocks-event {
@@ -94,16 +104,16 @@
 }
 
 .schedule-blocks-specialistMusic {
-  @include schedule-block(tint($music-purple,60%),$white);
+  @include schedule-block(tint($music-purple, 60%), $white);
 }
 
 .schedule-blocks-specialistInterest {
-  @include schedule-block(tint($speech-green,60%),$white);
+  @include schedule-block(tint($speech-green, 60%), $white);
 }
 
 @media screen and (max-width: 767px) {
   .mobile-hide {
-    display: none !important;
+    display: none;
   }
 
   .schedule-table {
@@ -116,15 +126,16 @@
     border-radius: 2px;
 
 
-    .day-header, .time-header {
+    .day-header,
+    .time-header {
       display: table-cell;
-      color: white;
+      color: $white;
       overflow-x: hidden;
     }
 
     .day-header {
       font-size: 2rem;
-      text-align: center
+      text-align: center;
     }
 
     .time-col {
