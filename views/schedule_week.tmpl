@@ -1,9 +1,13 @@
 {{define "content"}}
 {{with .PageData}}
 
-<!-- placeholder for current and next -->
 <div class="container-fluid header-large current-next">
-  <div class="container mobile-hide">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-11 col-md-10 box-shadow-1">
+      {{template "current_and_next" .}}
+      </div>
+    </div>
   </div>
 </div>
 
@@ -32,9 +36,9 @@
   {{with .Schedule}}
   {{if .Table}}
     <div class="tables-container table">
-      <table class="schedule-table mobile-hidden row-headers">
+      <table class="schedule-table mobile-hide row-headers">
         <colgroup>
-          <col class="mobile-hidden time-col">
+          <col class="mobile-hide time-col">
         </colgroup>
         <tr></tr>
         {{with index .Table 0}}

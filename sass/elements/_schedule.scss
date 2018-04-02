@@ -101,8 +101,8 @@
   @include schedule-block(tint($speech-green,60%),$white);
 }
 
-@media (max-width: 767px) {
-  .mobile-hidden {
+@media screen and (max-width: 767px) {
+  .mobile-hide {
     display: none !important;
   }
 

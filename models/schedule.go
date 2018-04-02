@@ -58,3 +58,11 @@ func (m *ScheduleModel) WeekSchedule(year, week int, sustainerConfig structs.Sus
 
 	return tabulateWeekSchedule(weekStart, weekFinish, filled)
 }
+
+func (m *ScheduleModel) GetCurrentAndNext() (*myradio.CurrentAndNext, error) {
+	currentAndNext, err := m.session.GetCurrentAndNext()
+	if err != nil {
+		return nil, err
+	}
+	return currentAndNext, nil
+}
