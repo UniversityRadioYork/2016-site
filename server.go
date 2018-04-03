@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/UniversityRadioYork/2016-site/controllers"
 	"github.com/UniversityRadioYork/2016-site/structs"
@@ -59,8 +61,22 @@ func NewServer(c *structs.Config) (*Server, error) {
 	// This route exists so that day schedule links from the previous website aren't broken.
 	getRouter.HandleFunc("/schedule/{year:[1-9][0-9][0-9][0-9]}/w{week:[0-5]?[0-9]}/{day:[1-7]}/", schedWeekC.GetByYearWeek).Name("schedule-week-day-compat")
 
+	// Redirect old podcast URLs
 	getRouter.HandleFunc("/uryplayer/", func(w http.ResponseWriter, r *http.Request) {
 		redirectC.Redirect(w, r, "/ontap/", 301)
+	})
+	getRouter.HandleFunc("/uryplayer/podcasts/", func(w http.ResponseWriter, r *http.Request) {
+		redirectC.Redirect(w, r, "/podcasts/", 301)
+	})
+	getRouter.HandleFunc("/uryplayer/podcasts/{id:[0-9]+}/", func(w http.ResponseWriter, r *http.Request) {
+		vars := mux.Vars(r)
+		id, _ := strconv.Atoi(vars["id"])
+		redirectC.Redirect(w, r, fmt.Sprintf("/podcasts/%d/", id), 301)
+	})
+	getRouter.HandleFunc("/uryplayer/podcasts/{id:[0-9]+}/player/", func(w http.ResponseWriter, r *http.Request) {
+		vars := mux.Vars(r)
+		id, _ := strconv.Atoi(vars["id"])
+		redirectC.Redirect(w, r, fmt.Sprintf("/podcasts/%d/player/", id), 301)
 	})
 
 	pc := controllers.NewPeopleController(session, c)
