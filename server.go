@@ -53,6 +53,9 @@ func NewServer(c *structs.Config) (*Server, error) {
 	getRouter.HandleFunc("/schedule/shows/timeslots/{id:[0-9]+}/", showC.GetTimeslot).Name("timeslot")
 	getRouter.HandleFunc("/schedule/shows/seasons/{id:[0-9]+}/", showC.GetSeason).Name("season")
 
+	getRouter.HandleFunc("/schedule/", func(w http.ResponseWriter, r *http.Request) {
+		redirectC.Redirect(w, r, "/schedule/thisweek/", 301)
+	})
 	// NOTE: NewScheduleWeekController assumes 'timeslot' is installed BEFORE it is called.
 	schedWeekC := controllers.NewScheduleWeekController(session, getRouter, c)
 	getRouter.HandleFunc("/schedule/thisweek/", schedWeekC.GetThisWeek).Name("schedule-thisweek")
@@ -61,7 +64,7 @@ func NewServer(c *structs.Config) (*Server, error) {
 	// This route exists so that day schedule links from the previous website aren't broken.
 	getRouter.HandleFunc("/schedule/{year:[1-9][0-9][0-9][0-9]}/w{week:[0-5]?[0-9]}/{day:[1-7]}/", schedWeekC.GetByYearWeek).Name("schedule-week-day-compat")
 
-	// Redirect old podcast URLs
+	// Redirect old podcast URLsc
 	getRouter.HandleFunc("/uryplayer/", func(w http.ResponseWriter, r *http.Request) {
 		redirectC.Redirect(w, r, "/ontap/", 301)
 	})
