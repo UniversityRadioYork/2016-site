@@ -1,21 +1,23 @@
 {{define "content"}}
 {{with .PageData}}
 
-<div class="container-fluid header-large current-next">
-  <div class="container">
+<div class="container-fluid header-large current-next mobile-shrink">
     <div class="row justify-content-center">
-      <div class="col-11 col-md-10 box-shadow-1">
-      {{template "current_and_next" .}}
+      <div class="col-11 col-md-10 box-shadow-1 mobile-hide">
+        {{template "current_and_next" .}}
+      </div>
+      <div class="col-11 col-md-10 text-center mobile-only">
+        <h1 class="display-3">Schedule</h1>
+        <h4 class="display-5">{{week (index .Schedule.Dates 0)}}</h4>
       </div>
     </div>
-  </div>
 </div>
 
 <!-- schedule header -->
 <div class="container-fluid bg-off-white">
   <div class="container p-3">
-      <h1 class="display-4">Schedule</h1>
-      <h4 class="muted">for {{week (index .Schedule.Dates 0)}}</h4>
+      <h1 class="display-4 mobile-hide">Schedule</h1>
+      <h4 class="muted mobile-hide">for {{week (index .Schedule.Dates 0)}}</h4>
     <nav aria-label="Related Schedules" class="row nav justify-content-between">
       {{if .PrevURL}}
         <a class="nav-link" href="{{url .PrevURL.Path}}">Previous week</a>

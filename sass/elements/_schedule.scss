@@ -19,16 +19,10 @@ $shadow: rgba(0, 0, 0, 0.5);
   box-shadow: 0 2px 4px $shadow;
 }
 
-.schedule-blocks-sustainer {
-  background-color: $secondary-color;
-  color: $off-white-color;
-  visibility: hidden;
-
-}
-
 .tables-container {
   width: 100%;
   text-align: center;
+  background-color: $secondary-color;
 
   .row-headers {
     width: 8%;
@@ -66,9 +60,15 @@ $shadow: rgba(0, 0, 0, 0.5);
     }
   }
 
+  .day-header {
+    color: $white;
+  }
+
   .time-header {
     border: none;
     text-align: center;
+    color: $white;
+
     .mobile-only {
       display: none;
     }
@@ -76,6 +76,17 @@ $shadow: rgba(0, 0, 0, 0.5);
 
   .col-headers {
     height: 24px;
+  }
+}
+
+$sustainer-color: tint($primary-color, 40%);
+
+.schedule-blocks-sustainer {
+  @include schedule-block($sustainer-color, $black);
+  background-color: $sustainer-color;
+
+  &:hover{
+    background-color: $sustainer-color;
   }
 }
 
@@ -116,6 +127,11 @@ $shadow: rgba(0, 0, 0, 0.5);
     display: none;
   }
 
+  .current-next.mobile-shrink {
+    height: unset;
+    padding: calc(2em + 60px) 0 2em;
+  }
+
   .schedule-table {
     display: table;
     width: 100%;
@@ -129,7 +145,6 @@ $shadow: rgba(0, 0, 0, 0.5);
     .day-header,
     .time-header {
       display: table-cell;
-      color: $white;
       overflow-x: hidden;
     }
 
@@ -141,5 +156,9 @@ $shadow: rgba(0, 0, 0, 0.5);
     .time-col {
       width: 25%;
     }
+  }
+
+  .tables-container {
+    background-color: none;
   }
 }
