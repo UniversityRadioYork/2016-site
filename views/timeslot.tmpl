@@ -24,11 +24,11 @@
     <div class="row justify-content-center">
       <div class="col-11 col-md-10 py-2 mixcloud">
         <h2>URY on Tap: Listen Again</h2>
-        <iframe width="100%" height="120" src="https://www.mixcloud.com/widget/iframe/?feed={{.Timeslot.MixcloudStatus}}&hide_cover=1&light=1" frameborder="0"></iframe>				
+        <iframe width="100%" height="120" src="https://www.mixcloud.com/widget/iframe/?feed={{.Timeslot.MixcloudStatus}}&hide_cover=1&light=1" frameborder="0"></iframe>
         <a href="#">Listen to more shows on URY On Demand</a>
       </div>
     </div>
-  {{end}}        
+  {{end}}
   </div>
 </div>
 <div class="container-fluid bg-off-white">
@@ -45,6 +45,31 @@
         <div class="row">
           <div class="col text-center">
             <h5>Duration: {{.Timeslot.Duration}}</h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-center share-links">
+            <span>Share:</span>
+{{end}}
+            <a href="#" data-type="twitter" data-url="{{.PageContext.FullURL}}/schedule/shows/timeslots/{{.PageData.Timeslot.TimeslotID}}"
+              {{if .PageData.Timeslot.Season.ShowMeta.Photo}}
+                data-media="{{.PageContext.FullURL}}{{.PageData.Timeslot.Season.ShowMeta.Photo}}"
+              {{end}}
+              data-description="I'm listening to {{.PageData.Timeslot.Title}} ({{.PageData.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}})" data-via="{{.PageContext.MainTwitter}}" class="prettySocial fa fa-twitter"></a>
+
+            <a href="#" data-type="facebook" data-url="{{.PageContext.FullURL}}/schedule/shows/timeslots/{{.PageData.Timeslot.TimeslotID}}" data-title="{{.PageData.Timeslot.Title}} ({{.PageData.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}})" data-description="{{.PageData.Timeslot.Description}}"
+              {{if .PageData.Timeslot.Season.ShowMeta.Photo}}
+                data-media="{{.PageContext.FullURL}}{{.PageData.Timeslot.Season.ShowMeta.Photo}}"
+              {{end}}
+              class="prettySocial fa fa-facebook"></a>
+
+            <a href="#" data-type="googleplus" data-url="{{.PageContext.FullURL}}/schedule/shows/timeslots/{{.PageData.Timeslot.TimeslotID}}"
+              data-description="{{.PageData.Timeslot.Description}}"
+              {{if .PageData.Timeslot.Season.ShowMeta.Photo}}
+                data-media="{{.PageContext.FullURL}}{{.PageData.Timeslot.Season.ShowMeta.Photo}}"
+              {{end}}
+              class="prettySocial fa fa-google"></a>
+{{with .PageData}}
           </div>
         </div>
       </div>
@@ -117,4 +142,11 @@
   </div>
 </div>
 {{end}}
+{{end}}
+
+{{define "footer-scripts"}}
+<script src="{{url "/js/jquery.prettySocial.min.js"}}"></script>
+<script type="text/javascript" class="source">
+  $('.prettySocial').prettySocial();
+</script>
 {{end}}
