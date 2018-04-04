@@ -63,8 +63,14 @@ func (r *WeekScheduleRow) addCell(s uint, i *ScheduleItem) {
 
 // straddlesDay checks whether a show's start and finish cross over the boundary of a URY day.
 func straddlesDay(s *ScheduleItem) bool {
-	nextDayStart := utils.StartOfDayOn(s.Start.AddDate(0, 0, 1))
-	return s.Finish.After(nextDayStart)
+	dayBoundary := utils.StartHour
+	adjustedStartDay := s.Start.Add(time.Hour * time.Duration(-dayBoundary))
+	adjustedEndDay := s.Finish.Add(time.Hour * time.Duration(-dayBoundary))
+	straddle := adjustedEndDay.Day() != adjustedStartDay.Day()
+	if straddle {
+		fmt.Println(s.Name)
+	}
+	return straddle
 }
 
 // calcScheduleBoundaries gets the offsets of the earliest and latest visible schedule hours.
@@ -78,8 +84,8 @@ func calcScheduleBoundaries(items []*ScheduleItem) (top, bot utils.StartOffset, 
 	// These are the boundaries for culling, and are expanded upwards when we find shows that start earlier or finish later than the last-set boundary.
 	// Initially they are set to one past their worst case to make the updating logic easier.
 	// Since we assert we have a schedule, these values _will_ change.
-	top = utils.StartOffset(24)
-	bot = utils.StartOffset(-1)
+	top = utils.StartOffset(23)
+	bot = utils.StartOffset(0)
 
 	for _, s := range items {
 		// Any show that isn't a sustainer affects the culling boundaries.
@@ -87,7 +93,7 @@ func calcScheduleBoundaries(items []*ScheduleItem) (top, bot utils.StartOffset, 
 			continue
 		}
 
-		if straddlesDay(s) {
+		if straddlesDay(s) && s.Finish.Weekday() != time.Monday {
 			// An item that straddles the day crosses over from the end of a day to the start of the day.
 			// This means that we saturate the culling boundaries.
 			// As an optimisation we don't need to consider any other show.
@@ -353,8 +359,6 @@ func tabulateWeekSchedule(start, finish time.Time, schedule []*ScheduleItem) (*W
 		Dates: days,
 		Table: table,
 	}
-
-	fmt.Println(sch)
 
 	return &sch, nil
 }

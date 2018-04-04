@@ -20,7 +20,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	utils.StartHour = config.Schedule.StartHour
+	if &config.Schedule.StartHour != nil {
+		utils.StartHour = config.Schedule.StartHour
+	}
 
 	s, err := NewServer(config)
 	if err != nil {
