@@ -87,6 +87,7 @@ func getBlock(name string, StartTime time.Time) string {
 		{"URY Brunch", "flagship"},
 		{"URY Afternoon Tea:", "flagship"},
 		{"URY:PM", "flagship"},
+
 		{"ury news", "news"},
 		{"ury sports", "news"},
 		{"ury football", "news"},
@@ -97,6 +98,8 @@ func getBlock(name string, StartTime time.Time) string {
 		{"yusu election", "news"},
 		{"The Second Half With Josh Kerr", "news"},
 		{"URY SPORT", "news"},
+		{"URY News & Sport:", "news"},
+
 		{"ury speech", "speech"},
 		{"yorworld", "speech"},
 		{"in the stalls", "speech"},
@@ -109,6 +112,10 @@ func getBlock(name string, StartTime time.Time) string {
 		{"URWatch", "speech"},
 		{"Society Challenge", "speech"},
 		{"Speech Showcase", "speech"},
+		{"URY Speech:", "speech"},
+
+		{"URY Music:", "music"},
+
 		{"roses live 201", "event"},
 		{"roses 201", "event"},
 		{"woodstock", "event"},

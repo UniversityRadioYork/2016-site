@@ -10,7 +10,7 @@ import (
 // Calculations involving schedule hours and start-of-day.
 //
 
-// The hour of the day (local time) at which the scheduled day begins.
+// StartHour is the hour of the day (local time) at which the scheduled day begins.
 var StartHour = 16
 
 // StartOfDayOn gets the schedule start-of-day on a given date.

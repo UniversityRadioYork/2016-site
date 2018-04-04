@@ -47,7 +47,7 @@ $shadow: rgba(0, 0, 0, 0.5);
     height: 84px;
   }
 
-  td, 
+  td,
   th {
     border-top: 0;
     overflow-y: hidden;
@@ -60,7 +60,7 @@ $shadow: rgba(0, 0, 0, 0.5);
   }
 
   .time-header {
-    border: none;
+    border: 0;
     text-align: center;
 
     .mobile-only {
@@ -74,6 +74,7 @@ $shadow: rgba(0, 0, 0, 0.5);
 
   .schedule-timeslot:not(.schedule-blocks-sustainer) {
     cursor: pointer;
+
     &:hover {
       text-decoration: underline;
     }
@@ -86,7 +87,7 @@ $sustainer-color: tint($primary-color, 40%);
   @include schedule-block($sustainer-color, $black);
   background-color: $sustainer-color;
 
-  &:hover{
+  &:hover {
     background-color: $sustainer-color;
   }
 }
