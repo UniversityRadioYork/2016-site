@@ -243,7 +243,7 @@ footer {
   font-size: 21px;
 }
 
-@media screen and (max-width: 767px) {
+@include media-breakpoint-down(sm) {
   .mobile-hide {
     display: none;
   }

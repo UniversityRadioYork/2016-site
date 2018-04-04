@@ -54,7 +54,8 @@ $shadow: rgba(0, 0, 0, 0.5);
     border-top: 0;
     overflow-y: hidden;
 
-    p {
+    p,
+    a {
       display: block;
       width: 100%;
       height: 30px;
@@ -126,11 +127,7 @@ $sustainer-color: tint($primary-color, 40%);
   @include schedule-block(tint($speech-green, 60%), $white);
 }
 
-@media screen and (max-width: 767px) {
-  .mobile-hide {
-    display: none;
-  }
-
+@include media-breakpoint-down(sm) {
   .current-next.mobile-shrink {
     height: unset;
     padding: calc(2em + 60px) 0 2em;

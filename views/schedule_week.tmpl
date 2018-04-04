@@ -65,7 +65,11 @@
               {{if ne .RowSpan 0}}
               <td rowspan="{{.RowSpan}}" class="schedule-timeslot schedule-blocks-{{.Item.Block}}" title="{{stripHTML .Item.Desc}}"
                   {{if .Item.PageURL}} onclick="window.location.href='{{url .Item.PageURL}}'" {{end}} >
-                <p>{{.Item.Name}}</p>
+                {{if .Item.PageURL}}
+                  <a href="{{url .Item.PageURL}}" >{{.Item.Name}}</a>
+                {{else}}
+                  <p>{{.Item.Name}}</p>
+                {{end}}
               </td>
               {{end}}
             </tr>
