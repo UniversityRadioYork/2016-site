@@ -42,7 +42,7 @@
         <colgroup>
           <col class="mobile-hide time-col">
         </colgroup>
-        <tr></tr>
+        <tr class="col-headers"></tr>
         {{with index .Table 0}}
           {{range .Cells}}
             <tr>
@@ -63,12 +63,9 @@
             <tr>
               <td class="time-header mobile-only">{{.Hour | printf "%02d"}}:{{.Minute | printf "%02d"}}</td>
               {{if ne .RowSpan 0}}
-              <td rowspan="{{.RowSpan}}" class="schedule-timeslot schedule-blocks-{{.Item.Block}}" title="{{stripHTML .Item.Desc}}">
-                {{if .Item.PageURL}}
-                  <a href="{{url .Item.PageURL}}">{{.Item.Name}}</a>
-                {{else}}
-                  {{.Item.Name}}
-                {{end}}
+              <td rowspan="{{.RowSpan}}" class="schedule-timeslot schedule-blocks-{{.Item.Block}}" title="{{stripHTML .Item.Desc}}"
+                  {{if .Item.PageURL}} onclick="window.location.href='{{url .Item.PageURL}}'" {{end}} >
+                {{.Item.Name}}
               </td>
               {{end}}
             </tr>

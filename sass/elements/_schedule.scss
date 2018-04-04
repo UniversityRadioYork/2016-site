@@ -71,6 +71,13 @@ $shadow: rgba(0, 0, 0, 0.5);
   .col-headers {
     height: 24px;
   }
+
+  .schedule-timeslot:not(.schedule-blocks-sustainer) {
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 $sustainer-color: tint($primary-color, 40%);
