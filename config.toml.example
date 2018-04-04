@@ -46,7 +46,7 @@
 
 # This is config for the schedule renderer
 [schedule]
-	startHour = 3
+	startHour = 6
 
 	[schedule.sustainer]
 		name = "Overnight Owen"
