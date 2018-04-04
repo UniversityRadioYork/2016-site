@@ -67,9 +67,6 @@ func straddlesDay(s *ScheduleItem) bool {
 	adjustedStartDay := s.Start.Add(time.Hour * time.Duration(-dayBoundary))
 	adjustedEndDay := s.Finish.Add(time.Hour * time.Duration(-dayBoundary))
 	straddle := adjustedEndDay.Day() != adjustedStartDay.Day()
-	if straddle {
-		fmt.Println(s.Name)
-	}
 	return straddle
 }
 
