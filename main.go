@@ -7,6 +7,7 @@ import (
 
 	"github.com/BurntSushi/toml"
 	"github.com/UniversityRadioYork/2016-site/structs"
+	"github.com/UniversityRadioYork/2016-site/utils"
 	"github.com/stretchr/graceful"
 )
 
@@ -18,6 +19,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	utils.StartHour = config.Schedule.StartHour
 
 	s, err := NewServer(config)
 	if err != nil {

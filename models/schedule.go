@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/UniversityRadioYork/2016-site/structs"
-
 	"github.com/UniversityRadioYork/2016-site/utils"
 	"github.com/UniversityRadioYork/myradio-go"
 )
