@@ -22,7 +22,6 @@ $shadow: rgba(0, 0, 0, 0.5);
 .tables-container {
   width: 100%;
   text-align: center;
-  background-color: $secondary-color;
 
   .row-headers {
     width: 8%;
@@ -156,9 +155,5 @@ $sustainer-color: tint($primary-color, 40%);
     .time-col {
       width: 25%;
     }
-  }
-
-  .tables-container {
-    background-color: none;
   }
 }
