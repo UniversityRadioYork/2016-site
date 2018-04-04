@@ -59,14 +59,9 @@ $shadow: rgba(0, 0, 0, 0.5);
     }
   }
 
-  .day-header {
-    color: $white;
-  }
-
   .time-header {
     border: none;
     text-align: center;
-    color: $white;
 
     .mobile-only {
       display: none;
@@ -145,6 +140,7 @@ $sustainer-color: tint($primary-color, 40%);
     .time-header {
       display: table-cell;
       overflow-x: hidden;
+      color: $white;
     }
 
     .day-header {
