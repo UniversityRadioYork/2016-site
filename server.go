@@ -58,6 +58,10 @@ func NewServer(c *structs.Config) (*Server, error) {
 	pc := controllers.NewPeopleController(session, c)
 	getRouter.HandleFunc("/people/{id:[0-9]+}/", pc.Get)
 
+	teamC := controllers.NewTeamController(session, c)
+	getRouter.HandleFunc("/teams/", teamC.GetAll)
+	getRouter.HandleFunc("/teams/{alias}/", teamC.Get)
+
 	getinvolvedC := controllers.NewGetInvolvedController(session, c)
 	getRouter.HandleFunc("/getinvolved/", getinvolvedC.Get)
 

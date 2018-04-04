@@ -132,6 +132,7 @@ func IsoWeekToDate(year, week int, weekday time.Weekday) (time.Time, error) {
 }
 
 // MostRecentMonday returns the most recent Monday before d.
+// The resulting date has the same time as d.
 func MostRecentMonday(d time.Time) time.Time {
 	/* The weekday is the number of days since the most recent Sunday, so
 	   shifting it by 1 modulo 7 gives us the correct result for Monday. */
@@ -144,32 +145,41 @@ func MostRecentMonday(d time.Time) time.Time {
 	return d.AddDate(0, 0, -dmon)
 }
 
-// FormatWeekRelative pretty-prints the name of a week starting on start.
+// FormatWeekRelative pretty-prints the name of a week starting on start, relative to today.
 // start must be a Monday.
 func FormatWeekRelative(start time.Time) string {
+	return FormatWeekRelativeTo(start, time.Now())
+}
+
+// FormatWeekRelativeTo pretty-prints the name of the current week of start, relative to the current week of now.
+func FormatWeekRelativeTo(start, now time.Time) string {
+	// To simplify calculations, reduce start and now to their Monday.
+	// Since we're going to be comparing start and now based on their date, not their time, set their timestamps equal.
+	startm := StartOfDayOn(MostRecentMonday(start))
+	nowm := StartOfDayOn(MostRecentMonday(now))
+
 	/* If we're on the same week, or the week either end of current, we can (and
 	   should) use short, human-friendly week names. */
 
 	// To work out which week we're in, get the boundaries of last, this, and next week.
-	tm := MostRecentMonday(time.Now())
-	lm := tm.AddDate(0, 0, -7)
-	nm := tm.AddDate(0, 0, 7)
-	fm := tm.AddDate(0, 0, 14)
+	lm := nowm.AddDate(0, 0, -7)
+	nm := nowm.AddDate(0, 0, 7)
+	fm := nowm.AddDate(0, 0, 14)
 
 	switch {
-	case start.Before(lm):
+	case startm.Before(lm):
 		break
-	case start.Before(tm):
+	case startm.Before(nowm):
 		return "last week"
-	case start.Before(nm):
+	case startm.Before(nm):
 		return "this week"
-	case start.Before(fm):
+	case startm.Before(fm):
 		return "next week"
 	default:
 		break
 	}
 
 	// If we got here, we can't give a fancy name to this week.
-	sun := start.AddDate(0, 0, 6)
-	return start.Format("02 Jan 2006") + " to " + sun.Format("02 Jan 2006")
+	sun := startm.AddDate(0, 0, 6)
+	return startm.Format("02 Jan 2006") + " to " + sun.Format("02 Jan 2006")
 }

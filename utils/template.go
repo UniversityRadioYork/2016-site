@@ -8,6 +8,7 @@ import (
 
 	"github.com/UniversityRadioYork/2016-site/structs"
 	myradio "github.com/UniversityRadioYork/myradio-go"
+	"github.com/gedex/inflector"
 )
 
 // TemplatePrefix is the constant containing the filepath prefix for templates.
@@ -84,7 +85,8 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 			}
 			return d
 		},
-		"week": FormatWeekRelative,
+		"week":   FormatWeekRelative,
+		"plural": inflector.Pluralize,
 	})
 	t, err = t.ParseFiles(tmpls...)
 	if err != nil {

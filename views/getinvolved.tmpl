@@ -45,7 +45,7 @@
         and you don't have to sign up at Freshers' Fair or at the start of a term to get your very own show!
         Take a look at our <a href="/schedule" title="The URY Schedule">schedule</a>. If you can see a gap, there's no reason you couldn't fill it.
       </p>
-      <p>As well as just presenting, there are <strong><a href="#" title="Have a look at what our teams do!">{{.NumTeams}} Teams</a></strong>
+      <p>As well as just presenting, there are <strong><a href="/teams" title="Have a look at what our teams do!">{{.NumTeams}} Teams</a></strong>
         of students that make content and keep URY running. You can see more about them at the bottom of this page.
       </p>
   </div>
@@ -109,7 +109,7 @@
           </div>
           <div class="form-group">
             <label for="college">College</label>
-            <select id="college" name="college" class="form-control">
+            <select id="college" name="collegeid" class="form-control">
               {{range .Colleges}}
                 <option value="{{.CollegeId}}">{{.CollegeName}}</option>
               {{end}}
