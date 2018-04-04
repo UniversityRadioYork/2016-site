@@ -75,7 +75,7 @@ func straddlesDay(s *ScheduleItem) bool {
 
 // calcScheduleBoundaries gets the offsets of the earliest and latest visible schedule hours.
 // It returns these as top and bot respectively.
-func calcScheduleBoundaries(items []*ScheduleItem) (top, bot utils.StartOffset, err error) {
+func calcScheduleBoundaries(items []*ScheduleItem, scheduleStart time.Time) (top, bot utils.StartOffset, err error) {
 	if len(items) == 0 {
 		err = errors.New("calculateScheduleBoundaries: no schedule")
 		return
@@ -93,11 +93,20 @@ func calcScheduleBoundaries(items []*ScheduleItem) (top, bot utils.StartOffset, 
 			continue
 		}
 
-		if straddlesDay(s) && s.Finish.Weekday() != time.Monday {
-			// An item that straddles the day crosses over from the end of a day to the start of the day.
-			// This means that we saturate the culling boundaries.
-			// As an optimisation we don't need to consider any other show.
-			return utils.StartOffset(0), utils.StartOffset(23), nil
+		if straddlesDay(s) {
+			if scheduleStart.After(s.Start) {
+				//This is the first item on the schedule and straddles the week, so we only set the top of the schedule
+				//top = utils.StartOffset(0)
+				//Temporarily disabled as this slot doesn't show up on the schedule
+			} else if s.Finish.After(scheduleStart.AddDate(0, 0, 7)) {
+				//This is the last item on the schedule and straddles the week, so we only set the bottom of the schedule
+				bot = utils.StartOffset(23)
+			} else {
+				// An item that straddles the day crosses over from the end of a day to the start of the day.
+				// This means that we saturate the culling boundaries.
+				// As an optimisation we don't need to consider any other show.
+				return utils.StartOffset(0), utils.StartOffset(23), nil
+			}
 		}
 
 		// Otherwise, if its start/finish as offsets from start time are outside the current boundaries, update them.
@@ -217,8 +226,8 @@ func rowDecisionsToRows(rdecs []rowDecision) ([]WeekScheduleRow, error) {
 }
 
 // initScheduleRows takes a schedule and determines which rows should be displayed.
-func initScheduleRows(items []*ScheduleItem) ([]WeekScheduleRow, error) {
-	top, bot, err := calcScheduleBoundaries(items)
+func initScheduleRows(items []*ScheduleItem, startTime time.Time) ([]WeekScheduleRow, error) {
+	top, bot, err := calcScheduleBoundaries(items, startTime)
 	if err != nil {
 		return nil, err
 	}
@@ -345,7 +354,7 @@ func tabulateWeekSchedule(start, finish time.Time, schedule []*ScheduleItem) (*W
 		}, nil
 	}
 
-	rows, err := initScheduleRows(schedule)
+	rows, err := initScheduleRows(schedule, start)
 	if err != nil {
 		log.Println(err)
 		return nil, err

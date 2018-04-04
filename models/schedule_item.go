@@ -4,9 +4,9 @@ import (
 	"errors"
 	"log"
 	"net/url"
-	"time"
 	"strings"
-	
+	"time"
+
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/myradio-go"
 )
@@ -72,14 +72,14 @@ func NewTimeslotItem(t *myradio.Timeslot, finish time.Time, u func(*myradio.Time
 	}, nil
 }
 
-func getBlock(name string, StartTime time.Time) string{
+func getBlock(name string, StartTime time.Time) string {
 	name = strings.ToLower(name)
 
 	type blockMatch struct {
 		nameFragment string
-		block string
+		block        string
 	}
-	var blockMatches = []blockMatch {
+	var blockMatches = []blockMatch{
 		{"ury: early morning", "flagship"},
 		{"ury breakfast", "flagship"},
 		{"ury lunch", "flagship"},
@@ -120,7 +120,7 @@ func getBlock(name string, StartTime time.Time) string{
 		{"URY Presents", "event"},
 		{"URYOnTour", "event"},
 		{"URY On Tour", "event"},
-	}	
+	}
 	for _, bm := range blockMatches {
 		if strings.Contains(name, strings.ToLower(bm.nameFragment)) {
 			return bm.block
@@ -129,9 +129,9 @@ func getBlock(name string, StartTime time.Time) string{
 	// certain times of the day correspond to a specific show type.
 	if (StartTime.Hour() >= 21) || (StartTime.Hour() < 5) { // speacialist music
 		return "specialistMusic"
-	} else if (StartTime.Hour() == 18) { // specialsit speech and interest
+	} else if StartTime.Hour() == 18 { // specialsit speech and interest
 		return "specialistInterest"
-	}	else if (StartTime.Hour() == 11) || (StartTime.Hour() == 19) { // missed flagship
+	} else if (StartTime.Hour() == 11) || (StartTime.Hour() == 19) { // missed flagship
 		return "flagship"
 	}
 	return "regular"
@@ -206,6 +206,13 @@ func truncateOverlap(finish, nextStart time.Time, show, nextShow *myradio.Timesl
 	if nextShow == nil || !finish.After(nextStart) {
 		return finish
 	}
+
+	// If the show starts after the next ends then there is no overlap
+	if show.StartTime.After(nextStart.Add(nextShow.Duration)) {
+		return finish
+	}
+
+	log.Println("Truncating" + show.Title)
 
 	log.Printf(
 		"Timeslot '%s', ID %d, finishing at %v overlaps with timeslot '%s', ID %d, starting at %v'",

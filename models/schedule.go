@@ -1,7 +1,6 @@
 package models
 
 import (
-	"fmt"
 	"net/url"
 	"time"
 
@@ -55,8 +54,6 @@ func (m *ScheduleModel) WeekSchedule(year, week int, sustainerConfig structs.Sus
 	if err != nil {
 		return nil, err
 	}
-
-	fmt.Println(filled)
 
 	return tabulateWeekSchedule(weekStart, weekFinish, filled)
 }
