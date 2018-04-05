@@ -21,7 +21,7 @@ type RenderData struct {
 	Banners        []myradio.Banner
 	Teams          []myradio.Team
 	MsgBoxError    bool
-	JukeboxOnAir   bool
+	ShowOnAir      bool
 }
 
 // NewIndexController returns a new IndexController with the MyRadio session s
@@ -35,7 +35,7 @@ func (ic *IndexController) Get(w http.ResponseWriter, r *http.Request) {
 	// This is where any form params would be parsed
 	model := models.NewIndexModel(ic.session)
 
-	currentAndNext, banners, teams, jukeboxOnAir, err := model.Get()
+	currentAndNext, banners, teams, showOnAir, err := model.Get()
 
 	if err != nil {
 		log.Println(err)
@@ -46,7 +46,7 @@ func (ic *IndexController) Get(w http.ResponseWriter, r *http.Request) {
 		CurrentAndNext: currentAndNext,
 		Banners:        banners,
 		Teams:          teams,
-		JukeboxOnAir:   jukeboxOnAir,
+		ShowOnAir:      showOnAir,
 		MsgBoxError:    false,
 	}
 
@@ -62,7 +62,7 @@ func (ic *IndexController) Post(w http.ResponseWriter, r *http.Request) {
 	// Get all the data for the webpage
 	model := models.NewIndexModel(ic.session)
 
-	currentAndNext, banners, teams, jukeboxOnAir, err := model.Get()
+	currentAndNext, banners, teams, showOnAir, err := model.Get()
 
 	if err != nil {
 		log.Println(err)
@@ -73,7 +73,7 @@ func (ic *IndexController) Post(w http.ResponseWriter, r *http.Request) {
 		CurrentAndNext: currentAndNext,
 		Banners:        banners,
 		Teams:          teams,
-		JukeboxOnAir:   jukeboxOnAir,
+		ShowOnAir:      showOnAir,
 		MsgBoxError:    false,
 	}
 
