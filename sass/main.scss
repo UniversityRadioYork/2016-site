@@ -297,17 +297,18 @@ footer {
     display: inline-block;
     margin-right: 5px;
   }
-  #timeslotSeasonTitle {
+  #timeslot-season-title {
     color: #666;
   }
   .dataTables_wrapper .dataTables_paginate {
     float: none;
     text-align: center;
   }
-  #timeslotList {
+  #timeslot-list {
     display: none;
   }
-  .timeslots-table, .seasons-table {
+  .timeslots-table,
+  .seasons-table {
     width:100% !important;
     thead {
       //display: none;

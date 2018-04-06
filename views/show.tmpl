@@ -74,7 +74,7 @@
 {{end}}
 <div class="container-fluid bg-third">
 	<div class="container show-selector">
-		<div class="row flex">
+		<div class="row">
 {{end}}
 			<div class="col-xs-12 pt-4 pr-4 pb-4 col-md-4">
 				<h1>{{.PageContext.ShortName}} {{.PageContext.ODName}}</h1>
@@ -96,7 +96,7 @@
 					<tbody>
 					{{range .Seasons}}
 						{{if ne .SeasonNum 0}}
-							<tr class="timeslotFilterSeason" data-SeasonID="{{.SeasonID}}">
+							<tr class="timeslot-filter-season" data-SeasonID="{{.SeasonID}}">
 								<td>{{.SeasonNum}}</td>
 								<td>{{.FirstTime.Format "Monday, _2 Jan 2006 - 15:04"}}</td>
 								<td>
@@ -108,13 +108,13 @@
 					</tbody>
 				</table>
 			</div>
-			<div id="timeslotLatest" class="col-xs-12 col-sm-6 col-md-4 p-4 bg-white">
+			<div id="timeslot-latest" class="col-xs-12 col-sm-6 col-md-4 p-4 bg-white">
 				<h3>Latest Episode</h3>
 				<p>Catchup with the latest episode from !!DATE!!</p>
 				!!MixClouder iFrame
 			</div>
-			<div id="timeslotList" class="col-xs-12 col-sm-6 col-md-4 p-4 bg-white">
-				<h2 class="inline">Episodes</h2><h3 id="timeslotSeasonTitle" class="inline"></h3>
+			<div id="timeslot-list" class="col-xs-12 col-sm-6 col-md-4 p-4 bg-white">
+				<h2 class="inline">Episodes</h2><h3 id="timeslot-season-title" class="inline"></h3>
 				<table id="timeslots" class="table timeslots-table">
 					<thead>
 						<tr>

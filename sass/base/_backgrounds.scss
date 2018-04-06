@@ -2,18 +2,21 @@
   background: $off-white-color;
 }
 
-.bg-primary, .bg-secondary, .bg-third {
-  color: #fff;
+.bg-primary,
+.bg-secondary,
+.bg-third {
+  color: $white;
 
   a {
-    color: #6Af;
+    color: $link-blue;
   }
 }
-.bg-off-white, .bg-white {
-  color: #212529;
+.bg-off-white,
+.bg-white {
+  color: $black;
 
   a {
-    color: #6Af;
+    color: $link-blue;
   }
 }
 

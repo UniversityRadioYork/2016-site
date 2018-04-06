@@ -1,12 +1,12 @@
 $(document).ready(function() {
-    seasonTable = $('#seasons').DataTable({
+    var seasonTable = $("#seasons").DataTable({
         "ordering": false,
         "info":     false,
         "lengthChange": false,
         "pageLength": 5,
         "sDom": '<"top"i>rt<"bottom"lp><"clear">',
     });
-    timeslotTable = $('#timeslots').DataTable({
+    var timeslotTable = $("#timeslots").DataTable({
         "ordering": false,
         "info":     false,
         "lengthChange": false,
@@ -25,19 +25,19 @@ $(document).ready(function() {
 
         ]
     });
-    $('.timeslotFilterSeason').on( 'click', function () {
-        $('.timeslotFilterSeason').removeClass("active");
+    $(".timeslot-filter-season").on( "click", function () {
+        $(".timeslotFilterSeason").removeClass("active");
         $(this).addClass("active");
-        $('#timeslotLatest').hide();
-        $('#timeslotSeasonTitle').text("Season " + $(this).find('td:first-of-type').html())
+        $("#timeslot-latest").hide();
+        $("#timeslot-season-title").text("Season " + $(this).find("td:first-of-type").html())
         timeslotTable
             .columns( 0 )
             .search( $(this).data("seasonid") )
             .draw();
 
-        $('#timeslotList').show();
+        $("#timeslot-list").show();
 
-        $('#timeslotList tr').on("click", function () {
+        $("#timeslot-list tr").on("click", function () {
             window.location.href = $(this).find("a").attr("href");
         });
     } );
