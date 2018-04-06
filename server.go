@@ -47,14 +47,14 @@ func NewServer(c *structs.Config) (*Server, error) {
 
 	showC := controllers.NewShowController(session, c)
 	getRouter.HandleFunc("/schedule/shows/", func(w http.ResponseWriter, r *http.Request) {
-		redirectC.Redirect(w, r, "/schedule/thisweek/", 301)
+		http.Redirect(w, r, "/schedule/thisweek/", 301)
 	})
 	getRouter.HandleFunc("/schedule/shows/{id:[0-9]+}/", showC.GetShow).Name("show")
 	getRouter.HandleFunc("/schedule/shows/timeslots/{id:[0-9]+}/", showC.GetTimeslot).Name("timeslot")
 	getRouter.HandleFunc("/schedule/shows/seasons/{id:[0-9]+}/", showC.GetSeason).Name("season")
 
 	getRouter.HandleFunc("/schedule/", func(w http.ResponseWriter, r *http.Request) {
-		redirectC.Redirect(w, r, "/schedule/thisweek/", 301)
+		http.Redirect(w, r, "/schedule/thisweek/", 301)
 	})
 	// NOTE: NewScheduleWeekController assumes 'timeslot' is installed BEFORE it is called.
 	schedWeekC := controllers.NewScheduleWeekController(session, getRouter, c)
@@ -66,20 +66,20 @@ func NewServer(c *structs.Config) (*Server, error) {
 
 	// Redirect old podcast URLsc
 	getRouter.HandleFunc("/uryplayer/", func(w http.ResponseWriter, r *http.Request) {
-		redirectC.Redirect(w, r, "/ontap/", 301)
+		http.Redirect(w, r, "/ontap/", 301)
 	})
 	getRouter.HandleFunc("/uryplayer/podcasts/", func(w http.ResponseWriter, r *http.Request) {
-		redirectC.Redirect(w, r, "/podcasts/", 301)
+		rhttp.Redirect(w, r, "/podcasts/", 301)
 	})
 	getRouter.HandleFunc("/uryplayer/podcasts/{id:[0-9]+}/", func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		id, _ := strconv.Atoi(vars["id"])
-		redirectC.Redirect(w, r, fmt.Sprintf("/podcasts/%d/", id), 301)
+		http.Redirect(w, r, fmt.Sprintf("/podcasts/%d/", id), 301)
 	})
 	getRouter.HandleFunc("/uryplayer/podcasts/{id:[0-9]+}/player/", func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		id, _ := strconv.Atoi(vars["id"])
-		redirectC.Redirect(w, r, fmt.Sprintf("/podcasts/%d/player/", id), 301)
+		http.Redirect(w, r, fmt.Sprintf("/podcasts/%d/player/", id), 301)
 	})
 
 	pc := controllers.NewPeopleController(session, c)
