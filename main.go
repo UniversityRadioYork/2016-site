@@ -2,11 +2,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/BurntSushi/toml"
-	"github.com/UniversityRadioYork/2016-site/structs"
-	"github.com/stretchr/graceful"
 	"log"
 	"time"
+
+	"github.com/BurntSushi/toml"
+	"github.com/UniversityRadioYork/2016-site/structs"
+	"github.com/UniversityRadioYork/2016-site/utils"
+	"github.com/stretchr/graceful"
 )
 
 func main() {
@@ -16,6 +18,10 @@ func main() {
 	_, err := toml.DecodeFile("config.toml", config)
 	if err != nil {
 		log.Fatal(err)
+	}
+
+	if &config.Schedule.StartHour != nil {
+		utils.StartHour = config.Schedule.StartHour
 	}
 
 	s, err := NewServer(config)

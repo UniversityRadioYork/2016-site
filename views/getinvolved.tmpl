@@ -1,65 +1,90 @@
+{{define "title"}}{{.PageContext.ShortName}} | Get Involved{{end}}
+{{define "open-graph"}}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@{{.PageContext.MainTwitter}}">
+<meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}">
+<meta property="og:locale" content="en_GB">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Want to help York make incredible award winning radio?">
+<meta property="og:description" content="Want to join one of the best, largest and most diverse societies university has to offer? Whether you to hear your voice played out on the airwaves, break the biggest news stories as they happen, play with the state-of-the-art studios and computer systems, or just plain have fun, then URY is the place for you.">
+<meta property="og:image" content="{{.PageContext.FullURL}}{{url "/images/open_graph-get_involved.jpg"}}">
+<meta property="og:url" content="{{.PageContext.FullURL}}{{url "/getinvolved"}}">
+{{end}}
+
 {{define "content"}}
+{{with .PageData}}
 <div class="container-fluid banner-2 text-overlay">
-  <div class="container">
-    <div class="row text-center align-items-center">
-      <div class="col">
-        <h1 class="display-2">Radio.</h1>
+  <div class="container container-padded">
+    <div class="row justify-content-center">
+      <div class="text-center">
+        <h1 class="display-1">Radio</h1>
         <h2 class="display-4">By Students, For Students.</h2>
+        <br>
+        <a href="#signUp" class="btn btn-primary-inverse btn-xl">Sign up</a>
       </div>
     </div>
   </div>
 </div>
 <div class="container-fluid container-padded text-center bg-off-white">
-  <div class="row text-center align-items-center">
-    <div class="col">
-      <h3>Want to help York make incredible <strong>Award Winning</strong> radio?</h3>
-      <h3>Want to join one of the best, largest and most diverse societies university has to offer?</h3>
-      <p>Whether you to hear your voice played out on the airwaves, break the biggest news stories as they happen,
-        play with the state-of-the-art studios and computer systems, or just plain have fun, then URY is the place for you.
-      </p>
+  <div class="container container-padded">
+    <div class="row">
+      <div class="col">
+        <h3>Want to help York make incredible <strong>Award Winning</strong> radio?</h3>
+        <h3>Want to join one of the best, largest and most diverse societies university has to offer?</h3>
+        <p>Whether you to hear your voice played out on the airwaves, break the biggest news stories as they happen,
+          play with the state-of-the-art studios and computer systems, or just plain have fun, then URY is the place for you.
+        </p>
+      </div>
     </div>
   </div>
 </div>
-<div class="container-fluid container-padded text-center">
-  <h2>What Can I Do?</h2>
-  <div class="container">
-    <div class="row">
+<div class="container-fluid container-padded ">
+  <div class="container container-padded">
+      <h2>What Can I Do?</h2>
       <p>Of course, everyone wants to be on the radio! Presenting is as easy as baking a cake (disclaimer: I can't bake cakes)
         and you don't have to sign up at Freshers' Fair or at the start of a term to get your very own show!
         Take a look at our <a href="/schedule" title="The URY Schedule">schedule</a>. If you can see a gap, there's no reason you couldn't fill it.
       </p>
-      <p>As well as just presenting, there are <strong><a href="#" title="Have a look at what our teams do!">!!NUMBER! Teams!</a></strong>
+      <p>As well as just presenting, there are <strong><a href="/teams" title="Have a look at what our teams do!">{{.NumTeams}} Teams</a></strong>
         of students that make content and keep URY running. You can see more about them at the bottom of this page.
       </p>
-    </div>
   </div>
 </div>
-<div class="container-fluid container-padded text-center bg-primary">
-  <h2>How Do I Get A Show?</h2>
-  <div class="container">
-    <div class="row">
-      <p>Getting your own show is easy as pie! First thing is to make sure you are a paid member, you can do this through <a href="http://yusu.org" title="York University Students Union" target="_blank">YUSU</a>.</p>
-      <p>Once you have paid, log in to <a href="/myradio/">MyRadio</a> and set up an account, from there you will be able to sign up to training! Under "Get On Air",
-        click "Get Studio Trained" and take your pick of training sessions you can attend, click join and you are good to go!
-        If there aren't any slots available, email our Training Co-ordinator at <a href="mailto:training@ury.org.uk" title="Email our Training Co-ordinator">training@ury.org.uk</a>.
-        During training, we will show you how to use the studio and how to apply for a show. Shows are typically one hour long, scheduled once a week.</p>
-      <p><strong>Easy peasy.</strong></p>
+<div class="container-fluid container-padded  bg-primary">
+  <div class="container container-padded">
+      <h2>How Do I Get A Show?</h2>
+      <div> {{/* Prevents bug where p would appear inline with h2 */}}
+        <p>Getting your own show is easy as pie! First thing is to make sure you are a paid member, you can do this through <a href="http://yusu.org" title="York University Students Union" target="_blank">YUSU</a>.</p>
+        <p>Once you have paid, log in to <a href="/myradio/">MyRadio</a> and set up an account, from there you will be able to sign up to training! Under "Get On Air",
+          click "Get Studio Trained" and take your pick of training sessions you can attend, click join and you are good to go!
+          If there aren't any slots available, email our Training Co-ordinator at <a href="mailto:training@ury.org.uk" title="Email our Training Co-ordinator">training@ury.org.uk</a>.
+          During training, we will show you how to use the studio and how to apply for a show. Shows are typically one hour long, scheduled once a week.</p>
+        <p><strong>Easy peasy.</strong></p>
     </div>
+    </div>
+</div>
+<div class="container-fluid container-padded  bg-third">
+  <div class="container container-padded">
+      <h2>How Do I Join?</h2><br>
+      <div> {{/* Prevents bug where p would appear inline with h2 */}}
+        <p>If you’re ready to join URY right now, we have some very easy steps to get you started...</p>
+        <dl>
+          <dt>Pay Membership</dt>
+          <dd>The easiest way to pay membership is through the <a href="//yusu.org/groups/university-radio-york/" target="_blank">yusu.org</a> website.</dd>
+          <dt>Sign Up To MyRadio</dt>
+          <dd>MyRadio is our computer system for managing shows, members, and our mailing list. You can join MyRadio by completing the form below, it’s instant and of course there’s no commitment to do anything.</dd>
+          <dt>Join Our Slack Team</dt>
+          <dd>Use <a href="//slack.com/is" title="Find out more about Slack!" target="_blank">Slack</a>; it's like Facebook Messenger but for URY team communication. Slack has the advantage of having a “channel” for each team, so you can join any channel and see what is happening. Our Slack team: <a href="//ury.slack.com" title="Join Our Slack Team" target="_blank">ury.slack.com</a> sign up using your university email address.</dd>
+        </dl>
+        <p>You can also come and <a href="{{url "/contact#map"}}" title="Contact us page">visit our station</a> in Vanbrugh College, where there'll almost always be someone there to talk to you and get you set up.</p>
+      </div>
   </div>
 </div>
-<div class="container-fluid container-padded text-center bg-third">
-  <h2>How Do I Join?</h2>
-  <div class="container">
-    <div class="row">
-      <p>If you're ready to sign up right now, you can fill in the form below to sign up to our mailing list and computer system. It's instant and of course there's no commitment to do anything.</p>
-      <p>You can also come and <a href="/contact/" title="Contact us page">visit our station</a> in Vanbrugh College, where there'll almost always be someone there to talk to you and get you set up.</p>
-    </div>
-  </div>
-</div>
-<div class="container-fluid container-padded bg-secondary">
-  <h2 class="text-center">Signup today!</h2>
-  <div class="container">
-    <form name="getInvolvedForm" class="form-getinvolved">
+<div class="container-fluid container-padded bg-secondary" id="signUp">
+  <div class="container container-padded">
+    <h1>Sign up today!</h1>
+    <hr>
+    <form id="getInvolvedForm" class="form-getinvolved" action="/signup/" method="post">
       <div class="row">
         <fieldset id="getinvolved-personal-details" class="col-md-6">
           <legend>I'm…</legend>
@@ -74,7 +99,7 @@
           <div class="form-group">
             <label for="text">York Email</label>
             <div class="input-group">
-              <input type="text" id="email" name="email" class="form-control" placeholder="abc123">
+              <input type="text" id="eduroam" name="eduroam" class="form-control" placeholder="abc123">
               <span class="input-group-addon">@york.ac.uk</span>
             </div>
           </div>
@@ -83,60 +108,29 @@
             <input type="text" id="phone" name="phone" class="form-control">
           </div>
           <div class="form-group">
-            <label for="sex">Gender</label>
-            <select id="sex" name="sex" class="form-control">
-              <option value="o">Other</option>
-              <option value="m">Male</option>
-              <option value="f">Female</option>
+            <label for="college">College</label>
+            <select id="college" name="collegeid" class="form-control">
+              {{range .Colleges}}
+                <option value="{{.CollegeId}}">{{.CollegeName}}</option>
+              {{end}}
             </select>
-          </div>
-          <div class="form-group">
-              <label for="college">College</label>
-              <select id="college" name="college" class="form-control">
-                <option value="10">Unknown</option>
-                <option value="1">Alcuin</option>
-                <option value="11">Constantine</option>
-                <option value="2">Derwent</option>
-                <option value="3">Goodricke</option>
-                <option value="4">Halifax</option>
-                <option value="5">James</option>
-                <option value="6">Langwith</option>
-                <option value="7">Vanbrugh</option>
-                <option value="8">Wentworth</option>
-              </select>
           </div>
         </fieldset>
         <fieldset id="getinvolved-interest" class="col-md-6">
           <legend>I'm interested in the…</legend>
-            <input type="checkbox" name="interest" id="interest-news" value="24">
-            <label for="interest-news">News Team</label>
+          {{range $listID, $Team := .ListTeamMap}}
+            <input type="checkbox" name="interest" id="interest-{{$Team.Alias}}" value="{{$listID}}">
+            <label for="interest-{{$Team.Alias}}" title="{{html $Team.Description}}">{{$Team.Name}}</label>
             <br>
-            <input type="checkbox" name="interest" id="interest-speech" value="28">
-            <label for="interest-speech">Speech Team</label>
-            <br>
-            <input type="checkbox" name="interest" id="interest-music" value="29">
-            <label for="interest-music">Music Team</label>
-            <br>
-            <input type="checkbox" name="interest" id="interest-production" value="26">
-            <label for="interest-production">Production Team</label>
-            <br>
-            <input type="checkbox" name="interest" id="interest-events" value="53">
-            <label for="interest-events">Events Team</label>
-            <br>
-            <input type="checkbox" name="interest" id="interest-marketing" value="25">
-            <label for="interest-marketing">Marketing Team</label>
-            <br>
-            <input type="checkbox" name="interest" id="interest-programming" value="27">
-            <label for="interest-programming">Programming Team</label>
-            <br>
-            <input type="checkbox" name="interest" id="interest-engineering" value="22">
-            <label for="interest-engineering">Engineering Team</label>
-            <br>
-            <input type="checkbox" name="interest" id="interest-computing" value="23">
-            <label for="interest-computing">Computing Team</label>
+          {{end}}
+          <br>
         </fieldset>
+      </div>
+      <div class="row justify-content-center">
+        <input type="submit" class="btn btn-primary btn-lg">
       </div>
     </form>
   </div>
 </div>
+{{end}}
 {{end}}

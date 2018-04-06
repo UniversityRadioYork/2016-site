@@ -5,9 +5,10 @@ package controllers
 */
 
 import (
+	"net/http"
+
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/myradio-go"
-	"net/http"
 )
 
 // ControllerInterface is the interface to which controllers adhere.

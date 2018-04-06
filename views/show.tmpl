@@ -1,119 +1,129 @@
+{{define "title"}}{{.PageContext.ShortName}} | {{.PageData.Show.Title}}{{end}}
+
+{{define "open-graph"}}
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@{{.PageContext.MainTwitter}}">
+<meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="{{.PageContext.ShortName}} | {{.PageData.Show.Title}}">
+{{if .PageData.Show.Photo}}
+<meta property="og:image" content="{{.PageContext.FullURL}}{{url .PageData.Show.Photo}}">
+{{else}}
+<meta property="og:image" content="{{.PageContext.FullURL}}{{url "images/open_graph-general.jpg"}}">
+{{end}}
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{.PageContext.FullURL}}{{url "/schedule/shows/"}}{{.PageData.Show.ShowID}}">
+<meta property="og:description" content="{{.PageData.Show.Description}}">
+{{end}}
+
 {{define "content"}}
 {{with .PageData}}
+<div class="container-fluid current-next">
 
-	<div class="container-fluid header-large current-next">
-		<div class="container mobile-hide">
+</div>
+<div class="container-fluid bg-off-white">
+  <div class="container p-3">
+    <div class="row">
+      <div class="col-12 col-sm-5 col-lg-3">
+				<img class="img-fluid show-img" src="
+				{{if .Show.Photo}}
+				https://ury.org.uk{{.Show.Photo}}
+				{{else}}
+				/images/show-current.png
+				{{end}}"
+				alt="{{.Show.Title}} Logo">
+        <div class="row">
+          <div class="col-6 text-center">
+            <h5>Seasons: {{len .Seasons}}</h5>
+          </div>
+          <div class="col-6 text-center">
+            <h5>Shows: {{showCount .Seasons}}</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-7 col-lg-9">
+        <h1>{{.Show.Title}}</h1>
+        <hr>
+        <h2>Description</h2>
+        <p>{{html .Show.Description}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+{{if .CreditsToUsers}}
+<div class="container-fluid bg-secondary">
+  <div class="container pt-3">
+    <h2>Credits</h2>
+    <hr>
+    <div class="row">
+      {{range $key, $value := .CreditsToUsers}}
+      <div class="col-sm-4 pb-3">
+        {{if gt (len $value) 1}}
+          <h3>{{plural $key}}</h3>
+        {{else}}
+          <h3>{{$key}}</h3>
+        {{end}}
+        {{range $value}}
+        <a href="/people/{{.MemberID}}/">{{.Fname}} {{.Sname}}</a> <br>
+        {{end}}
+      </div>
+      {{end}}
+    </div>
+  </div>
+</div>
+{{end}}
+<div class="container outer page1-on-demand">
+		<div class="row col-container">
+			<div class="col-xs-12 col-md-4">
+				<h1>((URY)) Player</h1>
+				<h3><small>Explore the show catalogue, and listen back to your favorite episodes!</small></h3>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-4 seasons">
+				<h2>
+					Seasons
+				</h2>
+				<ul>
+					{{range .Seasons}}
+						{{if ne .SeasonNum 0}}
+							<li class="timeslotFilterSeason">
+								<a data-SeasonID="{{.SeasonID}}">Seasion {{.SeasonNum}}: {{.FirstTime.Format "Monday, _2 Jan 2006 at 15:04"}} - {{.NumEpisodes.Value}} Episode(s)</a>
+
+							</li>
+						{{end}}
+					{{end}}
+				</ul>
+			</div>
+			<div id="timeslotLatest" class="col-xs-12 col-sm-6 col-md-4">
+				<h3>Latest Episode</h3>
+				<p>Catchup with the latest episode from !!DATE!!</p>
+				!!MixClouder iFrame
+
+			</div>
+			<div id="timeslotList" class="col-xs-12 col-sm-6 col-md-4" style="display: none;">
+				<h3>Episodes</h3>
+				<table id="timeslots" class="table page1-timeslots-table">
+				<thead>
+					<tr>
+						<th>SeasonID</th>
+						<th>Episode</th>
+						<th>Time</th>
+					</tr>
+				</thead>
+				<tbody>
+
+				{{range .Timeslots}}
+					{{if ne .TimeslotNum 0}}
+						<tr>
+							<td>{{.Season.SeasonID}}</td>
+							<td>{{.TimeslotNum}}</td>
+							<td><a href="/schedule/shows/timeslots/{{.TimeslotID}}/">{{.StartTime.Format "Monday, _2 Jan 2006 at 15:04"}}</a></td>
+						</tr>
+					{{end}}
+				{{end}}
+				</tbody>
+			</table>
 		</div>
-	</div>
-	<div class="container-fluid bg-off-white">
-		<div class="container">
-		  <div class="row">
-	        <div class="col-12 col-lg-3">
-	        	<img class="img-fluid show-img" src="
-						{{if .Show.Photo}}
-									https://ury.org.uk{{.Show.Photo}}
-						{{else}}
-									/images/show-current.png
-						{{end}}
 
-							" alt="{{.Show.Title}} Logo">
-              <div class="row">
-                <div class="col-6 text-center">
-                  <h5>Seasons: {{len .Seasons}}</h5>
-                </div>
-                <div class="col-6 text-center">
-                  <h5>Shows: {{showCount .Seasons}}</h5>
-                </div>
-              </div>
-	        </div>
-	        <div class="col-12 col-lg-9">
-	          <h1 class="p-2">
-	        	{{.Show.Title}}
-	          </h1>
-	          <hr>
-				  	<h2>Description</h2>
-            <p>
-						  {{html .Show.Description}}
-						</p>
-	        </div>
-	      </div>
-	    </div>
-	  </div> <!-- /outer containter -->
-	  <div class="container outer page1-credits-people">
-			<h2>Credits</h2>
-			<ul class="cards">
-
-				<li class="cards__item">
-					<div class="card">
-						<div class="card__content">
-							<div class="card__title">Presenters</div>
-							<ul>
-							{{range .Show.Credits}}
-								<li><img src="/images/people-profile.jpg" class="img-circle credit-thumb" alt="Photo of {{.User.Fname}} {{.User.Sname}}" /><a href="/people/{{.User.Memberid}}/">{{.User.Fname}} {{.User.Sname}}</a></li>
-							{{end}}
-							</ul>
-						</div>
-					</div>
-				</li>
-			</ul>
-
-
-
-    </div> <!-- /outer containter -->
-
-		<div class="container outer page1-on-demand">
-				<div class="row col-container">
-					<div class="col-xs-12 col-md-4">
-						<h1>((URY)) Player</h1>
-						<h3><small>Explore the show catalogue, and listen back to your favorite episodes!</small></h3>
-					</div>
-					<div class="col-xs-12 col-sm-6 col-md-4 seasons">
-						<h2>
-							Seasons
-						</h2>
-						<ul>
-							{{range .Seasons}}
-								{{if ne .SeasonNum 0}}
-									<li class="timeslotFilterSeason">
-										<a data-SeasonID="{{.SeasonID}}">Seasion {{.SeasonNum}}: {{.FirstTime.Format "Monday, _2 Jan 2006 at 15:04"}} - {{.NumEpisodes.Value}} Episode(s)</a>
-
-									</li>
-								{{end}}
-							{{end}}
-						</ul>
-					</div>
-					<div id="timeslotLatest" class="col-xs-12 col-sm-6 col-md-4">
-						<h3>Latest Episode</h3>
-						<p>Catchup with the latest episode from !!DATE!!</p>
-						!!MixClouder iFrame
-
-					</div>
-					<div id="timeslotList" class="col-xs-12 col-sm-6 col-md-4" style="display: none;">
-						<h3>Episodes</h3>
-						<table id="timeslots" class="table page1-timeslots-table">
-						<thead>
-							<tr>
-								<th>SeasonID</th>
-								<th>Episode</th>
-								<th>Time</th>
-							</tr>
-						</thead>
-						<tbody>
-
-						{{range .Timeslots}}
-							{{if ne .TimeslotNum 0}}
-								<tr>
-									<td>{{.Season.SeasonID}}</td>
-									<td>{{.TimeslotNum}}</td>
-									<td><a href="/schedule/shows/timeslots/{{.TimeslotID}}/">{{.StartTime.Format "Monday, _2 Jan 2006 at 15:04"}}</a></td>
-								</tr>
-							{{end}}
-						{{end}}
-						</tbody>
-					</table>
-				</div>
-
-		</div> <!-- /outer containter -->
-
+</div> <!-- /outer containter -->
 {{end}}
 {{end}}

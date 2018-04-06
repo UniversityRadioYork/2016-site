@@ -1,21 +1,23 @@
 #index-schedule {
   background: $primary-color;
   color: #fff;
+
   [class*="col"] {
-    padding:0;
+    padding: 0;
     position: relative;
   }
-  [class*="row"] {
-    margin:0;
 
+  [class*="row"] {
+    margin: 0;
   }
+
   figure {
     img {
-	  width: 100%;
-	  display: block;
-	  position: relative;
-    background: #022d59;
+      max-width: 100%;
+      display: block;
+      position: relative;
     }
+
     figcaption {
       position: absolute;
       top: 0;
@@ -42,41 +44,42 @@
     }
   }
 
-
   .small {
-      figcaption {
-        width: 100%;
-        opacity: 0;
-        text-align: center;
-        z-index: 3;
-        overflow: hidden;
-        backface-visibility: hidden;
-        transition: transform 0.3s, opacity 0.3s;
-      }
-      figure:hover figcaption, figure.cs-hover figcaption {
-        opacity: 1;
-        transform: translate(15px, 15px);
-      }
+    figcaption {
+      width: 100%;
+      opacity: 0;
+      text-align: center;
+      z-index: 3;
+      overflow: hidden;
+      backface-visibility: hidden;
+      transition: transform 0.3s, opacity 0.3s;
+    }
 
-      figcaption span {
-        display: block;
-      }
+    figure:hover figcaption, figure.cs-hover figcaption {
+      opacity: 1;
+      transform: translate(15px, 15px);
+    }
 
-      figcaption a {
-        margin-top: 30px;
-      }
+    figcaption span {
+      display: block;
+    }
+
+    figcaption a {
+      margin-top: 30px;
+    }
   }
+
   .large {
     img {
       z-index: 10;
       transition: transform 0.4s;
     }
 
-
     figcaption {
       height: 100%;
       width: 100%;
     }
+
     figcaption h3 {
       margin-top: 70%;
     }
@@ -87,7 +90,8 @@
       right: 20px;
     }
   }
+
   .large:hover img {
-      transform: translateY(-70px) scale(0.5);
+    transform: translateY(-70px) scale(0.5);
   }
 }

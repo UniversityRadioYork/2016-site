@@ -3,7 +3,6 @@
 @import "partials/partials";
 @import "elements/elements";
 
-
 .ellipsis {
   white-space: nowrap;
   overflow: hidden;
@@ -20,40 +19,42 @@ html {
   }
 }
 
+
 @include media-breakpoint-up(md) {
   html {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
+
 
 @include media-breakpoint-up(lg) {
   html {
-    font-size: 16px;
+    font-size: 14px;
+  }
+
+}
+
+@include media-breakpoint-down(lg) {
+  .container {
+    max-width: none;
   }
 }
 
-/* Space out content a bit */
-
-body {
-  padding-top: 49px;
-
-}
-
-/* Everything but the jumbotron gets side spacing for mobile first views */
+// Everything but the jumbotron gets side spacing for mobile first views
 
 .header, .footer {
   padding-right: 15px;
   padding-left: 15px;
 }
 
-/* Custom page header */
+// Custom page header
 
 .header {
   padding-bottom: 20px;
   border-bottom: 1px solid #e5e5e5;
 }
 
-/* Make the masthead heading the same height as the navigation */
+// Make the masthead heading the same height as the navigation
 
 .header h3 {
   margin-top: 0;
@@ -61,31 +62,29 @@ body {
   line-height: 40px;
 }
 
-/* Custom page footer */
+// Custom page footer
 
 footer {
   color: #777;
-  background: $content-bg-1;
+  background: $off-white-color;
 
   .row {
     min-height: 3em;
   }
-
-}
-
-.container-padded {
-  padding-top:2em;
-  padding-bottom:2em;
 }
 
 .banner-2 {
-  background: url('/images/bg-banner-2.jpg') center center no-repeat;
+  background: url("/images/bg-banner-2.jpg") center center no-repeat;
   background-size: cover;
-  color: white;
-  padding:10em 0;
+  color: $white;
+  padding: 10em 0;
+
+  .slim {
+    padding: 6em 0 3em;
+  }
 }
 
-/* Scroll horizontal, used for horizontal scrolling rows */
+// Scroll horizontal, used for horizontal scrolling rows
 .scroll-horiz {
   overflow-x: scroll;
   overflow-y: hidden;
@@ -95,122 +94,231 @@ footer {
 
 .key-contacts .card {
   height: 100%;
+
   a {
     word-wrap: break-word;
   }
 }
+
 .slash-divider {
-  font-size:3em;
+  font-size: 3em;
   vertical-align: middle;
   font-family: sans-serif;
   font-weight: 100;
 }
-/* User page styling. */
+
+// User page styling.
 .user-img {
-  border: #e1e1e1 7px solid;
-  margin-top: -3em;
-  max-width: 100%;
-  object-fit: cover;
+  //border: #e1e1e1 7px solid;
+  background-color: $primary-color;
+  border-radius: 100%;
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 100%;
+  position: relative;
+
+  &.profile {
+    margin-top: -3em;
+  }
+
+  img {
+    background-position: center center;
+    background-size: cover;
+    position: absolute;
+    width: 100%;
+  }
 }
+
 .card .card-img-top.rounded-circle {
   border: #e1e1e1 7px solid;
   max-width: 100%;
   object-fit: cover;
 }
 
+.user-credits-people {
+  background-color: $primary-color;
+  color: $white;
+}
+
+.user-on-demand {
+  background-color: $secondary-color;
+  color: $white;
+}
+
+.team-card {
+  .card-body {
+    height: 12em;
+  }
+
+  .card-text {
+    position: relative;
+    height: 7.5em; // exactly 5 lines
+    overflow: hidden;
+
+    &::after {
+      content: "";
+      text-align: right;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 70%;
+      height: 1.5em;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%); // scss-lint:disable ColorVariable
+    }
+  }
+}
+
 .page404 {
-  text-align:center;
+  text-align: center;
   margin: 0 auto;
+
   h1 {
-    font-size:25vmin;
+    font-size: 25vmin;
     padding-top: 25vh;
     padding-bottom: 25vh;
   }
+
   .spinner {
-    display:inline-block;
-    width:25vmin;
-    height:25vmin;
+    display: inline-block;
+    width: 25vmin;
+    height: 25vmin;
     position: relative;
     top: 6vmin;
-    -webkit-animation:spin 4s linear infinite;
-    -moz-animation:spin 4s linear infinite;
-    animation:spin 4s linear infinite;
+    -webkit-animation: spin 4s linear infinite;
+    -moz-animation: spin 4s linear infinite;
+    animation: spin 4s linear infinite;
     background: url("/images/URYRecord.png") center center;
     background-size: contain;
   }
 }
 
-@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
-@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
-@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
 
-/* Responsive: Portrait tablets and up */
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+// Responsive: Portrait tablets and up
 
 @media screen and (min-width: 768px) {
-  /* Remove the padding we set earlier */
+  // Remove the padding we set earlier
   .header {
     padding-right: 0;
     padding-left: 0;
     margin-bottom: 30px;
   }
-  /* Remove the bottom border on the jumbotron for visual effect */
+
+  // Remove the bottom border on the jumbotron for visual effect
   .jumbotron {
     border-bottom: 0;
   }
+
   .mobile-only {
     display: none;
   }
 }
 
-.container-narrow>hr {
-  margin: 30px 0;
-}
-
-/* Main marketing message and sign up button */
+// Main marketing message and sign up button
 
 .jumbotron {
   text-align: center;
   border-bottom: 1px solid #e5e5e5;
 }
+
 .jumbotron .btn {
   padding: 14px 24px;
   font-size: 21px;
 }
-@media screen and (max-width: 767px) {
+
+@include media-breakpoint-down(sm) {
   .mobile-hide {
     display: none;
   }
+
   .header-large {
     height: 400px;
   }
+
   .user-profile {
     margin-top: -320px;
     margin-bottom: 30px;
   }
+
   .mobile-col-right {
     width: 66.66666666%;
     float: right;
     padding: 30px 15px;
   }
+
   .banner {
     display: none;
   }
 }
 
-/* Show/Season/Timeslot specific*/
+// Show/Season/Timeslot specific
 
 .mixcloud {
   background: #FCFCFC;
   color: #555;
   border: 1px solid #D7D7D7;
 }
+
 .show-img {
-  @extend .user-img;
+  border: #e1e1e1 7px solid;
+
+  @include media-breakpoint-up(md) {
+    margin-top: -3em;
+  }
 }
+
 .tag {
-  font-size:0.8em;
+  font-size: 0.8em;
 }
 
 .podcast.card {
   color: #555;
+}
+
+// Styling for responsive map
+.map-container {
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.res-map {
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 22.25%;
+  padding-top: 30px;
+}
+
+// Signed up page
+.card-logo-container {
+  height: 15rem;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  img {
+    max-width: 80%;
+    max-height: 80%;
+    width: auto;
+    height: auto;
+  }
 }

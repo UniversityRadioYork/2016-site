@@ -1,34 +1,35 @@
 {{define "content"}}
-  {{with .PageData}}
-  <div class="container-fluid current-next">
+{{with .PageData}}
+  <div class="container-fluid header-large current-next">
     <div class="container">
-      {{template "current_and_next" .}}
-      {{template "banner" .}}
+      <div class="row justify-content-center">
+        <div class="col-11 col-md-10 box-shadow-1">
+        {{template "current_and_next" .}}
+        {{template "banner" .}}
+        </div>
+      </div>
     </div>
   </div>
   <div id="index-infobar" class="container-fluid bg-off-white container-padded">
-    <div class="container">
+    <div class="container container-padded">
       <div class="row justify-content-center">
         <div class="pb-4 col-lg-3">
-          <h2>Send a Message</h2>
-          <hr>
-          <form id="sendMessage" action="">
-            <textarea class="form-control" rows="5" name="body">Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</textarea>
-            <button type="submit" class="btn btn-primary btn-block">Send</button>
-          </form>
+        {{template "message_box" .}}
         </div>
         <div class="col-lg-9">
           <h2>Get Involved</h2>
           <hr>
           <div class="row">
             <div class="col-lg-6">
-              <p>University Radio York has been alive since 1968, when it became the first legal independant radio station in the UK!</p>
+              <p>University Radio York has been alive since 1968, when it became the first legal independent radio station in the UK!</p>
               <p>Help us continue our legacy by joining the URY team.</p>
               <p>Contact our teams to find out more.</p>
             </div>
             <div class="col-lg-6">
-              <ul>
-                <li>List of teams here.</li>
+              <ul class="split-evenly-2 no-bullets">
+              {{range .Teams}}
+                <li><a href="{{url "/teams/"}}/{{.Alias}}/" title="Find out more about {{.Name}}">{{.Name}}</a></li>
+              {{end}}
               </ul>
             </div>
           </div>
@@ -124,148 +125,9 @@
 =======
     </div>
   </div>
-  <div id="index-schedule" class="container-fluid container-padded">
-    <div class="container text-center">
-      <h2>Today's Schedule</h2>
-      <h3>We're not broadcasting today, we'll be back on !!DATE!!.</h3>
-      <p>In the meantime, how about some On Demand content?</p>
-      <div class="row">
-        <figure class="col-md-6 large">
-          <img src="images/show-current.png" alt="img01">
-          <figcaption>
-            <h3>!!Show Name!!</h3>
-            <span>12:00 - 14:00</span>
-            <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
-          </figcaption>
-        </figure>
-        <div class="col-md-6 small">
-          <div class="row">
-            <figure class="col-md-6">
-              <img src="images/show-current.png" alt="img01">
-              <figcaption>
-                <h3>!!Show Name!!</h3>
-                <span>12:00 - 14:00</span>
-                <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
-              </figcaption>
-            </figure>
-            <figure class="col-md-6">
-              <img src="images/show-current.png" alt="img01">
-              <figcaption>
-                <h3>!!Show Name!!</h3>
-                <span>12:00 - 14:00</span>
-                <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
-              </figcaption>
-            </figure>
-          </div>
-          <div class="row">
-            <figure class="col-md-6">
-              <img src="images/show-current.png" alt="img01">
-              <figcaption>
-                <h3>!!Show Name!!</h3>
-                <span>12:00 - 14:00</span>
-                <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
-              </figcaption>
-            </figure>
-            <figure class="col-md-6">
-              <img src="images/show-current.png" alt="img01">
-              <figcaption>
-                <h3>!!Show Name!!</h3>
-                <span>12:00 - 14:00</span>
-                <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
-              </figcaption>
-            </figure>
-          </div>
-        </div>
-      </div>
-      <div class="row small">
-        <figure class="col-md-3">
-          <img src="images/show-current.png" alt="img01">
-          <figcaption>
-            <h3>!!Show Name!!</h3>
-            <span>12:00 - 14:00</span>
-            <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
-          </figcaption>
-        </figure>
-        <figure class="col-md-3">
-          <img src="images/show-current.png" alt="img01">
-          <figcaption>
-            <h3>!!Show Name!!</h3>
-            <span>12:00 - 14:00</span>
-            <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
-          </figcaption>
-        </figure>
-        <figure class="col-md-3">
-          <img src="images/show-current.png" alt="img01">
-          <figcaption>
-            <h3>!!Show Name!!</h3>
-            <span>12:00 - 14:00</span>
-            <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
-          </figcaption>
-        </figure>
-        <figure class="col-md-3">
-          <img src="images/show-current.png" alt="img01">
-          <figcaption>
-            <h3>!!Show Name!!</h3>
-            <span>12:00 - 14:00</span>
-            <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
-          </figcaption>
-        </figure>
-      </div>
-      <div class="row small">
-        <figure class="col-md-3">
-          <img src="images/show-current.png" alt="img01">
-          <figcaption>
-            <h3>!!Show Name!!</h3>
-            <span>12:00 - 14:00</span>
-            <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
-          </figcaption>
-        </figure>
-        <figure class="col-md-3">
-          <img src="images/show-current.png" alt="img01">
-          <figcaption>
-            <h3>!!Show Name!!</h3>
-            <span>12:00 - 14:00</span>
-            <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
-          </figcaption>
-        </figure>
-        <figure class="col-md-3">
-          <img src="images/show-current.png" alt="img01">
-          <figcaption>
-            <h3>!!Show Name!!</h3>
-            <span>12:00 - 14:00</span>
-            <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
-          </figcaption>
-        </figure>
-        <figure class="col-md-3">
-          <img src="images/show-current.png" alt="img01">
-          <figcaption>
-            <h3>!!Show Name!!</h3>
-            <span>12:00 - 14:00</span>
-            <p>Bicycle rights humblebrag pinterest viral trust fund, freegan flexitarian butcher subway tile meditation tbh. Hoodie leggings heirloom, pinterest shoreditch man bun pour-over</p>
-          </figcaption>
-        </figure>
-      </div>
-    </div>
-  </div> <!-- /outer containter -->
-
-  <div id="index-videos" class="container-fluid container-padded bg-secondary">
+  <div id="index-videos" class="container-fluid pt-3 bg-secondary">
     <h2>URY Sessions</h2>
-    <div class="row scroll-horiz">
-      <div class="col-10 col-sm-7 col-md-4 col-lg-3">
-        <img src="http://img.youtube.com/vi/y2fCIG0l144/maxresdefault.jpg" class="img-fluid" alt="...">
-      </div>
-      <div class="col-10 col-sm-7 col-md-4 col-lg-3">
-        <img src="http://img.youtube.com/vi/y2fCIG0l144/maxresdefault.jpg" class="img-fluid" alt="...">
-      </div>
-      <div class="col-10 col-sm-7 col-md-4 col-lg-3">
-        <img src="http://img.youtube.com/vi/y2fCIG0l144/maxresdefault.jpg" class="img-fluid" alt="...">
-      </div>
-      <div class="col-10 col-sm-7 col-md-4 col-lg-3">
-        <img src="http://img.youtube.com/vi/y2fCIG0l144/maxresdefault.jpg" class="img-fluid" alt="...">
-      </div>
-      <div class="col-10 col-sm-7 col-md-4 col-lg-3">
-        <img src="http://img.youtube.com/vi/y2fCIG0l144/maxresdefault.jpg" class="img-fluid" alt="...">
-      </div>
+    <div id="youtube-video-slider" class="row scroll-horiz pb-3 custom-scrollbar">
     </div>
   </div>
   <div id="index-uryplayer" class="container-fluid container-padded bg-third">
@@ -397,4 +259,18 @@
       </div>
     </div>
   </div> <!-- /outer containter -->
+<<<<<<< HEAD
+=======
+{{end}}
+{{end}}
+
+{{define "footer-scripts"}}
+<!-- Youtube slider script -->
+<script>
+var youtubeAPIKey = {{.PageContext.Youtube.APIKey}};
+var youtubePlaylistID = "{{.PageContext.Youtube.PlaylistID}}";
+</script>
+<script src='{{url "js/index.js"}}'></script>
+<script src="https://apis.google.com/js/client.js?onload=onGoogleLoad"></script>
+>>>>>>> development
 {{end}}

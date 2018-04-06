@@ -1,6 +1,8 @@
 package models
 
 import (
+	"fmt"
+
 	"github.com/UniversityRadioYork/myradio-go"
 )
 
@@ -26,26 +28,34 @@ func NewShowModel(s *myradio.Session) *ShowModel {
 //
 // On success, it returns the show's metadata, season list, and nil.
 // Otherwise, it returns undefined data and the error causing failure.
-func (m *ShowModel) GetShow(id int) (*myradio.ShowMeta, []myradio.Season, error) {
-	show, err := m.session.GetShow(id)
+func (m *ShowModel) GetShow(id int) (show *myradio.ShowMeta, seasons []myradio.Season, creditsToUsers map[string][]myradio.User, err error) {
+	show, err = m.session.GetShow(id)
 	if err != nil {
-		return nil, nil, err
+		return
 	}
 
-	seasons, err := m.session.GetSeasons(id)
+	creditsToUsers, err = m.session.GetCreditsToUsers(id, false)
 
-	return show, seasons, err
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	seasons, err = m.session.GetSeasons(id)
+	return
 }
 
 // GetTimeslot gets the timeslot with ID id.
 //
 // On success, it returns the timeslot information, the tracklist and nil.
 // Otherwise, it returns undefined data and the error causing the failure.
-func (m *ShowModel) GetTimeslot(id int) (timeslot myradio.Timeslot, tracklist []myradio.TracklistItem, err error) {
+func (m *ShowModel) GetTimeslot(id int) (timeslot myradio.Timeslot, tracklist []myradio.TracklistItem, creditsToUsers map[string][]myradio.User, err error) {
 	timeslot, err = m.session.GetTimeslot(id)
 	if err != nil {
 		return
 	}
+
+	creditsToUsers, err = m.session.GetCreditsToUsers(id, true)
+
 	tracklist, err = m.session.GetTrackListForTimeslot(id)
 	return
 }

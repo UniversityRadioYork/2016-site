@@ -1,0 +1,71 @@
+{{define "title"}}{{.PageContext.ShortName}} | {{with .PageData.Team}}{{.Name}}{{end}}{{end}}
+{{define "officer"}}
+<div class="col-12 col-sm-6 col-md-3 col-lg-2">
+  <a href="/people/{{.User.MemberID}}" title="Goto {{.User.Fname}} {{.User.Sname}}'s profile">
+    <div class="user-img my-3">
+      <img class="img-fluid" src="https://ury.org.uk{{.User.Photo}}" alt="Photo of {{.User.Fname}} {{.User.Sname}}">
+    </div>
+    <h3 class="text-center">{{.User.Fname}} {{.User.Sname}}</h3>
+  </a>
+  <h4 class="text-center">{{.Position.Name}}<a href="mailto:head-of-computing@ury.org.uk"><span class="glyphicon glyphicon-envelope"></span></a></h4>
+</div>
+{{end}}
+
+{{define "content"}}
+  {{with .PageData}}
+    <div class="container-fluid banner-2 slim text-overlay">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="text-center">
+            <h1 class="display-5"><a href="{{url "/teams/"}}" title="View all teams">Our Teams</a></h1>
+            <h2 class="display-5">The people who make URY happen!</h2>
+            <br>
+            <a href="/getinvolved/#signUp" class="btn btn-primary-inverse btn-lg">Be part of one!</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{with .Team}}
+    <div class="container-fluid">
+      <div class="container container-padded">
+        <h3 class="display-4">{{.Name}}</h3>
+      </div>
+    </div>
+    {{if .Description}}
+    <div class="container-fluid bg-secondary">
+      <div class="container container-padded">
+        <h2>Team Description</h2>
+        <p>{{html .Description}}</p>
+      </div>
+    </div>
+    {{end}}
+    {{end}}
+    <div class="container-fluid bg-third">
+      <div class="container container-padded">
+        <h2>Team Officers</h2>
+        <div class="row">
+          {{range .Heads}}
+            {{template "officer" .}}
+          {{end}}
+          {{range .Assistants}}
+            {{template "officer" .}}
+          {{end}}
+          {{range .Officers}}
+            {{template "officer" .}}
+          {{end}}
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid bg-secondary">
+      <div class="container container-padded">
+        <h2>Get Involved</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam porta sed nulla vitae porta. Phasellus gravida ipsum ac malesuada commodo. Vestibulum ut turpis non arcu hendrerit efficitur in eu odio. Aenean feugiat risus tempus hendrerit euismod. Donec est elit, elementum sed sem ut, luctus fringilla magna. Phasellus pellentesque enim ac vulputate pulvinar. Pellentesque luctus dignissim enim, sed maximus nunc egestas vitae.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam porta sed nulla vitae porta. Phasellus gravida ipsum ac malesuada commodo. Vestibulum ut turpis non arcu hendrerit efficitur in eu odio. Aenean feugiat risus tempus hendrerit euismod. Donec est elit, elementum sed sem ut, luctus fringilla magna. Phasellus pellentesque enim ac vulputate pulvinar. Pellentesque luctus dignissim enim, sed maximus nunc egestas vitae.
+        </p>
+      </div>
+    </div>
+  {{end}}
+{{end}}

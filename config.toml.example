@@ -20,7 +20,34 @@
 [pageContext]
 	longName  = "University Radio York"
 	shortName = "URY"
+	siteDescription = "University Radio York (URY) is the student radio station for the University of York, broadcasting 24 hours a day during term time on 1350am across campus, and worldwide via this website."
+
+	urlPrefix = ""
+	fullURL = "https://ury.org.uk"
+
+	mainTwitter = "URY1350"
+	mainFacebook = "URY1350"
+	newsTwitter = "URYNews"
+
+	myRadioAPIKey = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 
 	[[pageContext.pages]]
 		name = "Search"
 		url  = "search/"
+
+	[pageContext.youtube]
+		APIKey = "AIzaSyCzI5Gvpq1hPlfjvB81EVc0vLv_11eW7NI"
+		playlistID = "PLsxUDJzU4VKDudlmlYb-ImFKreFKAfFln"
+
+	[pageContext.gmaps]
+		APIKey = "AIzaSyACeeyIgdIhiSxV01OIPiA3MyJDqrOspLQ"
+		latitude = 53.948193
+		longitude = -1.054030
+
+# This is config for the schedule renderer
+[schedule]
+	startHour = 6
+
+	[schedule.sustainer]
+		name = "Overnight Owen"
+		desc = "Non-stop tones from the URY jukebox."

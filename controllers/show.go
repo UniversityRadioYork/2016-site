@@ -43,7 +43,9 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 
 	id, _ := strconv.Atoi(vars["id"])
 
-	show, seasons, err := sm.GetShow(id)
+	show, seasons, creditsToUsers, err := sm.GetShow(id)
+
+	// Needed so that credits are grouped by type
 
 	var timeslots = make([]myradio.Timeslot, 0)
 	var numSeasons = 0
@@ -61,17 +63,19 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	data := struct {
-		Show         myradio.ShowMeta
-		Seasons      []myradio.Season
-		Timeslots    []myradio.Timeslot
-		NumSeasons   int
-		NumTimeslots int
+		Show           myradio.ShowMeta
+		Seasons        []myradio.Season
+		Timeslots      []myradio.Timeslot
+		CreditsToUsers map[string][]myradio.User
+		NumSeasons     int
+		NumTimeslots   int
 	}{
-		Show:         *show,
-		Seasons:      seasons,
-		Timeslots:    timeslots,
-		NumSeasons:   numSeasons,
-		NumTimeslots: numTimeslots,
+		Show:           *show,
+		Seasons:        seasons,
+		Timeslots:      timeslots,
+		CreditsToUsers: creditsToUsers,
+		NumSeasons:     numSeasons,
+		NumTimeslots:   numTimeslots,
 	}
 
 	if err != nil {
@@ -94,7 +98,7 @@ func (sc *ShowController) GetTimeslot(w http.ResponseWriter, r *http.Request) {
 
 	id, _ := strconv.Atoi(vars["id"])
 
-	timeslot, tracklist, err := sm.GetTimeslot(id)
+	timeslot, tracklist, creditsToUsers, err := sm.GetTimeslot(id)
 	mixcloudavailable := false
 
 	if strings.HasPrefix(timeslot.MixcloudStatus, "/URY1350/") {
@@ -104,10 +108,12 @@ func (sc *ShowController) GetTimeslot(w http.ResponseWriter, r *http.Request) {
 		Timeslot          myradio.Timeslot
 		Tracklist         []myradio.TracklistItem
 		MixcloudAvailable bool
+		CreditsToUsers    map[string][]myradio.User
 	}{
 		Timeslot:          timeslot,
 		Tracklist:         tracklist,
 		MixcloudAvailable: mixcloudavailable,
+		CreditsToUsers:    creditsToUsers,
 	}
 
 	if err != nil {
