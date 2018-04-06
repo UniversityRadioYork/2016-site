@@ -42,7 +42,8 @@ html {
 
 // Everything but the jumbotron gets side spacing for mobile first views
 
-.header, .footer {
+.header,
+.footer {
   padding-right: 15px;
   padding-left: 15px;
 }
@@ -52,14 +53,13 @@ html {
 .header {
   padding-bottom: 20px;
   border-bottom: 1px solid #e5e5e5;
-}
 
-// Make the masthead heading the same height as the navigation
-
-.header h3 {
-  margin-top: 0;
-  margin-bottom: 0;
-  line-height: 40px;
+  // Make the masthead heading the same height as the navigation
+  h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 40px;
+  }
 }
 
 // Custom page footer
@@ -236,11 +236,11 @@ footer {
 .jumbotron {
   text-align: center;
   border-bottom: 1px solid #e5e5e5;
-}
+  .btn {
+    padding: 14px 24px;
+    font-size: 21px;
+  }
 
-.jumbotron .btn {
-  padding: 14px 24px;
-  font-size: 21px;
 }
 
 @include media-breakpoint-down(sm) {
@@ -297,6 +297,7 @@ footer {
     display: inline-block;
     margin-right: 5px;
   }
+
   #timeslot-season-title {
     color: #666;
   }
@@ -310,8 +311,8 @@ footer {
   .timeslots-table,
   .seasons-table {
     width:100% !important;
+
     thead {
-      //display: none;
       th {
         border-top: 1px solid $primary-color !important;
         border-bottom: 1px solid $primary-color !important;
@@ -323,12 +324,13 @@ footer {
         cursor: pointer;
       }
       td {
-        border: none;
+        border: 0;
       }
       tr:nth-child(odd) {
         background: $off-white-color;
+
         td:first-of-type {
-          font-size:1.5em;
+          font-size: 1.5em;
           text-align: center;
           background: $white;
           width: 60px;
@@ -351,7 +353,8 @@ footer {
           color: $white;
         }
       }
-      tr:hover, tr.active {
+      tr:hover,
+      tr.active {
         outline: 2px solid $secondary-color;
       }
     }
