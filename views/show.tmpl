@@ -75,63 +75,74 @@
 <div class="container-fluid bg-third">
 	<div class="container show-selector">
 		<div class="row flex">
-
 {{end}}
-			<div class="col-xs-12 col-md-4">
+			<div class="col-xs-12 pt-4 pr-4 pb-4 col-md-4">
 				<h1>{{.PageContext.ShortName}} {{.PageContext.ODName}}</h1>
 				<h3><small>Explore the show catalogue, and listen back to your favorite episodes!</small></h3>
 			</div>
 {{with .PageData}}
-			<div class="col-xs-12 col-sm-6 col-md-4 seasons">
+			<div class="col-xs-12 col-sm-6 col-md-4 p-4 bg-off-white">
 				<h2>
 					Seasons
 				</h2>
-				<ul>
+				<table id="seasons" class="table seasons-table">
+					<thead>
+						<tr>
+							<th>Season</th>
+							<th>First Episode</th>
+							<th>Episodes</th>
+						</tr>
+					</thead>
+					<tbody>
 					{{range .Seasons}}
 						{{if ne .SeasonNum 0}}
-							<li class="timeslotFilterSeason">
-								<a data-SeasonID="{{.SeasonID}}">Seasion {{.SeasonNum}}: {{.FirstTime.Format "Monday, _2 Jan 2006 at 15:04"}} - {{.NumEpisodes.Value}} Episode(s)</a>
-
-							</li>
+							<tr class="timeslotFilterSeason" data-SeasonID="{{.SeasonID}}">
+								<td>{{.SeasonNum}}</td>
+								<td>{{.FirstTime.Format "Monday, _2 Jan 2006 - 15:04"}}</td>
+								<td>
+									{{.NumEpisodes.Value}} Episode(s)
+								</td>
+							</tr>
 						{{end}}
 					{{end}}
-				</ul>
+					</tbody>
+				</table>
 			</div>
-			<div id="timeslotLatest" class="col-xs-12 col-sm-6 col-md-4">
+			<div id="timeslotLatest" class="col-xs-12 col-sm-6 col-md-4 p-4 bg-white">
 				<h3>Latest Episode</h3>
 				<p>Catchup with the latest episode from !!DATE!!</p>
 				!!MixClouder iFrame
-
 			</div>
-			<div id="timeslotList" class="col-xs-12 col-sm-6 col-md-4" style="display: none;">
-				<h3>Episodes</h3>
+			<div id="timeslotList" class="col-xs-12 col-sm-6 col-md-4 p-4 bg-white">
+				<h2 class="inline">Episodes</h2><h3 id="timeslotSeasonTitle" class="inline"></h3>
 				<table id="timeslots" class="table timeslots-table">
-				<thead>
-					<tr>
-						<th>SeasonID</th>
-						<th>Episode</th>
-						<th>Time</th>
-					</tr>
-				</thead>
-				<tbody>
-
-				{{range .Timeslots}}
-					{{if ne .TimeslotNum 0}}
+					<thead>
 						<tr>
-							<td>{{.Season.SeasonID}}</td>
-							<td>{{.TimeslotNum}}</td>
-							<td><a href="/schedule/shows/timeslots/{{.TimeslotID}}/">{{.StartTime.Format "Monday, _2 Jan 2006 at 15:04"}}</a></td>
+							<th>Season</th>
+							<th>Episode</th>
+							<th>Broacast Time</th>
 						</tr>
+					</thead>
+					<tbody>
+					{{range .Timeslots}}
+						{{if ne .TimeslotNum 0}}
+							<tr>
+								<td>{{.Season.SeasonID}}</td>
+								<td>{{.TimeslotNum}}</td>
+								<td><a href="/schedule/shows/timeslots/{{.TimeslotID}}/">{{.StartTime.Format "Monday, _2 Jan 2006 at 15:04"}}</a></td>
+							</tr>
+						{{end}}
 					{{end}}
-				{{end}}
-				</tbody>
-			</table>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 </div> <!-- /outer containter -->
 {{end}}
 {{end}}
 {{define "footer-scripts"}}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="{{url "/js/show.js"}}"></script>
 {{end}}

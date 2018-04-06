@@ -293,36 +293,66 @@ footer {
 }
 
 .show-selector {
-  background-color: $secondary-color;
-  color: white;
-  .flex {
-    display: flex;
-    flex-wrap: wrap;
+  .inline {
+    display: inline-block;
+    margin-right: 5px;
   }
-  .seasons {
-    background: $third-color;
+  #timeslotSeasonTitle {
+    color: #666;
   }
-  #timeslotList, #timeslotLatest {
-    background: $primary-color;
+  .dataTables_wrapper .dataTables_paginate {
+    float: none;
+    text-align: center;
   }
-
-  .timeslots-table {
+  #timeslotList {
+    display: none;
+  }
+  .timeslots-table, .seasons-table {
     width:100% !important;
-    margin-left:-15px;
-    margin-right:-15px;
     thead {
-      display: none;
-    }
-    tr {
-      background:$primary-color;
-      td:first-of-type {
-        font-size:1.5em;
-        text-align: center;
-        background: #032eF0
+      //display: none;
+      th {
+        border-top: 1px solid $primary-color !important;
+        border-bottom: 1px solid $primary-color !important;
       }
     }
-    tr.odd {
-      background: $third-color;
+    tbody {
+      tr {
+        border: 1px solid $primary-color !important;
+        cursor: pointer;
+      }
+      td {
+        border: none;
+      }
+      tr:nth-child(odd) {
+        background: $off-white-color;
+        td:first-of-type {
+          font-size:1.5em;
+          text-align: center;
+          background: $white;
+          width: 60px;
+        }
+        a {
+          color: $black;
+        }
+      }
+      tr:nth-child(even) {
+        background: $third-color;
+        color: $white;
+        td:first-of-type {
+          color: $black;
+          font-size:1.5em;
+          text-align: center;
+          background: $off-white-color;
+          width: 60px;
+        }
+        a {
+          color: $white;
+        }
+      }
+      tr:hover, tr.active {
+        outline: 2px solid $secondary-color;
+      }
     }
   }
 }
