@@ -47,35 +47,27 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 
 	// Needed so that credits are grouped by type
 
+	var scheduledSeasons = make([]myradio.Season, 0)
 	var timeslots = make([]myradio.Timeslot, 0)
-	var numSeasons = 0
-	var numTimeslots = 0
-	for _, element := range seasons {
-		_, timeslotsSingleSeason, _ := sm.GetSeason(element.SeasonID)
-		timeslots = append(timeslots, timeslotsSingleSeason...)
-		if element.SeasonNum != 0 {
-			numSeasons = numSeasons + 1
+
+	for _, season := range seasons {
+		_, timeslotsSingleSeason, _ := sm.GetSeason(season.SeasonID)
+		if season.FirstTimeRaw != "Not Scheduled" {
+			scheduledSeasons = append(scheduledSeasons, season)
+			timeslots = append(timeslots, timeslotsSingleSeason...)
 		}
-	}
-	for _, element := range timeslots {
-		if element.TimeslotNum != 0 {
-			numTimeslots = numTimeslots + 1
-		}
+
 	}
 	data := struct {
 		Show           myradio.ShowMeta
 		Seasons        []myradio.Season
 		Timeslots      []myradio.Timeslot
 		CreditsToUsers map[string][]myradio.User
-		NumSeasons     int
-		NumTimeslots   int
 	}{
 		Show:           *show,
-		Seasons:        seasons,
+		Seasons:        scheduledSeasons,
 		Timeslots:      timeslots,
 		CreditsToUsers: creditsToUsers,
-		NumSeasons:     numSeasons,
-		NumTimeslots:   numTimeslots,
 	}
 
 	if err != nil {
