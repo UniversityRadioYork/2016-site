@@ -31,6 +31,7 @@ type PageContext struct {
 	MainFacebook    string `toml:"mainFacebook"`
 	NewsTwitter     string `toml:"newsTwitter"`
 	MyRadioAPIKey   string `toml:"myRadioAPIKey"`
+	ODName          string `toml:"odName"`
 	Pages           []Page
 	Youtube         youtube
 	Gmaps           gmaps

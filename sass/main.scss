@@ -292,6 +292,41 @@ footer {
   color: #555;
 }
 
+.show-selector {
+  background-color: $secondary-color;
+  color: white;
+  .flex {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .seasons {
+    background: $third-color;
+  }
+  #timeslotList, #timeslotLatest {
+    background: $primary-color;
+  }
+
+  .timeslots-table {
+    width:100% !important;
+    margin-left:-15px;
+    margin-right:-15px;
+    thead {
+      display: none;
+    }
+    tr {
+      background:$primary-color;
+      td:first-of-type {
+        font-size:1.5em;
+        text-align: center;
+        background: #032eF0
+      }
+    }
+    tr.odd {
+      background: $third-color;
+    }
+  }
+}
+
 // Styling for responsive map
 .map-container {
   width: 100%;

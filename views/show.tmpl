@@ -73,12 +73,15 @@
 </div>
 {{end}}
 <div class="container-fluid bg-third">
-	<div class="container">
-		<div class="row">
+	<div class="container show-selector">
+		<div class="row flex">
+
+{{end}}
 			<div class="col-xs-12 col-md-4">
-				<h1>((URY)) Player</h1>
+				<h1>{{.PageContext.ShortName}} {{.PageContext.ODName}}</h1>
 				<h3><small>Explore the show catalogue, and listen back to your favorite episodes!</small></h3>
 			</div>
+{{with .PageData}}
 			<div class="col-xs-12 col-sm-6 col-md-4 seasons">
 				<h2>
 					Seasons
@@ -102,7 +105,7 @@
 			</div>
 			<div id="timeslotList" class="col-xs-12 col-sm-6 col-md-4" style="display: none;">
 				<h3>Episodes</h3>
-				<table id="timeslots" class="table page1-timeslots-table">
+				<table id="timeslots" class="table timeslots-table">
 				<thead>
 					<tr>
 						<th>SeasonID</th>
