@@ -26,7 +26,7 @@ $(document).ready(function() {
         ]
     });
     $(".timeslot-filter-season").on( "click", function () {
-        $(".timeslotFilterSeason").removeClass("active");
+        $(".timeslot-filter-season").removeClass("active");
         $(this).addClass("active");
         $("#timeslot-latest").hide();
         $("#timeslot-season-title").text("Season " + $(this).find("td:first-of-type").html())
