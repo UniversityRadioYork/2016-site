@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -50,6 +51,12 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 	var scheduledSeasons = make([]myradio.Season, 0)
 	var timeslots = make([]myradio.Timeslot, 0)
 
+	if err != nil {
+		log.Println(err)
+		utils.RenderTemplate(w, sc.config.PageContext, struct{}{}, "404.tmpl")
+		return
+	}
+
 	for _, season := range seasons {
 		_, timeslotsSingleSeason, _ := sm.GetSeason(season.SeasonID)
 		if season.FirstTimeRaw != "Not Scheduled" {
@@ -83,6 +90,7 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// GetTimeslot handles the HTTP GET request r for an individual timeslot, writing to w.
 func (sc *ShowController) GetTimeslot(w http.ResponseWriter, r *http.Request) {
 	sm := models.NewShowModel(sc.session)
 
@@ -122,6 +130,7 @@ func (sc *ShowController) GetTimeslot(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// GetSeason handles the HTTP GET request r for an individual season, writing to w.
 func (sc *ShowController) GetSeason(w http.ResponseWriter, r *http.Request) {
 	sm := models.NewShowModel(sc.session)
 
@@ -129,27 +138,17 @@ func (sc *ShowController) GetSeason(w http.ResponseWriter, r *http.Request) {
 
 	id, _ := strconv.Atoi(vars["id"])
 
-	season, timeslots, err := sm.GetSeason(id)
-
-	data := struct {
-		Season    myradio.Season
-		Timeslots []myradio.Timeslot
-	}{
-		Season:    season,
-		Timeslots: timeslots,
-	}
+	season, _, err := sm.GetSeason(id)
 
 	if err != nil {
-		//@TODO: Do something proper here, render 404 or something
+		utils.RenderTemplate(w, sc.config.PageContext, struct{}{}, "404.tmpl")
 		log.Println(err)
 		return
 	}
 
-	err = utils.RenderTemplate(w, sc.config.PageContext, data, "season.tmpl")
-	if err != nil {
-		log.Println(err)
+	//We don't want a dedicated season page, redirect to the show page.
+	var showURL = fmt.Sprintf("/schedule/shows/%d/", season.ShowMeta.ShowID)
 
-		return
-	}
+	http.Redirect(w, r, showURL, 301)
 
 }
