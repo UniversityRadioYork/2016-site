@@ -26,7 +26,7 @@ func (onDemandC *OnDemandController) Get(w http.ResponseWriter, r *http.Request)
 
 	PodcastsM := models.NewPodcastModel(onDemandC.session)
 
-	latestPodcasts, err := PodcastsM.GetAllPodcasts()
+	latestPodcasts, err := PodcastsM.GetAllPodcasts(10, 0)
 
 	OnDemandM := models.NewOnDemandModel(onDemandC.session)
 

@@ -8,7 +8,7 @@
 					<div class="col">
 						<h1 class="header-title">
 								<a href="{{url "/ontap/"}}" title="Go back to {{.PageContext.ODName}}">
-									{{- .PageContext.ODName -}}
+									{{- .PageContext.ShortName }}{{.PageContext.ODName -}}
 								</a>
 								Podcasts
 						</h1>
@@ -19,6 +19,21 @@
 
 {{with .PageData}}
 <div class="container container-padded bg-off-white pt-5 mt-5">
+  <div class="pageination">
+    {{if gt .PageNumber 1}}
+      <a href="0" title="Goto Page 1">First Page</a>
+    {{end}}
+    {{if gt .PageNumber 2}}
+      <a href="{{.PageNumberPrev}}" title="Goto Page {{.PageNumberPrev}}">Previous Page</a>
+    {{end}}
+    {{.PageNumber}}
+    {{if gt .PageNumber 2}}
+      <a href="{{.PageNumberNext}}" title="Goto Page {{.PageNumberNext}}">Next Page</a>
+    {{end}}
+
+      <a href="{{.PageNumberNext}}" title="Goto Page {{.PageNumberNext}}">Last Page</a>
+
+  </div>
   <div class="pt-3" style="text-align: right;">All Podcasts</div>
   <hr>
   {{range .Podcasts}}

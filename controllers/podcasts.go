@@ -29,7 +29,17 @@ func (podcastsC *PodcastController) GetAllPodcasts(w http.ResponseWriter, r *htt
 
 	podcastm := models.NewPodcastModel(podcastsC.session)
 
-	podcasts, err := podcastm.GetAllPodcasts()
+	vars := mux.Vars(r)
+
+	pageNumberPrev, _ := strconv.Atoi(vars["page"])
+
+	podcasts, err := podcastm.GetAllPodcasts(10, pageNumberPrev)
+
+	pageNumber := 0
+	pageNumberNext := 0
+
+	pageNumber = pageNumberPrev + 1 // For the web pagination UI.
+	pageNumberNext = pageNumber + 1
 
 	if err != nil {
 		//@TODO: Do something proper here, render 404 or something
@@ -38,9 +48,15 @@ func (podcastsC *PodcastController) GetAllPodcasts(w http.ResponseWriter, r *htt
 	}
 
 	data := struct {
-		Podcasts []myradio.Podcast
+		PageNumberPrev int
+		PageNumber     int
+		PageNumberNext int
+		Podcasts       []myradio.Podcast
 	}{
-		Podcasts: podcasts,
+		PageNumberPrev: pageNumberPrev,
+		PageNumber:     pageNumber,
+		PageNumberNext: pageNumberNext,
+		Podcasts:       podcasts,
 	}
 
 	err = utils.RenderTemplate(w, podcastsC.config.PageContext, data, "podcasts.tmpl")
