@@ -72,8 +72,9 @@
   </div>
 </div>
 {{end}}
-<div class="container outer page1-on-demand">
-		<div class="row col-container">
+<div class="container-fluid bg-third">
+	<div class="container">
+		<div class="row">
 			<div class="col-xs-12 col-md-4">
 				<h1>((URY)) Player</h1>
 				<h3><small>Explore the show catalogue, and listen back to your favorite episodes!</small></h3>
@@ -123,7 +124,11 @@
 				</tbody>
 			</table>
 		</div>
-
+	</div>
 </div> <!-- /outer containter -->
 {{end}}
+{{end}}
+{{define "footer-scripts"}}
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="{{url "/js/show.js"}}"></script>
 {{end}}
