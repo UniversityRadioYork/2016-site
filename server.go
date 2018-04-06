@@ -37,8 +37,6 @@ func NewServer(c *structs.Config) (*Server, error) {
 	nfc := controllers.NewNotFoundController(c)
 	router.NotFoundHandler = http.HandlerFunc(nfc.Get)
 
-	redirectC := controllers.NewRedirectController(c)
-
 	ic := controllers.NewIndexController(session, c)
 	getRouter.HandleFunc("/", ic.Get)
 
@@ -69,7 +67,7 @@ func NewServer(c *structs.Config) (*Server, error) {
 		http.Redirect(w, r, "/ontap/", 301)
 	})
 	getRouter.HandleFunc("/uryplayer/podcasts/", func(w http.ResponseWriter, r *http.Request) {
-		rhttp.Redirect(w, r, "/podcasts/", 301)
+		http.Redirect(w, r, "/podcasts/", 301)
 	})
 	getRouter.HandleFunc("/uryplayer/podcasts/{id:[0-9]+}/", func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
