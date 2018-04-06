@@ -87,6 +87,7 @@ func getBlock(name string, StartTime time.Time) string {
 		{"URY Brunch", "flagship"},
 		{"URY Afternoon Tea:", "flagship"},
 		{"URY:PM", "flagship"},
+		{"Alumni Takeover:", "flagship"},
 
 		{"ury news", "news"},
 		{"ury sports", "news"},
