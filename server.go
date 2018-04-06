@@ -37,6 +37,7 @@ func NewServer(c *structs.Config) (*Server, error) {
 
 	ic := controllers.NewIndexController(session, c)
 	getRouter.HandleFunc("/", ic.Get)
+	postRouter.HandleFunc("/", ic.Post)
 
 	sc := controllers.NewSearchController(session, c)
 	getRouter.HandleFunc("/search/", sc.Get)
