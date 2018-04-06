@@ -57,17 +57,12 @@ func NewServer(c *structs.Config) (*Server, error) {
 
 	onDemandC := controllers.NewOnDemandController(session, c)
 	getRouter.HandleFunc("/ontap/", onDemandC.Get)
-	// Backwards compatability with previous sites
-	getRouter.HandleFunc("/uryplayer/", onDemandC.Get)
 
 	podcastsC := controllers.NewPodcastController(session, c)
 	getRouter.HandleFunc("/podcasts/", podcastsC.GetAllPodcasts)
+	getRouter.HandleFunc("/podcasts/page/{page:[0-9]+}", podcastsC.GetAllPodcasts)
 	getRouter.HandleFunc("/podcasts/{id:[0-9]+}/", podcastsC.Get)
 	getRouter.HandleFunc("/podcasts/{id:[0-9]+}/player/", podcastsC.GetEmbed)
-	// Backwards compatability with previous sites
-	getRouter.HandleFunc("/uryplayer/podcasts/", podcastsC.GetAllPodcasts)
-	getRouter.HandleFunc("/uryplayer/podcasts/{id:[0-9]+}/", podcastsC.Get)
-	getRouter.HandleFunc("/uryplayer/podcasts/{id:[0-9]+}/player/", podcastsC.GetEmbed)
 
 	pc := controllers.NewPeopleController(session, c)
 	getRouter.HandleFunc("/people/{id:[0-9]+}/", pc.Get)
