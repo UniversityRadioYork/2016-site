@@ -27,30 +27,93 @@
 	<div class="container container-padded">
     <h1 class="text-center">Welcome to URY!</h1>
     <div class="row">
-      <div class="col-md-6 col-lg-3">
+      <div class="col-md-6 col-lg-4">
         <h2>Who are URY?</h2>
         <p>{{.PageContext.SiteDescription}}</p>
         <p>The station is run by students for students, meaning the people behind the station understand what the listenership want to hear.</p>
         <p>With no playlist and no set format to many of our shows, our presenters have the chance to try whatever they like, as long as it's legal!</p>
       </div>
-      <div class="col-md-6 col-lg-3">
+      <div class="col-md-6 col-lg-4">
         <h2>Where are URY?</h2>
         <p>URY's studios lie at the very heart of the Campus in our own building at Vanbrugh College.</p>
         <p>But URY's real presence is felt outside of the studio, around the campus at major University and Student Union events, whether we're covering live music, recruiting new Freshers or reporting on major news events.</p>
-        <p><a href="{{url "/contact/#map"}}" title="Contact Page">Find us on a map!</a></p>
+        <p><a href="{{url "/contact/#map"}}">Find us on a map!</a></p>
       </div>
-      <div class="col-md-6 col-lg-3">
+      <div class="col-md-6 col-lg-4">
         <h2>Our Teams</h2>
         <p>Behind the scenes, the main activities involved in running the station are broken down in teams, which contain officers who are responsible for specific areas of station activity.</p>
         <p>URY is proud to have a large active membership, and encourages people to get involved, no matter what they want to do or how much time they can commit.</p>
-        <p><a href="{{url "/teams/"}}" title="Visit the teams page">Find out more about our teams!</a></p>
-      </div>
-      <div class="col-md-6 col-lg-3">
-        <h2>Our History</h2>
-        <p>URY has a rich history of pioneering broadcasting, beginning in 1968 when URY became the UK's first legal independent radio station. URY's achievements over the years include numerous awards, a launch show hosted by John Peel, special FM broadcasts and numerous charity events.</p>
-        <p>In 2005, URY obtained national recognition of its achievements by being named BBC Radio One Student Station of the Year.</p>
+        <p><a href="#">Find out more about our teams!</a></p>
       </div>
     </div>
+  </div>
+</div>
+<div class="container-fluid container-padded">
+  <div class="container container-padded">
+      <h1>Our History</h1>
+      <div> {{/* Prevents bug where p would appear inline with h2 */}}
+        <p>URY has a rich history of pioneering broadcasting, beginning in 1968 when URY became the UK's first legal independent radio station. URY's achievements over the years include numerous awards, a launch show hosted by John Peel, special FM broadcasts and numerous charity events.</p>
+        <p>In 2005, URY obtained national recognition of its achievements by being named BBC Radio One Student Station of the Year.</p>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-padded bg-primary">
+  <div class="container container-padded">
+      <h1>Our Awards</h1>
+      <div> {{/* Prevents bug where p would appear inline with h2 */}}
+        <p>We are really pleased with everything we have achieved at {{.PageContext.ShortName}}, and it is really great to be recognised for this.</p>
+        <div class="row">
+          <div class="col-md-6 col-lg-6">
+            <h2>2017</h2>
+            <ul>
+              <li>Gold Best Entertainment Programme (URY:PM - with K-Spence)</li>
+              <li>Gold Best Newcomer (Will Batchelor)</li>
+              <li>Silver Best Newcomer (Matt Stratford)</li>
+              <li>Bronze Best Technical Achievement (URY Visualisation)</li>
+            </ul>
+          </div>
+          <div class="col-md-6 col-lg-6">
+            <h2>2016</h2>
+            <ul>
+              <li>Gold Best Technical Achievement (Beat the Buzz)</li>
+              <li>Bronze Best Station Branding (URY)</li>
+              <li>Bronze Kevin Greening Award (URY: Biscuit News)</li>
+            </ul>
+          </div>
+          <div class="col-md-6 col-lg-6">
+            <h2>2015</h2>
+            <ul>
+              <li>Gold Best Entertainment Programme (URY: Harry Whittaker Show)</li>
+              <li>Gold Best Newcomer (URY: Rebecca Saw)</li>
+              <li>Silver Best Live Event or Outside Broadcast (URY: Elections Results Night)</li>
+              <li>Silver Best Technical Achievement (URY: Roses Mini OB Kits)</li>
+              <li>Bronze Best Male Presenter (URY: Harry Whittaker)</li>
+            </ul>
+          </div>
+          <div class="col-md-6 col-lg-6">
+            <h2>2014</h2>
+            <ul>
+              <li>Silver Best Journalistic Programming (URY: River Safety: York’s Rising Problem)</li>
+            </ul>
+          </div>
+          <div class="col-md-6 col-lg-6">
+            <h2>2013</h2>
+            <ul>
+              <li>Gold Best Speech Programming (URY: The New World Order: Part 2: 1651)</li>
+              <li>Silver Best Speech Programming (URY: Trimble)</li>
+              <li>Silver Best Newcomer (Harry Whittaker)</li>
+              <li>Bronze Best Entertainment Show (The Harry Whittaker Show)</li>
+            </ul>
+          </div>
+          <div class="col-md-6 col-lg-6">
+            <h2>2012</h2>
+            <ul>
+              <li>Silver Best Station (URY)</li>
+              <li>Bronze Best Specialist Music Programming (URY: Coco Electro)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
   </div>
 </div>
 {{end}}
