@@ -75,10 +75,6 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 			}
 			return c
 		},
-		"showsToHours": func(shows []myradio.ShowMeta) int {
-			//TODO: finish This
-			return -5
-		},
 		"formatDuration": func(d time.Duration) string {
 			days := int64(d.Hours()) / 24
 			hours := int64(d.Hours()) % 24
