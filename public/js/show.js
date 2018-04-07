@@ -51,7 +51,7 @@ $(document).ready(function() {
         $("#timeslot-list").show();
 
         $("#timeslot-list tr").on("click", function () {
-            window.location.href = $(object).find("a").attr("href");
+            window.location.href = $(this).find("a").attr("href");
         });
     };
 
