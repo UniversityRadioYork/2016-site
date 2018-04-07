@@ -56,13 +56,16 @@
     <div class="col-12 col-md-8">
       <h2>{{.PageContext.ShortName}} on Youtube</h2>
     </div>
-    <div class="col-12 col-md-4">
-      <a href="{{.PageContext.Youtube.ChannelURL}}" class="btn btn-primary-inverse btn-sm float-right" title="View All Podcasts">View all Videos</a>
-    </div>
+
   </div>
   <h2> </h2>
-  <div id="youtube-video-slider" class="row scroll-horiz pb-3 custom-scrollbar">
+  <div id="youtube-video-slider" class="row pb-3 youtube-grid">
   </div>
+  <div class="row justify-content-end">
+    <div class="col">
+        <a href="{{.PageContext.Youtube.ChannelURL}}" class="btn btn-primary-inverse btn-sm float-right" title="View All Podcasts">View all Videos</a>
+      </div>
+    </div>
 </div>
 {{if .PageData.LatestPodcasts}}
 <div id="index-podcasts" class="container-fluid container-padded bg-third">
