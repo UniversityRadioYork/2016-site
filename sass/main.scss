@@ -305,8 +305,50 @@ footer {
     float: none;
     text-align: center;
   }
-  #timeslot-list {
+  #timeslot-latest {
     display: none;
+  }
+  :not(.dataTable) {
+    tr th:first-of-type,
+    tr td:first-of-type {
+      display: none;
+    }
+    tr:nth-child(odd) {
+      td:nth-of-type(2) {
+        font-size: 1.5em;
+        text-align: center;
+        background: $white;
+        width: 60px;
+      }
+    }
+    tr:nth-child(even) {
+      td:nth-of-type(2) {
+        color: $black;
+        font-size:1.5em;
+        text-align: center;
+        background: $off-white-color;
+        width: 60px;
+      }
+    }
+  }
+  .dataTable {
+    tr:nth-child(odd) {
+      td:first-of-type {
+        font-size: 1.5em;
+        text-align: center;
+        background: $white;
+        width: 60px;
+      }
+    }
+    tr:nth-child(even) {
+      td:first-of-type {
+        color: $black;
+        font-size:1.5em;
+        text-align: center;
+        background: $off-white-color;
+        width: 60px;
+      }
+    }
   }
   .timeslots-table,
   .seasons-table {
@@ -329,12 +371,6 @@ footer {
       tr:nth-child(odd) {
         background: $off-white-color;
 
-        td:first-of-type {
-          font-size: 1.5em;
-          text-align: center;
-          background: $white;
-          width: 60px;
-        }
         a {
           color: $black;
         }
@@ -342,13 +378,6 @@ footer {
       tr:nth-child(even) {
         background: $third-color;
         color: $white;
-        td:first-of-type {
-          color: $black;
-          font-size:1.5em;
-          text-align: center;
-          background: $off-white-color;
-          width: 60px;
-        }
         a {
           color: $white;
         }
