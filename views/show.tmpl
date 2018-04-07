@@ -112,14 +112,22 @@
       </div>
       <div id="timeslot-latest" class="col-12 col-md-6 col-lg-4 p-4 bg-white">
         <h3>Latest Episode</h3>
+        {{if ne .PageData.LatestTimeslot.TimeslotID 0}}
         <p>Catchup with the latest episode from <strong>{{.PageData.LatestTimeslot.StartTime.Format "Monday, _2 Jan 2006"}}</strong></p>
         {{if .PageData.LatestMixcloud}}
           <iframe width="100%" height="120" src="https://www.mixcloud.com/widget/iframe/?feed={{.PageData.LatestTimeslot.MixcloudStatus}}&hide_cover=1&light=1"
             frameborder="0"></iframe>
         {{else}}
-          <p><strong>This episode isn't available on {{.PageContext.ShortName}} {{.PageContext.ODName}}, sorry about that.</strong></p>
+          <p>
+            <strong>This episode isn't available on {{.PageContext.ShortName}} {{.PageContext.ODName}}, sorry about that.</strong>
+          </p>
         {{end}}
         <a href="/schedule/shows/timeslots/{{.PageData.LatestTimeslot.TimeslotID}}/">View full episode information...</a>
+        {{else}}
+          <p>
+            <strong>No episodes of this show have been broadcast yet.</strong>
+          </p>
+        {{end}}
       </div>
 {{with .PageData}}
       <div id="timeslot-list" class="col-12 col-md-6 col-lg-4 p-4 bg-white">
