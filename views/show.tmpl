@@ -34,10 +34,10 @@
          alt="{{.Show.Title}} Logo">
         <div class="row">
           <div class="col-6 text-center">
-            <h5>Seasons: {{len .Seasons}}</h5>
+            <h6>Seasons: {{len .Seasons}}</h6>
           </div>
           <div class="col-6 text-center">
-            <h5>Shows: {{showCount .Seasons}}</h5>
+            <h6>Shows: {{showCount .Seasons}}</h6>
           </div>
         </div>
       </div>
@@ -59,9 +59,9 @@
       {{range $key, $value := .CreditsToUsers}}
       <div class="col-sm-4 pb-3">
         {{if gt (len $value) 1}}
-          <h3>{{plural $key}}</h3>
+          <h4>{{plural $key}}</h4>
         {{else}}
-          <h3>{{$key}}</h3>
+          <h4>{{$key}}</h4>
         {{end}}
         {{range $value}}
         <a href="/people/{{.MemberID}}/">{{.Fname}} {{.Sname}}</a> <br>
