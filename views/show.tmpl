@@ -76,18 +76,19 @@
 	<div class="container show-selector">
 		<div class="row">
 {{end}}
-			<div class="col-xs-12 pt-4 pr-4 pb-4 col-md-4">
+			<div class="col-12 col-md-6 col-lg-4 p-4">
 				<h1>{{.PageContext.ShortName}} {{.PageContext.ODName}}</h1>
 				<h3><small>Explore the show catalogue, and listen back to your favorite episodes!</small></h3>
 			</div>
 {{with .PageData}}
-			<div class="col-xs-12 col-sm-6 col-md-4 p-4 bg-off-white">
+			<div class="col-12 col-md-6 col-lg-4 p-4 bg-off-white">
 				<h2>
 					Seasons
 				</h2>
 				<table id="seasons" class="table seasons-table">
 					<thead>
 						<tr>
+							<th>SeasonID</th>
 							<th>Season</th>
 							<th>First Episode</th>
 							<th>Episodes</th>
@@ -97,6 +98,7 @@
 					{{range .Seasons}}
 						{{if ne .SeasonNum 0}}
 							<tr class="timeslot-filter-season" data-SeasonID="{{.SeasonID}}">
+								<td>{{.SeasonID}}</td>
 								<td>{{.SeasonNum}}</td>
 								<td>{{.FirstTime.Format "Monday, _2 Jan 2006 - 15:04"}}</td>
 								<td>
@@ -108,17 +110,17 @@
 					</tbody>
 				</table>
 			</div>
-			<div id="timeslot-latest" class="col-xs-12 col-sm-6 col-md-4 p-4 bg-white">
+			<div id="timeslot-latest" class="col-12 col-md-6 col-lg-4 p-4 bg-white">
 				<h3>Latest Episode</h3>
 				<p>Catchup with the latest episode from !!DATE!!</p>
 				!!MixClouder iFrame
 			</div>
-			<div id="timeslot-list" class="col-xs-12 col-sm-6 col-md-4 p-4 bg-white">
+			<div id="timeslot-list" class="col-12 col-md-6 col-lg-4 p-4 bg-white">
 				<h2 class="inline">Episodes</h2><h3 id="timeslot-season-title" class="inline"></h3>
 				<table id="timeslots" class="table timeslots-table">
 					<thead>
 						<tr>
-							<th>Season</th>
+							<th>SeasonID</th>
 							<th>Episode</th>
 							<th>Broacast Time</th>
 						</tr>
@@ -142,7 +144,8 @@
 {{end}}
 {{end}}
 {{define "footer-scripts"}}
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
-<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="//cdn.datatables.net/plug-ins/1.10.16/api/fnFindCellRowIndexes.js"></script>
 <script src="{{url "/js/show.js"}}"></script>
 {{end}}
