@@ -30,6 +30,7 @@ $shadow: rgba(0, 0, 0, 0.5);
   }
 
   box-shadow: 0 2px 4px $shadow;
+
 }
 
 .tables-container {
@@ -185,8 +186,7 @@ $sustainer-color: tint($primary-color, 40%);
     height: unset;
     padding: calc(2em + 60px) 0 2em;
   }
-  .schedule-keys .key-row
-  {
+  .schedule-keys .key-row {
     text-align: left;
 
     .h5, .h6 {
