@@ -88,7 +88,6 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 					var value = ""
 					var visible = true
 					var plural = true
-
 					value = string(s[startIndexLastNumerical:index])
 					if len(value) == 1 {
 						if value == "0" {
@@ -97,24 +96,20 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 							plural = false
 						}
 					}
-
 					if visible {
 						output = output + value + " Hour"
 						if plural {
 							output = output + "s"
 						}
 					}
-
 					if index < len(s)-1 {
 						startIndexLastNumerical = index + 1
 					}
 				}
-
 				if s[index] == []byte("m")[0] {
 					var value = ""
 					var visible = true
 					var plural = true
-
 					value = string(s[startIndexLastNumerical:index])
 					if len(value) == 1 {
 						if value == "0" {
@@ -123,24 +118,17 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 							plural = false
 						}
 					}
-
 					if visible {
 						output = output + value + " Min"
 						if plural {
 							output = output + "s"
 						}
 					}
-
 					if index < len(s)-1 {
 						startIndexLastNumerical = index + 1
 					}
 				}
-
 			}
-
-			//if strings.HasSuffix(s, "h0m") {
-			//	s = s[:len(s)-2]
-			//}
 			return output
 		},
 		// TODO(CaptainHayashi): this is temporary
