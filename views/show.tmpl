@@ -46,10 +46,50 @@
         <hr>
         <h2>Description</h2>
         <p>{{html .Show.Description}}</p>
+        <hr>
+            <div class="row justify-content-between">
+{{end}}
+                <div class="col-auto share-links ">
+                    <h3>Share</h3>
+                    <a href="#"
+                        data-type="twitter"
+                        data-url="{{.PageContext.FullURL}}/schedule/shows/{{.PageData.Show.ShowID}}"
+                        {{if .PageData.Show.Photo}}
+                            data-media="{{.PageContext.FullURL}}{{.PageData.Show.Photo}}"
+                        {{end}}
+                        data-description="Checkout {{.PageData.Show.Title}} on {{.PageContext.LongName}}"
+                        data-via="{{.PageContext.MainTwitter}}"
+                        class="prettySocial fa fa-twitter">
+                    </a>
+
+                    <a href="#"
+                        data-type="facebook"
+                        data-url="{{.PageContext.FullURL}}/schedule/shows/{{.PageData.Show.ShowID}}"
+                        data-title="{{.PageData.Show.Title}} | {{.PageContext.ShortName}}"
+                        data-description="{{.PageData.Show.Description}}"
+                        {{if .PageData.Show.Photo}}
+                            data-media="{{.PageContext.FullURL}}{{.PageData.Show.Photo}}"
+                        {{end}}
+                        class="prettySocial fa fa-facebook">
+                    </a>
+
+                    <a href="#"
+                        data-type="googleplus"
+                        data-url="{{.PageContext.FullURL}}/schedule/shows/{{.PageData.Show.ShowID}}"
+                        data-description="{{.PageData.Show.Description}}"
+                        {{if .PageData.Show.Photo}}
+                            data-media="{{.PageContext.FullURL}}{{.PageData.Show.Photo}}"
+                        {{end}}
+                        class="prettySocial fa fa-google">
+                    </a>
+
+                </div>
+            </div>
       </div>
     </div>
   </div>
 </div>
+{{with .PageData}}
 {{if .CreditsToUsers}}
 <div class="container-fluid bg-secondary">
   <div class="container pt-3">
@@ -89,4 +129,10 @@
   </div>
 </div>
 {{end}}
+{{end}}
+{{define "footer-scripts"}}
+  <script src="{{url "/js/jquery.prettySocial.min.js"}}"></script>
+  <script type="text/javascript" class="source">
+    $(".prettySocial").prettySocial();
+  </script>
 {{end}}
