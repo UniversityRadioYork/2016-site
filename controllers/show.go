@@ -147,7 +147,7 @@ func (sc *ShowController) GetSeason(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//We don't want a dedicated season page, redirect to the show page.
-	var showURL = fmt.Sprintf("/schedule/shows/%d/", season.ShowMeta.ShowID)
+	var showURL = fmt.Sprintf("/schedule/shows/%d/?seasonID=%d", season.ShowMeta.ShowID, season.SeasonID)
 
 	http.Redirect(w, r, showURL, 301)
 
