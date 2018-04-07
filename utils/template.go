@@ -5,7 +5,6 @@ import (
 	"html/template"
 	"net/http"
 	"path/filepath"
-	"strings"
 	"time"
 
 	"github.com/UniversityRadioYork/2016-site/structs"
@@ -81,13 +80,68 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 		},
 		"formatDuration": func(d time.Duration) string {
 			s := d.String()
-			if strings.HasSuffix(s, "m0s") {
-				s = s[:len(s)-2]
+			var output = ""
+			var startIndexLastNumerical = 0
+
+			for index := range s {
+				if s[index] == []byte("h")[0] {
+					var value = ""
+					var visible = true
+					var plural = true
+
+					value = string(s[startIndexLastNumerical:index])
+					if len(value) == 1 {
+						if value == "0" {
+							visible = false
+						} else if value == "1" {
+							plural = false
+						}
+					}
+
+					if visible {
+						output = output + value + " Hour"
+						if plural {
+							output = output + "s"
+						}
+					}
+
+					if index < len(s)-1 {
+						startIndexLastNumerical = index + 1
+					}
+				}
+
+				if s[index] == []byte("m")[0] {
+					var value = ""
+					var visible = true
+					var plural = true
+
+					value = string(s[startIndexLastNumerical:index])
+					if len(value) == 1 {
+						if value == "0" {
+							visible = false
+						} else if value == "1" {
+							plural = false
+						}
+					}
+
+					if visible {
+						output = output + value + " Min"
+						if plural {
+							output = output + "s"
+						}
+					}
+
+					if index < len(s)-1 {
+						startIndexLastNumerical = index + 1
+					}
+				}
+
 			}
-			if strings.HasSuffix(s, "h0m") {
-				s = s[:len(s)-2]
-			}
-			return s
+
+			//if strings.HasSuffix(s, "h0m") {
+			//	s = s[:len(s)-2]
+			//}
+			return output
 		},
 		// TODO(CaptainHayashi): this is temporary
 		"stripHTML": func(s string) string {
