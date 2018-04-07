@@ -114,10 +114,11 @@ footer {
 .share-links {
   a {
     margin-right: 10px;
-    color: #aaa;
+    color: tint($black, 45%);
     text-decoration: none;
     font-size: 1.5rem;
     font-weight: bold;
+
     &:hover {
       color: $secondary-color;
     }
