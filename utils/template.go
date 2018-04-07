@@ -102,7 +102,7 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 					continue
 				}
 				plural := ""
-				if s.value == 1 {
+				if s.value != 1 {
 					plural = "s"
 				}
 
