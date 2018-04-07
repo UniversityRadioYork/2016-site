@@ -2,35 +2,47 @@ $(document).ready(function() {
     $("#timeslot-list").hide();
     $("#timeslot-latest").show();
 
-    //Must run before dataTables to apply to all season pages.
+    //Must run before dataTables to apply to all season/timeslot pages.
     $(".timeslot-filter-season").on( "click", function () {
         filterSeason(this);
     });
+    $("#timeslot-list tbody tr").on("click", function () {
+        window.location.href = $(this).find("a").attr("href");
+    });
 
     var seasonTable = $("#seasons").DataTable({
-        "ordering": false,
-        "info":     false,
+        "info": false,
         "lengthChange": false,
         "pageLength": 5,
+        "order": [[1, 'asc']],
         "sDom": '<"top"i>rt<"bottom"lp><"clear">',
+        "columnDefs": [
+        {
+            "targets": [ 2,3 ],
+            "orderable": false
+        }
+        ]
     });
     var timeslotTable = $("#timeslots").DataTable({
-        "ordering": false,
-        "info":     false,
+        "info": false,
         "lengthChange": false,
         "sDom": '<"top"i>rt<"bottom"lp><"clear">',
         "pageLength": 5,
+        "order": [[2, 'asc']],
         "columnDefs": [
         {
             "targets": [ 0 ],
             "visible": false,
-            "searchable": true
+            "searchable": true,
         },
         {
             "targets": [ 1,2 ],
-            "searchable": false
+            "searchable": false,
         },
-
+        {
+            "targets": [ 0,1,3 ],
+            "orderable": false
+        }
         ]
     });
 
@@ -45,10 +57,6 @@ $(document).ready(function() {
             .draw();
 
         $("#timeslot-list").show();
-
-        $("#timeslot-list tr").on("click", function () {
-            window.location.href = $(this).find("a").attr("href");
-        });
     };
 
     $.urlParam = function (name) {
