@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/UniversityRadioYork/2016-site/models"
 	"github.com/UniversityRadioYork/2016-site/structs"
@@ -63,17 +64,42 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 			scheduledSeasons = append(scheduledSeasons, season)
 			timeslots = append(timeslots, timeslotsSingleSeason...)
 		}
+	}
+	var latestEndTime time.Time
+	var currentTime = time.Now()
+	var latestTimeslot myradio.Timeslot
+	var latestMixcloud bool
 
+	for _, timeslot := range timeslots {
+
+		layout := "02/01/2006 15:04"
+		startTimeRaw, _ := time.Parse(layout, timeslot.StartTimeRaw)
+		log.Println(timeslot.Duration)
+		var endTimeRaw = startTimeRaw.Add(timeslot.Duration)
+		log.Println(" Hello", timeslot.StartTimeRaw)
+		log.Println(startTimeRaw)
+		log.Println(endTimeRaw)
+		if endTimeRaw.After(latestEndTime) && endTimeRaw.Before(currentTime) {
+			latestEndTime = endTimeRaw
+			latestTimeslot = timeslot
+		}
+	}
+	if strings.HasPrefix(latestTimeslot.MixcloudStatus, "/URY1350/") {
+		latestMixcloud = true
 	}
 	data := struct {
 		Show           myradio.ShowMeta
 		Seasons        []myradio.Season
 		Timeslots      []myradio.Timeslot
+		LatestTimeslot myradio.Timeslot
+		LatestMixcloud bool
 		CreditsToUsers map[string][]myradio.User
 	}{
 		Show:           *show,
 		Seasons:        scheduledSeasons,
 		Timeslots:      timeslots,
+		LatestTimeslot: latestTimeslot,
+		LatestMixcloud: latestMixcloud,
 		CreditsToUsers: creditsToUsers,
 	}
 
