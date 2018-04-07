@@ -82,31 +82,18 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 			s := d.String()
 			var output = ""
 			var startIndexLastNumerical = 0
-
+			var suffix = ""
 			for index := range s {
-				if s[index] == []byte("h")[0] {
-					var value = ""
-					var visible = true
-					var plural = true
-					value = string(s[startIndexLastNumerical:index])
-					if len(value) == 1 {
-						if value == "0" {
-							visible = false
-						} else if value == "1" {
-							plural = false
-						}
-					}
-					if visible {
-						output = output + value + " Hour"
-						if plural {
-							output = output + "s"
-						}
-					}
-					if index < len(s)-1 {
-						startIndexLastNumerical = index + 1
-					}
+				if s[index] == []byte("d")[0] {
+					suffix = " Day"
+				} else if s[index] == []byte("h")[0] {
+					suffix = " Hour"
+				} else if s[index] == []byte("m")[0] {
+					suffix = " Min"
+				} else {
+					suffix = ""
 				}
-				if s[index] == []byte("m")[0] {
+				if suffix != "" {
 					var value = ""
 					var visible = true
 					var plural = true
@@ -119,7 +106,7 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 						}
 					}
 					if visible {
-						output = output + value + " Min"
+						output = output + value + suffix
 						if plural {
 							output = output + "s"
 						}
