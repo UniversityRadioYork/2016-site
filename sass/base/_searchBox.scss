@@ -2,9 +2,10 @@ $search-box-border: 1px solid rgba(152, 152, 152, .2);
 $search-transition-time: .5s;
 $search-button-color: #808080;
 $search-button-color-hover: #000;
+$search-background: rgb(255, 255, 255);
 
 .search-box {
-  background: $off-white-color;
+  background: $search-background;
   border: $search-box-border;
   // 10 rem can be lower but if the font is enlarged on screen it doesnt look right
   border-radius: 10em;
