@@ -5,6 +5,8 @@ import (
 	"html/template"
 	"net/http"
 	"path/filepath"
+	"strings"
+	"time"
 
 	"github.com/UniversityRadioYork/2016-site/structs"
 	myradio "github.com/UniversityRadioYork/myradio-go"
@@ -76,6 +78,16 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 		"showsToHours": func(shows []myradio.ShowMeta) int {
 			//TODO: finish This
 			return -5
+		},
+		"formatDuration": func(d time.Duration) string {
+			s := d.String()
+			if strings.HasSuffix(s, "m0s") {
+				s = s[:len(s)-2]
+			}
+			if strings.HasSuffix(s, "h0m") {
+				s = s[:len(s)-2]
+			}
+			return s
 		},
 		// TODO(CaptainHayashi): this is temporary
 		"stripHTML": func(s string) string {
