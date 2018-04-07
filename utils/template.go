@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"net/http"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/UniversityRadioYork/2016-site/structs"
@@ -79,44 +80,35 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 			return -5
 		},
 		"formatDuration": func(d time.Duration) string {
-			s := d.String()
-			var output = ""
-			var startIndexLastNumerical = 0
-			var suffix = ""
-			for index := range s {
-				if s[index] == []byte("d")[0] {
-					suffix = " Day"
-				} else if s[index] == []byte("h")[0] {
-					suffix = " Hour"
-				} else if s[index] == []byte("m")[0] {
-					suffix = " Min"
-				} else {
-					suffix = ""
-				}
-				if suffix != "" {
-					var value = ""
-					var visible = true
-					var plural = true
-					value = string(s[startIndexLastNumerical:index])
-					if len(value) == 1 {
-						if value == "0" {
-							visible = false
-						} else if value == "1" {
-							plural = false
-						}
-					}
-					if visible {
-						output = output + value + suffix
-						if plural {
-							output = output + "s"
-						}
-					}
-					if index < len(s)-1 {
-						startIndexLastNumerical = index + 1
-					}
-				}
+			days := int64(d.Hours()) / 24
+			hours := int64(d.Hours()) % 24
+			minutes := int64(d.Minutes()) % 60
+			seconds := int64(d.Seconds()) % 60
+
+			segments := []struct {
+				name  string
+				value int64
+			}{
+				{"Day", days},
+				{"Hour", hours},
+				{"Min", minutes},
+				{"Sec", seconds},
 			}
-			return output
+
+			parts := []string{}
+
+			for _, s := range segments {
+				if s.value == 0 {
+					continue
+				}
+				plural := ""
+				if s.value == 1 {
+					plural = "s"
+				}
+
+				parts = append(parts, fmt.Sprintf("%d %s%s", s.value, s.name, plural))
+			}
+			return strings.Join(parts, " ")
 		},
 		// TODO(CaptainHayashi): this is temporary
 		"stripHTML": func(s string) string {
