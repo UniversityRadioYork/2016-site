@@ -51,24 +51,37 @@
           <div class="col text-center share-links">
             <span>Share:</span>
 {{end}}
-            <a href="#" data-type="twitter" data-url="{{.PageContext.FullURL}}/schedule/shows/timeslots/{{.PageData.Timeslot.TimeslotID}}"
+            <a href="#"
+              data-type="twitter"
+              data-url="{{.PageContext.FullURL}}/schedule/shows/timeslots/{{.PageData.Timeslot.TimeslotID}}"
               {{if .PageData.Timeslot.Season.ShowMeta.Photo}}
                 data-media="{{.PageContext.FullURL}}{{.PageData.Timeslot.Season.ShowMeta.Photo}}"
               {{end}}
-              data-description="I'm listening to {{.PageData.Timeslot.Title}} ({{.PageData.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}})" data-via="{{.PageContext.MainTwitter}}" class="prettySocial fa fa-twitter"></a>
+              data-description="I'm listening to {{.PageData.Timeslot.Title}} ({{.PageData.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}})"
+              data-via="{{.PageContext.MainTwitter}}"
+              class="prettySocial fa fa-twitter">
+            </a>
 
-            <a href="#" data-type="facebook" data-url="{{.PageContext.FullURL}}/schedule/shows/timeslots/{{.PageData.Timeslot.TimeslotID}}" data-title="{{.PageData.Timeslot.Title}} ({{.PageData.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}})" data-description="{{.PageData.Timeslot.Description}}"
-              {{if .PageData.Timeslot.Season.ShowMeta.Photo}}
-                data-media="{{.PageContext.FullURL}}{{.PageData.Timeslot.Season.ShowMeta.Photo}}"
-              {{end}}
-              class="prettySocial fa fa-facebook"></a>
-
-            <a href="#" data-type="googleplus" data-url="{{.PageContext.FullURL}}/schedule/shows/timeslots/{{.PageData.Timeslot.TimeslotID}}"
+            <a href="#"
+              data-type="facebook"
+              data-url="{{.PageContext.FullURL}}/schedule/shows/timeslots/{{.PageData.Timeslot.TimeslotID}}"
+              data-title="{{.PageData.Timeslot.Title}} ({{.PageData.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}})"
               data-description="{{.PageData.Timeslot.Description}}"
               {{if .PageData.Timeslot.Season.ShowMeta.Photo}}
                 data-media="{{.PageContext.FullURL}}{{.PageData.Timeslot.Season.ShowMeta.Photo}}"
               {{end}}
-              class="prettySocial fa fa-google"></a>
+              class="prettySocial fa fa-facebook">
+            </a>
+
+            <a href="#"
+              data-type="googleplus"
+              data-url="{{.PageContext.FullURL}}/schedule/shows/timeslots/{{.PageData.Timeslot.TimeslotID}}"
+              data-description="{{.PageData.Timeslot.Description}}"
+              {{if .PageData.Timeslot.Season.ShowMeta.Photo}}
+                data-media="{{.PageContext.FullURL}}{{.PageData.Timeslot.Season.ShowMeta.Photo}}"
+              {{end}}
+              class="prettySocial fa fa-google">
+            </a>
 {{with .PageData}}
           </div>
         </div>
