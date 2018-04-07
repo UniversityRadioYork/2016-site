@@ -135,17 +135,25 @@ func (sc *ScheduleWeekController) makeAndRenderWeek(w http.ResponseWriter, year,
 		return
 	}
 
+	currentAndNext, err := m.GetCurrentAndNext()
+	if err != nil {
+		log.Println(err)
+		// Safe to continue since we can check if CaN is absent in the template
+	}
+
 	data := struct {
 		Schedule                  *models.WeekSchedule
 		PrevURL, CurrURL, NextURL *url.URL
+		CurrentAndNext            *myradio.CurrentAndNext
 	}{
-		Schedule: ws,
-		PrevURL:  purl,
-		CurrURL:  curl,
-		NextURL:  nurl,
+		Schedule:       ws,
+		PrevURL:        purl,
+		CurrURL:        curl,
+		NextURL:        nurl,
+		CurrentAndNext: currentAndNext,
 	}
 
-	err = utils.RenderTemplate(w, sc.config.PageContext, data, "schedule_week.tmpl")
+	err = utils.RenderTemplate(w, sc.config.PageContext, data, "schedule_week.tmpl", "elements/current_and_next.tmpl")
 	if err != nil {
 		log.Println(err)
 		return

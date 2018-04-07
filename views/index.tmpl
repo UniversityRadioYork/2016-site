@@ -1,6 +1,6 @@
 {{define "content"}}
-  {{with .PageData}}
-  <div class="container-fluid current-next">
+{{with .PageData}}
+  <div class="container-fluid header-large current-next">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-11 col-md-10 box-shadow-1">
@@ -83,9 +83,7 @@
 <script>
 var youtubeAPIKey = {{.PageContext.Youtube.APIKey}};
 var youtubePlaylistID = "{{.PageContext.Youtube.PlaylistID}}";
-var myRadioAPIKey = {{.PageContext.MyRadioAPIKey}};
 </script>
-<script src="{{url "/js/message_box.js"}}"></script>
 <script src='{{url "js/index.js"}}'></script>
 <script src="https://apis.google.com/js/client.js?onload=onGoogleLoad"></script>
 {{end}}

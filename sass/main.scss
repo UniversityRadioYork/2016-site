@@ -107,6 +107,23 @@ footer {
   font-weight: 100;
 }
 
+.mg-right-5 {
+  margin-right: 5px;
+}
+
+.share-links {
+  a {
+    margin-right: 10px;
+    color: tint($black, 45%);
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    &:hover {
+      color: $secondary-color;
+    }
+  }
+}
 // User page styling.
 .user-img {
   //border: #e1e1e1 7px solid;
@@ -283,7 +300,7 @@ footer {
   font-size: 21px;
 }
 
-@media screen and (max-width: 767px) {
+@include media-breakpoint-down(sm) {
   .mobile-hide {
     display: none;
   }
@@ -331,25 +348,6 @@ footer {
 .podcast.card {
   color: #555;
 }
-
-// Schedule blocks
-@mixin schedule-blocks($color) {
-  background-color: $color;
-
-  // TODO(MattWindsor91): this is probably wrong.
-  @if (lightness($color) < 50) {
-    color: $off-white-color;
-  }
-}
-
-.schedule-blocks-sustainer {
-  @include schedule-blocks($blocks-sustainer-color);
-}
-
-.schedule-blocks-regular {
-  @include schedule-blocks($blocks-regular-color);
-}
-
 
 // Styling for responsive map
 .map-container {

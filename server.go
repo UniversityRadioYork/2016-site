@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/UniversityRadioYork/2016-site/controllers"
 	"github.com/UniversityRadioYork/2016-site/structs"
@@ -37,16 +39,22 @@ func NewServer(c *structs.Config) (*Server, error) {
 
 	ic := controllers.NewIndexController(session, c)
 	getRouter.HandleFunc("/", ic.Get)
+	postRouter.HandleFunc("/", ic.Post)
 
 	sc := controllers.NewSearchController(session, c)
 	getRouter.HandleFunc("/search/", sc.Get)
 
 	showC := controllers.NewShowController(session, c)
-	//	getRouter.HandleFunc("/schedule/shows", showC.Get) // @TODO: Implement this
+	getRouter.HandleFunc("/schedule/shows/", func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, "/schedule/thisweek/", 301)
+	})
 	getRouter.HandleFunc("/schedule/shows/{id:[0-9]+}/", showC.GetShow).Name("show")
 	getRouter.HandleFunc("/schedule/shows/timeslots/{id:[0-9]+}/", showC.GetTimeslot).Name("timeslot")
 	getRouter.HandleFunc("/schedule/shows/seasons/{id:[0-9]+}/", showC.GetSeason).Name("season")
 
+	getRouter.HandleFunc("/schedule/", func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, "/schedule/thisweek/", 301)
+	})
 	// NOTE: NewScheduleWeekController assumes 'timeslot' is installed BEFORE it is called.
 	schedWeekC := controllers.NewScheduleWeekController(session, getRouter, c)
 	getRouter.HandleFunc("/schedule/thisweek/", schedWeekC.GetThisWeek).Name("schedule-thisweek")
@@ -63,6 +71,23 @@ func NewServer(c *structs.Config) (*Server, error) {
 	getRouter.HandleFunc("/podcasts/page/{page:[0-9]+}", podcastsC.GetAllPodcasts)
 	getRouter.HandleFunc("/podcasts/{id:[0-9]+}/", podcastsC.Get)
 	getRouter.HandleFunc("/podcasts/{id:[0-9]+}/player/", podcastsC.GetEmbed)
+	// Redirect old podcast URLs
+	getRouter.HandleFunc("/uryplayer/", func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, "/ontap/", 301)
+	})
+	getRouter.HandleFunc("/uryplayer/podcasts/", func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, "/podcasts/", 301)
+	})
+	getRouter.HandleFunc("/uryplayer/podcasts/{id:[0-9]+}/", func(w http.ResponseWriter, r *http.Request) {
+		vars := mux.Vars(r)
+		id, _ := strconv.Atoi(vars["id"])
+		http.Redirect(w, r, fmt.Sprintf("/podcasts/%d/", id), 301)
+	})
+	getRouter.HandleFunc("/uryplayer/podcasts/{id:[0-9]+}/player/", func(w http.ResponseWriter, r *http.Request) {
+		vars := mux.Vars(r)
+		id, _ := strconv.Atoi(vars["id"])
+		http.Redirect(w, r, fmt.Sprintf("/podcasts/%d/player/", id), 301)
+	})
 
 	pc := controllers.NewPeopleController(session, c)
 	getRouter.HandleFunc("/people/{id:[0-9]+}/", pc.Get)
