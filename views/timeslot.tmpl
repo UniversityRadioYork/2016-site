@@ -50,14 +50,14 @@
       </div>
       <div class="col-12 col-sm-7 col-lg-9">
         <h1><a href="{{.Timeslot.Season.ShowMeta.MicroSiteLink.URL}}">{{.Timeslot.Title}}</a></h1>
-        <h4 class="text-muted">{{.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}}</h4>
+        <h5 class="text-muted">{{.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}}</h4>
         <hr>
         <h2>Description</h2>
         <p>{{html .Timeslot.Description}}</p>
         <hr>
         <div class="row justify-content-between">
           <div class="col-auto mr-auto mw-100">
-            <h3>Tags</h3>
+            <h4>Tags</h4>
             {{range .Timeslot.Tags}}
             <a href="/search?term={{.}}" alt="Search for '{{.}}'.">
               <span class="badge badge-secondary">{{.}}</span>
@@ -67,7 +67,7 @@
 
           {{end}}
           <div class="col-auto share-links ">
-            <h3>Share</h3>
+            <h4>Share</h4>
             <a href="#"
               data-type="twitter"
               data-url="{{.PageContext.FullURL}}/schedule/shows/timeslots/{{.PageData.Timeslot.TimeslotID}}"
@@ -116,9 +116,9 @@
       {{range $key, $value := .CreditsToUsers}}
       <div class="col-sm-4 pb-3">
         {{if gt (len $value) 1}}
-          <h4>{{plural $key}}</h4>
+          <h5>{{plural $key}}</h5>
         {{else}}
-          <h4>{{$key}}</h4>
+          <h5>{{$key}}</h5>
         {{end}}
         {{range $value}}
         <a href="/people/{{.MemberID}}/">{{.Fname}} {{.Sname}}</a> <br>
