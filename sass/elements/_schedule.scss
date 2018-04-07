@@ -135,37 +135,39 @@ $sustainer-color: tint($primary-color, 40%);
   @include schedule-block(tint($music-purple, 60%), $white);
 }
 
-.schedule-blocks-specialist-interest {
-  @include schedule-block(tint($speech-green, 60%), $white);
-}
 
 .schedule-keys-regular {
   @include schedule-key($primary-color);
 }
+
 .schedule-keys-flagship {
   @include schedule-key($flagship);
 }
+
 .schedule-keys-news {
   @include schedule-key($news-maroon);
 }
+
 .schedule-keys-speech {
   @include schedule-key($speech-green);
 }
+
 .schedule-keys-music {
   @include schedule-key($music-purple);
 }
+
 .schedule-keys-event {
   @include schedule-key($red);
 }
+
 .schedule-keys-specialist-music {
   @include schedule-key(tint($music-purple, 60%));
 }
-.schedule-keys-specialist-interest {
-  @include schedule-key(tint($speech-green, 60%));
-}
+
 .schedule-keys .key-row {
   text-align: right;
 }
+
 @include media-breakpoint-down(md) {
   .schedule-keys .key-row
   {
