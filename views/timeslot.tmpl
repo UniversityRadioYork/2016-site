@@ -47,10 +47,27 @@
             <h6>Duration: {{.Timeslot.Duration}}</h6>
           </div>
         </div>
-        <div class="row">
-          <div class="col text-center share-links">
-            <span>Share:</span>
-{{end}}
+      </div>
+      <div class="col-12 col-sm-7 col-lg-9">
+        <h1><a href="{{.Timeslot.Season.ShowMeta.MicroSiteLink.URL}}">{{.Timeslot.Title}}</a></h1>
+        <h4 class="text-muted">{{.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}}</h4>
+        <hr>
+        <h2>Description</h2>
+        <p>{{html .Timeslot.Description}}</p>
+        <hr>
+        <div class="row justify-content-between">
+          <div class="col-auto mr-auto mw-100">
+            <h3>Tags</h3>
+            {{range .Timeslot.Tags}}
+            <a href="/search?term={{.}}" alt="Search for '{{.}}'.">
+              <span class="badge badge-secondary">{{.}}</span>
+            </a>
+            {{end}}
+          </div>
+
+          {{end}}
+          <div class="col-auto share-links ">
+            <h3>Share</h3>
             <a href="#"
               data-type="twitter"
               data-url="{{.PageContext.FullURL}}/schedule/shows/timeslots/{{.PageData.Timeslot.TimeslotID}}"
@@ -82,27 +99,14 @@
               {{end}}
               class="prettySocial fa fa-google">
             </a>
-{{with .PageData}}
+
           </div>
         </div>
-      </div>
-      <div class="col-12 col-sm-7 col-lg-9">
-        <h1><a href="{{.Timeslot.Season.ShowMeta.MicroSiteLink.URL}}">{{.Timeslot.Title}}</a></h1>
-        <h5 class="text-muted">{{.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}}</h5>
-        <hr>
-        <h2>Description</h2>
-        <p>{{html .Timeslot.Description}}</p>
-        <hr>
-        <h4>Tags</h4>
-        {{range .Timeslot.Tags}}
-        <a href="/search?term={{.}}" alt="Search for '{{.}}'.">
-          <span class="badge badge-secondary">{{.}}</span>
-        </a>
-        {{end}}
       </div>
     </div>
   </div>
 </div>
+{{with .PageData}}
 {{if .CreditsToUsers}}
 <div class="container-fluid bg-secondary">
   <div class="container pt-3">
