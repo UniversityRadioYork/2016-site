@@ -19,8 +19,29 @@
 <!-- schedule header -->
 <div class="container-fluid bg-off-white">
   <div class="container p-3">
-      <h1 class="display-4 mobile-hide">Schedule</h1>
-      <h5 class="muted mobile-hide">for {{week (index .Schedule.Dates 0)}}</h5>
+    <div class="row">
+      <div class="col-12 col-lg-6">
+        <h1 class="display-4 mobile-hide">Schedule</h1>
+        <h5 class="muted mobile-hide">for {{week (index .Schedule.Dates 0)}}</h5>
+      </div>
+      <div class="col-12 col-lg-6 justify-content-end">
+        <div class="schedule-keys">
+          <div class="key-row">
+            <span class="h5">Key: </span>
+            <span class="schedule-keys-flagship">Flagship</span>
+            <span class="schedule-keys-event">Events</span>
+            <span class="schedule-keys-specialist-music">Specialist Music</span>
+          </div>
+          <div class="key-row">
+            <span class="h6">Team Content: </span>
+            <span class="schedule-keys-news">News</span>
+            <span class="schedule-keys-speech">Speech</span>
+            <span class="schedule-keys-music">Music</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <nav aria-label="Related Schedules" class="row nav justify-content-between">
       {{if .PrevURL}}
         <a class="nav-link" href="{{url .PrevURL.Path}}">Previous week</a>

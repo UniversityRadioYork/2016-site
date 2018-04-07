@@ -137,8 +137,6 @@ func getBlock(name string, StartTime time.Time) string {
 	// certain times of the day correspond to a specific show type.
 	if (StartTime.Hour() >= 21) || (StartTime.Hour() < 5) { // speacialist music
 		return "specialist-music"
-	} else if StartTime.Hour() == 18 { // specialist speech and interest
-		return "specialist-interest"
 	} else if (StartTime.Hour() == 11) || (StartTime.Hour() == 19) { // missed flagship
 		return "flagship"
 	}

@@ -18,6 +18,20 @@ $shadow: rgba(0, 0, 0, 0.5);
 
   box-shadow: 0 2px 4px $shadow;
 }
+@mixin schedule-key($color) {
+  display: inline-block;
+  background: $white;
+  border-bottom: $color solid 10px;
+  padding: 2px 5px;
+  margin: 5px 5px 10px;
+
+  &:hover {
+    background-color: tint($color, 60%);
+  }
+
+  box-shadow: 0 2px 4px $shadow;
+
+}
 
 .tables-container {
   width: 100%;
@@ -123,16 +137,64 @@ $sustainer-color: tint($primary-color, 40%);
   @include schedule-block(tint($music-purple, 60%), $white);
 }
 
-.schedule-blocks-specialist-interest {
-  @include schedule-block(tint($speech-green, 60%), $white);
+
+.schedule-keys-regular {
+  @include schedule-key($primary-color);
 }
 
+.schedule-keys-flagship {
+  @include schedule-key($flagship);
+}
+
+.schedule-keys-news {
+  @include schedule-key($news-maroon);
+}
+
+.schedule-keys-speech {
+  @include schedule-key($speech-green);
+}
+
+.schedule-keys-music {
+  @include schedule-key($music-purple);
+}
+
+.schedule-keys-event {
+  @include schedule-key($red);
+}
+
+.schedule-keys-specialist-music {
+  @include schedule-key(tint($music-purple, 60%));
+}
+
+.schedule-keys .key-row {
+  text-align: right;
+}
+
+@include media-breakpoint-down(md) {
+  .schedule-keys .key-row {
+    text-align: left;
+
+    .h5, .h6 {
+      display: block;
+      margin-top: 10px;
+    }
+
+  }
+}
 @include media-breakpoint-down(sm) {
   .current-next.mobile-shrink {
     height: unset;
     padding: calc(2em + 60px) 0 2em;
   }
+  .schedule-keys .key-row {
+    text-align: left;
 
+    .h5, .h6 {
+      display: block;
+      margin-top: 10px;
+    }
+
+  }
   .schedule-table {
     display: table;
     width: 100%;
