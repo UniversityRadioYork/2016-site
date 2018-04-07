@@ -73,10 +73,6 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 			}
 			return c
 		},
-		"showsToHours": func(shows []myradio.ShowMeta) int {
-			//TODO: finish This
-			return -5
-		},
 		// TODO(CaptainHayashi): this is temporary
 		"stripHTML": func(s string) string {
 			d, err := StripHTML(s)
