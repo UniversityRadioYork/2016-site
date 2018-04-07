@@ -6,16 +6,16 @@
     <form action="{{url "/search/"}}" class="form-inline ml-auto search-box" style="font-size:2rem;">
         <button type="submit" class="" alt="Submit"><i class="fa fa-search" aria-hidden="true"></i></button>
         <div class="col px-0">
-            <input type="text" name="term" placeholder="Search..." value="{{.Term}}" width="100%">  
+            <input type="text" name="term" placeholder="Search..." value="{{.Term}}" width="100%">
         </div>
     </form>
 	{{if .Searching}}
         <div class="pt-3" style="text-align: right;">{{.NumResults}} Results</div>
         <hr>
 		{{range .Results}}
-            <h4>
+            <h5>
 				<a href="/schedule/shows/{{.ShowID}}/">{{.Title}}</a>
-            </h4>
+            </h5>
 		    {{html .Description}}
             <hr>
 		{{else}}

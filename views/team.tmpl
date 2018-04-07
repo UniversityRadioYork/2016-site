@@ -5,9 +5,9 @@
     <div class="user-img my-3">
       <img class="img-fluid" src="https://ury.org.uk{{.User.Photo}}" alt="Photo of {{.User.Fname}} {{.User.Sname}}">
     </div>
-    <h3 class="text-center">{{.User.Fname}} {{.User.Sname}}</h3>
+    <h4 class="text-center">{{.User.Fname}} {{.User.Sname}}</h4>
   </a>
-  <h4 class="text-center">{{.Position.Name}}<a href="mailto:head-of-computing@ury.org.uk"><span class="glyphicon glyphicon-envelope"></span></a></h4>
+  <h5 class="text-center">{{.Position.Name}}<a href="mailto:head-of-computing@ury.org.uk"><span class="glyphicon glyphicon-envelope"></span></a></h5>
 </div>
 {{end}}
 
@@ -28,7 +28,7 @@
     {{with .Team}}
     <div class="container-fluid">
       <div class="container container-padded">
-        <h3 class="display-4">{{.Name}}</h3>
+        <h4 class="display-4">{{.Name}}</h4>
       </div>
     </div>
     {{if .Description}}

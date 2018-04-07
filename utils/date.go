@@ -10,14 +10,14 @@ import (
 // Calculations involving schedule hours and start-of-day.
 //
 
-// The hour of the day (local time) at which the scheduled day begins.
-const startHour = 6
+// StartHour is the hour of the day (local time) at which the scheduled day begins.
+var StartHour = 16
 
 // StartOfDayOn gets the schedule start-of-day on a given date.
-// This is in terms of startHour.
+// This is in terms of StartHour.
 func StartOfDayOn(date time.Time) time.Time {
 	y, m, d := date.Date()
-	return time.Date(y, m, d, startHour, 0, 0, 0, time.Local)
+	return time.Date(y, m, d, StartHour, 0, 0, 0, time.Local)
 }
 
 // StartOffset is the type of offsets from the start hour of a schedule.
@@ -34,7 +34,7 @@ func (h StartOffset) ToHour() (int, error) {
 	if 23 < h || h < 0 {
 		return 0, fmt.Errorf("StartOffset.ToHour: offset %d not between 0 and 23", h)
 	}
-	return (int(h) + startHour) % 24, nil
+	return (int(h) + StartHour) % 24, nil
 }
 
 // HourToStartOffset takes an hour (0-23) and gives the number of hours elapsed since the last day start.
@@ -44,7 +44,7 @@ func HourToStartOffset(hour int) (StartOffset, error) {
 		return 0, fmt.Errorf("HourToStartOffset: hour %d not between 0 and 23", hour)
 	}
 	// Adding 24 to ensure we don't go negative.  Negative modulo is scary.
-	return StartOffset(((hour + 24) - startHour) % 24), nil
+	return StartOffset(((hour + 24) - StartHour) % 24), nil
 }
 
 //

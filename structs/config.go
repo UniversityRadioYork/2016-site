@@ -39,6 +39,7 @@ type PageContext struct {
 // ScheduleConfig is a structure configuring the schedule views.
 type ScheduleConfig struct {
 	Sustainer SustainerConfig `toml:"sustainer"`
+	StartHour int             `toml:"startHour"`
 }
 
 // SustainerConfig is a structure describing the sustainer show.
