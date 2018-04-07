@@ -55,16 +55,58 @@
         <h2>Description</h2>
         <p>{{html .Timeslot.Description}}</p>
         <hr>
-        <h4>Tags</h4>
-        {{range .Timeslot.Tags}}
-        <a href="/search?term={{.}}" alt="Search for '{{.}}'.">
-          <span class="badge badge-secondary">{{.}}</span>
-        </a>
-        {{end}}
+        <div class="row justify-content-between">
+          <div class="col-auto mr-auto mw-100">
+            <span class="h5 mg-right-5">Tags:</span>
+            {{range .Timeslot.Tags}}
+            <a href="/search?term={{.}}" alt="Search for '{{.}}'.">
+              <span class="badge badge-secondary">{{.}}</span>
+            </a>
+            {{end}}
+          </div>
+
+          {{end}}
+          <div class="col-auto share-links">
+            <span class="h5 mg-right-5">Share:</span>
+            <a href="#"
+              data-type="twitter"
+              data-url="{{.PageContext.FullURL}}/schedule/shows/timeslots/{{.PageData.Timeslot.TimeslotID}}"
+              {{if .PageData.Timeslot.Season.ShowMeta.Photo}}
+                data-media="{{.PageContext.FullURL}}{{.PageData.Timeslot.Season.ShowMeta.Photo}}"
+              {{end}}
+              data-description="I'm listening to {{.PageData.Timeslot.Title}} ({{.PageData.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}})"
+              data-via="{{.PageContext.MainTwitter}}"
+              class="prettySocial fa fa-twitter">
+            </a>
+
+            <a href="#"
+              data-type="facebook"
+              data-url="{{.PageContext.FullURL}}/schedule/shows/timeslots/{{.PageData.Timeslot.TimeslotID}}"
+              data-title="{{.PageData.Timeslot.Title}} ({{.PageData.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}})"
+              data-description="{{.PageData.Timeslot.Description}}"
+              {{if .PageData.Timeslot.Season.ShowMeta.Photo}}
+                data-media="{{.PageContext.FullURL}}{{.PageData.Timeslot.Season.ShowMeta.Photo}}"
+              {{end}}
+              class="prettySocial fa fa-facebook">
+            </a>
+
+            <a href="#"
+              data-type="googleplus"
+              data-url="{{.PageContext.FullURL}}/schedule/shows/timeslots/{{.PageData.Timeslot.TimeslotID}}"
+              data-description="{{.PageData.Timeslot.Description}}"
+              {{if .PageData.Timeslot.Season.ShowMeta.Photo}}
+                data-media="{{.PageContext.FullURL}}{{.PageData.Timeslot.Season.ShowMeta.Photo}}"
+              {{end}}
+              class="prettySocial fa fa-google">
+            </a>
+
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+{{with .PageData}}
 {{if .CreditsToUsers}}
 <div class="container-fluid bg-secondary">
   <div class="container pt-3">
@@ -74,9 +116,9 @@
       {{range $key, $value := .CreditsToUsers}}
       <div class="col-sm-4 pb-3">
         {{if gt (len $value) 1}}
-          <h4>{{plural $key}}</h4>
+          <h5>{{plural $key}}</h5>
         {{else}}
-          <h4>{{$key}}</h4>
+          <h5>{{$key}}</h5>
         {{end}}
         {{range $value}}
         <a href="/people/{{.MemberID}}/">{{.Fname}} {{.Sname}}</a> <br>
@@ -87,8 +129,6 @@
   </div>
 </div>
 {{end}}
-
-
 <div class="container-fluid bg-third">
   <div class="container p-3">
     <h2>Tracklist</h2>
@@ -117,4 +157,11 @@
   </div>
 </div>
 {{end}}
+{{end}}
+
+{{define "footer-scripts"}}
+<script src="{{url "/js/jquery.prettySocial.min.js"}}"></script>
+<script type="text/javascript" class="source">
+  $(".prettySocial").prettySocial();
+</script>
 {{end}}
