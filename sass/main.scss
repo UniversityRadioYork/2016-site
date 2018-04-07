@@ -255,7 +255,7 @@ footer {
   font-size: 21px;
 }
 
-@media screen and (max-width: 767px) {
+@include media-breakpoint-down(sm) {
   .mobile-hide {
     display: none;
   }
@@ -303,25 +303,6 @@ footer {
 .podcast.card {
   color: #555;
 }
-
-// Schedule blocks
-@mixin schedule-blocks($color) {
-  background-color: $color;
-
-  // TODO(MattWindsor91): this is probably wrong.
-  @if (lightness($color) < 50) {
-    color: $off-white-color;
-  }
-}
-
-.schedule-blocks-sustainer {
-  @include schedule-blocks($blocks-sustainer-color);
-}
-
-.schedule-blocks-regular {
-  @include schedule-blocks($blocks-regular-color);
-}
-
 
 // Styling for responsive map
 .map-container {

@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/UniversityRadioYork/2016-site/structs"
-
 	"github.com/UniversityRadioYork/2016-site/utils"
 	"github.com/UniversityRadioYork/myradio-go"
 )
@@ -57,4 +56,13 @@ func (m *ScheduleModel) WeekSchedule(year, week int, sustainerConfig structs.Sus
 	}
 
 	return tabulateWeekSchedule(weekStart, weekFinish, filled)
+}
+
+// GetCurrentAndNext retrieves the data for the current and next show
+func (m *ScheduleModel) GetCurrentAndNext() (*myradio.CurrentAndNext, error) {
+	currentAndNext, err := m.session.GetCurrentAndNext()
+	if err != nil {
+		return nil, err
+	}
+	return currentAndNext, nil
 }

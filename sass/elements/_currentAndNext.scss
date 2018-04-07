@@ -2,6 +2,7 @@
   background: url("/images/bg-banner-1.jpg") center center no-repeat;
   background-size: cover;
   color: white;
+  box-sizing: content-box;
 
   // Padding for mobile
   padding: calc(5em + 60px) 0 5em;

@@ -38,6 +38,12 @@ type WeekScheduleCell struct {
 	// Pointer to the timeslot in this cell, if any.
 	// Will be nil if 'RowSpan' is 0.
 	Item *ScheduleItem
+
+	// Hour stores which hour (row) the cell is in
+	Hour int
+
+	// Minute stores the minute for this row
+	Minute int
 }
 
 // WeekScheduleRow represents one row in the week schedule.
@@ -57,13 +63,16 @@ func (r *WeekScheduleRow) addCell(s uint, i *ScheduleItem) {
 
 // straddlesDay checks whether a show's start and finish cross over the boundary of a URY day.
 func straddlesDay(s *ScheduleItem) bool {
-	nextDayStart := utils.StartOfDayOn(s.Start.AddDate(0, 0, 1))
-	return s.Finish.After(nextDayStart)
+	dayBoundary := utils.StartHour
+	adjustedStartDay := s.Start.Add(time.Hour * time.Duration(-dayBoundary))
+	adjustedEndDay := s.Finish.Add(time.Hour * time.Duration(-dayBoundary))
+	straddle := adjustedEndDay.Day() != adjustedStartDay.Day() && s.Finish.Sub(s.Start) > time.Hour
+	return straddle
 }
 
 // calcScheduleBoundaries gets the offsets of the earliest and latest visible schedule hours.
 // It returns these as top and bot respectively.
-func calcScheduleBoundaries(items []*ScheduleItem) (top, bot utils.StartOffset, err error) {
+func calcScheduleBoundaries(items []*ScheduleItem, scheduleStart time.Time) (top, bot utils.StartOffset, err error) {
 	if len(items) == 0 {
 		err = errors.New("calculateScheduleBoundaries: no schedule")
 		return
@@ -72,7 +81,7 @@ func calcScheduleBoundaries(items []*ScheduleItem) (top, bot utils.StartOffset, 
 	// These are the boundaries for culling, and are expanded upwards when we find shows that start earlier or finish later than the last-set boundary.
 	// Initially they are set to one past their worst case to make the updating logic easier.
 	// Since we assert we have a schedule, these values _will_ change.
-	top = utils.StartOffset(24)
+	top = utils.StartOffset(23)
 	bot = utils.StartOffset(-1)
 
 	for _, s := range items {
@@ -82,10 +91,21 @@ func calcScheduleBoundaries(items []*ScheduleItem) (top, bot utils.StartOffset, 
 		}
 
 		if straddlesDay(s) {
-			// An item that straddles the day crosses over from the end of a day to the start of the day.
-			// This means that we saturate the culling boundaries.
-			// As an optimisation we don't need to consider any other show.
-			return utils.StartOffset(0), utils.StartOffset(23), nil
+			if scheduleStart.After(s.Start) {
+				//This is the first item on the schedule and straddles the week, so we only set the top of the schedule
+				//top = utils.StartOffset(0)
+				//Temporarily disabled as this slot doesn't show up on the schedule
+				continue
+			} else if s.Finish.After(scheduleStart.AddDate(0, 0, 7)) {
+				//This is the last item on the schedule and straddles the week, so we only set the bottom of the schedule
+				bot = utils.StartOffset(23)
+				continue
+			} else {
+				// An item that straddles the day crosses over from the end of a day to the start of the day.
+				// This means that we saturate the culling boundaries.
+				// As an optimisation we don't need to consider any other show.
+				return utils.StartOffset(0), utils.StartOffset(23), nil
+			}
 		}
 
 		// Otherwise, if its start/finish as offsets from start time are outside the current boundaries, update them.
@@ -205,8 +225,8 @@ func rowDecisionsToRows(rdecs []rowDecision) ([]WeekScheduleRow, error) {
 }
 
 // initScheduleRows takes a schedule and determines which rows should be displayed.
-func initScheduleRows(items []*ScheduleItem) ([]WeekScheduleRow, error) {
-	top, bot, err := calcScheduleBoundaries(items)
+func initScheduleRows(items []*ScheduleItem, startTime time.Time) ([]WeekScheduleRow, error) {
+	top, bot, err := calcScheduleBoundaries(items, startTime)
 	if err != nil {
 		return nil, err
 	}
@@ -268,7 +288,7 @@ type WeekSchedule struct {
 	Dates []time.Time
 	// Table is the actual week table.
 	// If there is no schedule for the given week, this will be nil.
-	Table []WeekScheduleRow
+	Table []WeekScheduleCol
 }
 
 // hasShows asks whether a schedule slice contains any non-sustainer shows.
@@ -289,6 +309,36 @@ func hasShows(schedule []*ScheduleItem) bool {
 	return false
 }
 
+// Flippin that table
+
+// WeekScheduleCol represents one day in the week schedule.
+type WeekScheduleCol struct {
+	// The day of the show.
+	Day time.Time
+	// The cells inside this row.
+	Cells []WeekScheduleCell
+}
+
+// addCell adds a cell with rowspan s and item i to the column c.
+func (c *WeekScheduleCol) addCell(s uint, i *ScheduleItem, h int, m int) {
+	c.Cells = append(c.Cells, WeekScheduleCell{RowSpan: s, Item: i, Hour: h, Minute: m})
+}
+
+// tableFilp flips the schedule table such that it becomes a list of days which have a list
+// of shows on that day.
+func tableFilp(rows []WeekScheduleRow, dates []time.Time) []WeekScheduleCol {
+	days := make([]WeekScheduleCol, 7)
+	for i := range days {
+		days[i].Day = dates[i]
+	}
+	for _, row := range rows {
+		for i, cell := range row.Cells {
+			days[i].addCell(cell.RowSpan, cell.Item, row.Hour, row.Minute)
+		}
+	}
+	return days
+}
+
 // tabulateWeekSchedule creates a schedule table from the given schedule slice.
 func tabulateWeekSchedule(start, finish time.Time, schedule []*ScheduleItem) (*WeekSchedule, error) {
 	days := []time.Time{}
@@ -303,15 +353,20 @@ func tabulateWeekSchedule(start, finish time.Time, schedule []*ScheduleItem) (*W
 		}, nil
 	}
 
-	rows, err := initScheduleRows(schedule)
+	rows, err := initScheduleRows(schedule, start)
 	if err != nil {
 		log.Println(err)
 		return nil, err
 	}
+
 	populateRows(days, rows, schedule)
 
-	return &WeekSchedule{
+	table := tableFilp(rows, days)
+
+	sch := WeekSchedule{
 		Dates: days,
-		Table: rows,
-	}, nil
+		Table: table,
+	}
+
+	return &sch, nil
 }

@@ -46,7 +46,8 @@
 
 # This is config for the schedule renderer
 [schedule]
+	startHour = 6
+
 	[schedule.sustainer]
 		name = "Overnight Owen"
 		desc = "Non-stop tones from the URY jukebox."
-

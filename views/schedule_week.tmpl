@@ -1,18 +1,25 @@
 {{define "content"}}
 {{with .PageData}}
 
-<!-- placeholder for current and next -->
-<div class="container-fluid header-large current-next">
-  <div class="container mobile-hide">
-  </div>
+<div class="container-fluid header-large current-next mobile-shrink">
+  <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-11 col-md-10 box-shadow-1 mobile-hide">
+          {{template "current_and_next" .}}
+        </div>
+        <div class="col-11 col-md-10 text-center mobile-only">
+          <h1 class="display-3">Schedule</h1>
+          <h5 class="display-5">{{week (index .Schedule.Dates 0)}}</h5>
+        </div>
+      </div>
+    </div>
 </div>
 
 <!-- schedule header -->
 <div class="container-fluid bg-off-white">
-  <div class="container">
-    <div class="row">
-      <h1>Schedule <small class="muted">for {{week (index .Schedule.Dates 0)}}</small></h1>
-    </div>
+  <div class="container p-3">
+      <h1 class="display-4 mobile-hide">Schedule</h1>
+      <h5 class="muted mobile-hide">for {{week (index .Schedule.Dates 0)}}</h5>
     <nav aria-label="Related Schedules" class="row nav justify-content-between">
       {{if .PrevURL}}
         <a class="nav-link" href="{{url .PrevURL.Path}}">Previous week</a>
@@ -28,42 +35,56 @@
 </div>
 
 <!-- schedule body -->
-<div class="container">
-{{with .Schedule}}
-{{if .Table}}
-<table class="table table-responsive">
-  <thead>
-    <tr>
-      <th>Time</th>
-      {{range .Dates}}
-      <th>{{.Weekday}} {{.Format "02"}}</th>
-      {{end}}
-    </tr>
-  </thead>
-  <tbody>
-    {{range .Table}}
-      <tr>
-        <th scope="row">{{.Hour | printf "%02d"}}:{{.Minute | printf "%02d"}}</th>
-        {{range .Cells}}
-          {{if ne .RowSpan 0}}
-          <td rowspan="{{.RowSpan}}" class="schedule-timeslot schedule-blocks-{{.Item.Block}}" title="{{stripHTML .Item.Desc}}">
-            {{if .Item.PageURL}}
-              <a href="{{url .Item.PageURL}}">{{.Item.Name}}</a>
-            {{else}}
-              {{.Item.Name}}
-            {{end}}
-          </td>
+<div class="container-fluid bg-off-white">
+  <div class="container">
+  {{with .Schedule}}
+  {{if .Table}}
+    <div class="tables-container table">
+      <table class="schedule-table mobile-hide row-headers">
+        <colgroup>
+          <col class="mobile-hide time-col">
+        </colgroup>
+        <tr class="col-headers"></tr>
+        {{with index .Table 0}}
+          {{range .Cells}}
+            <tr>
+              <td class="time-header">{{.Hour | printf "%02d"}}:{{.Minute | printf "%02d"}}</td>
+            </tr>
           {{end}}
         {{end}}
-      </tr>
-    {{end}}
-  </tbody>
-</table>
-{{else}}
-  <p>Nothing today</p>
-{{end}}
+      </table>
+      {{range .Table}}
+        <table class="schedule-table">
+          <colgroup>
+            <col class="mobile-only time-col">
+          </colgroup>
+          <tr class="col-headers">
+            <th class="day-header" colspan=2>{{.Day.Weekday}}&nbsp;{{.Day.Format "02"}}</th>
+          </tr>
+          {{range .Cells}}
+            <tr>
+              <td class="time-header mobile-only">{{.Hour | printf "%02d"}}:{{.Minute | printf "%02d"}}</td>
+              {{if ne .RowSpan 0}}
+              <td rowspan="{{.RowSpan}}" class="schedule-timeslot schedule-blocks-{{.Item.Block}}" title="{{stripHTML .Item.Desc}}"
+                  {{if .Item.PageURL}} onclick="window.location.href='{{url .Item.PageURL}}'" {{end}} >
+                {{if .Item.PageURL}}
+                  <a href="{{url .Item.PageURL}}" >{{.Item.Name}}</a>
+                {{else}}
+                  <p>{{.Item.Name}}</p>
+                {{end}}
+              </td>
+              {{end}}
+            </tr>
+          {{end}}
+        </table>
+      {{end}}
+    </div>
+  {{else}}
+    <p>Nothing today</p>
+  {{end}}
 
-</div><!-- /.container -->
+  </div>
+</div>
 
 {{end}}
 {{end}}
