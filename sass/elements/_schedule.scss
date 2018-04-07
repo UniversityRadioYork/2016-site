@@ -23,7 +23,8 @@ $shadow: rgba(0, 0, 0, 0.5);
   background: $white;
   border-bottom: $color solid 10px;
   padding: 2px 5px;
-  margin: 5px 5px 10px 5px;
+  margin: 5px 5px 10px;
+
   &:hover {
     background-color: tint($color, 60%);
   }
@@ -169,8 +170,7 @@ $sustainer-color: tint($primary-color, 40%);
 }
 
 @include media-breakpoint-down(md) {
-  .schedule-keys .key-row
-  {
+  .schedule-keys .key-row {
     text-align: left;
 
     .h5, .h6 {
