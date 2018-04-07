@@ -57,7 +57,7 @@
         <hr>
         <div class="row justify-content-between">
           <div class="col-auto mr-auto mw-100">
-            <h4>Tags</h4>
+            <span class="h5 mg-right-5">Tags:</span>
             {{range .Timeslot.Tags}}
             <a href="/search?term={{.}}" alt="Search for '{{.}}'.">
               <span class="badge badge-secondary">{{.}}</span>
@@ -67,7 +67,7 @@
 
           {{end}}
           <div class="col-auto share-links ">
-            <h4>Share</h4>
+            <span class="h5 mg-right-5">Share:</span>
             <a href="#"
               data-type="twitter"
               data-url="{{.PageContext.FullURL}}/schedule/shows/timeslots/{{.PageData.Timeslot.TimeslotID}}"
