@@ -27,7 +27,7 @@
   <h2>You Just Missed...</h2>
   <div class="row scroll-horiz custom-scrollbar pb-3">
     {{range .PageData.LatestTimeslots}}
-    <div class="col-11 col-sm-7 col-md-5 col-lg-3">
+    <div class="col-8 col-sm-5 col-md-4 col-lg-3 col-xl-2">
       <div class="show-card ">
         <img class="show-card-img" src="
             {{if .Season.ShowMeta.Photo}}
@@ -39,7 +39,7 @@
         <div class="show-card-body">
           <h5 class="show-card-title">{{.Title}}</h5>
           <a href="/schedule/shows/timeslots/{{.TimeslotID}}/"></a>
-          <span class="show-card-date">{{.StartTime.Format "15:04 - Mon 2 Jan 2006"}} • {{.Duration}}</span>
+          <span class="show-card-date">{{.StartTime.Format "15:04 - Mon 2 Jan"}} • {{formatDuration .Duration}}</span>
 
 
         </div>
