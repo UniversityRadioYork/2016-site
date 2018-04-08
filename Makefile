@@ -13,6 +13,11 @@ all: build build-sass
 build: $(SOURCES)
 	go build
 
+
+watch:
+	make run &
+	@fswatch -0 $(SASS_DIR) | xargs -0 -n 1 -I {} make build-sass
+
 run: all
 	./2016-site
 
