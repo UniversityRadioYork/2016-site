@@ -1,0 +1,25 @@
+$show-bg:#2C3849;
+.show-card {
+  @extend .box-shadow-3;
+  background: $show-bg;
+
+  .show-card-img {
+    width: 100%;
+    height: auto;
+
+
+  }
+  .show-card-body {
+    text-align: center;
+    padding: 10px;
+    .show-card-time {
+
+    }
+    .show-card-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+    }
+  }
+}

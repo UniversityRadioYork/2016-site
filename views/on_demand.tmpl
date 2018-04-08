@@ -23,29 +23,28 @@
     </div>
   </div>
 </div>
-<div id="index-just-missed" class="container-fluid container-padded bg-primary">
+<div id="index-just-missed" class="container-fluid container-padded bg-primary pb-0">
   <h2>You Just Missed...</h2>
-  <div class="row scroll-horiz custom-scrollbar">
+  <div class="row scroll-horiz custom-scrollbar pb-3">
     {{range .PageData.LatestTimeslots}}
-      <div class="podcast-card col-11 col-sm-7 col-md-5 col-lg-6">
-        <div class="row">
-          <div class="podcast-img-container col-md-4">
-            <img class="podcast-img img-fluid" src="
+    <div class="col-11 col-sm-7 col-md-5 col-lg-3">
+      <div class="show-card ">
+        <img class="show-card-img" src="
             {{if .Season.ShowMeta.Photo}}
             https://ury.org.uk{{.Season.ShowMeta.Photo}}
             {{else}}
               /images/show-current.png
             {{end}}
           " alt="{{.Title}} Logo">
-          </div>
-          <div class="podcast-info col-md-8 p-1">
-            <h4 class="podcast-title"><a href="/schedule/shows/timeslots/{{.TimeslotID}}/">{{.Title}}</a></h4>
-            <small class="podcast-date">{{.StartTime.Format "15:04 - 2 Jan 2006"}}</small>
-            <p class="podcast-desc ellipsis">{{html .Description}}</p>
-            <a href="/schedule/shows/timeslots/{{.TimeslotID}}/">Listen back...</a>
-          </div>
+        <div class="show-card-body">
+          <h5 class="show-card-title">{{.Title}}</h5>
+          <a href="/schedule/shows/timeslots/{{.TimeslotID}}/"></a>
+          <span class="show-card-date">{{.StartTime.Format "15:04 - Mon 2 Jan 2006"}} • {{.Duration}}</span>
+
+
         </div>
       </div>
+    </div>
     {{end}}
   </div>
 </div>
