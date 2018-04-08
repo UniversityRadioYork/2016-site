@@ -28,7 +28,7 @@
   <div class="row scroll-horiz custom-scrollbar pb-3">
     {{range .PageData.LatestTimeslots}}
     <div class="col-8 col-sm-5 col-md-4 col-lg-3 col-xl-2">
-      <div class="show-card ">
+      <a class="show-card" href="/schedule/shows/timeslots/{{.TimeslotID}}/">
         <img class="show-card-img" src="
             {{if .Season.ShowMeta.Photo}}
             https://ury.org.uk{{.Season.ShowMeta.Photo}}
@@ -38,12 +38,9 @@
           " alt="{{.Title}} Logo">
         <div class="show-card-body">
           <h5 class="show-card-title">{{.Title}}</h5>
-          <a href="/schedule/shows/timeslots/{{.TimeslotID}}/"></a>
           <span class="show-card-date">{{.StartTime.Format "15:04 - Mon 2 Jan"}} • {{formatDuration .Duration}}</span>
-
-
         </div>
-      </div>
+      </a>
     </div>
     {{end}}
   </div>
