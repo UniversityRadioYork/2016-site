@@ -23,6 +23,11 @@ Alternatively, you can use Docker alone
 ```bash
 $ make run # Builds scss files, and runs the server
 ```
+#### Watch scss for changes
+```bash
+$ make run # Builds scss files, runs the server, and also watches for scss changes and rebuilds
+```
+Requires [fswatch](http://emcrisostomo.github.io/fswatch/getting.html)
 
 ### With Docker :whale: ###
 ```bash
