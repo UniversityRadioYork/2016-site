@@ -3,52 +3,45 @@
 
 {{define "content"}}
 
-	<div class="container-fluid on-demand">
-		<div class="container container-padded">
-				<div class="row align-items-end text-center">
-					<div class="col">
-						<h1 class="header-title">
-								<a href="{{url "/ontap/"}}" title="Go back to {{.PageContext.ODName}}">
-									{{- .PageContext.ODName -}}
-								</a>
-								<a href="{{url "/podcasts/"}}" title="Go back to all podcasts.">Podcast</a>
-						</h1>
-					</div>
-				</div>
-		</div>
+  <div class="container-fluid on-demand">
+    <div class="container container-padded">
+        <div class="row align-items-end text-center">
+          <div class="col">
+            <h1 class="header-title">
+                <a href="{{url "/ontap/"}}" title="Go back to {{.PageContext.ODName}}">
+                  {{- .PageContext.ODName -}}
+                </a>
+                <a href="{{url "/podcasts/"}}" title="Go back to all podcasts.">Podcast</a>
+            </h1>
+          </div>
+        </div>
+    </div>
   </div>
 
-	{{with .PageData}}
-	<div class="container-fluid bg-off-white">
-		<div class="container container-padded">
-		  <div class="row">
-	        <div class="col-12 col-lg-3">
-	        	<img class="img-fluid show-img" src="
-						{{if .Podcast.Photo}}
-									https://ury.org.uk{{.Podcast.Photo}}
-						{{else}}
-									/images/podcast.png
-						{{end}}
-
-							" alt="{{.Podcast.Title}} Logo">
-	        </div>
-	        <div class="col-12 col-lg-9">
-	          <h1>
-	        	{{.Podcast.Title}}
-            </h1>
-            <h3>
-              {{.Podcast.Time.Format "Monday, _2 Jan 2006"}}
-            </h3>
-	          <hr>
-				  	<h2>Description</h2>
-            <p>
-						  {{html .Podcast.Description}}
-            </p>
+  {{with .PageData}}
+  <div class="container-fluid bg-off-white">
+    <div class="container container-padded">
+      <div class="row">
+          <div class="col-12 col-lg-3">
+            <img class="img-fluid show-img" src="
+            {{if .Podcast.Photo}}
+              https://ury.org.uk{{.Podcast.Photo}}
+            {{else}}
+              /images/podcast.png
+            {{end}}
+              " alt="{{.Podcast.Title}} Logo">
+          </div>
+          <div class="col-12 col-lg-9">
+            <h1>{{.Podcast.Title}}</h1>
+            <h5 class="text-muted">{{.Podcast.Time.Format "Monday, _2 Jan 2006"}}</h5>
+            <hr>
+            <h2>Description</h2>
+            <p>{{html .Podcast.Description}}</p>
             {{template "podcast_player" .}}
-	        </div>
-	      </div>
-	    </div>
-	  </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 {{end}}
