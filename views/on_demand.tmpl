@@ -26,20 +26,20 @@
 <div id="index-just-missed" class="container-fluid container-padded bg-primary pb-0">
 
     <h2>You Just Missed...</h2>
-    <div class="row custom-scrollbar scroll-horiz scroll-none-xl pb-3">
+    <div class="row custom-scrollbar scroll-horiz scroll-none-xl">
       {{range .PageData.LatestTimeslots}}
-      <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2">
-        <a class="show-card" href="/schedule/shows/timeslots/{{.TimeslotID}}/">
-          <img class="show-card-img" src="
-              {{if .Season.ShowMeta.Photo}}
+      <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 pb-3">
+        <a class="ury-card" href="/schedule/shows/timeslots/{{.TimeslotID}}/">
+          <div class="ury-card-img" style="background: url('
+              {{- if .Season.ShowMeta.Photo -}}
               https://ury.org.uk{{.Season.ShowMeta.Photo}}
-              {{else}}
+              {{- else -}}
                 /images/show-current.png
-              {{end}}
-            " alt="{{.Title}} Logo">
-          <div class="show-card-body">
-            <h6 class="show-card-title">{{.Title}}</h6>
-            <span class="show-card-date">{{.StartTime.Format "15:04 - Mon"}} • {{formatDuration .Duration}}</span>
+              {{- end -}}');
+            " title="{{.Title}} Logo"></div>
+          <div class="ury-card-body">
+            <div class="ury-card-title">{{.Title}}</div>
+            <span class="ury-card-date">{{.StartTime.Format "15:04 - Mon"}} • {{formatDuration .Duration}}</span>
           </div>
         </a>
       </div>
@@ -65,34 +65,19 @@
 </div>
 {{if .PageData.LatestPodcasts}}
 <div id="index-podcasts" class="container-fluid container-padded bg-third">
-  <div class="row">
-    <div class="col-12 col-md-8">
-      <h2>Latest Podcasts</h2>
-    </div>
-    <div class="col-12 col-md-4">
-      <a href="/podcasts/" class="btn btn-primary-inverse btn-sm float-right" title="View All Podcasts">View all Podcasts</a>
-    </div>
-  </div>
-  <div class="row scroll-horiz pb-3 custom-scrollbar">
-      {{range .PageData.LatestPodcasts}}
-          <div class="col-11 col-sm-6 col-lg-4">
-            <div class="row bg-primary m-1 uryplayer-podcast">
-              <div class="col-md-4 p-0">
-                <img class="card-img-top img-fluid p-0" src="https://ury.org.uk{{.Photo}}" alt="URY Podcast: {{.Title}}">
-              </div>
-              <div class="col-md-8">
-                <div class="card-block">
-                  <h4 class="card-title ellipsis"><a href="{{.MicrositeLink.URL}}" title="URY Podcast: {{.Title}}">{{.Title}}</a></h4>
-                  <h5>{{.Time.Format "Monday, _2 Jan 2006"}}</h5>
-                  <div class="podcast-description card-text ellipsis">
-                    <p>{{html .Description}}</p>
-                  </div>
-                  <a href="{{.MicrositeLink.URL}}" title="URY Podcast: {{.Title}}">Listen Now</a>
-                </div>
-              </div>
-            </div>
+  <h2>Latest Podcasts</h2>
+  <div class="row custom-scrollbar scroll-horiz">
+    {{range .PageData.LatestPodcasts}}
+      <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 pb-3">
+        <a class="ury-card podcast" href="{{.MicrositeLink.URL}}">
+          <div class="ury-card-img" style="background: url('https://ury.org.uk{{.Photo}}');" title="URY Podcast: {{.Title}} Logo"></div>
+          <div class="ury-card-body">
+            <div class="ury-card-title">{{.Title}}</div>
+            <span>{{.Time.Format "Monday, _2 Jan 2006"}}</span>
           </div>
-      {{end}}
+        </a>
+      </div>
+    {{end}}
   </div>
 </div>
 {{end}}
