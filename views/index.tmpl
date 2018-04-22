@@ -54,23 +54,15 @@
     </div>
     <div class="row scroll-horiz pb-3 custom-scrollbar">
       {{range .Podcasts}}
-          <div class="col-11 col-sm-6 col-lg-4">
-            <div class="row bg-primary m-1 uryplayer-podcast">
-              <div class="col-md-4 p-0">
-                <img class="card-img-top img-fluid p-0" src="https://ury.org.uk{{.Photo}}" alt="URY Podcast: {{.Title}}">
-              </div>
-              <div class="col-md-8">
-                <div class="card-block">
-                  <h4 class="card-title ellipsis"><a href="{{.MicrositeLink.URL}}" title="URY Podcast: {{.Title}}">{{.Title}}</a></h4>
-                  <h5>{{.Time.Format "Monday, _2 Jan 2006"}}</h5>
-                  <div class="podcast-description card-text ellipsis">
-                    <p>{{html .Description}}</p>
-                  </div>
-                  <a href="{{.MicrositeLink.URL}}" title="URY Podcast: {{.Title}}">Listen Now</a>
-                </div>
-              </div>
-            </div>
+      <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 pb-3">
+        <a class="ury-card podcast" href="{{.MicrositeLink.URL}}">
+          <div class="ury-card-img" style="background: url('https://ury.org.uk{{.Photo}}');" title="URY Podcast: {{.Title}} Logo"></div>
+          <div class="ury-card-body">
+            <div class="ury-card-title">{{.Title}}</div>
+            <span>{{.Time.Format "Monday, _2 Jan 2006"}}</span>
           </div>
+        </a>
+      </div>
       {{end}}
     </div>
   </div>
