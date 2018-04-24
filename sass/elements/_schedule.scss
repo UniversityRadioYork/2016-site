@@ -143,12 +143,12 @@ $sustainer-color: tint($primary-color, 40%);
   @include schedule-block(tint($music-purple, 60%), $white);
 }
 
-.schedule-keys
-  .key-row {
-    text-align: right;
-    * {
-      display: inline-block;
-    }
+.schedule-keys .key-row {
+  text-align: right;
+
+  * {
+    display: inline-block;
+  }
 }
 
 @include media-breakpoint-down(md) {
