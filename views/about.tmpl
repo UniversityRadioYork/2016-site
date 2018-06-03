@@ -1,11 +1,11 @@
-{{define "title"}}{{.PageContext.ShortName}} | About{{end}}
+{{define "title"}}{{.PageContext.ShortName}} | About Us{{end}}
 {{define "open-graph"}}
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@{{.PageContext.MainTwitter}}">
 <meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_GB">
-<meta property="og:title" content="{{.PageContext.LongName}} | About">
+<meta property="og:title" content="{{.PageContext.LongName}} | About Us">
 <meta property="og:description" content="{{.PageContext.SiteDescription}}">
 <meta property="og:image" content="{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}">
 <meta property="og:url" content="{{.PageContext.FullURL}}{{url "/about/"}}">
@@ -26,18 +26,15 @@
     <h1>Welcome to URY!</h1>
     <div class="row">
       <div class="col-md-6 col-lg-4">
-        <h4>Who are URY?</h4>
+        <h4>Who is URY?</h4>
         <p>{{.PageContext.SiteDescription}}</p>
-        <p>The station is run by students for students, meaning the people behind the station understand what the listenership
-          want to hear.</p>
-        <p>With no playlist and no set format to many of our shows, our presenters have the chance to try whatever they like,
-          as long as it's legal!</p>
+        <p>The station is run by students for students, meaning the people behind the station understand what the listenership want to hear.</p>
+        <p>Our presenters cover a wide range of content. This includes a mixture of different genres and shows, which are tailor-made to different demographics. Our aim to inform and entertain the students of the University of York.</p>
       </div>
       <div class="col-md-6 col-lg-4">
-        <h4>Where are URY?</h4>
-        <p>URY's studios lie at the very heart of the Campus in our own building at Vanbrugh College.</p>
-        <p>But URY's real presence is felt outside of the studio, around the campus at major University and Student Union events,
-          whether we're covering live music, recruiting new Freshers or reporting on major news events.</p>
+        <h4>Where is URY?</h4>
+        <p>URY's studios lie at the very heart of the Campus in our own building at Vanbrugh College.<p>
+        <p>But URY is not confined to the four walls of the station, we are always around the campus at major University and Student Union events, whether we're covering live music, recruiting new Freshers or reporting on major news events.</p>
         <p>
           <a href="{{url "/contact/#map"}}"title="Contact Page">Find us on a map!</a>
         </p>
