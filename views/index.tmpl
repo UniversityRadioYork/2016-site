@@ -45,11 +45,8 @@
   {{if .Podcasts}}
   <div id="index-podcasts" class="container-fluid container-padded bg-third">
     <div class="row">
-      <div class="col-12 col-md-8">
+      <div class="col-12">
         <h2>Latest Podcasts</h2>
-      </div>
-      <div class="col-12 col-md-4">
-        <a href="/podcasts/" class="btn btn-primary-inverse btn-sm float-right" title="View All Podcasts">View all Podcasts</a>
       </div>
     </div>
     <div class="row scroll-horiz pb-3 custom-scrollbar">
@@ -64,6 +61,13 @@
         </a>
       </div>
       {{end}}
+      <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 pb-3">
+        <a class="ury-card podcast link" href='{{url "/podcasts/"}}'>
+          <div class="ury-card-body">
+            <div class="ury-card-lg-title">See all podcasts...</div>
+          </div>
+        </a>
+      </div>
     </div>
   </div>
   {{end}}
