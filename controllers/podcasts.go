@@ -42,8 +42,8 @@ func (podcastsC *PodcastController) GetAllPodcasts(w http.ResponseWriter, r *htt
 	pageNumberNext = pageNumber + 1
 
 	if err != nil {
-		//@TODO: Do something proper here, render 404 or something
 		log.Println(err)
+		utils.RenderTemplate(w, podcastsC.config.PageContext, err, "404.tmpl")
 		return
 	}
 

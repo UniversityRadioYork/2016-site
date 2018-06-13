@@ -33,8 +33,8 @@ func (onDemandC *OnDemandController) Get(w http.ResponseWriter, r *http.Request)
 	latestTimeslots, err := OnDemandM.GetLastMixcloudTimeslots()
 
 	if err != nil {
-		//@TODO: Do something proper here, render 404 or something
 		log.Println(err)
+		utils.RenderTemplate(w, onDemandC.config.PageContext, err, "404.tmpl")
 		return
 	}
 
