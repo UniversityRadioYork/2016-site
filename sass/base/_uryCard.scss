@@ -32,10 +32,6 @@ a.ury-card,
     text-align: center;
     padding: 10px;
 
-    .ury-card-date {
-
-    }
-
     .ury-card-title {
       @extend .h6;
       overflow: hidden;
@@ -61,9 +57,9 @@ a.ury-card,
   &.link {
     height: 100%;
     display: flex;
-    justify-content:center;
-    align-content:center;
-    flex-direction:column;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
   }
 }
 
