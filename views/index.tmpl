@@ -37,107 +37,41 @@
       </div>
     </div>
   </div>
-  <div id="index-videos" class="container-fluid pt-3 bg-secondary">
+  <div id="index-videos" class="container-fluid container-padded pb-0 bg-secondary">
     <h2>URY Sessions</h2>
-    <div id="youtube-video-slider" class="row scroll-horiz pb-3 custom-scrollbar">
+    <div id="youtube-videos" class="row scroll-horiz pb-3 custom-scrollbar youtube-video-slider">
     </div>
   </div>
-  <div id="index-uryplayer" class="container-fluid container-padded bg-third">
-    <h2>Podcasts</h2>
-    <div class="row scroll-horiz">
-      <div class="col-11 col-sm-7 col-md-3">
-        <div class="card podcast">
-          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
-          <div class="card-block">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-11 col-sm-7 col-md-3">
-        <div class="card podcast">
-          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
-          <div class="card-block">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-11 col-sm-7 col-md-3">
-        <div class="card podcast">
-          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
-          <div class="card-block">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-11 col-sm-7 col-md-3">
-        <div class="card podcast">
-          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
-          <div class="card-block">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-11 col-sm-7 col-md-3">
-        <div class="card podcast">
-          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
-          <div class="card-block">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-11 col-sm-7 col-md-3">
-        <div class="card podcast">
-          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
-          <div class="card-block">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-11 col-sm-7 col-md-3">
-        <div class="card podcast">
-          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
-          <div class="card-block">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-11 col-sm-7 col-md-3">
-        <div class="card podcast">
-          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
-          <div class="card-block">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-11 col-md-3">
-        <div class="card podcast">
-          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
-          <div class="card-block">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-11 col-md-3">
-        <div class="card podcast">
-          <img class="card-img-top img-fluid" src="images/show-current.png" alt="Card image cap">
-          <div class="card-block">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-        </div>
+  {{if .Podcasts}}
+  <div id="index-podcasts" class="container-fluid container-padded pb-0 bg-third">
+    <div class="row">
+      <div class="col-12">
+        <h2>Latest Podcasts</h2>
       </div>
     </div>
-  </div> <!-- /outer containter -->
-{{end}}
+    <div class="row scroll-horiz pb-3 custom-scrollbar">
+      {{range .Podcasts}}
+      <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 pb-3">
+        <a class="ury-card podcast" href="{{.MicrositeLink.URL}}">
+          <div class="ury-card-img" style="background: url('https://ury.org.uk{{.Photo}}');" title="URY Podcast: {{.Title}} Logo"></div>
+          <div class="ury-card-body">
+            <div class="ury-card-title">{{.Title}}</div>
+            <span>{{.Time.Format "Monday, _2 Jan 2006"}}</span>
+          </div>
+        </a>
+      </div>
+      {{end}}
+      <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 pb-3">
+        <a class="ury-card podcast link" href='{{url "/podcasts/"}}'>
+          <div class="ury-card-body">
+            <div class="ury-card-lg-title">See all podcasts...</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  {{end}}
+  {{end}}
 {{end}}
 
 {{define "footer-scripts"}}
