@@ -7,20 +7,20 @@
     </div>
     <h4 class="text-center">{{.User.Fname}} {{.User.Sname}}</h4>
   </a>
-  <h5 class="text-center">{{.Position.Name}}<a href="mailto:head-of-computing@ury.org.uk"><span class="glyphicon glyphicon-envelope"></span></a></h5>
+  <h5 class="text-center">{{.Position.Name}}</h5>
 </div>
 {{end}}
 
 {{define "content"}}
   {{with .PageData}}
     <div class="container-fluid banner-2 slim text-overlay">
-      <div class="container container-padded">
+      <div class="container">
         <div class="row justify-content-center">
           <div class="text-center">
             <h1 class="display-5"><a href="{{url "/teams/"}}" title="View all teams">Our Teams</a></h1>
             <h2 class="display-5">The people who make URY happen!</h2>
             <br>
-            <a href="/getinvolved/#signUp" class="btn btn-primary-inverse btn-lg">Be part of one!</a>
+            <a href="{{url "/getinvolved/#signUp"}}" class="btn btn-primary-inverse btn-lg">Be part of one!</a>
           </div>
         </div>
       </div>
@@ -60,8 +60,9 @@
       <div class="container container-padded">
         <h2>Get Involved</h2>
         <p>
-URY has 11 teams of students which look after all aspects of running a radio station. Whether that be creating the content or maintaining the station. 
+          URY has 11 teams of students who look after all aspects of running a radio station. Whether that be creating the content or maintaining the station.
         </p>
+        <a href="{{url "/getinvolved/#signUp"}}" class="btn btn-primary-inverse btn-lg">Be part of one!</a>
       </div>
     </div>
   {{end}}
