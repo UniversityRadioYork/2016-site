@@ -34,26 +34,24 @@
     color: $current-next-txt-color;
   }
 
-  a.current-and-next-now {
+  a.current-and-next-now { // scss-lint:disable QualifyingElement
     text-decoration: none;
-
-      &:hover {
-        transition: $transition-time;
-        background: tint($current-next-now-bg, 70%);
-      }
+    &:hover {
+      transition: $transition-time;
+      background: tint($current-next-now-bg, 70%);
+    }
   }
 
   .current-and-next-now {
     background: $current-next-now-bg;
   }
 
-  a.current-and-next-next {
+  a.current-and-next-next { // scss-lint:disable QualifyingElement
     text-decoration: none;
-
-      &:hover {
-        transition: 350ms;
-        background: tint($current-next-next-bg, 70%);
-      }
+    &:hover {
+      transition: 350ms;
+      background: tint($current-next-next-bg, 70%);
+    }
   }
 
   .current-and-next-next {
