@@ -15,13 +15,35 @@ func NewSearchModel(s *myradio.Session) *SearchModel {
 	return &SearchModel{Model{session: s}}
 }
 
-// Get gets the data required for the Search controller from MyRadio.
+// GetShows gets the data required for the Search controller from MyRadio.
 //
 // term is the string term to search for.  This is currently a show
 // search.
 //
 // On success, it returns the search results, and nil.
 // Otherwise, it returns undefined data and the error causing failure.
-func (m *SearchModel) Get(term string) ([]myradio.ShowMeta, error) {
+func (m *SearchModel) GetShows(term string) ([]myradio.ShowMeta, error) {
 	return m.session.GetSearchMeta(term)
+}
+
+// GetPodcasts gets the data required for the Search controller from MyRadio.
+//
+// term is the string term to search for.  This is currently a podcast
+// search.
+//
+// On success, it returns the search results, and nil.
+// Otherwise, it returns undefined data and the error causing failure.
+func (m *SearchModel) GetPodcasts(term string) ([]myradio.Podcast, error) {
+	return m.session.GetPodcastMeta(term)
+}
+
+// GetUsers gets the data required for the Search controller from MyRadio.
+//
+// term is the string term to search for.  This is currently a user
+// search.
+//
+// On success, it returns the search results, and nil.
+// Otherwise, it returns undefined data and the error causing failure.
+func (m *SearchModel) GetUsers(term string) ([]myradio.UserSearch, error) {
+	return m.session.GetUserMeta(term)
 }

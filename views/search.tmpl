@@ -7,23 +7,45 @@
         <button type="submit" class="" alt="Submit"><i class="fa fa-search" aria-hidden="true"></i></button>
         <div class="col px-0">
             <input type="text" name="term" placeholder="Search..." value="{{.Term}}" width="100%">
+            <input type="radio" id="sourceShows" name="source" value="show" {{if eq .Source "show"}}checked{{end}}>
+            <label for="sourceShows">Shows</label>
+            <input type="radio" id="sourcePodcasts" name="source" value="podcast" {{if eq .Source "podcast"}}checked{{end}}>
+            <label for="sourcePodcasts">Podcasts</label>
+            <input type="radio" id="sourcePeople" name="source" value="people" {{if eq .Source "people"}}checked{{end}}>
+            <label for="sourcePeople">People</label>
         </div>
     </form>
+    {{if gt (len .ErrorMsg) 0}}
+    <div class="alert mt-3 alert-warning">{{.ErrorMsg}}</div>
+    {{end}}
 	{{if .Searching}}
         <div class="pt-3" style="text-align: right;">{{.NumResults}} Results</div>
         <hr>
-		{{range .Results}}
+        {{range .ShowResults}}
             <h5>
-				<a href="/schedule/shows/{{.ShowID}}/">{{.Title}}</a>
+                <a href="/schedule/shows/{{.ShowID}}/">{{.Title}}</a>
+            </h5>
+            {{html .Description}}
+            <hr>
+        {{end}}
+		{{range .PodcastResults}}
+            <h5>
+				<a href="/podcasts/{{.PodcastID}}/">{{.Title}}</a>
             </h5>
 		    {{html .Description}}
             <hr>
-		{{else}}
-            <p>
-                No Results
-            </p>
-		{{end}}
-
+        {{end}}
+        {{range .PeopleResults}}
+            <h5>
+                <a href="/people/{{.MemberID}}/">{{.Fname}} {{.Sname}}</a>
+            </h5>
+            <hr>
+        {{end}}
+        {{if eq .NumResults 0}}
+            <h4 class="text-center m-5">
+                No search results. Please try a different search term.
+            </h4>
+        {{end}}
 	{{else}}
 	{{end}}
 
