@@ -4,6 +4,7 @@
 @import "searchBox";
 @import "backgrounds";
 @import "utils";
+@import "uryCard";
 
 html {
   font-size: $base-font-size;
@@ -33,4 +34,44 @@ html {
       background: $custom-scrollbar-color;
     }
   }
+}
+
+// Scroll horizontal, used for horizontal scrolling rows
+.scroll-horiz {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  flex-wrap: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroll-none {
+  overflow: auto;
+  flex-wrap: wrap;
+}
+
+@mixin make-scroll-horiz($breakpoint) {
+
+  .scroll-horiz-#{$breakpoint} {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .scroll-none-#{$breakpoint} {
+    overflow: auto;
+    flex-wrap: wrap;
+  }
+}
+
+$breakpoints: sm, md, lg, xl;
+
+@each $bp in $breakpoints {
+  @include media-breakpoint-up($bp) {
+    @include make-scroll-horiz($bp);
+  }
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }

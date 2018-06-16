@@ -35,8 +35,8 @@ func (pc *PeopleController) Get(w http.ResponseWriter, r *http.Request) {
 	user, officerships, credits, currentAndNext, err := pm.Get(id)
 
 	if err != nil {
-		//@TODO: Do something proper here, render 404 or something
 		log.Println(err)
+		utils.RenderTemplate(w, pc.config.PageContext, err, "404.tmpl")
 		return
 	}
 

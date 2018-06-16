@@ -11,8 +11,8 @@
     <link rel="manifest" href="{{url "/manifest.json"}}">
     <link rel="mask-icon" href="{{url "/safari-pinned-tab.svg"}}" color="#003367">
     <meta name="theme-color" content="#003367">
-    
-    <title>{{block "title" .}}{{.PageContext.LongName}}{{end}}</title>   
+
+    <title>{{block "title" .}}{{.PageContext.LongName}}{{end}}</title>
 
     {{block "open-graph" .}}
     <meta name="twitter:card" content="summary_large_image">
@@ -38,9 +38,9 @@
     <script src="https://use.fontawesome.com/577e6fdb00.js"></script>
 </head>
 <body>
-
-{{template "header" .}}
-
+{{block "header-block" .}}
+    {{template "header" .}}
+{{end}}
 
 {{block "content" .}}
 <div class="container container-padded">
@@ -49,7 +49,10 @@
 </div>
 {{end}}
 
-{{template "footer" .}}
+
+{{block "footer-block" .}}
+    {{template "footer" .}}
+{{end}}
 {{block "footer-scripts" .}}{{end}}
 </body>
 </html>
