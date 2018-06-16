@@ -36,6 +36,7 @@
 
   a.current-and-next-now { // scss-lint:disable QualifyingElement
     text-decoration: none;
+
     &:hover {
       transition: $transition-time;
       background: tint($current-next-now-bg, 70%);
@@ -48,6 +49,7 @@
 
   a.current-and-next-next { // scss-lint:disable QualifyingElement
     text-decoration: none;
+
     &:hover {
       transition: 350ms;
       background: tint($current-next-next-bg, 70%);
