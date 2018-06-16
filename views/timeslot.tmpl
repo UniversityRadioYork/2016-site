@@ -56,7 +56,7 @@
         <p>{{html .Timeslot.Description}}</p>
         <hr>
         <div class="row justify-content-between">
-          <div class="col-auto mr-auto mw-100">
+          <div class="col-auto mr-auto mw-100 overflow-hidden mb-3">
             <span class="h5 mg-right-5">Tags:</span>
             {{range .Timeslot.Tags}}
             <a href="/search?term={{.}}" alt="Search for '{{.}}'.">
