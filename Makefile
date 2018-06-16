@@ -17,7 +17,7 @@ run: all
 	./2016-site
 
 build-sass: $(SASS_SRC)
-	$(SASS_COMPILER) $(MAIN_FILE) $(OUTPUT_FILE)
+	$(SASS_COMPILER) $(MAIN_FILE) $(OUTPUT_FILE) -t compressed
 
 build-docker-image:
 	docker build -t 2016-site .
