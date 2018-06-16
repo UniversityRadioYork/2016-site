@@ -9,7 +9,7 @@ a.ury-card,
   @extend .box-shadow-3;
   background: $show-bg;
   color: $show-txt-color;
-  transition: 350ms;
+  transition: $transition-time;
 
   // Override the ancher tag defaults
   display: block;
