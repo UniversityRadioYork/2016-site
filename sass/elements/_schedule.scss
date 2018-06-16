@@ -144,7 +144,7 @@ $sustainer-color: tint($primary-color, 40%);
 }
 
 .schedule-keys .key-row {
-  text-align: right;
+
 
   * {
     display: inline-block;
@@ -153,7 +153,7 @@ $sustainer-color: tint($primary-color, 40%);
 
 @include media-breakpoint-down(md) {
   .schedule-keys .key-row {
-    text-align: left;
+
 
     .h5, .h6 {
       display: block;
