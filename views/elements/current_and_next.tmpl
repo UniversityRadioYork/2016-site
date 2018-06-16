@@ -3,7 +3,13 @@
 <div class="current-and-next row justify-content-center">
   {{if .Current}}
   <div class="col-4 col-md-2 p-0 current-and-next-img">
-    <img src="/images/show-current.png" alt="" />
+    <img src="
+    {{if .Current.Photo}}
+      //ury.org.uk{{.Current.Photo}}
+    {{else}}
+      {{url "/images/show-current.png"}}
+    {{end}}
+    " alt="{{.Current.Title}} Photo" />
     <a href="https://ury.org.uk/listen" class="btn btn-red listen-btn mobile-hide px-0" title="Listen Live" onclick="window.open('http://ury.org.uk/live', 'radioplayer', 'height=665,width=380'); return false;">Listen Live</a>
   </div>
   <div class="col-8 col-md-5 p-0 m-0">
