@@ -31,16 +31,23 @@ func (podcastsC *PodcastController) GetAllPodcasts(w http.ResponseWriter, r *htt
 
 	vars := mux.Vars(r)
 
-	pageNumberPrev, _ := strconv.Atoi(vars["page"])
+	pageNumber, _ := strconv.Atoi(vars["page"])
+	if pageNumber == 0 {
+		pageNumber = 1
+	}
+	pageNumberPrev := pageNumber - 1
+	pageNumberNext := pageNumber + 1
 
-	podcasts, err := podcastm.GetAllPodcasts(10, pageNumberPrev)
+	//podcast page offset is indexed from 0, URL's are from 1.
+	podcasts, err := podcastm.GetAllPodcasts(10, pageNumber-1)
 
-	pageNumber := 0
-	pageNumberNext := 0
+	//see if it's possible to load another podcast for a possible next page.
+	nextPodcasts, _ := podcastm.GetAllPodcasts(1, pageNumber)
 
-	pageNumber = pageNumberPrev + 1 // For the web pagination UI.
-	pageNumberNext = pageNumber + 1
-
+	var pageNext = false
+	if nextPodcasts != nil {
+		pageNext = true
+	}
 	if err != nil {
 		log.Println(err)
 		utils.RenderTemplate(w, podcastsC.config.PageContext, err, "404.tmpl")
@@ -51,11 +58,13 @@ func (podcastsC *PodcastController) GetAllPodcasts(w http.ResponseWriter, r *htt
 		PageNumberPrev int
 		PageNumber     int
 		PageNumberNext int
+		PageNext       bool
 		Podcasts       []myradio.Podcast
 	}{
 		PageNumberPrev: pageNumberPrev,
 		PageNumber:     pageNumber,
 		PageNumberNext: pageNumberNext,
+		PageNext:       pageNext,
 		Podcasts:       podcasts,
 	}
 

@@ -6,12 +6,15 @@
 		<div class="container container-padded">
 				<div class="row align-items-end text-center">
 					<div class="col">
-						<h1 class="header-title">
+						<h1 class="display-5 header-title">
 								<a href="{{url "/ontap/"}}" title="Go back to {{.PageContext.ODName}}">
-									{{- .PageContext.ShortName }}{{.PageContext.ODName -}}
+									{{- .PageContext.ShortName }} {{.PageContext.ODName -}}
 								</a>
-								Podcasts
-						</h1>
+
+            </h1>
+            <h2 class="display-3">
+              Podcasts
+            </h3>
 					</div>
 				</div>
 		</div>
@@ -19,19 +22,18 @@
 
 {{with .PageData}}
 <div class="container container-padded bg-off-white pt-5 mt-5">
-  <div class="pageination">
+  <nav aria-label="Related Schedules" class="row nav justify-content-between">
     {{if gt .PageNumber 1}}
-      <a href="0" title="Goto Page 1">First Page</a>
+      <a class="nav-link" href="{{url "/podcasts/"}}">Latest Podcasts</a>
+      <a class="nav-link" href="{{url "/podcasts/"}}page/{{.PageNumberPrev}}">Previous Page</a>
     {{end}}
-    {{if gt .PageNumber 2}}
-      <a href="{{.PageNumberPrev}}" title="Goto Page {{.PageNumberPrev}}">Previous Page</a>
+    Page {{.PageNumber}}
+    {{if .PageNext}}
+      <a class="nav-link" href="{{url "/podcasts/"}}page/{{.PageNumberNext}}">Next week</a>
     {{end}}
-    {{.PageNumber}}
-    {{if gt .PageNumber 2}}
-      <a href="{{.PageNumberNext}}" title="Goto Page {{.PageNumberNext}}">Next Page</a>
-    {{end}}
+  </nav>
+  <div class="pageination">
 
-      <a href="{{.PageNumberNext}}" title="Goto Page {{.PageNumberNext}}">Last Page</a>
 
   </div>
   <div class="pt-3" style="text-align: right;">All Podcasts</div>
