@@ -7,12 +7,16 @@
         <button type="submit" class="" alt="Submit"><i class="fa fa-search" aria-hidden="true"></i></button>
         <div class="col px-0">
             <input type="text" name="term" placeholder="Search..." value="{{.Term}}" width="100%">
-            <input type="radio" id="sourceShows" name="source" value="show" {{if eq .Source "show"}}checked{{end}}>
-            <label for="sourceShows">Shows</label>
-            <input type="radio" id="sourcePodcasts" name="source" value="podcast" {{if eq .Source "podcast"}}checked{{end}}>
-            <label for="sourcePodcasts">Podcasts</label>
-            <input type="radio" id="sourcePeople" name="source" value="people" {{if eq .Source "people"}}checked{{end}}>
-            <label for="sourcePeople">People</label>
+
+            <div class="source-group">
+                <input type="radio" id="sourceShows" name="source" value="show" {{if eq .Source "show"}}checked{{end}}>
+
+                <label for="sourceShows">Shows</label>
+                <input type="radio" id="sourcePodcasts" name="source" value="podcast" {{if eq .Source "podcast"}}checked{{end}}>
+                <label for="sourcePodcasts">Podcasts</label>
+                <input type="radio" id="sourcePeople" name="source" value="people" {{if eq .Source "people"}}checked{{end}}>
+                <label for="sourcePeople">People</label>
+            </div>
         </div>
     </form>
     {{if gt (len .ErrorMsg) 0}}

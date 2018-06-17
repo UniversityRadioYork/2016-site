@@ -47,14 +47,15 @@ func (sc *SearchController) Get(w http.ResponseWriter, r *http.Request) {
 		sm := models.NewSearchModel(sc.session)
 
 		switch source {
-		case "show":
+		default:
+			source = "show"
 			showResults, err = sm.GetShows(term)
 		case "podcast":
 			podcastResults, err = sm.GetPodcasts(term)
 		case "people":
 			peopleResults, err = sm.GetUsers(term)
-		default:
-			errorMsg = "You didn't select something to search for. Please select shows or podcasts."
+		case "show":
+			showResults, err = sm.GetShows(term)
 		}
 
 		if err != nil {
