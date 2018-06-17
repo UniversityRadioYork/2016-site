@@ -34,7 +34,11 @@ $(document).ready(function() {
             "targets": [ 2,3 ],
             "orderable": false
         }
-        ]
+        ],
+        drawCallback: function(settings) {
+          var pagination = $(this).closest('.dataTables_wrapper').find('.dataTables_paginate');
+          pagination.toggle(this.api().page.info().pages > 1);
+        }
     });
     var timeslotTable = $("#timeslots").DataTable({
         "info": false,
@@ -56,7 +60,11 @@ $(document).ready(function() {
             "targets": [ 0,1,3 ],
             "orderable": false
         }
-        ]
+        ],
+        drawCallback: function(settings) {
+          var pagination = $(this).closest('.dataTables_wrapper').find('.dataTables_paginate');
+          pagination.toggle(this.api().page.info().pages > 1);
+        }
     });
 
     $.urlParam = function (name) {
