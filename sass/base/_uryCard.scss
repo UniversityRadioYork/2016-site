@@ -1,0 +1,66 @@
+$show-bg:#2C3849;
+$show-txt-color: #FFFFFF;
+
+$podcast-bg: #003C00;
+$podcast-txt-color: #FFFFFF;
+
+a.ury-card,
+.ury-card {
+  @extend .box-shadow-3;
+  background: $show-bg;
+  color: $show-txt-color;
+  transition: $transition-time;
+
+  // Override the ancher tag defaults
+  display: block;
+  text-decoration: none;
+
+  &:hover {
+    background: tint($show-bg, 70%);
+  }
+
+  .ury-card-img {
+    width: 100%;
+    padding-top: 100%;
+    background-repeat: no-repeat;
+    background-size: cover !important; //propotional resize
+
+
+  }
+
+  .ury-card-body {
+    text-align: center;
+    padding: 10px;
+
+    .ury-card-title {
+      @extend .h6;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .ury-card-lg-title {
+      @extend .h3;
+    }
+  }
+
+
+  &.podcast {
+    color: $podcast-txt-color;
+    background: $podcast-bg;
+
+    &:hover {
+      background: tint($podcast-bg, 70%);
+    }
+  }
+
+  &.link {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+  }
+}
+
+

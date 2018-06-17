@@ -63,7 +63,15 @@ func NewServer(c *structs.Config) (*Server, error) {
 	// This route exists so that day schedule links from the previous website aren't broken.
 	getRouter.HandleFunc("/schedule/{year:[1-9][0-9][0-9][0-9]}/w{week:[0-5]?[0-9]}/{day:[1-7]}/", schedWeekC.GetByYearWeek).Name("schedule-week-day-compat")
 
-	// Redirect old podcast URLsc
+	onDemandC := controllers.NewOnDemandController(session, c)
+	getRouter.HandleFunc("/ontap/", onDemandC.Get)
+
+	podcastsC := controllers.NewPodcastController(session, c)
+	getRouter.HandleFunc("/podcasts/", podcastsC.GetAllPodcasts)
+	getRouter.HandleFunc("/podcasts/page/{page:[0-9]+}", podcastsC.GetAllPodcasts)
+	getRouter.HandleFunc("/podcasts/{id:[0-9]+}/", podcastsC.Get)
+	getRouter.HandleFunc("/podcasts/{id:[0-9]+}/player/", podcastsC.GetEmbed)
+	// Redirect old podcast URLs
 	getRouter.HandleFunc("/uryplayer/", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/ontap/", 301)
 	})

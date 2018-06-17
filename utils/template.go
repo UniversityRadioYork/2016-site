@@ -5,6 +5,8 @@ import (
 	"html/template"
 	"net/http"
 	"path/filepath"
+	"strings"
+	"time"
 
 	"github.com/UniversityRadioYork/2016-site/structs"
 	myradio "github.com/UniversityRadioYork/myradio-go"
@@ -72,6 +74,37 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 				c += int(season.NumEpisodes.Value.(float64))
 			}
 			return c
+		},
+		"formatDuration": func(d time.Duration) string {
+			days := int64(d.Hours()) / 24
+			hours := int64(d.Hours()) % 24
+			minutes := int64(d.Minutes()) % 60
+			seconds := int64(d.Seconds()) % 60
+
+			segments := []struct {
+				name  string
+				value int64
+			}{
+				{"Day", days},
+				{"Hour", hours},
+				{"Min", minutes},
+				{"Sec", seconds},
+			}
+
+			parts := []string{}
+
+			for _, s := range segments {
+				if s.value == 0 {
+					continue
+				}
+				plural := ""
+				if s.value != 1 {
+					plural = "s"
+				}
+
+				parts = append(parts, fmt.Sprintf("%d %s%s", s.value, s.name, plural))
+			}
+			return strings.Join(parts, " ")
 		},
 		// TODO(CaptainHayashi): this is temporary
 		"stripHTML": func(s string) string {
