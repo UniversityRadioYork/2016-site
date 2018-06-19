@@ -6,6 +6,10 @@ $season-title-color:  #666;
     margin-right: 5px;
   }
 
+  #timeslots_wrapper {
+    margin-top: -5px; // Fixes wierd but where tables do not line up
+  }
+
   #timeslot-season-title {
     color: $season-title-color;
   }
