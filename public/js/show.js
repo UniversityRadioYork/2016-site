@@ -1,20 +1,20 @@
 $(document).ready(function() {
 
-  $.fn.dataTable.Api.register('row().show()', function() {
-    var page_info = this.table().page.info();
+  $.fn.dataTable.Api.register("row().show()", function() {
+    var pageInfo = this.table().page.info();
     // Get row index
-    var new_row_index = this.index();
+    var newRowIndex = this.index();
     // Row position
-    var row_position = this.table().rows()[0].indexOf( new_row_index );
+    var rowPosition = this.table().rows()[0].indexOf( newRowIndex );
     // Already on right page ?
-    if( row_position >= page_info.start && row_position < page_info.end ) {
+    if( rowPosition >= pageInfo.start && rowPosition < pageInfo.end ) {
         // Return row object
         return this;
     }
     // Find page number
-    var page_to_display = Math.floor( row_position / this.table().page.len() );
+    var pageToDisplay = Math.floor( rowPosition / this.table().page.len() );
     // Go to that page
-    this.table().page( page_to_display );
+    this.table().page( pageToDisplay );
     // Return row object
     return this;
   });
@@ -56,7 +56,7 @@ $(document).ready(function() {
     }
     ],
     drawCallback: function(settings) {
-      var pagination = $(this).closest('.dataTables_wrapper').find('.dataTables_paginate');
+      var pagination = $(this).closest(".dataTables_wrapper").find(".dataTables_paginate");
       pagination.toggle(this.api().page.info().pages > 1);
     }
   });
@@ -82,13 +82,13 @@ $(document).ready(function() {
     }
     ],
     drawCallback: function(settings) {
-      var pagination = $(this).closest('.dataTables_wrapper').find('.dataTables_paginate');
+      var pagination = $(this).closest(".dataTables_wrapper").find(".dataTables_paginate");
       pagination.toggle(this.api().page.info().pages > 1);
     }
   });
 
   $.urlParam = function (name) {
-    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    var results = new RegExp("[\?&]" + name + "=([^&#]*)").exec(window.location.href);
     if (results == null) {
       return null;
     }
@@ -105,6 +105,6 @@ $(document).ready(function() {
       filterSeason($("tr[data-seasonid='" + $.urlParam("seasonID") + "']"));
       window.location.href = window.location.href.split("#")[0] + "#timeslot-list";
     }
-  }
+  };
   getSeasonFilter();
 });
