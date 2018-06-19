@@ -26,11 +26,11 @@
     <div class="row">
       <div class="col-12 col-sm-5 col-lg-3">
         <img class="img-fluid show-img" src="
-        {{if .Show.Photo}}
+        {{- if .Show.Photo -}}
         https://ury.org.uk{{.Show.Photo}}
-        {{else}}
+        {{- else -}}
         /images/show-current.png
-        {{end}}"
+        {{- end -}}"
         alt="{{.Show.Title}} Logo">
         <div class="row">
           <div class="col-6 text-center">
