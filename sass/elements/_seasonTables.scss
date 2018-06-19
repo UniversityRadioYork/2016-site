@@ -1,12 +1,16 @@
+// Nesting depth is a tricky one when working with tables so disabling for this file
+// scss-lint:disable NestingDepth
+
 $season-title-color:  #666;
-$season-divider: 1px solid rgba(0, 0, 0, .1);
+$season-divider: 1px solid rgba(0, 0, 0, 0.1);
 
 .show-selector {
   .inline {
     display: inline-block;
     margin-right: 5px;
   }
-
+  // Disabling scss as a lot of the data tables stuff doesnt conform
+  // scss-lint:disable SelectorFormat
   #timeslots_wrapper {
     margin-top: -6px; // Fixes wierd but where tables do not line up
 
@@ -15,17 +19,18 @@ $season-divider: 1px solid rgba(0, 0, 0, .1);
     }
   }
 
-  #timeslot-season-title {
-    color: $season-title-color;
-  }
-
   .dataTables_wrapper .dataTables_paginate {
     float: none;
     text-align: center;
   }
 
-  .dataTables_wrapper table thead{
+  .dataTables_wrapper table thead {
     display: none;
+  }
+    // scss-lint:enable SelectorFormat
+
+  #timeslot-season-title {
+    color: $season-title-color;
   }
 
   #timeslot-latest {
@@ -68,6 +73,7 @@ $season-divider: 1px solid rgba(0, 0, 0, .1);
         background: tint($secondary-color, 30%);
       }
     }
+
     td {
       border: 0;
 
