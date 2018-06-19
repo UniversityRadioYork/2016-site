@@ -1,3 +1,4 @@
+/* eslint-disable */
 $(document).ready(function() {
 
   $.fn.dataTable.Api.register("row().show()", function() {

@@ -1,3 +1,5 @@
+$season-title-color:  #666;
+
 .show-selector {
   .inline {
     display: inline-block;
@@ -5,7 +7,7 @@
   }
 
   #timeslot-season-title {
-    color: #666;
+    color: $season-title-color;
   }
 
   .dataTables_wrapper .dataTables_paginate {
@@ -33,17 +35,16 @@
   .seasons-table {
     min-width: 100%;
 
-    tbody {
-      tr {
-        cursor: pointer;
-      }
-      td {
-        border: 0;
-      }
-      tr:hover,
-      tr.active {
+    tbody tr {
+      cursor: pointer;
+
+      &:hover,
+      &.active {
         background: tint($secondary-color, 30%);
       }
+    }
+    td {
+      border: 0;
     }
   }
 }
