@@ -38,9 +38,9 @@
     <script src="https://use.fontawesome.com/577e6fdb00.js"></script>
 </head>
 <body>
-
-{{template "header" .}}
-
+{{block "header-block" .}}
+    {{template "header" .}}
+{{end}}
 
 {{block "content" .}}
 <div class="container container-padded">
@@ -49,7 +49,10 @@
 </div>
 {{end}}
 
-{{template "footer" .}}
+
+{{block "footer-block" .}}
+    {{template "footer" .}}
+{{end}}
 {{block "footer-scripts" .}}{{end}}
 </body>
 </html>

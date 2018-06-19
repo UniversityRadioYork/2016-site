@@ -1,0 +1,95 @@
+{{define "title"}}{{.PageContext.ShortName}} | {{.PageContext.ODName}}{{end}}
+
+{{define "open-graph"}}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@{{.PageContext.MainTwitter}}">
+<meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="{{.PageContext.LongName}} | About">
+<meta property="og:description" content="{{.PageContext.SiteDescription}}">
+<meta property="og:image" content="{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}">
+<meta property="og:url" content="{{.PageContext.FullURL}}{{url "/about/"}}">
+{{end}}
+
+{{define "content"}}
+<div class="container-fluid on-demand">
+  <div class="container container-padded">
+    <div class="row align-items-center text-center">
+      <div class="col">
+        <h1 class="display-3">{{.PageContext.ShortName}} {{.PageContext.ODName}}</h1>
+        <h2 class="display-5">Refreshing content when you need it the most.</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="index-just-missed" class="container-fluid container-padded bg-primary pb-0">
+  <h2>You Just Missed...</h2>
+  <div class="row custom-scrollbar scroll-horiz scroll-none-xl">
+    {{range .PageData.LatestTimeslots}}
+    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 pb-3">
+      <a class="ury-card" href="/schedule/shows/timeslots/{{.TimeslotID}}/">
+        <div class="ury-card-img" style="background: url('
+            {{- if .Season.ShowMeta.Photo -}}
+            https://ury.org.uk{{.Season.ShowMeta.Photo}}
+            {{- else -}}
+              /images/show-current.png
+            {{- end -}}');
+          " title="{{.Title}} Logo"></div>
+        <div class="ury-card-body">
+          <div class="ury-card-title">{{.Title}}</div>
+          <span class="ury-card-date">{{.StartTime.Format "15:04 - Mon"}} • {{formatDuration .Duration}}</span>
+        </div>
+      </a>
+    </div>
+    {{end}}
+  </div>
+</div>
+<div id="index-videos" class="container-fluid container-padded bg-secondary">
+  <div class="row">
+    <div class="col-12 col-md-8">
+      <a name="YouTube"></a><h2>{{.PageContext.ShortName}} on Youtube</h2>
+    </div>
+  </div>
+  <div id="youtube-videos" class="row pb-3 youtube-grid">
+  </div>
+  <div class="row justify-content-center">
+    <a href="{{.PageContext.Youtube.ChannelURL}}" class="view-more-link" title="View more on Youtube...">View more on Youtube...</a>
+  </div>
+</div>
+{{if .PageData.LatestPodcasts}}
+<div id="index-podcasts" class="container-fluid container-padded pb-0 bg-third">
+  <h2>Latest Podcasts</h2>
+  <div class="row custom-scrollbar scroll-horiz">
+    {{range .PageData.LatestPodcasts}}
+      <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 pb-3">
+        <a class="ury-card podcast" href="{{.MicrositeLink.URL}}">
+          <div class="ury-card-img" style="background: url('https://ury.org.uk{{.Photo}}');" title="URY Podcast: {{.Title}} Logo"></div>
+          <div class="ury-card-body">
+            <div class="ury-card-title">{{.Title}}</div>
+            <span>{{.Time.Format "Monday, _2 Jan 2006"}}</span>
+          </div>
+        </a>
+      </div>
+    {{end}}
+    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 pb-3">
+      <a class="ury-card podcast link" href="test">
+        <div class="ury-card-body">
+          <div class="ury-card-lg-title">See all podcasts...</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+{{end}}
+{{end}}
+
+{{define "footer-scripts"}}
+<!-- Youtube slider script -->
+<script>
+var youtubeAPIKey = {{.PageContext.Youtube.APIKey}};
+var youtubePlaylistID = "{{.PageContext.Youtube.PlaylistID}}";
+</script>
+<script src='{{url "/js/index.js"}}'></script>
+<script src="https://apis.google.com/js/client.js?onload=onGoogleLoad"></script>
+{{end}}

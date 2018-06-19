@@ -1,0 +1,49 @@
+{{define "title"}}{{.PageContext.ShortName}} | {{.PageContext.ODName}} | {{with .PageData}} {{.Podcast.Title}} {{end}} Podcast {{end}}
+
+{{define "header-block"}}<!-- header -->{{end}}
+{{define "footer-block"}}<!-- footer -->{{end}}
+
+{{define "content"}}
+
+{{with .PageData}}
+  <div class="container-fluid uryplayer-podcast p-0">
+    <div class="row">
+      <div class="section img col-sm-auto">
+        <img class="podcast-img" src="
+        {{if .Podcast.Photo}}
+              https://ury.org.uk{{.Podcast.Photo}}
+        {{else}}
+              /images/podcast.png
+        {{end}}
+
+          " alt="{{.Podcast.Title}} Logo">
+      </div>
+      <div class="col-sm-9">
+
+        <div class="row">
+          <div class="col-12">
+            <div class="section info">
+              <div class="row py-2">
+                  <div class="col-6 od-date">{{.Podcast.Time.Format "Monday, _2 Jan 2006"}}</div>
+                  <div class="col 6 od-brand text-right">((URY)) on Tap<br><small>Podcast</small></div>
+              </div>
+              <h1 class="podcast-title"><a href="https://ury.org.uk{{.Podcast.MicrositeLink.URL}}" target="_parent">{{.Podcast.Title}}</a></h1>
+            </div>
+          </div>
+          <hr>
+          <div class="col-12">
+              <audio class="podcast-audio" controls>
+                <source src="https://ury.org.uk{{.Podcast.File}}" type="audio/mpeg">
+                It looks like your browser can't play this file, please update your browser.
+              </audio>
+            </div>
+        </div>
+      </div>
+
+  </div>
+
+
+						 <!-- {{html .Podcast.Description}} -->
+
+{{end}}
+{{end}}

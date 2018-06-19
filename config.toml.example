@@ -29,6 +29,7 @@
 	mainFacebook = "URY1350"
 	newsTwitter = "URYNews"
 
+	odName = "On Tap"
 	myRadioAPIKey = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 
 	[[pageContext.pages]]
@@ -38,6 +39,7 @@
 	[pageContext.youtube]
 		APIKey = "AIzaSyCzI5Gvpq1hPlfjvB81EVc0vLv_11eW7NI"
 		playlistID = "PLsxUDJzU4VKDudlmlYb-ImFKreFKAfFln"
+		channelURL = "//youtube.com/ury1350"
 
 	[pageContext.gmaps]
 		APIKey = "AIzaSyACeeyIgdIhiSxV01OIPiA3MyJDqrOspLQ"
