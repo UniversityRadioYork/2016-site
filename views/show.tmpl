@@ -116,12 +116,12 @@
   <div class="container show-selector">
     <div class="row">
 {{end}}
-      <div class="col-12 col-md-6 col-lg-4 p-4">
+      <div class="col-12 col-xl-4 p-4">
         <h1>{{.PageContext.ShortName}} {{.PageContext.ODName}}</h1>
         <h3><small>Explore the show catalogue, and listen back to your favorite episodes!</small></h3>
         <a href="/ontap/">View all of our on demand content...</a>
       </div>
-      <div class="col-12 col-md-6 col-lg-4 p-4 bg-off-white">
+      <div class="col-12 col-md-6 col-xl-4 p-4 bg-off-white">
         <h2>
           Seasons
         </h2>
@@ -139,10 +139,10 @@
             {{if ne .SeasonNum 0}}
               <tr class="timeslot-filter-season" data-SeasonID="{{.SeasonID}}">
                 <td>{{.SeasonID}}</td>
-                <td>{{.SeasonNum}}</td>
-                <td>{{.FirstTime.Format "Monday, _2 Jan 2006 - 15:04"}}</td>
-                <td>
-                  {{.NumEpisodes.Value}} Episode(s)
+                <td style="width:10px">{{.SeasonNum}}</td>
+                <td>{{.FirstTime.Format "Jan 2006"}}</td>
+                <td style="width:10px"><span class="badge badge-pill badge-light">
+                  {{.NumEpisodes.Value}}</span>
                 </td>
               </tr>
             {{end}}
@@ -150,7 +150,7 @@
           </tbody>
         </table>
       </div>
-      <div id="timeslot-latest" class="col-12 col-md-6 col-lg-4 p-4 bg-white">
+      <div id="timeslot-latest" class="col-12 col-md-6 col-xl-4 p-4 bg-white">
         <h3>Latest Episode</h3>
         {{if ne .PageData.LatestTimeslot.TimeslotID 0}}
         <p>Catchup with the latest episode from <strong>{{.PageData.LatestTimeslot.StartTime.Format "Monday, _2 Jan 2006"}}</strong></p>
@@ -170,7 +170,7 @@
         {{end}}
       </div>
 {{with .PageData}}
-      <div id="timeslot-list" class="col-12 col-md-6 col-lg-4 p-4 bg-white">
+      <div id="timeslot-list" class="col-12 col-md-6 col-xl-4 p-4 bg-white">
         <h2 class="inline">Episodes</h2><h3 id="timeslot-season-title" class="inline"></h3>
         <table id="timeslots" class="table timeslots-table">
           <thead>
