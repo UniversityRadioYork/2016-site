@@ -1,4 +1,5 @@
 $season-title-color:  #666;
+$season-divider: 1px solid rgba(0, 0, 0, .1);
 
 .show-selector {
   .inline {
@@ -7,7 +8,11 @@ $season-title-color:  #666;
   }
 
   #timeslots_wrapper {
-    margin-top: -5px; // Fixes wierd but where tables do not line up
+    margin-top: -6px; // Fixes wierd but where tables do not line up
+
+    @include media-breakpoint-up(md) {
+      border-left: $season-divider;
+    }
   }
 
   #timeslot-season-title {
@@ -25,6 +30,22 @@ $season-title-color:  #666;
 
   #timeslot-latest {
     display: none;
+  }
+
+  #timeslot-list {
+    padding: 1.5rem;
+
+    @include media-breakpoint-up(md) {
+      padding-left: 0;
+    }
+  }
+
+  #season-list {
+    padding: 1.5rem;
+
+    @include media-breakpoint-up(md) {
+      padding-right: 0;
+    }
   }
 
   :not(.dataTable) {

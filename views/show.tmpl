@@ -121,7 +121,7 @@
         <h3><small>Explore the show catalogue, and listen back to your favorite episodes!</small></h3>
         <a href="/ontap/">View all of our on demand content...</a>
       </div>
-      <div class="col-12 col-md-6 col-xl-4 p-4 bg-off-white">
+      <div id="season-list" class="col-12 col-md-6 col-xl-4 bg-off-white">
         <h2>
           Seasons
         </h2>
@@ -139,7 +139,7 @@
             {{if ne .SeasonNum 0}}
               <tr class="timeslot-filter-season" data-SeasonID="{{.SeasonID}}">
                 <td>{{.SeasonID}}</td>
-                <td style="width:10px">{{.SeasonNum}}</td>
+                <td style="width:10px">{{.SeasonNum}}.</td>
                 <td>{{.FirstTime.Format "Jan 2006"}}</td>
                 <td style="width:10px"><span class="badge badge-pill badge-light">
                   {{.NumEpisodes.Value}}</span>
@@ -170,7 +170,7 @@
         {{end}}
       </div>
 {{with .PageData}}
-      <div id="timeslot-list" class="col-12 col-md-6 col-xl-4 p-4 bg-white">
+      <div id="timeslot-list" class="col-12 col-md-6 col-xl-4 bg-off-white">
         <h2 class="inline">Episodes</h2><h3 id="timeslot-season-title" class="inline"></h3>
         <table id="timeslots" class="table timeslots-table">
           <thead>
@@ -187,7 +187,7 @@
               <tr>
                 <td>{{.Season.SeasonID}}</td>
                 <td>{{.Season.SeasonNum}}</td>
-                <td style="width:10px">{{.TimeslotNum}}</td>
+                <td style="width:10px">{{.TimeslotNum}}.</td>
                 <td><a href="/schedule/shows/timeslots/{{.TimeslotID}}/">{{.StartTime.Format "Monday, _2 Jan 2006 at 15:04"}}</a></td>
               </tr>
             {{end}}
