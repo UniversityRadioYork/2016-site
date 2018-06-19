@@ -74,7 +74,6 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 
 		layout := "02/01/2006 15:04"
 		startTimeRaw, _ := time.Parse(layout, timeslot.StartTimeRaw)
-		log.Println(timeslot.Duration)
 		var endTimeRaw = startTimeRaw.Add(timeslot.Duration)
 		if endTimeRaw.After(latestEndTime) && endTimeRaw.Before(currentTime) {
 			latestEndTime = endTimeRaw
