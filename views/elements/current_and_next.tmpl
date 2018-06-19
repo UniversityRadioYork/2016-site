@@ -4,17 +4,17 @@
   {{if .Current}}
   <div class="col-4 col-md-2 p-0 current-and-next-img">
     <img src="
-    {{if .Current.Photo}}
+    {{- if .Current.Photo -}}
       //ury.org.uk{{.Current.Photo}}
-    {{else}}
+    {{- else -}}
       {{url "/images/show-current.png"}}
-    {{end}}
+    {{- end -}}
     " alt="{{.Current.Title}} Photo" />
     <a href="https://ury.org.uk/listen" class="btn btn-red listen-btn mobile-hide px-0" title="Listen Live" onclick="window.open('http://ury.org.uk/live', 'radioplayer', 'height=665,width=380'); return false;">Listen Live</a>
   </div>
   <div class="col-8 col-md-5 p-0 m-0">
     {{if .Current.Url}}
-    <a class="current-and-next-now p-2 pt-3 px-3 p-md-3 p-lg-4 " href="{{.Current.Url}}" title="View the show now playing">
+    <a class="current-and-next-now p-2 pt-3 px-3 p-md-3 p-lg-4 " href="{{.Current.Url}}" title="View the show now on air.">
     {{else}}
     <div class="current-and-next-now p-2 pt-3 px-3 p-md-3 p-lg-4">
     {{end}}
@@ -30,7 +30,7 @@
   {{if .Next}}
   <div class="col col-md-5 p-0 m-0">
     {{if .Next.Url}}
-    <a class="current-and-next-next p-3 p-lg-4" href="{{.Next.Url}}" title="View the show next up">
+    <a class="current-and-next-next p-3 p-lg-4" href="{{.Next.Url}}" title="View the show next up.">
     {{else}}
     <div class="current-and-next-next p-3 p-lg-4">
     {{end}}
@@ -51,12 +51,14 @@
 {{end}}
 
 {{define "current_next"}}
+<div class="template-box">
 {{if .Title}}
-<h5 class="ellipsis">
+<h5 class="ellipsis show-title">
   {{.Title}}
 </h5>
-<h6>{{.StartTime.Format "15:04"}} - {{.EndTime.Format "15:04"}}</h6>
+<h6 class="show-time">{{.StartTime.Format "15:04"}} - {{.EndTime.Format "15:04"}}</h6>
 {{else}}
-<span>Looks like there is nothing coming up next yet.</span>
+<span>Looks like there is nothing on here.</span>
 {{end}}
+</div>
 {{end}}
