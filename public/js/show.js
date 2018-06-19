@@ -24,16 +24,23 @@ $(document).ready(function() {
   $("#timeslot-latest").show();
 
   var filterSeason = function(object) {
-    $(".timeslot-filter-season").removeClass("active");
-    $(object).addClass("active");
-    $("#timeslot-latest").hide();
-    $("#timeslot-season-title").text("Season " + $(object).find("td:nth-of-type(2)").html());
-    timeslotTable
-      .columns( 0 )
-      .search( $(object).data("seasonid") )
-      .draw();
+    if ($(object).hasClass("active")) {
+      $(object).removeClass("active");
+      $("#timeslot-latest").show();
+      $("#timeslot-list").hide();
 
-    $("#timeslot-list").show();
+    } else {
+      $(".timeslot-filter-season").removeClass("active");
+      $(object).addClass("active");
+      $("#timeslot-latest").hide();
+      $("#timeslot-season-title").text("Season " + $(object).find("td:nth-of-type(2)").html());
+      timeslotTable
+        .columns( 0 )
+        .search( $(object).data("seasonid") )
+        .draw();
+
+      $("#timeslot-list").show();
+    }
   };
 
   //Must run before dataTables to apply to all season/timeslot pages.
