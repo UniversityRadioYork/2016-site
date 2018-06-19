@@ -49,6 +49,10 @@ $season-title-color:  #666;
     }
     td {
       border: 0;
+
+      a {
+        color: inherit;
+      }
     }
   }
 }
