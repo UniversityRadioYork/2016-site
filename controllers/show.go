@@ -80,9 +80,8 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 			latestTimeslot = timeslot
 		}
 	}
-	if strings.HasPrefix(latestTimeslot.MixcloudStatus, "/URY1350/") {
-		latestMixcloud = true
-	}
+	latestMixcloud = strings.HasPrefix(latestTimeslot.MixcloudStatus, "/URY1350/")
+
 	data := struct {
 		Show           myradio.ShowMeta
 		Seasons        []myradio.Season
