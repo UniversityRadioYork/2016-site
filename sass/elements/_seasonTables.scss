@@ -27,47 +27,7 @@
       display: none;
     }
 
-    // tr:nth-child(odd) {
-    //   td:nth-of-type(2) {
-    //     font-size: 1.5em;
-    //     text-align: center;
-    //     background: $white;
-    //     width: 60px;
-    //   }
-    // }
-
-    // tr:nth-child(even) {
-    //   td:nth-of-type(2) {
-    //     color: $black;
-    //     font-size: 1.5em;
-    //     text-align: center;
-    //     background: $off-white-color;
-    //     width: 60px;
-    //   }
-    // }
   }
-
-  // .dataTable {
-  //   tr:nth-child(odd) {
-  //     td:first-of-type {
-  //       font-size: 1.5em;
-  //       text-align: center;
-  //       background: $white;
-  //       width: 60px;
-  //     }
-  //   }
-
-  //   tr:nth-child(even) {
-  //     td:first-of-type {
-  //       color: $black;
-  //       font-size:1.5em;
-  //       text-align: center;
-  //       background: $off-white-color;
-  //       width: 60px;
-  //     }
-  //   }
-
-  // }
 
   .timeslots-table,
   .seasons-table {
@@ -76,27 +36,11 @@
 
     tbody {
       tr {
-        // border: 1px solid $primary-color;
         cursor: pointer;
       }
       td {
         border: 0;
       }
-      // tr:nth-child(odd) {
-      //   background: $off-white-color;
-
-      //   a {
-      //     color: $black;
-      //   }
-      // }
-      // tr:nth-child(even) {
-      //   background: $third-color;
-      //   color: $white;
-
-      //   a {
-      //     color: $white;
-      //   }
-      // }
       tr:hover,
       tr.active {
         background: tint($secondary-color, 30%);
