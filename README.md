@@ -1,7 +1,7 @@
 # 2016-site #
 
 ## How to install ##
-Full instructions for installation are available on [ceedox](https://ury.org.uk/ceedox/computing:software:in-house:2016site:get).
+Full instructions for installation are available in the USING.md file.
 If you already know what you're doing, the instructions below should suffice.
 
 Configuration for site is located in config.toml, and you'll need a
