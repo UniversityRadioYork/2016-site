@@ -22,42 +22,33 @@
   <div class="container-fluid bg-off-white">
     <div class="container container-padded">
       <div class="row">
-          <div class="col-12 col-lg-3">
-            <img class="img-fluid show-img" src="
-            {{if .Podcast.Photo}}
-              https://ury.org.uk{{.Podcast.Photo}}
-            {{else}}
-              /images/podcast.png
-            {{end}}
-              " alt="{{.Podcast.Title}} Logo">
-          </div>
-          <div class="col-12 col-lg-9">
-            <h1>{{.Podcast.Title}}</h1>
-            <h5 class="text-muted">{{.Podcast.Time.Format "Monday, _2 Jan 2006"}}</h5>
-            <hr>
-            <h2>Description</h2>
-            <p>{{html .Podcast.Description}}</p>
-            <iframe src="player/" class="uryplayer-podcast-embed" frameborder="0">
-            </iframe>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="container-fluid bg-third">
-    <div class="container container-padded">
-      <h2>Share this podcast...</h2>
-      <div class="row">
-        <div class="col-12 col-lg-6">
-          <h4>Embed</h4>
-          <p>Want to put our podcast on your blog or website? Just copy the HTML code below...</p>
-          <textarea class="uryplayer-podcast-code" readonly="readonly" onclick="this.focus(); this.select();" style="border: none;" type="text" cols="30"
-            ><iframe width=&quot;500&quot; height=&quot;500&quot; src=&quot;https://ury.org.uk/podcasts/{{.Podcast.PodcastID}}/player/&quot; frameborder=&quot;0&quot; allowfullscreen > </iframe></textarea>
-        </div>
-  {{end}}
         <div class="col-12 col-lg-3">
-          <h4>Social Media</h4>
-          <div class="col-auto share-links">
+          <img class="img-fluid show-img" src="
+          {{if .Podcast.Photo}}
+            https://ury.org.uk{{.Podcast.Photo}}
+          {{else}}
+            /images/podcast.png
+          {{end}}
+            " alt="{{.Podcast.Title}} Logo">
+        </div>
+        <div class="col-12 col-lg-9">
+          <h1>{{.Podcast.Title}}</h1>
+          <h5 class="text-muted">{{.Podcast.Time.Format "Monday, _2 Jan 2006"}}</h5>
+          <hr>
+          <h2>Description</h2>
+          <p>{{html .Podcast.Description}}</p>
+          <hr>
+          <iframe src="player/" class="uryplayer-podcast-embed" frameborder="0">
+          </iframe>
+          <hr>
+  {{end}}
+          <div class="row justify-content-between">
+            <div class="col-auto mr-auto mw-100 overflow-hidden mb-3">
+              <span class="h5 mg-right-5">Embed Podcast:</span>
+              <a data-toggle="collapse" href="#collapseEmbedCode" role="button" aria-expanded="false" aria-controls="collapseEmbedCode">View Code</a>
+            </div>
+            <div class="col-auto mr-auto mw-100 mb-3 share-links">
+              <span class="h5 mg-right-5">Share:</span>
               <a href="#"
                   data-type="twitter"
                   data-url="{{.PageContext.FullURL}}{{url "/podcasts/"}}{{.PageData.Podcast.PodcastID}}/"
@@ -89,8 +80,21 @@
                   {{end}}
                   class="prettySocial fa fa-google">
               </a>
-
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid bg-third collapse" id="collapseEmbedCode">
+    <div class="container container-padded">
+      <h2>Embed this podcast...</h2>
+      <div class="row">
+        <div class="col-12 col-lg-6">
+          <p>Want to put our podcast on your blog or website? Just copy the HTML code below...</p>
+          <textarea class="uryplayer-podcast-code" readonly="readonly" onclick="this.focus(); this.select();" style="border: none;" type="text" cols="30">
+            <iframe width=&quot;500&quot; height=&quot;500&quot; src=&quot;https://ury.org.uk/podcasts/{{.PageData.Podcast.PodcastID}}/player/&quot; frameborder=&quot;0&quot; allowfullscreen > </iframe>
+          </textarea>
         </div>
       </div>
     </div>
