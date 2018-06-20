@@ -4,7 +4,8 @@
 /*
   2. Components
 */
-div.player {
+
+.player {
   border: 1px solid #8d8d8d;
   background-color: white;
   margin-bottom: 20px;
@@ -13,12 +14,12 @@ div.player {
   color: #8d8d8d;
   position: relative;
 }
-  div.player:after {
+  .player:after {
     content: "";
     display: table;
     clear: both; }
 
-div.branding {
+.branding {
   position: absolute;
   top: 0;
   right: 0;
@@ -28,36 +29,36 @@ div.branding {
   font-family: "Raleway", sans-serif;
   font-weight: 600;
 }
-div.meta-container {
+.branding span {
+  font-size: 0.85em;
+}
+.meta-container {
   display: inline-block;
   padding: 10px;
   border-bottom: 1px solid #8d8d8d;
 }
-  div.meta-container div.song-title {
+  .meta-container .song-title {
     font-size: 20px;
     font-weight: 400;
-
     font-family: "Raleway", sans-serif; }
-  div.meta-container div.song-artist {
-    text-align: center;
-    font-family: "Raleway", sans-serif;
-    font-size: 12px;
-    margin-top: 10px; }
-  div.time-container {
-    font-size: 18px;
+  .podcast-description p {
+    margin-bottom: 0;
+  }
+  .time-container {
+    font-size: 15px;
     padding: 20px;
     display: inline-block;
   }
-    div.time-container:after {
+    .time-container:after {
       content: "";
       display: table;
       clear: both; }
-    div.time-container div.current-time {
+    .time-container .current-time {
       /* float: left; */
       display: inline-block;
       margin: 0 20px;
     }
-    div.time-container div.duration {
+    .time-container .duration {
       /* float: right; */
       display: inline-block;
       margin: 0 20px;
@@ -67,16 +68,18 @@ div.meta-container {
   Small only
 */
 @media screen and (max-width: 39.9375em) {
-  /* div.meta-container {
+  /* .meta-container {
     width: 100%; } */
-  div.podcast-description {
+  .podcast-description {
     display: inline-block;
   }
-
-  div.player img.album-art {
+  .meta-container {
+    padding: 10px 20px;
+  }
+  .player img.album-art {
   width: 30%;
   float:left; }
-  div.time-container {
+  .time-container {
     width: calc(100%);
   }
 }
@@ -87,31 +90,31 @@ div.meta-container {
   Large Only
 */
 @media screen and (min-width: 39.9376em) {
-  div.player img.album-art {
+  .player img.album-art {
     width: 160px;
     height: 160px;
     float:left;
   }
-  div.meta-container {
+  .meta-container {
     width: calc(100% - 160px)
   }
-  div.meta-container div.song-title {
+  .meta-container .song-title {
     max-width: calc(100% - 150px);
   }
-  div.podcast-description {
+  .podcast-description {
     display: none;
   }
-  div.time-container {
+  .time-container {
     width: calc(100% - 160px)
   }
 }
-div.podcast-description {
+.podcast-description {
   font-size: 14px;
   padding: 20px;
   border-bottom: 1px solid #8d8d8d;
 }
 
-  div.amplitude-play-pause {
+  .amplitude-play-pause {
     width: 30px;
     height: 33px;
     margin-right: 10px;
@@ -120,18 +123,21 @@ div.podcast-description {
     vertical-align: middle;
     background-color: #8d8d8d;
     background-size: cover !important; }
-    div.amplitude-play-pause.amplitude-paused {
+    .amplitude-play-pause.amplitude-paused {
       background: url("../images/podcast_player/play.svg");}
-    div.amplitude-play-pause.amplitude-playing {
+    .amplitude-play-pause.amplitude-playing {
       background: url("../images/podcast_player/pause.svg"); }
 
 /*
   Small only
 */
 @media screen and (max-width: 39.9375em) {
-  div.meta-container {
+  .meta-container {
     width: 100%;
     border-top: 1px solid #8d8d8d;
+  }
+  .branding {
+    font-size: 20px;
   }
 }
 
@@ -142,7 +148,7 @@ div.podcast-description {
   Large Only
 */
 @media screen and (min-width: 64em) {
-  div.meta-container {
+  .meta-container {
     width: calc(100% - 160px);
   }
   progress.amplitude-song-played-progress {
@@ -186,4 +192,18 @@ body {
     display: none; }
 
 
-/*# sourceMappingURL=app.css.map */
+@media (max-height: 170px) and (orientation: landscape) {
+  .player {
+    width: 100%;
+    max-width: 100%;
+  }
+  img.album-art, .meta-container, .branding, .podcast-description {
+    display: none;
+  }
+  .time-container {
+    width: 100%;
+  }
+  .time-container progress {
+    width: calc(100% - 210px);
+  }
+}
