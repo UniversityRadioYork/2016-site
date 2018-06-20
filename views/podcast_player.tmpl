@@ -6,7 +6,7 @@
 {{define "content"}}
 
 {{with .PageData}}
-  <div class="container-fluid uryplayer-podcast p-0">
+  <!-- <div class="container-fluid uryplayer-podcast p-0">
     <div class="row">
       <div class="section img col-sm-auto">
         <img class="podcast-img" src="
@@ -40,10 +40,59 @@
         </div>
       </div>
 
+  </div> -->
+
+
+             <!-- {{html .Podcast.Description}} -->
+
+  <div class="player">
+    <img src="
+      {{- if .Podcast.Photo -}}
+            https://ury.org.uk{{.Podcast.Photo}}
+      {{- else -}}
+            {{url "/images/podcast.png"}}
+      {{- end -}}
+    " class="album-art"/>
+    <div class="meta-container">
+      <div class="song-title">{{.Podcast.Title}}</div>
+      <div class="song-artist">URY On Tap Podcast</div>
+    </div>
+    <div class="podcast-description">
+      {{- html .Podcast.Description -}}
+    </div>
+
+      <div class="time-container">
+        <div class="amplitude-play-pause" amplitude-song-index="0"></div>
+        <div class="current-time">
+          <span class="amplitude-current-minutes" amplitude-song-index="0"></span>:<span class="amplitude-current-seconds" amplitude-song-index="0"></span>
+        </div>
+        <progress class="amplitude-song-played-progress" amplitude-song-index="0" id="song-played-progress-1"></progress>
+        <div class="duration">
+          <span class="amplitude-duration-minutes" amplitude-song-index="0">3</span>:<span class="amplitude-duration-seconds" amplitude-song-index="0"></span>
+        </div>
+      </div>
+    </div>
   </div>
-
-
-						 <!-- {{html .Podcast.Description}} -->
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/amplitudejs@3.2.3/dist/amplitude.js"></script>
+<script>
+  Amplitude.init({
+      "songs": [
+          {
+              "name": "{{.Podcast.Title}}",
+              "artist": "Artist Name",
+              "album": "URY On Tap",
+              "url": "https://ury.org.uk{{.Podcast.File}}",
+              "cover_art_url": "
+                {{- if .Podcast.Photo -}}
+                      https://ury.org.uk{{.Podcast.Photo}}
+                {{- else -}}
+                      {{url "/images/podcast.png"}}
+                {{- end -}}"
+          },
+      ]
+  });
+</script>
+<link rel="stylesheet" href="{{url "/css/podcast_player.css"}}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500">
 {{end}}
 {{end}}

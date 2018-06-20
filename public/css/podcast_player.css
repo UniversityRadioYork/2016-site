@@ -1,0 +1,171 @@
+/*
+  1. Base
+*/
+/*
+  2. Components
+*/
+div.player {
+  border: 1px solid #8d8d8d;
+  margin-bottom: 20px;
+  max-width: 780px;
+  margin: auto;
+  color: #8d8d8d; }
+  div.player:after {
+    content: "";
+    display: table;
+    clear: both; }
+  div.player img.album-art {
+    width: 150px;
+    height: 150px;
+    float:left; }
+
+/*
+  Small only
+*/
+@media screen and (max-width: 39.9375em) {
+  /* div.player img.album-art {
+    width: 100%;
+    height: auto; } */
+    div.time-container {
+      width: calc(100%);
+    }
+  }
+/*
+  Medium only
+*/
+/*
+  Large Only
+*/
+div.meta-container {
+  display: inline-block;
+  width: calc(100% - 160px);
+  padding: 10px;
+  border-bottom: 1px solid #8d8d8d;
+}
+  div.meta-container div.song-title {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 400;
+    font-family: "Raleway", sans-serif; }
+  div.meta-container div.song-artist {
+    text-align: center;
+    font-family: "Raleway", sans-serif;
+    font-size: 12px;
+    margin-top: 10px; }
+  div.time-container {
+    font-size: 18px;
+    padding: 10px;
+    display: inline-block;
+  }
+    div.time-container:after {
+      content: "";
+      display: table;
+      clear: both; }
+    div.time-container div.current-time {
+      /* float: left; */
+      display: inline-block;
+      margin: 0 20px;
+    }
+    div.time-container div.duration {
+      /* float: right; */
+      display: inline-block;
+      margin: 0 20px;
+    }
+
+/*
+  Small only
+*/
+@media screen and (max-width: 39.9375em) {
+  /* div.meta-container {
+    width: 100%; } */
+  div.podcast-description {
+    display: inline-block;
+  }
+}
+/*
+  Medium only
+*/
+/*
+  Large Only
+*/
+@media screen and (min-width: 39.9376em) {
+  div.podcast-description {
+    display: none;
+  }
+  div.time-container {
+    width: calc(100% - 160px)
+  }
+}
+div.podcast-description {
+  font-size: 14px;
+  padding: 20px;
+  border-bottom: 1px solid #8d8d8d;
+}
+
+  div.amplitude-play-pause {
+    width: 30px;
+    height: 33px;
+    margin: 0 20px;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    background-color: #8d8d8d;
+    background-size: cover !important; }
+    div.amplitude-play-pause.amplitude-paused {
+      background: url("../images/podcast_player/play.svg");}
+    div.amplitude-play-pause.amplitude-playing {
+      background: url("../images/podcast_player/pause.svg"); }
+
+/*
+  Small only
+*/
+@media screen and (max-width: 39.9375em) {
+}
+/*
+  Medium only
+*/
+@media screen and (min-width: 40em) and (max-width: 63.9375em) {
+ }
+/*
+  Large Only
+*/
+@media screen and (min-width: 64em) {
+}
+progress.amplitude-song-played-progress:not([value]) {
+  background-color: #999; }
+
+progress.amplitude-song-played-progress {
+  background-color: #8d8d8d;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 50%;
+  height: 5px;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 15px;
+  height: 8px;
+  border: none; }
+
+progress[value]::-webkit-progress-bar {
+  background-color: #d7dee3;
+  border-radius: 3px; }
+
+progress[value]::-moz-progress-bar {
+  background-color: #00a0ff;
+  border-radius: 3px; }
+
+progress[value]::-webkit-progress-value {
+  background-color: #00a0ff;
+  border-radius: 3px; }
+
+/*
+  3. Layout
+*/
+body {
+  background-color: transparent; }
+  body div#preload {
+    display: none; }
+
+
+/*# sourceMappingURL=app.css.map */
