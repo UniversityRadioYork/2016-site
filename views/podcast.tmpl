@@ -37,12 +37,12 @@
             <hr>
             <h2>Description</h2>
             <p>{{html .Podcast.Description}}</p>
-            {{template "podcast_player" .}}
+            <iframe src="player/" class="uryplayer-podcast-embed" frameborder="0">
+            </iframe>
           </div>
         </div>
       </div>
     </div>
   </div>
-
 {{end}}
 {{end}}
