@@ -75,7 +75,7 @@
     display: inline-block;
   }
   .time-container {
-    width: calc(100%);
+    width: 100%;
   }
 }
 
@@ -116,13 +116,17 @@
   display: inline-block;
   vertical-align: middle;
   background-color: #8d8d8d;
-  background-size: cover !important;
+}
+.amplitude-song-played-progress {
+  width: calc(100% - 210px);
 }
 .amplitude-play-pause.amplitude-paused {
   background: url("../images/podcast_player/play.svg");
+  background-size: cover;
 }
 .amplitude-play-pause.amplitude-playing {
   background: url("../images/podcast_player/pause.svg");
+  background-size: cover;
 }
 
 /*
@@ -136,6 +140,7 @@
   .branding {
     font-size: 20px;
   }
+
 }
 /*
   Large Player Only
@@ -147,6 +152,7 @@
   progress.amplitude-podcast-played-progress {
     width: 60%;
   }
+
 }
 
 progress.amplitude-podcast-played-progress:not([value]) {
@@ -184,7 +190,7 @@ progress[value]::-webkit-progress-value {
 
 
 /* Smallest player */
-@media (max-height: 170px) and (orientation: landscape) {
+@media (max-height: 170px) {
   .player {
     width: 100%;
     max-width: 100%;
@@ -195,7 +201,5 @@ progress[value]::-webkit-progress-value {
   .time-container {
     width: 100%;
   }
-  .time-container progress {
-    width: calc(100% - 210px);
-  }
+
 }
