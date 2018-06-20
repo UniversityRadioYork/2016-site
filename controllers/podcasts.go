@@ -95,7 +95,7 @@ func (podcastsC *PodcastController) Get(w http.ResponseWriter, r *http.Request) 
 		Podcast: podcast,
 	}
 
-	err = utils.RenderTemplate(w, podcastsC.config.PageContext, data, "podcast.tmpl", "podcast_player.tmpl")
+	err = utils.RenderTemplate(w, podcastsC.config.PageContext, data, "podcast.tmpl")
 
 	if err != nil {
 		log.Println(err)
