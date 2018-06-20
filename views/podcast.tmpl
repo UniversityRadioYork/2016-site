@@ -44,5 +44,62 @@
       </div>
     </div>
   </div>
+  <div class="container-fluid bg-third">
+    <div class="container container-padded">
+      <h2>Share this podcast...</h2>
+      <div class="row">
+        <div class="col-12 col-lg-6">
+          <h4>Embed</h4>
+          <p>Want to put our podcast on your blog or website? Just copy the HTML code below...</p>
+          <textarea class="uryplayer-podcast-code" readonly="readonly" onclick="this.focus(); this.select();" style="border: none;" type="text" cols="30"
+            ><iframe width=&quot;500&quot; height=&quot;500&quot; src=&quot;https://ury.org.uk/podcasts/{{.Podcast.PodcastID}}/player/&quot; frameborder=&quot;0&quot; allowfullscreen > </iframe></textarea>
+        </div>
+  {{end}}
+        <div class="col-12 col-lg-3">
+          <h4>Social Media</h4>
+          <div class="col-auto share-links">
+              <a href="#"
+                  data-type="twitter"
+                  data-url="{{.PageContext.FullURL}}{{url "/podcasts/"}}{{.PageData.Podcast.PodcastID}}/"
+                  {{if .PageData.Podcast.Photo}}
+                      data-media="{{.PageContext.FullURL}}{{.PageData.Podcast.Photo}}"
+                  {{end}}
+                  data-description="Checkout {{.PageData.Podcast.Title}} on {{.PageContext.LongName}}"
+                  data-via="{{.PageContext.MainTwitter}}"
+                  class="prettySocial fa fa-twitter">
+              </a>
+
+              <a href="#"
+                  data-type="facebook"
+                  data-url="{{.PageContext.FullURL}}{{url "/podcasts/"}}{{.PageData.Podcast.PodcastID}}/"
+                  data-title="{{.PageData.Podcast.Title}} | {{.PageContext.ShortName}}"
+                  data-description="{{.PageData.Podcast.Description}}"
+                  {{if .PageData.Podcast.Photo}}
+                      data-media="{{.PageContext.FullURL}}{{.PageData.Podcast.Photo}}"
+                  {{end}}
+                  class="prettySocial fa fa-facebook">
+              </a>
+
+              <a href="#"
+                  data-type="googleplus"
+                  data-url="{{.PageContext.FullURL}}{{url "/podcasts/"}}{{.PageData.Podcast.PodcastID}}/"
+                  data-description="{{.PageData.Podcast.Description}}"
+                  {{if .PageData.Podcast.Photo}}
+                      data-media="{{.PageContext.FullURL}}{{.PageData.Podcast.Photo}}"
+                  {{end}}
+                  class="prettySocial fa fa-google">
+              </a>
+
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {{end}}
+{{define "footer-scripts"}}
+<script src="{{url "/js/show.js"}}"></script>
+<script src="{{url "/js/jquery.prettySocial.min.js"}}"></script>
+<script type="text/javascript" class="source">
+  $(".prettySocial").prettySocial();
+</script>
 {{end}}

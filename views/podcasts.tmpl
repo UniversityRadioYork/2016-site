@@ -1,6 +1,21 @@
 {{define "title"}}{{.PageContext.ShortName}} | {{.PageContext.ODName}} | Podcasts{{end}}
 {{define "content"}}
 
+{{define "open-graph"}}
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@{{.PageContext.MainTwitter}}">
+<meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="{{.PageContext.ShortName}} | {{.PageData.Podcast.Title}}">
+{{if .PageData.Show.Photo}}
+  <meta property="og:image" content="{{.PageContext.FullURL}}{{url .PageData.Podcast.Photo}}">
+{{else}}
+  <meta property="og:image" content="{{.PageContext.FullURL}}{{url "images/open_graph-general.jpg"}}">
+{{end}}
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{.PageContext.FullURL}}{{url "/podcast/"}}{{.PageData.Podcast.PodcastID}}">
+<meta property="og:description" content="{{.PageData.Show.Description}}">
+{{end}}
 
 <div class="container-fluid on-demand">
 		<div class="container container-padded">
@@ -8,7 +23,7 @@
 					<div class="col">
 						<h1 class="header-title">
 								<a href="{{url "/ontap/"}}" title="Go back to {{.PageContext.ODName}}">
-									{{- .PageContext.ShortName }}{{.PageContext.ODName -}}
+									{{- .PageContext.ShortName}}{{.PageContext.ODName -}}
 								</a>
 								Podcasts
 						</h1>
