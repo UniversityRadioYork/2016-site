@@ -53,6 +53,7 @@
         <a class="nav-link" href="{{url .NextURL.Path}}">Next week &rarr;</a>
       {{end}}
     </nav>
+    <button class="btn mobile-only" type="button" onclick="jumpToNow()">Jump to the current show</button>
   </div>
 </div>
 
@@ -76,7 +77,7 @@
         {{end}}
       </table>
       {{range .Table}}
-        <table class="schedule-table">
+        <table class="schedule-table day-{{.Day.Weekday}}">
           <colgroup>
             <col class="mobile-only time-col">
           </colgroup>
@@ -85,7 +86,7 @@
           </tr>
           {{range .Cells}}
             <tr>
-              <td class="time-header mobile-only">{{.Hour | printf "%02d"}}:{{.Minute | printf "%02d"}}</td>
+              <td class="time-header mobile-only hour-{{.Hour | printf "%02d"}}">{{.Hour | printf "%02d"}}:{{.Minute | printf "%02d"}}</td>
               {{if ne .RowSpan 0}}
               <td rowspan="{{.RowSpan}}" class="schedule-timeslot schedule-block-{{.Item.Block}}" title="{{stripHTML .Item.Desc}}"
                   {{if .Item.PageURL}} onclick="window.location.href='{{url .Item.PageURL}}'" {{end}} >
@@ -119,3 +120,7 @@
 {{end}}
 {{end}}
 
+{{define "footer-scripts"}}
+<!-- Jump to day button -->
+<script src='{{url "/js/schedule.js"}}' id="jumpToNow"></script>
+{{end}}
