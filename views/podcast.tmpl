@@ -7,12 +7,14 @@
     <div class="container container-padded">
         <div class="row align-items-end text-center">
           <div class="col">
-            <h1 class="header-title">
+            <h1 class="display-5 header-title">
                 <a href="{{url "/ontap/"}}" title="Go back to {{.PageContext.ODName}}">
-                  {{- .PageContext.ODName -}}
+                  {{- .PageContext.ShortName }} {{.PageContext.ODName -}}
                 </a>
-                <a href="{{url "/podcasts/"}}" title="Go back to all podcasts.">Podcast</a>
             </h1>
+            <h2 class="display-4">
+              Podcast
+            </h3>
           </div>
         </div>
     </div>
