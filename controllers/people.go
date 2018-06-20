@@ -34,6 +34,11 @@ func (pc *PeopleController) Get(w http.ResponseWriter, r *http.Request) {
 
 	user, officerships, credits, currentAndNext, err := pm.Get(id)
 
+	//404 when the user has no credits.
+	if len(credits) == 0 {
+		utils.RenderTemplate(w, pc.config.PageContext, err, "404.tmpl")
+		return
+	}
 	if err != nil {
 		log.Println(err)
 		utils.RenderTemplate(w, pc.config.PageContext, err, "404.tmpl")
