@@ -209,37 +209,14 @@ footer {
   padding: 6em 0;
 }
 
-.uryplayer-podcast {
-
-  .section.img {
-    padding-right: 0;
-
-    .podcast-img {
-      height: 100vh;
-    }
-
-  }
-
-  .section.info {
-    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
-
-    .podcast-title {
-      font-size: 1.5rem;
-    }
-
-  }
-  .podcast-audio {
-    width: 100%;
-  }
-  .card-title {
-    margin-top: 10px;
-  }
-  .podcast-description p, .podcast-description span {
-    font-size: 15px !important;
-    font-family: "Roboto", sans-serif !important;
-    font-weight: 300 !important;
-    font-variant-ligatures: none !important;
-  }
+.uryplayer-podcast-embed {
+  height: 75px;
+  width: 500px;
+  max-width: 100%;
+}
+.uryplayer-podcast-code {
+  height: 70px;
+  width: 100%;
 }
 
 .page404 {

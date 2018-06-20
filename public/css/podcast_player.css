@@ -1,0 +1,205 @@
+.player {
+  border: 1px solid #8d8d8d;
+  background-color: white;
+  margin-bottom: 20px;
+  max-width: 800px;
+  margin: auto;
+  color: #8d8d8d;
+  position: relative;
+}
+.player:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.meta-container {
+  display: inline-block;
+  padding: 10px;
+  border-bottom: 1px solid #8d8d8d;
+}
+.meta-container .podcast-title {
+  font-size: 20px;
+  font-weight: 400;
+  font-family: "Raleway", sans-serif;
+}
+
+.branding {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px 10px;
+  display: inline-block;
+  text-align: right;
+  font-family: "Raleway", sans-serif;
+  font-weight: 600;
+}
+.branding span {
+  font-size: 0.85em;
+}
+
+.podcast-description p {
+  margin-bottom: 0;
+}
+
+.time-container {
+  font-size: 15px;
+  padding: 20px;
+  display: inline-block;
+}
+.time-container:after {
+  content: "";
+  display: table;
+  clear: both; }
+.time-container .current-time {
+  display: inline-block;
+  margin: 0 20px;
+}
+.time-container .duration {
+  display: inline-block;
+  margin: 0 20px;
+}
+
+/*
+  Medium player only
+*/
+@media screen and (max-width: 39.9375em) {
+  .player img.album-art {
+    width: 30%;
+    float:left;
+  }
+  .meta-container {
+    padding: 10px 20px;
+  }
+  .podcast-description {
+    display: inline-block;
+  }
+  .time-container {
+    width: 100%;
+  }
+}
+
+/*
+  Large player only
+*/
+@media screen and (min-width: 39.9376em) {
+  .player img.album-art {
+    width: 160px;
+    height: 160px;
+    float:left;
+  }
+  .meta-container {
+    width: calc(100% - 160px)
+  }
+  .meta-container .podcast-title {
+    max-width: calc(100% - 150px);
+  }
+  .podcast-description {
+    display: none;
+  }
+  .time-container {
+    width: calc(100% - 160px)
+  }
+}
+
+.podcast-description {
+  font-size: 14px;
+  padding: 20px;
+  border-bottom: 1px solid #8d8d8d;
+}
+
+.amplitude-play-pause {
+  width: 30px;
+  height: 33px;
+  margin-right: 10px;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  background-color: #8d8d8d;
+}
+.amplitude-song-played-progress {
+  width: calc(100% - 210px);
+}
+.amplitude-play-pause.amplitude-paused {
+  background: url("../images/podcast_player/play.svg");
+  background-size: cover;
+}
+.amplitude-play-pause.amplitude-playing {
+  background: url("../images/podcast_player/pause.svg");
+  background-size: cover;
+}
+
+/*
+  Small/Medium Player only
+*/
+@media screen and (max-width: 39.9375em) {
+  .meta-container {
+    width: 100%;
+    border-top: 1px solid #8d8d8d;
+  }
+  .branding {
+    font-size: 20px;
+  }
+
+}
+/*
+  Large Player Only
+*/
+@media screen and (min-width: 64em) {
+  .meta-container {
+    width: calc(100% - 160px);
+  }
+  progress.amplitude-podcast-played-progress {
+    width: 60%;
+  }
+
+}
+
+progress.amplitude-podcast-played-progress:not([value]) {
+  background-color: #999;
+}
+
+progress.amplitude-podcast-played-progress {
+  background-color: #8d8d8d;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 20%;
+  height: 5px;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 15px;
+  height: 8px;
+  border: none;
+}
+
+progress[value]::-webkit-progress-bar {
+  background-color: #d7dee3;
+  border-radius: 3px;
+}
+
+progress[value]::-moz-progress-bar {
+  background-color: #00a0ff;
+  border-radius: 3px;
+}
+
+progress[value]::-webkit-progress-value {
+  background-color: #00a0ff;
+  border-radius: 3px;
+}
+
+
+/* Smallest player */
+@media (max-height: 170px) {
+  .player {
+    width: 100%;
+    max-width: 100%;
+  }
+  img.album-art, .meta-container, .branding, .podcast-description {
+    display: none;
+  }
+  .time-container {
+    width: 100%;
+  }
+
+}

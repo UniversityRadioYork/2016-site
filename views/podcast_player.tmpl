@@ -6,44 +6,57 @@
 {{define "content"}}
 
 {{with .PageData}}
-  <div class="container-fluid uryplayer-podcast p-0">
-    <div class="row">
-      <div class="section img col-sm-auto">
-        <img class="podcast-img" src="
-        {{if .Podcast.Photo}}
-              https://ury.org.uk{{.Podcast.Photo}}
-        {{else}}
-              /images/podcast.png
-        {{end}}
+  <div class="player">
+    <img src="
+      {{- if .Podcast.Photo -}}
+            https://ury.org.uk{{.Podcast.Photo}}
+      {{- else -}}
+            {{url "/images/podcast.png"}}
+      {{- end -}}
+    " class="album-art"/>
+    <div class="branding">
+      URY On Tap<br>
+      <span>Podcast</span>
+    </div>
+    <div class="meta-container">
+      <div class="podcast-title">{{.Podcast.Title}}</div>
+    </div>
+    <div class="podcast-description">
+      {{- html .Podcast.Description -}}
+    </div>
 
-          " alt="{{.Podcast.Title}} Logo">
-      </div>
-      <div class="col-sm-9">
-
-        <div class="row">
-          <div class="col-12">
-            <div class="section info">
-              <div class="row py-2">
-                  <div class="col-6 od-date">{{.Podcast.Time.Format "Monday, _2 Jan 2006"}}</div>
-                  <div class="col 6 od-brand text-right">((URY)) on Tap<br><small>Podcast</small></div>
-              </div>
-              <h1 class="podcast-title"><a href="https://ury.org.uk{{.Podcast.MicrositeLink.URL}}" target="_parent">{{.Podcast.Title}}</a></h1>
-            </div>
-          </div>
-          <hr>
-          <div class="col-12">
-              <audio class="podcast-audio" controls>
-                <source src="https://ury.org.uk{{.Podcast.File}}" type="audio/mpeg">
-                It looks like your browser can't play this file, please update your browser.
-              </audio>
-            </div>
+      <div class="time-container">
+        <div class="amplitude-play-pause" amplitude-song-index="0"></div>
+        <div class="current-time">
+          <span class="amplitude-current-minutes" amplitude-song-index="0"></span>:<span class="amplitude-current-seconds" amplitude-song-index="0"></span>
+        </div>
+        <progress class="amplitude-song-played-progress" amplitude-song-index="0" id="song-played-progress-1"></progress>
+        <div class="duration">
+          <span class="amplitude-duration-minutes" amplitude-song-index="0">3</span>:<span class="amplitude-duration-seconds" amplitude-song-index="0"></span>
         </div>
       </div>
-
+    </div>
   </div>
-
-
-						 <!-- {{html .Podcast.Description}} -->
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/amplitudejs@3.2.3/dist/amplitude.js"></script>
+<script>
+  Amplitude.init({
+      "songs": [
+          {
+              "name": "{{.Podcast.Title}}",
+              "artist": "Artist Name",
+              "album": "URY On Tap",
+              "url": "https://ury.org.uk{{.Podcast.File}}",
+              "cover_art_url": "
+                {{- if .Podcast.Photo -}}
+                      https://ury.org.uk{{.Podcast.Photo}}
+                {{- else -}}
+                      {{url "/images/podcast.png"}}
+                {{- end -}}"
+          },
+      ]
+  });
+</script>
+<link rel="stylesheet" href="{{url "/css/podcast_player.css"}}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500">
 {{end}}
 {{end}}
