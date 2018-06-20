@@ -61,13 +61,14 @@ function updateShow() {
             + makeContent(data.payload.current)
             + "</a>");
 
-        $('#box-message').html('<h1>Send A Message</h1><span>Via the website, or text the studio</span><form action="https://ury.org.uk/schedule/message-current-show/" name="message" method="post"><textarea id="comments" name="comments" cols="30" rows="3" placeholder="Type your message here"></textarea><input type="submit" value="Send Message"></form><dl><dt>Text</dt><dd>07851 101 313</dd></dl>');
+        $("#studiomessage *").attr('disabled', false)
       } else {
         $(".current-and-next-now").replaceWith(
           "<div class=\"current-and-next-now p-2 pt-3 px-3 p-md-3 p-lg-4 \" title=\"View the show now on air.\">"
             + "<h2>Now</h2>"
             + makeContent(data.payload.current)
             + "</a>");
+        $("#studiomessage *").attr('disabled', true)
       }
       // Next show
       if (typeof data.payload.next.url !== 'undefined') {
