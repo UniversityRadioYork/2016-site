@@ -21,24 +21,22 @@
   <div class="container justify-content-between p-3">
     <div class="row">
       <div class="col-auto">
-        <h1 class="display-4 mobile-hide">Schedule</h1>
+        <h1 class="display-4 mobile-hide">Schedule <a class="fa fa-key schedule-key-icon" href="#key"></a></h1>
         <h5 class="text-muted mobile-hide">{{week (index .Schedule.Dates 0)}}</h5>
       </div>
-      <div class="col-auto">
+      <div class="col-12">
+        <h1 class="mobile-only inline">Schedule <a class="fa fa-key schedule-key-icon" data-toggle="collapse" data-target=".schedule-keys" aria-expanded="false" aria-controls="schedule-keys"></a></h1>
+        <h5 class="text-muted mobile-only">{{week (index .Schedule.Dates 0)}}</h5>
         <div class="schedule-keys collapse">
           <div class="key-row">
+            <span class="schedule-block-regular">Regular</span>
             <span class="schedule-block-flagship">Flagship</span>
             <span class="schedule-block-event">Events</span>
-            <span class="schedule-block-specialist-music">Specialist Music</span>
-
             <span class="schedule-block-news">News</span>
             <span class="schedule-block-speech">Speech</span>
             <span class="schedule-block-music">Music</span>
           </div>
         </div>
-          <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target=".schedule-keys" aria-expanded="false" aria-controls="schedule-keys">
-          Key
-        </button>
       </div>
     </div>
 
@@ -111,7 +109,17 @@
   {{end}}
   <br>
     <div class="row justify-content-center pb-3">
-
+        <div class="schedule-keys" id="key">
+          <div class="key-row">
+            <h5 class="inline">Schedule Key:</h5>
+            <span class="schedule-block-regular">Regular</span>
+            <span class="schedule-block-flagship">Flagship</span>
+            <span class="schedule-block-event">Events</span>
+            <span class="schedule-block-news">News</span>
+            <span class="schedule-block-speech">Speech</span>
+            <span class="schedule-block-music">Music</span>
+          </div>
+        </div>
     </div>
   </div>
 </div>
