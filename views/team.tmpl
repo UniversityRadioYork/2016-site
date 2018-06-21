@@ -14,7 +14,7 @@
 {{define "content"}}
   {{with .PageData}}
     <div class="container-fluid banner-2 slim text-overlay">
-      <div class="container">
+      <div class="container container-padded">
         <div class="row justify-content-center">
           <div class="text-center">
             <h1 class="display-5"><a href="{{url "/teams/"}}" title="View all teams">Our Teams</a></h1>
@@ -36,6 +36,7 @@
       <div class="container container-padded">
         <h2>Team Description</h2>
         <p>{{html .Description}}</p>
+        <h5><i class="fa fa-envelope-o"></i> <a href="mailto:{{.Alias}}@ury.org.uk" alt="Contact {{.Name}}">{{.Alias}}@ury.org.uk</a></h5>
       </div>
     </div>
     {{end}}

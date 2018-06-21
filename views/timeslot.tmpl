@@ -1,4 +1,4 @@
-{{define "title"}}{{.PageContext.ShortName}} | {{.PageData.Timeslot.Title}} {{.PageData.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}}{{end}}
+{{define "title"}}{{.PageContext.ShortName}} | {{.PageData.Timeslot.Title}} | {{.PageData.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}}{{end}}
 
 {{define "open-graph"}}
 <meta name="twitter:card" content="summary">
@@ -17,20 +17,24 @@
 {{end}}
 
 {{define "content"}}
-{{with .PageData}}
 <div class="container-fluid current-next">
   <div class="container">
-  {{if .MixcloudAvailable}}
+  {{if .PageData.MixcloudAvailable}}
     <div class="row justify-content-center">
       <div class="col-11 col-md-10 py-2 mixcloud">
-        <h2>URY on Tap: Listen Again</h2>
-        <iframe width="100%" height="120" src="https://www.mixcloud.com/widget/iframe/?feed={{.Timeslot.MixcloudStatus}}&hide_cover=1&light=1" frameborder="0"></iframe>
-        <a href="#">Listen to more shows on URY On Demand</a>
+        <h2>
+          <a href="/ontap/" title="Goto {{.PageContext.ShortName}} {{.PageContext.ODName}}">
+            {{- .PageContext.ShortName}} {{.PageContext.ODName -}}
+          </a>: Listen Again
+        </h2>
+        <iframe width="100%" height="120" src="//www.mixcloud.com/widget/iframe/?feed={{.PageData.Timeslot.MixcloudStatus}}&hide_cover=1&light=1" frameborder="0"></iframe>
+        <a href="/ontap/" title="Goto {{.PageContext.ShortName}} {{.PageContext.ODName}}">Listen to more shows on demand...</a>
       </div>
     </div>
   {{end}}
   </div>
 </div>
+{{with .PageData}}
 <div class="container-fluid bg-off-white">
   <div class="container p-3">
     <div class="row">
@@ -76,7 +80,7 @@
               {{end}}
               data-description="I'm listening to {{.PageData.Timeslot.Title}} ({{.PageData.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}})"
               data-via="{{.PageContext.MainTwitter}}"
-              class="prettySocial fa fa-twitter">
+              class="prettySocial fab fa-twitter">
             </a>
 
             <a href="#"
@@ -87,7 +91,7 @@
               {{if .PageData.Timeslot.Season.ShowMeta.Photo}}
                 data-media="{{.PageContext.FullURL}}{{.PageData.Timeslot.Season.ShowMeta.Photo}}"
               {{end}}
-              class="prettySocial fa fa-facebook">
+              class="prettySocial fab fa-facebook">
             </a>
 
             <a href="#"
@@ -97,7 +101,7 @@
               {{if .PageData.Timeslot.Season.ShowMeta.Photo}}
                 data-media="{{.PageContext.FullURL}}{{.PageData.Timeslot.Season.ShowMeta.Photo}}"
               {{end}}
-              class="prettySocial fa fa-google">
+              class="prettySocial fab fa-google">
             </a>
 
           </div>
