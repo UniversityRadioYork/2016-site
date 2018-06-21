@@ -2,6 +2,18 @@ $white: #ffffff;
 $black: #000000;
 $shadow: rgba(0, 0, 0, 0.5);
 
+
+.schedule-key-icon {
+  font-size: 0.6em;
+  color: $black;
+  text-decoration: none !important; // scss-lint:disable ImportantRule
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
 @mixin schedule-block($bg-color, $txt-color) {
   border-bottom: $bg-color solid 10px;
   background: $white;
