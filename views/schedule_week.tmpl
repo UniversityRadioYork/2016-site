@@ -2,6 +2,7 @@
 {{define "content"}}
 {{with .PageData}}
 
+<!-- top banner -->
 <div class="container-fluid header-large current-next mobile-shrink">
   <div class="container">
       <div class="row justify-content-center">
@@ -53,7 +54,8 @@
         <a class="nav-link" href="{{url .NextURL.Path}}">Next week &rarr;</a>
       {{end}}
     </nav>
-    <button class="btn mobile-only" type="button" onclick="jumpToNow()">Jump to the current show</button>
+    {{if }}
+    <button class="btn btn-secondary mobile-only" type="button" onclick="jumpToNow()">Jump to the current show</button>
   </div>
 </div>
 
@@ -116,11 +118,13 @@
     </div>
   </div>
 </div>
+
 {{end}}
 {{end}}
 {{end}}
 
 {{define "footer-scripts"}}
 <!-- Jump to day button -->
+<script>var StartHour = {{.PageData.StartHour}};</script>
 <script src='{{url "/js/schedule.js"}}' id="jumpToNow"></script>
 {{end}}

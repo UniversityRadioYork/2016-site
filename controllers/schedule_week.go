@@ -145,12 +145,14 @@ func (sc *ScheduleWeekController) makeAndRenderWeek(w http.ResponseWriter, year,
 		Schedule                  *models.WeekSchedule
 		PrevURL, CurrURL, NextURL *url.URL
 		CurrentAndNext            *myradio.CurrentAndNext
+		StartHour                 int
 	}{
 		Schedule:       ws,
 		PrevURL:        purl,
 		CurrURL:        curl,
 		NextURL:        nurl,
 		CurrentAndNext: currentAndNext,
+		StartHour:      utils.StartHour,
 	}
 
 	err = utils.RenderTemplate(w, sc.config.PageContext, data, "schedule_week.tmpl", "elements/current_and_next.tmpl")
