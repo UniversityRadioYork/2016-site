@@ -21,11 +21,15 @@ function jumpToNow(disableMove=false){
   }
   hour = zpad(hour,2);
   weekday = daysOfWeek[weekday]
-  let cell = $(".day-" + weekday + " .hour-" + hour);
+  let selector = ".day-" + weekday + " .hour-" + hour
+  let cell = $(selector);
   console.log(".day-" + weekday + " .hour-" + hour, cell)
   if(cell.length == 1){
     if(!disableMove){
-      $(window).scrollTop(Math.max(cell.offset().top - 100, 0));
+      $(window).scrollTop(Math.max(cell.offset().top - 200, 0));
+      $(selector).animate({opacity: 0},500,"swing",function(){
+        $(selector).animate({opacity: 1},500, "linear")
+      })
     }
   } else {
     if(cell.length == 0){

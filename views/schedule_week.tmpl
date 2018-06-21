@@ -26,8 +26,14 @@
         <h5 class="text-muted mobile-hide">{{week (index .Schedule.Dates 0)}}</h5>
       </div>
       <div class="col-12">
-        <h1 class="mobile-only inline"><a class="fa fa-key schedule-key-icon" data-toggle="collapse" data-target=".schedule-keys" aria-expanded="false" aria-controls="schedule-keys"></a></h1>
-
+        <div class="row">
+          {{with $weekName := week (index .Schedule.Dates 0)}}
+            {{if eq $weekName "this week"}}
+              <button class="btn btn-secondary mobile-only inline" type="button" onclick="jumpToNow()">Jump to the current show</button>
+            {{end}}
+          {{end}}
+          <h1 class="mobile-only inline"><a class="fa fa-key schedule-key-icon" data-toggle="collapse" data-target=".schedule-keys" aria-expanded="false" aria-controls="schedule-keys"></a></h1>
+        </div>
         <div class="schedule-keys collapse">
           <div class="key-row">
             <span class="schedule-block-regular">Regular</span>
@@ -52,11 +58,6 @@
         <a class="nav-link" href="{{url .NextURL.Path}}">Next week &rarr;</a>
       {{end}}
     </nav>
-    {{with $weekName := week (index .Schedule.Dates 0)}}
-      {{if eq $weekName "this week"}}
-        <button class="btn btn-secondary mobile-only" type="button" onclick="jumpToNow()">Jump to the current show</button>
-      {{end}}
-    {{end}}
   </div>
 </div>
 
