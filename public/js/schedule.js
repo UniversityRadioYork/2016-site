@@ -31,7 +31,6 @@ function jumpToNow(disableMove=false){
       });
     }
   } else if(cell.length === 0){
-    console.log("Running")
     $("#jumpToNow").attr("disabled", true);
     $("#jumpToNow").text("No show on air right now!");
     setTimeout(function(){
@@ -43,4 +42,4 @@ function jumpToNow(disableMove=false){
 
 $(function(){
   jumpToNow(true);
-})
+});

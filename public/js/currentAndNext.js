@@ -38,7 +38,7 @@ function updateShow() {
         } else {
           return "<span>There's nothing on here</span>";
         }
-      }
+      };
 
       // Current show
       if (typeof data.payload.current === "undefined"){
@@ -47,8 +47,8 @@ function updateShow() {
           "<div class=\"current-and-next-now p-2 pt-3 px-3 p-md-3 p-lg-4 \" title=\"View the show now on air.\">"
             + "<h2>Now</h2>"
             + "<h5 class=\"ellipsis\">There's nothing on right now</h5>");
-        $("#studiomessage *").attr('disabled', true)
-      } else if (typeof data.payload.current.url !== 'undefined') {
+        $("#studiomessage *").attr("disabled", true)
+      } else if (typeof data.payload.current.url !== "undefined") {
         $(".current-and-next-now").replaceWith(
           "<a class=\"current-and-next-now p-2 pt-3 px-3 p-md-3 p-lg-4 \" href="
             + data.payload.current.url
@@ -56,14 +56,14 @@ function updateShow() {
             + "<h2>Now</h2>"
             + makeContent(data.payload.current)
             + "</a>");
-        $("#studiomessage *").attr("disabled", false)
+        $("#studiomessage *").attr("disabled", false);
       } else {
         $(".current-and-next-now").replaceWith(
           "<div class=\"current-and-next-now p-2 pt-3 px-3 p-md-3 p-lg-4 \" title=\"View the show now on air.\">"
             + "<h2>Now</h2>"
             + makeContent(data.payload.current)
             + "</a>");
-        $("#studiomessage *").attr("disabled", true)
+        $("#studiomessage *").attr("disabled", true);
       }
 
       // Next show
