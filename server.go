@@ -75,6 +75,9 @@ func NewServer(c *structs.Config) (*Server, error) {
 	getRouter.HandleFunc("/uryplayer/", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/ontap/", 301)
 	})
+	getRouter.HandleFunc("/listen/", func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, "/about/", 301)
+	})
 	getRouter.HandleFunc("/uryplayer/podcasts/", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/podcasts/", 301)
 	})
