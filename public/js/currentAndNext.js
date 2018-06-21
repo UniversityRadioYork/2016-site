@@ -47,7 +47,7 @@ function updateShow() {
           "<div class=\"current-and-next-now p-2 pt-3 px-3 p-md-3 p-lg-4 \" title=\"View the show now on air.\">"
             + "<h2>Now</h2>"
             + "<h5 class=\"ellipsis\">There's nothing on right now</h5>");
-        $("#studiomessage *").attr("disabled", true)
+        $("#studiomessage *").attr("disabled", true);
       } else if (typeof data.payload.current.url !== "undefined") {
         $(".current-and-next-now").replaceWith(
           "<a class=\"current-and-next-now p-2 pt-3 px-3 p-md-3 p-lg-4 \" href="
