@@ -80,9 +80,9 @@
             {{range .Officerships}}
               <li>
               {{- .OfficerName}} - {{if .TillDateRaw -}}
-                from {{.FromDate.Format "2006-01-02"}} to {{.TillDate.Format "2006-01-02"}}
+                from {{.FromDate.Format "_2 Jan 2006"}} to {{.TillDate.Format "_2 Jan 2006"}}
               {{- else -}}
-                since {{.FromDate.Format "2006-01-02"}}
+                since {{.FromDate.Format "_2 Jan 2006"}}
               {{- end -}}
               </li>
             {{end}}
