@@ -1,4 +1,4 @@
-// global StartHour
+/* global StartHour */
 function zpad(n, width) {
   n = n + "";
   if (n.length >= width){
@@ -20,29 +20,24 @@ function jumpToNow(disableMove=false){
     }
   }
   hour = zpad(hour,2);
-  weekday = daysOfWeek[weekday]
+  weekday = daysOfWeek[weekday];
   let selector = ".day-" + weekday + " .hour-" + hour;
   let cell = $(selector);
-  console.log(".day-" + weekday + " .hour-" + hour, cell);
-  if(cell.length == 1){
+  if(cell.length === 1){
     if(!disableMove){
       $(window).scrollTop(Math.max(cell.offset().top - 200, 0));
       $(selector).animate({opacity: 0},500,"swing",function(){
         $(selector).animate({opacity: 1},500, "linear");
-      })
+      });
     }
-  } else {
-    if(cell.length == 0){
-      $("#jumpToNow").attr('disabled', true);
-      $("#jumpToNow").text("No show on air right now!");
-      setTimeout(function(){
-        $("#jumpToNow").attr('disabled', false);
-        $("#jumpToNow").text("Jump to current show");
-      }, 3000);
-
-    } else {
-      console.error("Found multiple cells matching current time");
-    }
+  } else if(cell.length === 0){
+    console.log("Running")
+    $("#jumpToNow").attr("disabled", true);
+    $("#jumpToNow").text("No show on air right now!");
+    setTimeout(function(){
+      $("#jumpToNow").attr("disabled", false);
+      $("#jumpToNow").text("Jump to current show");
+    }, 3000);
   }
 }
 

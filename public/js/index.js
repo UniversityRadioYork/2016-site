@@ -1,4 +1,3 @@
-// global MyRadioAPIKey
 // Youtube slideshow for index page
 function onGoogleLoad() {
   gapi.client.setApiKey(youtubeAPIKey);
