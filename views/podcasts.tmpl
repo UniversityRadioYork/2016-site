@@ -1,21 +1,6 @@
 {{define "title"}}{{.PageContext.ShortName}} | {{.PageContext.ODName}} | Podcasts{{end}}
-{{define "content"}}
 
-{{define "open-graph"}}
-<meta name="twitter:card" content="summary">
-<meta name="twitter:site" content="@{{.PageContext.MainTwitter}}">
-<meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}">
-<meta property="og:locale" content="en_GB">
-<meta property="og:title" content="{{.PageContext.ShortName}} | {{.PageData.Podcast.Title}}">
-{{if .PageData.Show.Photo}}
-  <meta property="og:image" content="{{.PageContext.FullURL}}{{url .PageData.Podcast.Photo}}">
-{{else}}
-  <meta property="og:image" content="{{.PageContext.FullURL}}{{url "images/open_graph-general.jpg"}}">
-{{end}}
-<meta property="og:type" content="website">
-<meta property="og:url" content="{{.PageContext.FullURL}}{{url "/podcast/"}}{{.PageData.Podcast.PodcastID}}">
-<meta property="og:description" content="{{.PageData.Show.Description}}">
-{{end}}
+{{define "content"}}
 
 <div class="container-fluid on-demand">
 		<div class="container container-padded">
@@ -35,7 +20,7 @@
   </div>
 
 {{with .PageData}}
-<div class="container container-padded bg-off-white pt-5 mt-5">
+<div class="container container-padded pt-5 mt-5">
   <nav class="row nav justify-content-between">
     <span>
       <a class="nav-link
@@ -58,11 +43,6 @@
     {{end}}
     </span>
   </nav>
-  <div class="pageination">
-
-
-  </div>
-  <div class="pt-3" style="text-align: right;">All Podcasts</div>
   <hr>
   {{range .Podcasts}}
   <div class="row">
