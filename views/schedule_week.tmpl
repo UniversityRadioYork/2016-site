@@ -54,8 +54,11 @@
         <a class="nav-link" href="{{url .NextURL.Path}}">Next week &rarr;</a>
       {{end}}
     </nav>
-    {{if }}
-    <button class="btn btn-secondary mobile-only" type="button" onclick="jumpToNow()">Jump to the current show</button>
+    {{with $weekName := week (index .Schedule.Dates 0)}}
+      {{if eq $weekName "this week"}}
+        <button class="btn btn-secondary mobile-only" type="button" onclick="jumpToNow()">Jump to the current show</button>
+      {{end}}
+    {{end}}
   </div>
 </div>
 
