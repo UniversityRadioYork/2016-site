@@ -4,9 +4,7 @@ function updateShow() {
   var data;
   $.ajax({
     dataType: "json",
-    //url: "//ury.org.uk/api/v2/timeslot/currentandnext/?api_key=" + MyRadioAPIKey, //Now
-    //url: "//ury.org.uk/api/v2/timeslot/currentandnext/?time=1529551800&api_key=" + MyRadioAPIKey, //Jukebox
-    url: "//ury.org.uk/api/v2/timeslot/currentandnext/?time=1529884800&api_key=" + MyRadioAPIKey, //Off air
+    url: "//ury.org.uk/api/v2/timeslot/currentandnext/?api_key=" + MyRadioAPIKey,
     data: data,
     success: function(data) {
       var calcTime = function(timestamp) {
@@ -94,8 +92,21 @@ function updateShow() {
       $(".current-and-next-img img").attr('src', "//ury.org.uk" + data.payload.current.photo);
     }
   });
-  setInterval(updateShow, 300000);
 }
 
-updateShow();
+// Call the function 1 minute past every half hour
+let nextCall = new Date();
+if (nextCall.getMinutes() === 1){
+  setInterval(updateShow, 1800000);
+} else {
+  nextCall.setHours(nextCall.getHours() + 1);
+  nextCall.setMinutes(1);
+  nextCall.setSeconds(0);
+
+  let difference = nextCall - new Date();
+  setTimeout(updateShow, difference);
+  // Call it now as well
+  updateShow();
+}
+
 });
