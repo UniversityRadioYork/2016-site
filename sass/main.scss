@@ -10,28 +10,7 @@
 }
 
 html {
-  font-size: 16px;
-}
-
-@include media-breakpoint-up(sm) {
-  html {
-    font-size: 16px;
-  }
-}
-
-
-@include media-breakpoint-up(md) {
-  html {
-    font-size: 14px;
-  }
-}
-
-
-@include media-breakpoint-up(lg) {
-  html {
-    font-size: 14px;
-  }
-
+  font-size: 14px;
 }
 
 @include media-breakpoint-down(lg) {
@@ -319,10 +298,6 @@ footer {
 @include media-breakpoint-down(sm) {
   .mobile-hide {
     display: none;
-  }
-
-  .header-large {
-    height: 400px;
   }
 
   .user-profile {
