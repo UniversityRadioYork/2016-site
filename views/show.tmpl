@@ -25,19 +25,19 @@
   <div class="container p-3">
     <div class="row">
       <div class="col-12 col-sm-5 col-lg-3">
-         <img class="img-fluid show-img" src="
-         {{if .Show.Photo}}
-         https://ury.org.uk{{.Show.Photo}}
-         {{else}}
-         /images/show-current.png
-         {{end}}"
-         alt="{{.Show.Title}} Logo">
+        <img class="img-fluid show-img" src="
+        {{- if .Show.Photo -}}
+        https://ury.org.uk{{.Show.Photo}}
+        {{- else -}}
+        /images/show-current.png
+        {{- end -}}"
+        alt="{{.Show.Title}} Logo">
         <div class="row">
           <div class="col-6 text-center">
             <h6>Seasons: {{len .Seasons}}</h6>
           </div>
           <div class="col-6 text-center">
-            <h6>Shows: {{showCount .Seasons}}</h6>
+            <h6>Episodes: {{showCount .Seasons}}</h6>
           </div>
         </div>
       </div>
@@ -59,7 +59,7 @@
                   {{end}}
                   data-description="Checkout {{.PageData.Show.Title}} on {{.PageContext.LongName}}"
                   data-via="{{.PageContext.MainTwitter}}"
-                  class="prettySocial fa fa-twitter">
+                  class="prettySocial fab fa-twitter">
               </a>
 
               <a href="#"
@@ -70,7 +70,7 @@
                   {{if .PageData.Show.Photo}}
                       data-media="{{.PageContext.FullURL}}{{.PageData.Show.Photo}}"
                   {{end}}
-                  class="prettySocial fa fa-facebook">
+                  class="prettySocial fab fa-facebook">
               </a>
 
               <a href="#"
@@ -80,10 +80,10 @@
                   {{if .PageData.Show.Photo}}
                       data-media="{{.PageContext.FullURL}}{{.PageData.Show.Photo}}"
                   {{end}}
-                  class="prettySocial fa fa-google">
+                  class="prettySocial fab fa-google">
               </a>
 
-            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -112,27 +112,102 @@
   </div>
 </div>
 {{end}}
-<div class="container-fluid">
-  <div class="container pt-3">
+<div class="container-fluid bg-third">
+  <div class="container show-selector">
     <div class="row">
-      <div class="col">
-        <h2>Seasons</h2>
-        <ul>
-        {{range .Seasons}}
-          <li>
-            <a href="/schedule/shows/seasons/{{.SeasonID}}/">Seasion {{.SeasonNum}}: {{.FirstTime.Format "Monday, _2 Jan 2006 at 15:04"}} - {{.NumEpisodes.Value}} Episode(s)</a>
-          </li>
+{{end}}
+      <div class="col-12 col-xl-4 p-4">
+        <h1>{{.PageContext.ShortName}} {{.PageContext.ODName}}</h1>
+        <h3><small>Explore the show catalogue, and listen back to your favorite episodes!</small></h3>
+        <a href="/ontap/">View all of our on demand content...</a>
+      </div>
+      <div id="season-list" class="col-12 col-md-6 col-xl-4 bg-off-white">
+        <h2>
+          Seasons
+        </h2>
+        <table id="seasons" class="table seasons-table">
+          <thead>
+            <tr>
+              <th>SeasonID</th>
+              <th>Season</th>
+              <th>First Episode</th>
+              <th>Episodes</th>
+            </tr>
+          </thead>
+          <tbody>
+          {{range .PageData.Seasons}}
+            {{if ne .SeasonNum 0}}
+              <tr class="timeslot-filter-season" data-SeasonID="{{.SeasonID}}">
+                <td>{{.SeasonID}}</td>
+                <td style="width:10px">{{.SeasonNum}}.</td>
+                <td>{{.FirstTime.Format "Jan 2006"}}</td>
+                <td style="width:10px"><span class="badge badge-pill badge-light">
+                  {{.NumEpisodes.Value}}</span>
+                </td>
+              </tr>
+            {{end}}
+          {{end}}
+          </tbody>
+        </table>
+      </div>
+      <div id="timeslot-latest" class="col-12 col-md-6 col-xl-4 p-4 bg-white">
+        <h3>Latest Episode</h3>
+        {{if ne .PageData.LatestTimeslot.TimeslotID 0}}
+        <p>Catchup with the latest episode from <strong>{{.PageData.LatestTimeslot.StartTime.Format "Monday, _2 Jan 2006"}}</strong></p>
+        {{if .PageData.LatestMixcloud}}
+          <iframe width="100%" height="120" src="https://www.mixcloud.com/widget/iframe/?feed={{.PageData.LatestTimeslot.MixcloudStatus}}&hide_cover=1&light=1"
+            frameborder="0"></iframe>
+        {{else}}
+          <p>
+            <strong>This episode isn't available on {{.PageContext.ShortName}} {{.PageContext.ODName}}, sorry about that.</strong>
+          </p>
         {{end}}
-        </ul>
+        <a href="/schedule/shows/timeslots/{{.PageData.LatestTimeslot.TimeslotID}}/">View full episode information...</a>
+        {{else}}
+          <p>
+            <strong>No episodes of this show have been broadcast yet.</strong>
+          </p>
+        {{end}}
+      </div>
+{{with .PageData}}
+      <div id="timeslot-list" class="col-12 col-md-6 col-xl-4 bg-off-white">
+        <h2 class="inline">Episodes</h2><h3 id="timeslot-season-title" class="inline"></h3>
+        <table id="timeslots" class="table timeslots-table">
+          <thead>
+            <tr>
+              <th>SeasonID</th>
+              <th>Season</th>
+              <th>Episode</th>
+              <th>Broadcast Time</th>
+            </tr>
+          </thead>
+          <tbody>
+          {{range .Timeslots}}
+            {{if ne .TimeslotNum 0}}
+              <tr>
+                <td>{{.Season.SeasonID}}</td>
+                <td>{{.Season.SeasonNum}}</td>
+                <td style="width:10px">{{.TimeslotNum}}.</td>
+                <td><a href="/schedule/shows/timeslots/{{.TimeslotID}}/">{{.StartTime.Format "Monday, _2 Jan 2006 at 15:04"}}</a></td>
+              </tr>
+            {{end}}
+          {{end}}
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
-</div>
+</div> <!-- /outer containter -->
 {{end}}
 {{end}}
 {{define "footer-scripts"}}
-  <script src="{{url "/js/jquery.prettySocial.min.js"}}"></script>
-  <script type="text/javascript" class="source">
-    $(".prettySocial").prettySocial();
-  </script>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
+<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="//cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+<script src="//cdn.datatables.net/plug-ins/1.10.16/api/fnFindCellRowIndexes.js"></script>
+<script src="{{url "/js/show.js"}}"></script>
+<script src="{{url "/js/jquery.prettySocial.min.js"}}"></script>
+<script type="text/javascript" class="source">
+  $(".prettySocial").prettySocial();
+</script>
 {{end}}

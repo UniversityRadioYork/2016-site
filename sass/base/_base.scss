@@ -71,3 +71,7 @@ $breakpoints: sm, md, lg, xl;
     @include make-scroll-horiz($bp);
   }
 }
+
+.overflow-hidden {
+  overflow: hidden;
+}

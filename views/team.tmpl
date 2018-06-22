@@ -7,7 +7,7 @@
     </div>
     <h4 class="text-center">{{.User.Fname}} {{.User.Sname}}</h4>
   </a>
-  <h5 class="text-center">{{.Position.Name}}<a href="mailto:head-of-computing@ury.org.uk"><span class="glyphicon glyphicon-envelope"></span></a></h5>
+  <h5 class="text-center">{{.Position.Name}}</h5>
 </div>
 {{end}}
 
@@ -20,7 +20,7 @@
             <h1 class="display-5"><a href="{{url "/teams/"}}" title="View all teams">Our Teams</a></h1>
             <h2 class="display-5">The people who make URY happen!</h2>
             <br>
-            <a href="/getinvolved/#signUp" class="btn btn-primary-inverse btn-lg">Be part of one!</a>
+            <a href="{{url "/getinvolved/#signUp"}}" class="btn btn-primary-inverse btn-lg">Be part of one!</a>
           </div>
         </div>
       </div>
@@ -36,6 +36,7 @@
       <div class="container container-padded">
         <h2>Team Description</h2>
         <p>{{html .Description}}</p>
+        <h5><i class="fa fa-envelope-o"></i> <a href="mailto:{{.Alias}}@ury.org.uk" alt="Contact {{.Name}}">{{.Alias}}@ury.org.uk</a></h5>
       </div>
     </div>
     {{end}}
@@ -60,11 +61,9 @@
       <div class="container container-padded">
         <h2>Get Involved</h2>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam porta sed nulla vitae porta. Phasellus gravida ipsum ac malesuada commodo. Vestibulum ut turpis non arcu hendrerit efficitur in eu odio. Aenean feugiat risus tempus hendrerit euismod. Donec est elit, elementum sed sem ut, luctus fringilla magna. Phasellus pellentesque enim ac vulputate pulvinar. Pellentesque luctus dignissim enim, sed maximus nunc egestas vitae.
+         If you have any further questions, please contact the team officers by using the email seen above. You can also come and visit our station in Vanbrugh College, where there'll almost always be someone there to talk to you and will help you to join the team.
         </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam porta sed nulla vitae porta. Phasellus gravida ipsum ac malesuada commodo. Vestibulum ut turpis non arcu hendrerit efficitur in eu odio. Aenean feugiat risus tempus hendrerit euismod. Donec est elit, elementum sed sem ut, luctus fringilla magna. Phasellus pellentesque enim ac vulputate pulvinar. Pellentesque luctus dignissim enim, sed maximus nunc egestas vitae.
-        </p>
+        <a href="{{url "/getinvolved/"}}" class="btn btn-primary-inverse btn-md">Sign up for URY!</a>
       </div>
     </div>
   {{end}}
