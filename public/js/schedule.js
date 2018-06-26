@@ -1,45 +1,45 @@
 /* global StartHour */
 function zpad(n, width) {
   n = n + "";
-  if (n.length >= width){
+  if (n.length >= width) {
     return n;
   } else {
     return new Array(width - n.length + 1).join("0") + n;
   }
 }
 
-function jumpToNow(disableMove=false){
+function jumpToNow(disableMove = false) {
   let daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   let d = new Date();
-  let weekday = d.getDay();
+  let weekday_index = d.getDay();
   let hour = d.getHours();
-  if (hour < StartHour){
-    weekday -= 1;
-    if (weekday < 0){
-      weekday = 6;
+  if (hour < StartHour) {
+    weekday_index -= 1;
+    if (weekday_index < 0) {
+      weekday_index = 6;
     }
   }
-  hour = zpad(hour,2);
-  weekday = daysOfWeek[weekday];
+  hour = zpad(hour, 2);
+  weekday = daysOfWeek[weekday_index];
   let selector = ".day-" + weekday + " .hour-" + hour;
   let cell = $(selector);
-  if(cell.length === 1){
-    if(!disableMove){
+  if (cell.length === 1) {
+    if (!disableMove) {
       $(window).scrollTop(Math.max(cell.offset().top - 200, 0));
-      $(selector).animate({opacity: 0},500,"swing",function(){
-        $(selector).animate({opacity: 1},500, "linear");
+      $(selector).animate({opacity: 0}, 500, "swing", function() {
+        $(selector).animate({opacity: 1}, 500, "linear");
       });
     }
-  } else if(cell.length === 0){
+  } else if (cell.length === 0) {
     $("#jumpToNow").attr("disabled", true);
     $("#jumpToNow").text("No show on air right now!");
-    setTimeout(function(){
+    setTimeout(function() {
       $("#jumpToNow").attr("disabled", false);
       $("#jumpToNow").text("Jump to current show");
     }, 3000);
   }
 }
 
-$(function(){
+$(function() {
   jumpToNow(true);
 });
