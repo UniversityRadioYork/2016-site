@@ -11,16 +11,16 @@ function zpad(n, width) {
 function jumpToNow(disableMove = false) {
   let daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   let d = new Date();
-  let weekday_index = d.getDay();
+  let weekdayIndex = d.getDay();
   let hour = d.getHours();
   if (hour < StartHour) {
-    weekday_index -= 1;
-    if (weekday_index < 0) {
-      weekday_index = 6;
+    weekdayIndex -= 1;
+    if (weekdayIndex < 0) {
+      weekdayIndex = 6;
     }
   }
   hour = zpad(hour, 2);
-  weekday = daysOfWeek[weekday_index];
+  let weekday = daysOfWeek[weekdayIndex];
   let selector = ".day-" + weekday + " .hour-" + hour;
   let cell = $(selector);
   if (cell.length === 1) {

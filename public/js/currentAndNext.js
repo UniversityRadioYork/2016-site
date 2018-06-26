@@ -72,7 +72,7 @@ $(document).ready(function() {
           $(".current-and-next-next").replaceWith(
             "<div class=\"current-and-next-next p-2 pt-3 px-3 p-md-3 p-lg-4 \" title=\"View the show up next.\">" +
             "<h2>Next</h2>" +
-            "<h5 class=\"ellipsis\">Looks like there is nothing coming up next yet.</h5>" +
+            "<h5 class=\"ellipsis\">There's nothing up next yet</h5>" +
             "</a>");
         } else if (typeof data.payload.next.url !== "undefined") {
           $(".current-and-next-next").replaceWith(
