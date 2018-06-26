@@ -7,7 +7,7 @@
 #
 #
 # This is the main config file for the 2016-site.
-# Api Key should not be stored in this file. It should be in `.myradio.key`
+# The main API Key should not be stored in this file. It should be in `.myradio.key`
 # Any changes to this config should be reflected in the struct `structs.Config`
 
 # This is the config for the server
@@ -30,7 +30,8 @@
 	newsTwitter = "URYNews"
 
 	odName = "On Tap"
-	myRadioAPIKey = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+	publicMyRadioAPIKey = "DFm1QGGyDZXHvGjjKYxv72ItpZe5oPiNvqTKEJLC2CmPYvdbYQ591DNKhpXwb1U9NVIgBuQ4XOBdSAKbaGzliqHm7pu4H4PxmO7mrH4JvKV6dBZx5n32obnEE2pE9vWC"
 
 	[[pageContext.pages]]
 		name = "Search"
