@@ -3,7 +3,7 @@
 {{with .CurrentAndNext}}
 <div class="current-and-next row justify-content-center">
   {{if .Current}}
-  <div class="col-4 col-md-2 p-0 current-and-next-img">
+  <div class="col-5 col-sm-3 col-md-2 p-0 current-and-next-img">
     <img src="
     {{- if .Current.Photo -}}
       //ury.org.uk{{.Current.Photo}}
@@ -13,11 +13,11 @@
     " alt="{{.Current.Title}} Photo" />
     <a href="https://ury.org.uk/listen" class="btn btn-red listen-btn mobile-hide px-0" title="Listen Live" onclick="window.open('http://ury.org.uk/live', 'radioplayer', 'height=665,width=380'); return false;">Listen Live</a>
   </div>
-  <div class="col-8 col-md-5 p-0 m-0">
+  <div class="col-7 col-sm-9 col-md-5 p-0 m-0">
     {{if .Current.Url}}
-    <a class="current-and-next-now p-2 pt-3 px-3 p-md-3 p-lg-4 " href="{{.Current.Url}}" title="View the show now on air.">
+    <a class="current-and-next-now p-2 px-3 p-sm-3 p-lg-4 " href="{{.Current.Url}}" title="View the show now playing">
     {{else}}
-    <div class="current-and-next-now p-2 pt-3 px-3 p-md-3 p-lg-4">
+    <div class="current-and-next-now p-2 px-3 p-sm-3 p-lg-4">
     {{end}}
     <h2>Now</h2>
     {{template "current_next" .Current}}

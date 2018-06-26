@@ -79,12 +79,11 @@
             <ul class="split-evenly-2">
             {{range .Officerships}}
               <li>
-              {{.OfficerName}} - from {{.FromDate.Format "2006-01-02"}} to
-              {{if .TillDateRaw}}
-                {{.TillDate.Format "2006-01-02"}}
-              {{else}}
-                current
-              {{end}}
+              {{- .OfficerName}} - {{if .TillDateRaw -}}
+                from {{.FromDate.Format "_2 Jan 2006"}} to {{.TillDate.Format "_2 Jan 2006"}}
+              {{- else -}}
+                since {{.FromDate.Format "_2 Jan 2006"}}
+              {{- end -}}
               </li>
             {{end}}
             </ul>
