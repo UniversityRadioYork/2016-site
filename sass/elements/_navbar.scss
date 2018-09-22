@@ -1,4 +1,4 @@
-$nav-background: rgba(255, 255, 255, .88);
+$nav-background: rgba(255, 255, 255, .97);
 $nav-bottom-border: 1px solid rgba(2, 45, 89, .3);
 $nav-links-color: rgb(2, 45, 89);
 
@@ -6,8 +6,8 @@ $nav-links-color: rgb(2, 45, 89);
 
 
 .navbar-ury {
-  -webkit-backdrop-filter: blur(7px);
-  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
   background: $nav-background;
   border-bottom: $nav-bottom-border;
 
