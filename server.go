@@ -72,9 +72,13 @@ func NewServer(c *structs.Config) (*Server, error) {
 	getRouter.HandleFunc("/podcasts/{id:[0-9]+}/", podcastsC.Get)
 	getRouter.HandleFunc("/podcasts/{id:[0-9]+}/player/", podcastsC.GetEmbed)
 	// Redirect old podcast URLs
-	getRouter.HandleFunc("/uryplayer/", func(w http.ResponseWriter, r *http.Request) {
+
+	chartsC := controllers.NewChartController(session, c)
+	getRouter.HandleFunc("/charts/", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/ontap/", 301)
 	})
+	getRouter.HandleFunc("/charts/{name}/", chartsC.Get)
+
 	getRouter.HandleFunc("/listen/", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/about/", 301)
 	})
