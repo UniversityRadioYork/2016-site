@@ -55,7 +55,16 @@
 <h5 class="ellipsis">
   {{.Title}}
 </h5>
-<h6>{{.StartTime.Format "15:04"}} - {{.EndTime.Format "15:04"}}</h6>
+<h6>
+  {{if not .EndTime.IsZero}}
+    {{- if .StartTime.IsZero -}}
+      Now
+    {{- else -}}
+      {{- .StartTime.Format "15:04" -}}
+    {{- end}} -
+    {{.EndTime.Format "15:04"}}
+  {{end}}
+</h6>
 {{else}}
 <span>Looks like there is nothing coming up next yet.</span>
 {{end}}
