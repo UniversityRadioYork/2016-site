@@ -14,7 +14,7 @@
   </div>
   <div class="col-7 col-sm-9 col-md-5 p-0 m-0">
     {{if .Current.Url}}
-    <a class="current-and-next-now p-2 px-3 p-sm-3 p-lg-4 " href="{{.Current.Url}}" title="View the show now playing">
+    <a class="current-and-next-now p-2 px-3 p-sm-3 p-lg-4 " href="{{.Current.Url}}" title="On air now: {{.Current.Title}}">
     {{else}}
     <div class="current-and-next-now p-2 px-3 p-sm-3 p-lg-4">
     {{end}}
@@ -30,7 +30,7 @@
   {{if .Next}}
   <div class="col col-md-5 p-0 m-0">
     {{if .Next.Url}}
-    <a class="current-and-next-next p-3 p-lg-4" href="{{.Next.Url}}" title="View the show next up">
+    <a class="current-and-next-next p-3 p-lg-4" href="{{.Next.Url}}" title="On air next: {{.Next.Title}}">
     {{else}}
     <div class="current-and-next-next p-3 p-lg-4">
     {{end}}
@@ -55,7 +55,16 @@
 <h5 class="ellipsis">
   {{.Title}}
 </h5>
-<h6>{{.StartTime.Format "15:04"}} - {{.EndTime.Format "15:04"}}</h6>
+<h6>
+  {{if not .EndTime.IsZero}}
+    {{- if .StartTime.IsZero -}}
+      Now
+    {{- else -}}
+      {{- .StartTime.Format "15:04" -}}
+    {{- end}} -
+    {{.EndTime.Format "15:04"}}
+  {{end}}
+</h6>
 {{else}}
 <span>Looks like there is nothing coming up next yet.</span>
 {{end}}
