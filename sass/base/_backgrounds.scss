@@ -8,7 +8,7 @@
   color: $white;
 
   a {
-    color: $link-blue;
+    color: $link-color-light;
   }
 }
 
@@ -17,12 +17,16 @@
   color: $black;
 
   a {
-    color: $link-blue;
+    color: $link-color-dark;
   }
 }
 
 .bg-primary {
   background: $primary-color !important;
+
+  hr {
+    border-color: $off-white-color;
+  }
 }
 
 .bg-secondary {
