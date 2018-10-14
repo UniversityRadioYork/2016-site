@@ -77,7 +77,7 @@
             <h2 id="shows">Shows</h2>
             <hr>
             This person has worked on the following shows:
-            <ul class="split-evenly-3">
+            <ul>
             {{range .ShowCredits}}
               <li>
                 <a href="{{.MicroSiteLink.URL}}" title="View the {{.Title}} webpage.">{{.Title}}</a>
@@ -89,7 +89,7 @@
             {{if .Officerships}}
               <h2>Officerships</h2>
               <hr>
-              <ul class="split-evenly-2">
+              <ul>
               {{range .Officerships}}
                 <li>
                 {{- .OfficerName}} - {{if .TillDateRaw -}}
