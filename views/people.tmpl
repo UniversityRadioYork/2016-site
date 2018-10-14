@@ -67,11 +67,13 @@
     </div> <!-- /outer containter -->
     <div class="container-fluid bg-primary">
       <div class="container container-padded">
-        {{if .User.Bio}}
-          <h2>Bio</h2>
-          <hr>
-          <p>{{html .User.Bio}}</p>
-        {{end}}
+        <div class="row">
+          {{if .User.Bio}}
+            <h2>Bio</h2>
+            <hr>
+            <p>{{html .User.Bio}}</p>
+          {{end}}
+        </div>
         <div class="row">
           <div class="col-sm">
             <h2 id="shows">Shows</h2>
