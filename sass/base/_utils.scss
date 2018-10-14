@@ -1,3 +1,5 @@
+$column-gap: 30px;
+
 // Method to tint colors
 @function tint($color, $percent) {
   @return mix(white, $color, 100% - $percent);
@@ -8,39 +10,25 @@ ul {
   // Splits a list into two even columns for anything above md and three for anything above xl
   // otherwise its one column
   &.split-evenly-3 {
-    text-align: left;
-    overflow: auto;
-    width: 100%;
 
     @include media-breakpoint-up(md) {
-      li {
-        float: left;
-        width: 50%;
-        padding-right: 1em;
-      }
+      column-count: 2;
+      column-gap: $column-gap;
     }
 
     @include media-breakpoint-up(xl) {
-      li {
-        float: left;
-        width: 33%;
-      }
+      column-count: 3;
+      column-gap: $column-gap;
     }
 }
 
   // Splits a list into two even columns for anything above md
   // otherwise its one
   &.split-evenly-2 {
-    text-align: left;
-    overflow: auto;
-    width: 100%;
 
     @include media-breakpoint-up(md) {
-      li {
-        float: left;
-        width: 50%;
-        padding-right: 1em;
-      }
+      column-count: 2;
+      column-gap: $column-gap;
     }
   }
 
