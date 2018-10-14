@@ -67,37 +67,41 @@
     </div> <!-- /outer containter -->
     <div class="container-fluid bg-primary">
       <div class="container container-padded">
-        <div>
-          {{if .User.Bio}}
-            <h2>Bio</h2>
+        {{if .User.Bio}}
+          <h2>Bio</h2>
+          <hr>
+          <p>{{html .User.Bio}}</p>
+        {{end}}
+        <div class="row">
+          <div class="col-sm">
+            <h2 id="shows">Shows</h2>
             <hr>
-            <p>{{html .User.Bio}}</p>
-          {{end}}
-          {{if .Officerships}}
-            <h2>Officerships</h2>
-            <hr>
-            <ul class="split-evenly-2">
-            {{range .Officerships}}
+            This person has worked on the following shows:
+            <ul class="split-evenly-3">
+            {{range .ShowCredits}}
               <li>
-              {{- .OfficerName}} - {{if .TillDateRaw -}}
-                from {{.FromDate.Format "_2 Jan 2006"}} to {{.TillDate.Format "_2 Jan 2006"}}
-              {{- else -}}
-                since {{.FromDate.Format "_2 Jan 2006"}}
-              {{- end -}}
+                <a href="{{.MicroSiteLink.URL}}" title="View the {{.Title}} webpage.">{{.Title}}</a>
               </li>
             {{end}}
             </ul>
-          {{end}}
-          <h2 id="shows">Shows</h2>
-          <hr>
-          This person has worked on the following shows:
-          <ul class="split-evenly-3">
-          {{range .ShowCredits}}
-            <li>
-              <a href="{{.MicroSiteLink.URL}}" title="View the {{.Title}} webpage.">{{.Title}}</a>
-            </li>
-          {{end}}
-          </ul>
+          </div>
+          <div class="col-sm">
+            {{if .Officerships}}
+              <h2>Officerships</h2>
+              <hr>
+              <ul class="split-evenly-2">
+              {{range .Officerships}}
+                <li>
+                {{- .OfficerName}} - {{if .TillDateRaw -}}
+                  from {{.FromDate.Format "_2 Jan 2006"}} to {{.TillDate.Format "_2 Jan 2006"}}
+                {{- else -}}
+                  since {{.FromDate.Format "_2 Jan 2006"}}
+                {{- end -}}
+                </li>
+              {{end}}
+              </ul>
+            {{end}}
+          </div>
         </div>
       </div>
     </div>
