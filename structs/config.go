@@ -32,6 +32,7 @@ type PageContext struct {
 	NewsTwitter     string `toml:"newsTwitter"`
 	MyRadioAPIKey   string `toml:"myRadioAPIKey"`
 	ODName          string `toml:"odName"`
+	Christmas       bool   `toml:"christmas"`
 	Pages           []Page
 	Youtube         youtube
 	Gmaps           gmaps
