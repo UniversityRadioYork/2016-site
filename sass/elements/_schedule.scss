@@ -69,6 +69,11 @@ $shadow: rgba(0, 0, 0, 0.5);
       border: 0;
     }
   }
+  
+  tbody {
+    display: table;
+    width: 100%;
+  }
 
   tr {
     height: 84px;
@@ -196,6 +201,10 @@ $sustainer-color: tint($primary-color, 40%);
     margin-bottom: 10px;
     padding: 10px;
     border-radius: 2px;
+
+    tbody {
+      display: table-row-group;
+    }
 
     .day-header,
     .time-header {
