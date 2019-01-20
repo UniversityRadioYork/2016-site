@@ -109,7 +109,7 @@
           </div>
         </fieldset>
         <fieldset id="getinvolved-interest" class="col-md-6">
-          <legend>I'm interested in the…</legend>
+          <legend>I'm interested in…</legend>
           {{range $listID, $Team := .ListTeamMap}}
             <input type="checkbox" name="interest" id="interest-{{$Team.Alias}}" value="{{$listID}}">
             <label for="interest-{{$Team.Alias}}" title="{{html $Team.Description}}">{{$Team.Name}}</label>
