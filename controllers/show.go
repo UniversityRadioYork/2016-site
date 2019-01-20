@@ -120,21 +120,36 @@ func (sc *ShowController) GetTimeslot(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(vars["id"])
 
 	timeslot, tracklist, creditsToUsers, err := sm.GetTimeslot(id)
-	mixcloudavailable := false
+	odState := 0
 
-	if strings.HasPrefix(timeslot.MixcloudStatus, "/URY1350/") {
-		mixcloudavailable = true
+	endTime := timeslot.StartTime.Add(timeslot.Duration)
+	timeNow := time.Now()
+	if timeNow.Before(timeslot.StartTime) {
+		odState = 1 // Show hasn't started yet
+	} else if timeNow.Before(endTime) {
+		odState = 2 // Show is on now.
+	} else if timeNow.After(endTime) {
+		if timeslot.MixcloudStatus == "Queued" || timeslot.MixcloudStatus == "Requested" {
+			odState = 3 // Show is Queued
+		} else if strings.HasPrefix(timeslot.MixcloudStatus, "/URY1350/") {
+			odState = 4 // Show has been uploaded.
+		} else if timeslot.MixcloudStatus == "Skipped - Off Air" {
+			odState = 5 // They didn't turn up (in time).
+		} else {
+			odState = 6 // Something else happend (eg. show didn't want Mixcloud)
+			println(timeslot.MixcloudStatus)
+		}
 	}
 	data := struct {
-		Timeslot          myradio.Timeslot
-		Tracklist         []myradio.TracklistItem
-		MixcloudAvailable bool
-		CreditsToUsers    map[string][]myradio.User
+		Timeslot       myradio.Timeslot
+		Tracklist      []myradio.TracklistItem
+		ODState        int
+		CreditsToUsers map[string][]myradio.User
 	}{
-		Timeslot:          timeslot,
-		Tracklist:         tracklist,
-		MixcloudAvailable: mixcloudavailable,
-		CreditsToUsers:    creditsToUsers,
+		Timeslot:       timeslot,
+		Tracklist:      tracklist,
+		ODState:        odState,
+		CreditsToUsers: creditsToUsers,
 	}
 
 	if err != nil {
