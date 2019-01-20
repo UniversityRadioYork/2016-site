@@ -137,7 +137,6 @@ func (sc *ShowController) GetTimeslot(w http.ResponseWriter, r *http.Request) {
 			odState = 5 // They didn't turn up (in time).
 		} else {
 			odState = 6 // Something else happend (eg. show didn't want Mixcloud)
-			println(timeslot.MixcloudStatus)
 		}
 	}
 	data := struct {
