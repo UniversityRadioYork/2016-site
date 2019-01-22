@@ -1,5 +1,22 @@
 /* global MyRadioAPIKey */
 $(document).ready(function() {
+
+  function scheduleUpdate() {
+    // Call the function 10 seconds past every half hour
+    let nextCall = new Date();
+
+    if (nextCall.getMinutes() >= 30) {
+      nextCall.setHours(nextCall.getHours() + 1);
+      nextCall.setMinutes(0);
+    } else {
+      nextCall.setMinutes(30)
+    }
+    nextCall.setSeconds(10);
+
+    let difference = nextCall - new Date();
+    setTimeout(updateShow, difference);
+  }
+
   // Used for autoupdating the now and next.
   function updateShow() {
     var data;
@@ -91,22 +108,14 @@ $(document).ready(function() {
         }
 
         $(".current-and-next-img img").attr("src", "//ury.org.uk" + data.payload.current.photo);
+
+        //Schedule when the next update will happen.
+        scheduleUpdate();
       }
     });
   }
 
-  // Call the function 1 minute past every half hour
-  let nextCall = new Date();
-  if (nextCall.getMinutes() === 1) {
-    setInterval(updateShow, 1800000);
-  } else {
-    nextCall.setHours(nextCall.getHours() + 1);
-    nextCall.setMinutes(1);
-    nextCall.setSeconds(0);
+  // Call on startup too, mainly to schedule next update.
+  updateShow();
 
-    let difference = nextCall - new Date();
-    setTimeout(updateShow, difference);
-    // Call it now as well
-    updateShow();
-  }
 });
