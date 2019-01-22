@@ -26,7 +26,7 @@
         <h5 class="text-muted mobile-hide">{{week (index .Schedule.Dates 0)}}</h5>
       </div>
       <div class="col-12">
-        <div class="row">
+        <div class="row justify-content-center">
           {{with $weekName := week (index .Schedule.Dates 0)}}
             {{if eq $weekName "this week"}}
               <button class="btn btn-secondary mobile-only inline" id="jumpToNow" type="button" onclick="jumpToNow()">Jump to the current show</button>
@@ -130,7 +130,6 @@
     </div>
   </div>
 </div>
-
 {{end}}
 {{end}}
 {{end}}

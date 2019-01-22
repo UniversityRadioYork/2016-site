@@ -158,8 +158,6 @@ $sustainer-color: tint($primary-color, 40%);
 }
 
 .schedule-keys .key-row {
-
-
   * {
     display: inline-block;
   }
@@ -167,15 +165,13 @@ $sustainer-color: tint($primary-color, 40%);
 
 @include media-breakpoint-down(md) {
   .schedule-keys .key-row {
-
-
     .h5, .h6 {
       display: block;
       margin-top: 10px;
     }
-
   }
 }
+
 @include media-breakpoint-down(sm) {
   .current-next.mobile-shrink {
     height: unset;
@@ -183,12 +179,10 @@ $sustainer-color: tint($primary-color, 40%);
   }
   .schedule-keys .key-row {
     text-align: left;
-
     .h5, .h6 {
       display: block;
       margin-top: 10px;
     }
-
   }
   .schedule-table {
     display: table;
