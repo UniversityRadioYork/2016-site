@@ -60,7 +60,7 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 
 	for _, season := range seasons {
 		_, timeslotsSingleSeason, _ := sm.GetSeason(season.SeasonID)
-		if season.FirstTimeRaw != "Not Scheduled" && len(timeslotsSingleSeason) > 0 {
+		if season.FirstTimeRaw != 0 && len(timeslotsSingleSeason) > 0 {
 			scheduledSeasons = append(scheduledSeasons, season)
 			timeslots = append(timeslots, timeslotsSingleSeason...)
 		}
