@@ -9,7 +9,7 @@ $(document).ready(function() {
       nextCall.setHours(nextCall.getHours() + 1);
       nextCall.setMinutes(0);
     } else {
-      nextCall.setMinutes(30)
+      nextCall.setMinutes(30);
     }
     nextCall.setSeconds(10);
 
