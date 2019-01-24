@@ -28,11 +28,11 @@ $(document).ready(function() {
         var calcTime = function(timestamp) {
           var date = new Date(timestamp * 1000);
           // Hours part from the timestamp
-          var hours = date.getHours();
+          var hours = "0" + date.getHours();
           // Minutes part from the timestamp
           var minutes = "0" + date.getMinutes();
-
-          return hours + ":" + minutes.substr(-2);
+          // Use substr to remove the extra 0 if 2 digit hour/min
+          return hours.substr(-2) + ":" + minutes.substr(-2);
         };
 
         var makeContent = function(show) {
