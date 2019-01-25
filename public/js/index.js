@@ -7,7 +7,6 @@ function onGoogleLoad() {
     playlistId: youtubePlaylistID,
     maxResults: 12
   });
-
   request.execute(function(response) {
     for (var i = 0; i < response.items.length; i++) {
       $('#youtube-videos').append('<div class="thumbnail-container col-10 col-sm-7 col-md-4 col-lg-3">' +
