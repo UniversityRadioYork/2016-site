@@ -39,7 +39,6 @@ $button-color: #fff;
   &.btn-red {
     background: $red;
     color: $button-color;
-    border: 2px solid $button-color;
 
     &:hover:not(:disabled) {
       background: $button-color;

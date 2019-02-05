@@ -10,7 +10,6 @@
       {{url "/images/show-current.png"}}
     {{end}}
     " alt="{{.Current.Title}} Photo" />
-    <a href="https://ury.org.uk/listen" class="btn btn-red listen-btn mobile-hide px-0" title="Listen Live" onclick="window.open('http://ury.org.uk/live', 'radioplayer', 'height=665,width=380'); return false;">Listen Live</a>
   </div>
   <div class="col-7 col-sm-9 col-md-5 p-0 m-0">
     {{if .Current.Url}}
@@ -25,6 +24,7 @@
     {{else}}
     </div>
     {{end}}
+    <a href="https://ury.org.uk/listen" class="btn btn-red listen-btn mobile-hide px-0 " title="Listen Live" onclick="window.open('http://ury.org.uk/live', 'radioplayer', 'height=665,width=380'); return false;"><i class="fa fa-volume-up mr-2"></i>Listen Live</a>
   </div>
   {{end}}
   {{if .Next}}
@@ -44,7 +44,7 @@
   </div>
   {{end}}
   <div class="col-12 mobile-only p-0">
-    <a href="https://ury.org.uk/listen" class="btn btn-lg btn-block btn-square btn-red listen-btn-mobile" title="Listen Live" onclick="window.open('http://ury.org.uk/live', 'radioplayer', 'height=665,width=380'); return false;">Listen Live</a>
+    <a href="https://ury.org.uk/listen" class="btn btn-lg btn-block btn-square btn-red listen-btn-mobile" title="Listen Live" onclick="window.open('http://ury.org.uk/live', 'radioplayer', 'height=665,width=380'); return false;"><i class="fa fa-volume-up mr-2"></i>Listen Live</a>
   </div>
 </div>
 {{end}}
