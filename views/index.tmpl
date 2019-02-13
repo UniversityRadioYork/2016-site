@@ -41,6 +41,11 @@
     </div>
   </div>
   <div id="index-videos" class="container-fluid container-padded pb-0 bg-primary">
+    <h2>URY Candidate Interview Night</h2>
+    <div id="cin-videos" class="row scroll-horiz pb-3 custom-scrollbar youtube-video-slider">
+    </div>
+  </div>
+  <div id="index-videos" class="container-fluid container-padded pb-0 bg-primary">
     <h2>URY Sessions</h2>
     <div id="youtube-videos" class="row scroll-horiz pb-3 custom-scrollbar youtube-video-slider">
     </div>
@@ -82,6 +87,7 @@
 <script>
 var youtubeAPIKey = {{.PageContext.Youtube.APIKey}};
 var youtubePlaylistID = "{{.PageContext.Youtube.PlaylistID}}";
+var youtubeCINPlaylistID = "{{.PageContext.Youtube.CINPlaylistID}}"
 </script>
 <script src='{{url "js/index.js"}}'></script>
 <script src="https://apis.google.com/js/client.js?onload=onGoogleLoad"></script>
