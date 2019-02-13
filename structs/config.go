@@ -33,6 +33,7 @@ type PageContext struct {
 	MyRadioAPIKey   string `toml:"myRadioAPIKey"`
 	ODName          string `toml:"odName"`
 	Christmas       bool   `toml:"christmas"`
+	CIN             bool   `toml:"cin"`
 	Pages           []Page
 	Youtube         youtube
 	Gmaps           gmaps
