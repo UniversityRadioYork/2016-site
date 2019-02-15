@@ -43,7 +43,7 @@
 	[pageContext.youtube]
 		APIKey = "AIzaSyCzI5Gvpq1hPlfjvB81EVc0vLv_11eW7NI"
 		sessionsPlaylistID = "PLsxUDJzU4VKDudlmlYb-ImFKreFKAfFln"
-		cinPlaylistID = "PLsxUDJzU4VKAG4VzgVrrnVrH4sxAAHLMg"
+		cinPlaylistID = "PLsxUDJzU4VKAAH1pOogbzJx7pZgd-2zOx"
 		channelURL = "//youtube.com/ury1350"
 
 	[pageContext.gmaps]
