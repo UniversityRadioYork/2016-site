@@ -54,6 +54,11 @@ a.ury-card,
     }
   }
 
+  &.cin {
+    color: $cin-background;
+    background: $cin-primary;
+  }
+
   &.link {
     height: 100%;
     display: flex;

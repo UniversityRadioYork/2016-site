@@ -34,6 +34,7 @@ type PageContext struct {
 	ODName          string `toml:"odName"`
 	Christmas       bool   `toml:"christmas"`
 	CIN             bool   `toml:"cin"`
+	CINLivestreaming bool  `toml:"cinLivestreaming"`
 	Pages           []Page
 	Youtube         youtube
 	Gmaps           gmaps

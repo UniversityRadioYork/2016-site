@@ -38,6 +38,16 @@ function onGoogleLoad() {
             '</div>' +
           '</div>');
         }
+        if(isIndex)
+        {
+          $('#cin-videos').append('<div class="thumbnail-container col-10 col-sm-7 col-md-4 col-lg-3">' +
+          '<a class="ury-card cin link" href=\'/cin/\'>' +
+            '<div class="ury-card-body">' +
+              '<div class="ury-card-lg-title">See more...</div>' +
+            '</div>' +
+          '</a>' +
+          '</div>');
+        }
       });
 
   });
