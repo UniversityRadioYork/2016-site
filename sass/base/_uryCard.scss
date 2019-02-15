@@ -54,6 +54,10 @@ a.ury-card,
     }
   }
 
+  &.sessions {
+    background: $music-purple;
+  }
+
   &.cin {
     color: $cin-background;
     background: $cin-primary;

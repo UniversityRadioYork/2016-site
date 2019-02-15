@@ -16,18 +16,19 @@
 <div id="index-videos" class="container-fluid container-padded bg-cin">
     <div id="cin-videos" class="row pb-3 youtube-grid">
     </div>
-    <div class="row justify-content-center">
-      <a href="{{.PageContext.Youtube.ChannelURL}}" class="view-more-link" title="View more on Youtube...">View more on Youtube...</a>
-    </div>
-  </div>
+</div>
 {{end}}
 
 {{define "footer-scripts"}}
 <!-- Youtube slider script -->
 <script>
 var youtubeAPIKey = {{.PageContext.Youtube.APIKey}};
-var youtubePlaylistID = "{{.PageContext.Youtube.PlaylistID}}";
+var youtubeSessionsPlaylistID = "{{.PageContext.Youtube.SessionsPlaylistID}}";
 var youtubeCINPlaylistID = "{{.PageContext.Youtube.CINPlaylistID}}";
+var youtubeLink = "{{.PageContext.Youtube.ChannelURL}}";
+var isIndex = false;
+var isCIN = true;
+var isOD = false;
 </script>
 <script src='{{url "/js/index.js"}}'></script>
 <script src="https://apis.google.com/js/client.js?onload=onGoogleLoad"></script>
