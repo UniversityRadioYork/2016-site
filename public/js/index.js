@@ -1,20 +1,3 @@
-//Youtube slideshow for index page
-function onGoogleLoad() {
-  
-  if(isIndex) {
-    getYoutubeFeed(youtubeSessionsPlaylistID, 7, '#sessions-videos');
-  }
-  if(isOD) {
-    getYoutubeFeed(youtubeSessionsPlaylistID, 15, '#sessions-videos');
-  }
-  if(isIndex) {
-    getYoutubeFeed(youtubeCINPlaylistID, 7, '#cin-videos');
-  }
-  if(isCIN) {
-    getYoutubeFeed(youtubeCINPlaylistID, 15, '#cin-videos');
-  }
-}
-
 function getYoutubeFeed(playlistid, results, htmlid)
 {
   gapi.client.setApiKey(youtubeAPIKey);
@@ -76,4 +59,21 @@ function getYoutubeFeed(playlistid, results, htmlid)
     });
 
   });
+}
+
+//Youtube slideshow for index page
+function onGoogleLoad() {
+  
+  if(isIndex) {
+    getYoutubeFeed(youtubeSessionsPlaylistID, 7, "#sessions-videos");
+  }
+  if(isOD) {
+    getYoutubeFeed(youtubeSessionsPlaylistID, 15, "#sessions-videos");
+  }
+  if(isIndex) {
+    getYoutubeFeed(youtubeCINPlaylistID, 7, "#cin-videos");
+  }
+  if(isCIN) {
+    getYoutubeFeed(youtubeCINPlaylistID, 15, "#cin-videos");
+  }
 }
