@@ -30,6 +30,8 @@
 	newsTwitter = "URYNews"
 
 	christmas = true
+	cin = true
+	cinLivestreaming = true
 
 	odName = "On Tap"
 	myRadioAPIKey = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
@@ -40,7 +42,8 @@
 
 	[pageContext.youtube]
 		APIKey = "AIzaSyCzI5Gvpq1hPlfjvB81EVc0vLv_11eW7NI"
-		playlistID = "PLsxUDJzU4VKDudlmlYb-ImFKreFKAfFln"
+		sessionsPlaylistID = "PLsxUDJzU4VKDudlmlYb-ImFKreFKAfFln"
+		cinPlaylistID = "PLsxUDJzU4VKAAH1pOogbzJx7pZgd-2zOx"
 		channelURL = "//youtube.com/ury1350"
 
 	[pageContext.gmaps]

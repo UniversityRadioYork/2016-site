@@ -33,6 +33,8 @@ type PageContext struct {
 	MyRadioAPIKey   string `toml:"myRadioAPIKey"`
 	ODName          string `toml:"odName"`
 	Christmas       bool   `toml:"christmas"`
+	CIN             bool   `toml:"cin"`
+	CINLivestreaming bool  `toml:"cinLivestreaming"`
 	Pages           []Page
 	Youtube         youtube
 	Gmaps           gmaps
@@ -58,7 +60,8 @@ type Page struct {
 
 type youtube struct {
 	APIKey     string `toml:"apiKey"`
-	PlaylistID string `toml:"playlistID"`
+	SessionsPlaylistID string `toml:"sessionsPlaylistID"`
+	CINPlaylistID string `toml:"cinPlaylistID"`
 	ChannelURL string `toml:"channelURL"`
 }
 
