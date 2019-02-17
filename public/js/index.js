@@ -20,7 +20,7 @@ function getYoutubeFeed(playlistid, results, htmlid)
           '</div>' +
         '</div>');
       }
-      if(isIndex && htmlid == '#sessions-videos') {
+      if(isIndex && htmlid === "#sessions-videos") {
         $(htmlid).append('<div class="thumbnail-container col-10 col-sm-7 col-md-4 col-lg-3">' +
           '<a class="ury-card sessions link" href=\'/ontap/\'>' +
             '<div class="ury-card-body">' +
@@ -29,7 +29,7 @@ function getYoutubeFeed(playlistid, results, htmlid)
           '</a>' +
         '</div>');
       }
-      if(isOD && htmlid == '#sessions-videos') {
+      if(isOD && htmlid === "#sessions-videos") {
         $(htmlid).append('<div class="thumbnail-container col-10 col-sm-7 col-md-4 col-lg-3">' +
           '<a class="ury-card sessions link" href=\"' + youtubeLink + '\">' +
             '<div class="ury-card-body">' +
@@ -38,7 +38,7 @@ function getYoutubeFeed(playlistid, results, htmlid)
           '</a>' +
         '</div>');
       }
-      if(isIndex && htmlid == '#cin-videos') {
+      if(isIndex && htmlid === "#cin-videos") {
         $(htmlid).append('<div class="thumbnail-container col-10 col-sm-7 col-md-4 col-lg-3">' +
           '<a class="ury-card cin link" href=\'/cin/\'>' +
             '<div class="ury-card-body">' +
@@ -47,7 +47,7 @@ function getYoutubeFeed(playlistid, results, htmlid)
           '</a>' +
         '</div>');
       }
-      if(isCIN && htmlid == '#cin-videos') {
+      if(isCIN && htmlid === "#cin-videos") {
         $(htmlid).append('<div class="thumbnail-container col-10 col-sm-7 col-md-4 col-lg-3">' +
           '<a class="ury-card cin link" href=\"' + youtubeLink + '\">' +
             '<div class="ury-card-body">' +
