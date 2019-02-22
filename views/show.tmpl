@@ -34,10 +34,10 @@
         alt="{{.Show.Title}} Logo">
         <div class="row">
           <div class="col-6 text-center">
-            <h6>Seasons: {{len .Seasons}}</h6>
+            <span class="h6">Seasons: {{len .Seasons}}</span>
           </div>
           <div class="col-6 text-center">
-            <h6>Episodes: {{showCount .Seasons}}</h6>
+            <span class="h6">Episodes: {{showCount .Seasons}}</span>
           </div>
         </div>
       </div>
@@ -131,7 +131,7 @@
               <tr class="timeslot-filter-season" data-SeasonID="{{.SeasonID}}">
                 <td>{{.SeasonID}}</td>
                 <td style="width:10px">{{.SeasonNum}}.</td>
-                <td>{{.FirstTime.Format "Jan 2006"}}</td>
+                <td><a href="#" title="Show episodes for season {{.SeasonNum}}">{{.FirstTime.Format "Jan 2006"}}</a></td>
                 <td style="width:10px"><span class="badge badge-pill badge-light">
                   {{.NumEpisodes.Value}}</span>
                 </td>
