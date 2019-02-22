@@ -73,7 +73,7 @@
       </div>
       <div class="col-12 col-sm-7 col-lg-9">
         <h1><a href="{{.Timeslot.Season.ShowMeta.MicroSiteLink.URL}}">{{.Timeslot.Title}}</a></h1>
-        <h5 class="text-muted">{{.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}}</h5>
+        <span class="h5 text-muted">{{.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}}</span>
         <hr>
         <h2>Description</h2>
         <p>{{html .Timeslot.Description}}</p>
@@ -92,6 +92,7 @@
           <div class="col-auto share-links">
             <span class="h5 mg-right-5">Share:</span>
             <a href="#"
+              title="Share this show episode on twitter"
               data-type="twitter"
               data-url="{{.PageContext.FullURL}}/schedule/shows/timeslots/{{.PageData.Timeslot.TimeslotID}}"
               {{if .PageData.Timeslot.Season.ShowMeta.Photo}}
@@ -103,6 +104,7 @@
             </a>
 
             <a href="#"
+              title="Share this show episode on facebook"
               data-type="facebook"
               data-url="{{.PageContext.FullURL}}/schedule/shows/timeslots/{{.PageData.Timeslot.TimeslotID}}"
               data-title="{{.PageData.Timeslot.Title}} ({{.PageData.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}})"
@@ -112,17 +114,6 @@
               {{end}}
               class="prettySocial fab fa-facebook">
             </a>
-
-            <a href="#"
-              data-type="googleplus"
-              data-url="{{.PageContext.FullURL}}/schedule/shows/timeslots/{{.PageData.Timeslot.TimeslotID}}"
-              data-description="{{.PageData.Timeslot.Description}}"
-              {{if .PageData.Timeslot.Season.ShowMeta.Photo}}
-                data-media="{{.PageContext.FullURL}}{{.PageData.Timeslot.Season.ShowMeta.Photo}}"
-              {{end}}
-              class="prettySocial fab fa-google">
-            </a>
-
           </div>
         </div>
       </div>
@@ -139,9 +130,9 @@
       {{range $key, $value := .CreditsToUsers}}
       <div class="col-sm-4 pb-3">
         {{if gt (len $value) 1}}
-          <h5>{{plural $key}}</h5>
+          <h3>{{plural $key}}</h3>
         {{else}}
-          <h5>{{$key}}</h5>
+          <h3>{{$key}}</h3>
         {{end}}
         {{range $value}}
         <a href="/people/{{.MemberID}}/">{{.Fname}} {{.Sname}}</a> <br>

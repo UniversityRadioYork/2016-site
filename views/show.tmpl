@@ -50,39 +50,30 @@
         <div class="row justify-content-end">
 {{end}}
           <div class="col-auto share-links">
-              <span class="h5 mg-right-5">Share:</span>
-              <a href="#"
-                  data-type="twitter"
-                  data-url="{{.PageContext.FullURL}}/schedule/shows/{{.PageData.Show.ShowID}}"
-                  {{if .PageData.Show.Photo}}
-                      data-media="{{.PageContext.FullURL}}{{.PageData.Show.Photo}}"
-                  {{end}}
-                  data-description="Checkout {{.PageData.Show.Title}} on {{.PageContext.LongName}}"
-                  data-via="{{.PageContext.MainTwitter}}"
-                  class="prettySocial fab fa-twitter">
-              </a>
+            <span class="h5 mg-right-5">Share:</span>
+            <a href="#"
+              title="Share this show episode on twitter"
+              data-type="twitter"
+              data-url="{{.PageContext.FullURL}}/schedule/shows/timeslots/{{.PageData.Timeslot.TimeslotID}}"
+              {{if .PageData.Timeslot.Season.ShowMeta.Photo}}
+                data-media="{{.PageContext.FullURL}}{{.PageData.Timeslot.Season.ShowMeta.Photo}}"
+              {{end}}
+              data-description="I'm listening to {{.PageData.Timeslot.Title}} ({{.PageData.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}})"
+              data-via="{{.PageContext.MainTwitter}}"
+              class="prettySocial fab fa-twitter">
+            </a>
 
-              <a href="#"
-                  data-type="facebook"
-                  data-url="{{.PageContext.FullURL}}/schedule/shows/{{.PageData.Show.ShowID}}"
-                  data-title="{{.PageData.Show.Title}} | {{.PageContext.ShortName}}"
-                  data-description="{{.PageData.Show.Description}}"
-                  {{if .PageData.Show.Photo}}
-                      data-media="{{.PageContext.FullURL}}{{.PageData.Show.Photo}}"
-                  {{end}}
-                  class="prettySocial fab fa-facebook">
-              </a>
-
-              <a href="#"
-                  data-type="googleplus"
-                  data-url="{{.PageContext.FullURL}}/schedule/shows/{{.PageData.Show.ShowID}}"
-                  data-description="{{.PageData.Show.Description}}"
-                  {{if .PageData.Show.Photo}}
-                      data-media="{{.PageContext.FullURL}}{{.PageData.Show.Photo}}"
-                  {{end}}
-                  class="prettySocial fab fa-google">
-              </a>
-
+            <a href="#"
+              title="Share this show episode on facebook"
+              data-type="facebook"
+              data-url="{{.PageContext.FullURL}}/schedule/shows/timeslots/{{.PageData.Timeslot.TimeslotID}}"
+              data-title="{{.PageData.Timeslot.Title}} ({{.PageData.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}})"
+              data-description="{{.PageData.Timeslot.Description}}"
+              {{if .PageData.Timeslot.Season.ShowMeta.Photo}}
+                data-media="{{.PageContext.FullURL}}{{.PageData.Timeslot.Season.ShowMeta.Photo}}"
+              {{end}}
+              class="prettySocial fab fa-facebook">
+            </a>
           </div>
         </div>
       </div>
