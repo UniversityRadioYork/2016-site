@@ -39,8 +39,8 @@ $(document).ready(function() {
           if (typeof show.title !== "undefined") {
             // If we're off air
             if (show.end_time === "The End of Time") {
-              return "<h5 class=\"ellipsis\">We're off air right now</h5>" +
-                "<h6>Check back next term</h6>";
+              return "<span class=\"h5 ellipsis\">We're off air right now</span>" +
+                "<span>Check back next term.</span>";
             }
             // Use "Now" as start time if it's missing
             let startTimeString = calcTime(show.start_time);
@@ -48,12 +48,12 @@ $(document).ready(function() {
               startTimeString = "Now";
             }
             // Default case (regular show)
-            return "<h5 class=\"ellipsis\">" +
+            return "<h3 class=\"h5 ellipsis\">" +
               show.title +
-              "</h5>" +
-              "<h6>" + startTimeString + " - " + calcTime(show.end_time) + "</h6>";
+              "</h3>" +
+              "<h4 class=\"h6\">" + startTimeString + " - " + calcTime(show.end_time) + "</h4>";
           } else {
-            return "<span>There's nothing on here</span>";
+            return "<span>Looks like there is nothing on here.</span>";
           }
         };
 
@@ -63,20 +63,20 @@ $(document).ready(function() {
           $(".current-and-next-now").replaceWith(
             "<div class=\"current-and-next-now p-2 pt-3 px-3 p-md-3 p-lg-4 \" title=\"View the show now on air.\">" +
             "<h2>Now</h2>" +
-            "<h5 class=\"ellipsis\">There's nothing on right now</h5>");
+            "<span class=\"h5 ellipsis\">There's nothing on right now.</span>");
           $("#studiomessage *").attr("disabled", true);
         } else if (typeof data.payload.current.url !== "undefined") {
           $(".current-and-next-now").replaceWith(
-            "<a class=\"current-and-next-now p-2 pt-3 px-3 p-md-3 p-lg-4 \" href=" +
+            "<a class=\"current-and-next-now p-2 pt-3 px-3 p-sm-3 p-lg-4 \" href=" +
             data.payload.current.url +
-            " title=\"View the show now on air.\">" +
+            " title=\"Show currently on air: " + data.payload.current.title + "\">" +
             "<h2>Now</h2>" +
             makeContent(data.payload.current) +
             "</a>");
           $("#studiomessage *").attr("disabled", false);
         } else {
           $(".current-and-next-now").replaceWith(
-            "<div class=\"current-and-next-now p-2 pt-3 px-3 p-md-3 p-lg-4 \" title=\"View the show now on air.\">" +
+            "<div class=\"current-and-next-now p-2 pt-3 px-3 p-sm-3 p-lg-4 \" title=\"View the show now on air.\">" +
             "<h2>Now</h2>" +
             makeContent(data.payload.current) +
             "</a>");
@@ -87,21 +87,21 @@ $(document).ready(function() {
         if (typeof data.payload.next === "undefined") {
           // There is no next show (e.g. we're off air)
           $(".current-and-next-next").replaceWith(
-            "<div class=\"current-and-next-next p-2 pt-3 px-3 p-md-3 p-lg-4 \" title=\"View the show up next.\">" +
+            "<div class=\"current-and-next-next p-2 pt-3 px-3 p-sm-3 p-lg-4 \" title=\"View the show up next.\">" +
             "<h2>Next</h2>" +
-            "<h5 class=\"ellipsis\">There's nothing up next yet</h5>" +
+            "<span class=\"h5 ellipsis\">There's nothing up next yet.</span>" +
             "</a>");
         } else if (typeof data.payload.next.url !== "undefined") {
           $(".current-and-next-next").replaceWith(
-            "<a class=\"current-and-next-next p-2 pt-3 px-3 p-md-3 p-lg-4 \" href=" +
+            "<a class=\"current-and-next-next p-2 pt-3 px-3 p-sm-3 p-lg-4 \" href=" +
             data.payload.next.url +
-            " title=\"View the show up next.\">" +
+            " title=\"Show on air next: " + data.payload.next.title + ".\">" +
             "<h2>Next</h2>" +
             makeContent(data.payload.next) +
             "</a>");
         } else {
           $(".current-and-next-next").replaceWith(
-            "<div class=\"current-and-next-next p-2 pt-3 px-3 p-md-3 p-lg-4 \" title=\"View the show up next.\">" +
+            "<div class=\"current-and-next-next p-2 pt-3 px-3 p-sm-3 p-lg-4 \" title=\"View the show up next.\">" +
             "<h2>Next</h2>" +
             makeContent(data.payload.next) +
             "</a>");
