@@ -10,7 +10,7 @@ import (
 	"github.com/UniversityRadioYork/2016-site/models"
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/2016-site/utils"
-	"github.com/UniversityRadioYork/myradio-go"
+	myradio "github.com/UniversityRadioYork/myradio-go"
 )
 
 // PodcastController is the controller for the URYPlayer Podcast pages.
@@ -39,7 +39,7 @@ func (podcastsC *PodcastController) GetAllPodcasts(w http.ResponseWriter, r *htt
 	pageNumberNext := pageNumber + 1
 
 	//podcast page offset is indexed from 0, URL's are from 1.
-	podcasts, err := podcastm.GetAllPodcasts(10, pageNumber-1, false)
+	podcasts, err := podcastm.GetAllPodcasts(10, pageNumber-1)
 
 	if podcasts == nil {
 		utils.RenderTemplate(w, podcastsC.config.PageContext, err, "404.tmpl")
@@ -56,7 +56,7 @@ func (podcastsC *PodcastController) GetAllPodcasts(w http.ResponseWriter, r *htt
 		utils.RenderTemplate(w, podcastsC.config.PageContext, err, "404.tmpl")
 		return
 	}
-	
+
 	data := struct {
 		PageNumberPrev int
 		PageNumber     int

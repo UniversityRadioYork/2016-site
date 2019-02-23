@@ -1,6 +1,6 @@
 package models
 
-import "github.com/UniversityRadioYork/myradio-go"
+import myradio "github.com/UniversityRadioYork/myradio-go"
 
 // PodcastModel is the model for the Podcast controller.
 type PodcastModel struct {
@@ -19,7 +19,7 @@ func NewPodcastModel(s *myradio.Session) *PodcastModel {
 func (m *PodcastModel) GetAllPodcasts(number int, page int) (podcasts []myradio.Podcast, err error) {
 	//Get 'number' of podcasts from page 'page' (0 = the latest podcasts)
 	allpodcasts := make([]myradio.Podcast, number)
-	allpodcasts, err = m.session.GetAllPodcasts(number, page)
+	allpodcasts, err = m.session.GetAllPodcasts(number, page, false)
 	if err != nil {
 		return
 	}
