@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"regexp"
+	"strings"
 
 	"github.com/UniversityRadioYork/2016-site/models"
 	"github.com/UniversityRadioYork/2016-site/structs"
@@ -40,13 +41,19 @@ func (gic *SignUpController) Post(w http.ResponseWriter, r *http.Request) {
 	// Check an eduroam value is submitted
 	// If not then the user is signing up using a personal email
 	if _, ok := formParams["eduroam"]; ok {
-		if formParams["eduroam"][0] == "" {
+		eduroam := formParams["eduroam"][0]
+		if eduroam == "" {
 			feedback = append(feedback, "You need to provide your York Email")
 		} else {
-			match, _ := regexp.MatchString("^[a-z]{1,6}[0-9]{1,6}$", formParams["eduroam"][0])
+			// Ignore an added @york.ac.uk (since we assume it)
+			if strings.HasSuffix(eduroam, "@york.ac.uk"){
+				eduroam = eduroam[:len(eduroam)-11]
+			}
+			match, _ := regexp.MatchString("^[a-z]{1,6}[0-9]{1,6}$", eduroam)
 			if !match {
 				feedback = append(feedback, "The @york.ac.uk email you provided seems invalid")
 			}
+			formParams["eduroam"][0] = eduroam
 		}
 	} else {
 		if _, ok = formParams["email"]; !ok {

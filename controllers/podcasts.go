@@ -39,7 +39,7 @@ func (podcastsC *PodcastController) GetAllPodcasts(w http.ResponseWriter, r *htt
 	pageNumberNext := pageNumber + 1
 
 	//podcast page offset is indexed from 0, URL's are from 1.
-	podcasts, err := podcastm.GetAllPodcasts(10, pageNumber-1)
+	podcasts, err := podcastm.GetAllPodcasts(10, pageNumber-1, false)
 
 	if podcasts == nil {
 		utils.RenderTemplate(w, podcastsC.config.PageContext, err, "404.tmpl")
@@ -56,7 +56,7 @@ func (podcastsC *PodcastController) GetAllPodcasts(w http.ResponseWriter, r *htt
 		utils.RenderTemplate(w, podcastsC.config.PageContext, err, "404.tmpl")
 		return
 	}
-
+	
 	data := struct {
 		PageNumberPrev int
 		PageNumber     int

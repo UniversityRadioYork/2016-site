@@ -43,6 +43,13 @@
       </a>
     </div>
     {{end}}
+    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 pb-3">
+      <a class="ury-card link" href="//mixcloud.com/ury1350/">
+        <div class="ury-card-body">
+          <div class="ury-card-lg-title">See more on Mixcloud...</div>
+        </div>
+      </a>
+    </div>
   </div>
 </div>
 <div id="index-videos" class="container-fluid container-padded bg-secondary">
@@ -51,10 +58,7 @@
       <a name="YouTube"></a><h2>{{.PageContext.ShortName}} on Youtube</h2>
     </div>
   </div>
-  <div id="youtube-videos" class="row pb-3 youtube-grid">
-  </div>
-  <div class="row justify-content-center">
-    <a href="{{.PageContext.Youtube.ChannelURL}}" class="view-more-link" title="View more on Youtube...">View more on Youtube...</a>
+  <div id="sessions-videos" class="row pb-3 youtube-grid">
   </div>
 </div>
 {{if .PageData.LatestPodcasts}}
@@ -88,7 +92,12 @@
 <!-- Youtube slider script -->
 <script>
 var youtubeAPIKey = {{.PageContext.Youtube.APIKey}};
-var youtubePlaylistID = "{{.PageContext.Youtube.PlaylistID}}";
+var youtubeSessionsPlaylistID = "{{.PageContext.Youtube.SessionsPlaylistID}}";
+var youtubeCINPlaylistID = "{{.PageContext.Youtube.CINPlaylistID}}";
+var youtubeLink = "{{.PageContext.Youtube.ChannelURL}}";
+var isIndex = false;
+var isCIN = false;
+var isOD = true;
 </script>
 <script src='{{url "/js/index.js"}}'></script>
 <script src="https://apis.google.com/js/client.js?onload=onGoogleLoad"></script>
