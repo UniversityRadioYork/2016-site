@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/UniversityRadioYork/myradio-go"
+	myradio "github.com/UniversityRadioYork/myradio-go"
 )
 
 // IndexModel is the model for the Index controller.
@@ -36,7 +36,7 @@ func (m *IndexModel) Get() (currentAndNext *myradio.CurrentAndNext, banners []my
 
 	//Get 10 podcasts from page 0 (the latest podcasts)
 	allpodcasts := make([]myradio.Podcast, 10)
-	allpodcasts, err = m.session.GetAllPodcasts(10, 0)
+	allpodcasts, err = m.session.GetAllPodcasts(10, 0, false)
 	if err != nil {
 		return
 	}
