@@ -79,3 +79,10 @@ $breakpoints: sm, md, lg, xl;
 .cin-text {
   color: $cin-primary;
 }
+
+
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1500px;
+  }
+}
