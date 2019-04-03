@@ -9,9 +9,6 @@
   text-overflow: ellipsis;
 }
 
-html {
-  font-size: 14px;
-}
 
 @include media-breakpoint-down(lg) {
   .container {
@@ -56,8 +53,8 @@ footer {
   background: url("/images/bg-banner-2.jpg") center center no-repeat;
   background-size: cover;
   color: $white;
-  padding: 3em;
-  padding-bottom: 0;
+  padding: 5em 0;
+  padding-bottom: 2.5em;
 
   .slim {
     padding: 6em 0 3em;
@@ -239,6 +236,10 @@ footer {
 
   // Give more padding to banners
   .banner-2 {
+    padding: 10em 0;
+  }
+
+  .drone-banner {
     padding: 10em 0;
   }
 
