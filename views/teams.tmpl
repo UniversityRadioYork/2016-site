@@ -1,7 +1,7 @@
 {{define "title"}}{{.PageContext.ShortName}} | Our Teams{{end}}
 {{define "content"}}
   {{with .PageData}}
-  <div class="container-fluid banner-2 text-overlay">
+  <div class="container-fluid drone-banner  text-overlay">
     <div class="container container-padded">
       <div class="row justify-content-center">
         <div class="text-center">
@@ -13,9 +13,9 @@
       </div>
     </div>
   </div>
-  <div class="container-fluid bg-primary">
+  <div class="container-fluid bg-off-white">
     <div class="container container-padded">
-      <h4>Get Involved</h4>
+      <h1>Get Involved</h1>
       <p>
        URY has {{len .Teams}} teams of students which look after all aspects of running a radio station. Whether that be creating the content or maintaining the station.</p>
       <p>
@@ -23,17 +23,18 @@
       </p>
     </div>
   </div>
-  <div class="container-fluid bg-primary">
+  <div class="container-fluid bg-off-white">
     <div class="container container-padded">
+      <h2>Teams</h2>
       <div class="row">
         {{range .Teams}}
           {{if .Alias}}
-          <div class="col-12 col-sm-6 col-lg-4 my-3 team-card">
+          <div class="col-12 col-sm-6 col-lg-6 my-3 team-card">
             <div class="card text-dark">
-              <div class="card-body">
-                <h5 class="card-title">
-                  <a href="{{.Alias}}/" title="Goto the {{.Name}} page.">{{.Name}}</a>
-                </h5>
+              <a a href="{{.Alias}}/" title="Goto the {{.Name}} page." class="card-body">
+                <h2 class="card-title">
+                  {{.Name}}
+                </h2>
                 <p class="card-text">
                 {{if .Description}}
                   {{html .Description}}
@@ -41,10 +42,7 @@
                   This team does not currently have a description.
                 {{end}}
                 </p>
-              </div>
-              <div class="card-footer">
-                <a href="{{.Alias}}/" title="Goto the {{.Name}} page.">Read More...</a>
-              </div>
+              </a>
             </div>
           </div>
           {{end}}
