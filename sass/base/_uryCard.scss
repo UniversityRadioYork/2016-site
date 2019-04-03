@@ -33,14 +33,14 @@ a.ury-card,
     padding: 10px;
 
     .ury-card-title {
-      @extend .h6;
+      @extend .h4;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
 
     .ury-card-lg-title {
-      @extend .h3;
+      @extend .h2;
     }
   }
 
