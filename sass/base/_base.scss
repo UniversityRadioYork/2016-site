@@ -10,6 +10,12 @@ html {
   font-size: $base-font-size;
 }
 
+@include media-breakpoint-down(md) {
+  html {
+    font-size: 14px;
+  }
+}
+
 .container-padded {
   padding-top: 1em;
   padding-bottom: 1em;
