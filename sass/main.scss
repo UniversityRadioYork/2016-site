@@ -324,7 +324,7 @@ footer {
 }
 
 .show-img {
-  border: #e1e1e1 7px solid;
+  border: $off-white-color 7px solid;
   background-color: $primary-color;
 
   @include media-breakpoint-up(md) {
