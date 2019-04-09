@@ -39,8 +39,8 @@ $(document).ready(function() {
           if (typeof show.title !== "undefined") {
             // If we're off air
             if (show.end_time === "The End of Time") {
-              return "<span class=\"h5 ellipsis\">We're off air right now</span>" +
-                "<span>Check back next term.</span>";
+              return "<h3 class=\"show-title ellipsis\">We're off air right now.</h3>" +
+                "<h4 class=\"show-time h6\">Check back next term.</h4>";
             }
             // Use "Now" as start time if it's missing
             let startTimeString = calcTime(show.start_time);
@@ -63,7 +63,7 @@ $(document).ready(function() {
           $(".current-and-next-now").replaceWith(
             "<div class=\"current-and-next-now p-2 pt-3 px-3 p-md-3 p-lg-4 \" title=\"View the show now on air.\">" +
             "<h2 class=\"font-weight-bold\">Now</h2>" +
-            "<span class=\"h5 ellipsis\">There's nothing on right now.</span>");
+            "<h3 class=\"show-title ellipsis\">There's nothing on right now.</h3>");
           $("#studiomessage *").attr("disabled", true);
         } else if (typeof data.payload.current.url !== "undefined") {
           $(".current-and-next-now").replaceWith(
@@ -89,7 +89,7 @@ $(document).ready(function() {
           $(".current-and-next-next").replaceWith(
             "<div class=\"current-and-next-next p-2 pt-3 px-3 p-sm-3 p-lg-4 \" title=\"View the show up next.\">" +
             "<h2 class=\"font-weight-bold\">Next</h2>" +
-            "<span class=\"h5 ellipsis\">There's nothing up next yet.</span>" +
+            "<h3 class=\"show-title ellipsis\">There's nothing up next yet.</h3>" +
             "</a>");
         } else if (typeof data.payload.next.url !== "undefined") {
           $(".current-and-next-next").replaceWith(
