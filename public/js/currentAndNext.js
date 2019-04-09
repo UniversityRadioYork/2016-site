@@ -1,22 +1,6 @@
 /* global MyRadioAPIKey */
 $(document).ready(function() {
 
-  function scheduleUpdate() {
-    // Call the function 10 seconds past every half hour
-    let nextCall = new Date();
-
-    if (nextCall.getMinutes() >= 30) {
-      nextCall.setHours(nextCall.getHours() + 1);
-      nextCall.setMinutes(0);
-    } else {
-      nextCall.setMinutes(30);
-    }
-    nextCall.setSeconds(10);
-
-    let difference = nextCall - new Date();
-    setTimeout(updateShow, difference);
-  }
-
   // Used for autoupdating the now and next.
   function updateShow() {
     var data;
@@ -55,6 +39,22 @@ $(document).ready(function() {
           } else {
             return "<span>Looks like there is nothing on here.</span>";
           }
+        };
+
+        var scheduleUpdate = function scheduleUpdate() {
+          // Call the function 10 seconds past every half hour
+          let nextCall = new Date();
+
+          if (nextCall.getMinutes() >= 30) {
+            nextCall.setHours(nextCall.getHours() + 1);
+            nextCall.setMinutes(0);
+          } else {
+            nextCall.setMinutes(30);
+          }
+          nextCall.setSeconds(10);
+
+          let difference = nextCall - new Date();
+          setTimeout(updateShow, difference);
         };
 
         // Current show
