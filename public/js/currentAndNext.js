@@ -48,10 +48,10 @@ $(document).ready(function() {
               startTimeString = "Now";
             }
             // Default case (regular show)
-            return "<h3 class=\"h5 ellipsis\">" +
+            return "<h3 class=\"show-title ellipsis\">" +
               show.title +
               "</h3>" +
-              "<h4 class=\"h6\">" + startTimeString + " - " + calcTime(show.end_time) + "</h4>";
+              "<h4 class=\"show-time h6\">" + startTimeString + " - " + calcTime(show.end_time) + "</h4>";
           } else {
             return "<span>Looks like there is nothing on here.</span>";
           }
@@ -62,7 +62,7 @@ $(document).ready(function() {
           // There is no current show; Something is probably very wrong...
           $(".current-and-next-now").replaceWith(
             "<div class=\"current-and-next-now p-2 pt-3 px-3 p-md-3 p-lg-4 \" title=\"View the show now on air.\">" +
-            "<h2>Now</h2>" +
+            "<h2 class=\"font-weight-bold\">Now</h2>" +
             "<span class=\"h5 ellipsis\">There's nothing on right now.</span>");
           $("#studiomessage *").attr("disabled", true);
         } else if (typeof data.payload.current.url !== "undefined") {
@@ -70,14 +70,14 @@ $(document).ready(function() {
             "<a class=\"current-and-next-now p-2 pt-3 px-3 p-sm-3 p-lg-4 \" href=" +
             data.payload.current.url +
             " title=\"Show currently on air: " + data.payload.current.title + "\">" +
-            "<h2>Now</h2>" +
+            "<h2 class=\"font-weight-bold\">Now</h2>" +
             makeContent(data.payload.current) +
             "</a>");
           $("#studiomessage *").attr("disabled", false);
         } else {
           $(".current-and-next-now").replaceWith(
             "<div class=\"current-and-next-now p-2 pt-3 px-3 p-sm-3 p-lg-4 \" title=\"View the show now on air.\">" +
-            "<h2>Now</h2>" +
+            "<h2 class=\"font-weight-bold\">Now</h2>" +
             makeContent(data.payload.current) +
             "</a>");
           $("#studiomessage *").attr("disabled", true);
@@ -88,7 +88,7 @@ $(document).ready(function() {
           // There is no next show (e.g. we're off air)
           $(".current-and-next-next").replaceWith(
             "<div class=\"current-and-next-next p-2 pt-3 px-3 p-sm-3 p-lg-4 \" title=\"View the show up next.\">" +
-            "<h2>Next</h2>" +
+            "<h2 class=\"font-weight-bold\">Next</h2>" +
             "<span class=\"h5 ellipsis\">There's nothing up next yet.</span>" +
             "</a>");
         } else if (typeof data.payload.next.url !== "undefined") {
@@ -96,13 +96,13 @@ $(document).ready(function() {
             "<a class=\"current-and-next-next p-2 pt-3 px-3 p-sm-3 p-lg-4 \" href=" +
             data.payload.next.url +
             " title=\"Show on air next: " + data.payload.next.title + ".\">" +
-            "<h2>Next</h2>" +
+            "<h2 class=\"font-weight-bold\">Next</h2>" +
             makeContent(data.payload.next) +
             "</a>");
         } else {
           $(".current-and-next-next").replaceWith(
             "<div class=\"current-and-next-next p-2 pt-3 px-3 p-sm-3 p-lg-4 \" title=\"View the show up next.\">" +
-            "<h2>Next</h2>" +
+            "<h2 class=\"font-weight-bold\">Next</h2>" +
             makeContent(data.payload.next) +
             "</a>");
         }
