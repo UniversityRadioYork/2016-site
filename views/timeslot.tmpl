@@ -67,13 +67,13 @@
         alt="{{.Timeslot.Title}} Logo">
         <div class="row">
           <div class="col text-center">
-            <span class="h6">Duration: </span><span>{{formatDuration .Timeslot.Duration}}</span>
+            <span class="h3">Duration: </span><span>{{formatDuration .Timeslot.Duration}}</span>
           </div>
         </div>
       </div>
       <div class="col-12 col-sm-7 col-lg-9">
         <h1><a href="{{.Timeslot.Season.ShowMeta.MicroSiteLink.URL}}">{{.Timeslot.Title}}</a></h1>
-        <span class="h5 text-muted">{{.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}}</span>
+        <span class="h3 text-muted">{{.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}}</span>
         <hr>
         <h2>Description</h2>
         <p>{{html .Timeslot.Description}}</p>

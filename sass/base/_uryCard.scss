@@ -33,14 +33,14 @@ a.ury-card,
     padding: 10px;
 
     .ury-card-title {
-      @extend .h6;
+      @extend .h4;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
 
     .ury-card-lg-title {
-      @extend .h3;
+      @extend .h2;
     }
   }
 
@@ -72,4 +72,36 @@ a.ury-card,
   }
 }
 
+
+.team-card {
+  a.card-body  {
+      color: #343a40;
+    &:hover {
+      color: #0c7cbf;
+    }
+  }
+
+  .card-body {
+    height: 12em;
+    text-decoration: none;
+  }
+
+  .card-text {
+    position: relative;
+    height: 6em; // exactly 4 lines
+    overflow: hidden;
+    color: #343a40;
+
+    &::after {
+      content: "";
+      text-align: right;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 70%;
+      height: 1.5em;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%); // scss-lint:disable ColorVariable
+    }
+  }
+}
 

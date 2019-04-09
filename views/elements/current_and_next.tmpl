@@ -18,7 +18,7 @@
     {{else}}
     <div class="current-and-next-now p-2 px-3 p-sm-3 p-lg-4">
     {{end}}
-    <h2>Now</h2>
+    <h2 class="font-weight-bold">Now</h2>
     {{template "current_next" .Current}}
     {{if .Current.Url}}
     </a>
@@ -35,7 +35,7 @@
     {{else}}
     <div class="current-and-next-next p-3 p-lg-4">
     {{end}}
-    <h2>Next</h2>
+    <h2 class="font-weight-bold">Next</h2>
     {{template "current_next" .Next}}
     {{if .Next.Url}}
     </a>
@@ -53,10 +53,10 @@
 {{define "current_next"}}
 <div class="template-box">
 {{if .Title}}
-<h3 class="h5 ellipsis">
+<h3 class="show-title ellipsis">
   {{.Title}}
 </h3>
-<h4 class="h6">
+<h4 class="show-time h6">
   {{if not .EndTime.IsZero}}
     {{- if .StartTime.IsZero -}}
       Now
