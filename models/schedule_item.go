@@ -132,7 +132,7 @@ func getBlock(name string, StartTime time.Time) string {
 
 		{"YSTV", "collab"},
 		{"Nouse", "collab"},
-		{"York Politics Digest", "collab"}
+		{"York Politics Digest", "collab"},
 	}
 	for _, bm := range blockMatches {
 		if strings.Contains(name, strings.ToLower(bm.nameFragment)) {
