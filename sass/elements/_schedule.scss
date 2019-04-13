@@ -136,8 +136,8 @@ $sustainer-color: tint($primary-color, 40%);
   @include schedule-block($primary-color, $off-white-color);
 }
 
-.schedule-block-flagship {
-  @include schedule-block($flagship, $black);
+.schedule-block-primetime {
+  @include schedule-block($primetime, $black);
 }
 
 .schedule-block-news {
