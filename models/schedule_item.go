@@ -119,7 +119,7 @@ func getBlock(name string, StartTime time.Time) string {
 
 		{"roses live 20", "event"},
 		{"roses 20", "event"},
-    {"freshers 20", "event"},
+    	{"freshers 20", "event"},
 		{"woodstock", "event"},
 		{"movember", "event"},
 		{"panto", "event"},
@@ -129,6 +129,10 @@ func getBlock(name string, StartTime time.Time) string {
 		{"URY Presents", "event"},
 		{"URYOnTour", "event"},
 		{"URY On Tour", "event"},
+
+		{"YSTV", "collab"},
+		{"Nouse", "collab"},
+		{"York Politics Digest", "collab"}
 	}
 	for _, bm := range blockMatches {
 		if strings.Contains(name, strings.ToLower(bm.nameFragment)) {

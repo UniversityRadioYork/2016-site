@@ -160,6 +160,10 @@ $sustainer-color: tint($primary-color, 40%);
   @include schedule-block(tint($music-purple, 60%), $white);
 }
 
+.schedule-block-collab {
+  @include schedule-block($collab, $off-white-color);
+}
+
 .schedule-keys .key-row {
 
 
