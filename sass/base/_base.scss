@@ -22,24 +22,36 @@ html {
 }
 
 
-.custom-scrollbar {
+@mixin custom-scrollbar($color) {
   &::-webkit-scrollbar {
     width: 12px;
     height: 12px;
   }
 
   &::-webkit-scrollbar-track {
-    background: transparentize($custom-scrollbar-color, 0.9);
+    background: transparentize($color, 0.9);
   }
 
   &::-webkit-scrollbar-thumb {
     border-radius: 7.5px;
-    background: transparentize($custom-scrollbar-color, 0.3);
+    background: transparentize($color, 0.3);
 
     &:hover {
-      background: $custom-scrollbar-color;
+      background: $color;
     }
   }
+}
+
+.custom-scrollbar {
+  @include custom-scrollbar($custom-scrollbar-color);
+}
+
+.custom-scrollbar-music {
+  @include custom-scrollbar(darken($music-purple, 20%));
+}
+
+.custom-scrollbar-cin {
+  @include custom-scrollbar($cin-primary);
 }
 
 // Scroll horizontal, used for horizontal scrolling rows

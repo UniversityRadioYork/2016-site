@@ -49,6 +49,16 @@
   background: none !important;
 }
 
+.bg-sessions {
+  background: desaturate($music-purple, 20%);
+  color: $white
+}
+
+.bg-podcasts {
+  background: #2E3540;
+  color: $white
+}
+
 .bg-cin {
   background: $cin-background;
 }

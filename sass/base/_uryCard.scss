@@ -46,11 +46,11 @@ a.ury-card,
 
 
   &.podcast {
-    color: $podcast-txt-color;
-    background: $podcast-bg;
+    color: $white;
+    background: lighten($computing-grey, 10%);
 
     &:hover {
-      background: tint($podcast-bg, 70%);
+      background: tint($computing-grey, 70%);
     }
   }
 
