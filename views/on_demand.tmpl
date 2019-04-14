@@ -27,7 +27,7 @@
   <h2>You just missed...</h2>
   <div class="row custom-scrollbar scroll-horiz scroll-none-xl">
     {{range .PageData.LatestTimeslots}}
-    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 pb-3">
+    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3">
       <a class="ury-card" href="/schedule/shows/timeslots/{{.TimeslotID}}/">
         <div class="ury-card-img" style="background: url('
             {{- if .Season.ShowMeta.Photo -}}
@@ -66,7 +66,7 @@
   <h2>Latest Podcasts</h2>
   <div class="row custom-scrollbar scroll-horiz">
     {{range .PageData.LatestPodcasts}}
-      <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 pb-3">
+      <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3">
         <a class="ury-card podcast" href="{{.MicrositeLink.URL}}">
           <div class="ury-card-img" style="background: url('https://ury.org.uk{{.Photo}}');" title="URY Podcast: {{.Title}} Logo"></div>
           <div class="ury-card-body">
