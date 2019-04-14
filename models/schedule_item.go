@@ -119,7 +119,7 @@ func getBlock(name string, StartTime time.Time) string {
 
 		{"roses live 20", "event"},
 		{"roses 20", "event"},
-    	{"freshers 20", "event"},
+    {"freshers 20", "event"},
 		{"woodstock", "event"},
 		{"movember", "event"},
 		{"panto", "event"},
