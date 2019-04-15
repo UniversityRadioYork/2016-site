@@ -74,8 +74,11 @@ a.ury-card,
 
 
 .team-card {
+  transition: 350ms;
+
   a.card-body  {
       color: #343a40;
+
     &:hover {
       color: #0c7cbf;
     }
@@ -103,5 +106,9 @@ a.ury-card,
       background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%); // scss-lint:disable ColorVariable
     }
   }
-}
 
+  &:hover {
+    transform: scale(1.08)
+  }
+
+}

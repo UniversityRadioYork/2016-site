@@ -44,14 +44,14 @@
   {{if .PageContext.CIN}}
   <div id="index-videos" class="container-fluid container-padded pb-0 bg-cin">
     <h2 class="cin-text">URY Candidate Interview Night</h2>
-    <div id="cin-videos" class="row scroll-horiz pb-3 custom-scrollbar-cin youtube-video-slider">
+    <div id="cin-videos" class="row scroll-horiz pb-3 custom-scrollbar-cin thumbnail-slider">
     </div>
   </div>
   {{end}}
   {{with .PageData}}
   <div id="index-videos" class="container-fluid container-padded pb-0 bg-sessions">
     <h2>URY Sessions</h2>
-    <div id="sessions-videos" class="row scroll-horiz pb-3 custom-scrollbar-music youtube-video-slider">
+    <div id="sessions-videos" class="row scroll-horiz pb-3 custom-scrollbar-music thumbnail-slider">
     </div>
   </div>
   {{if .Podcasts}}
@@ -61,9 +61,9 @@
         <h2>Latest Podcasts</h2>
       </div>
     </div>
-    <div class="row scroll-horiz custom-scrollbar">
+    <div class="row scroll-horiz custom-scrollbar thumbnail-slider">
       {{range .Podcasts}}
-      <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3">
+      <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
         <a class="ury-card podcast" href="{{.MicrositeLink.URL}}">
           <div class="ury-card-img" style="background: url('https://ury.org.uk{{.Photo}}');" title="URY Podcast: {{.Title}} Logo"></div>
           <div class="ury-card-body">
@@ -73,7 +73,7 @@
         </a>
       </div>
       {{end}}
-      <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3">
+      <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
         <a class="ury-card podcast link" href='{{url "/podcasts/"}}'>
           <div class="ury-card-body">
             <div class="ury-card-lg-title">See all podcasts...</div>

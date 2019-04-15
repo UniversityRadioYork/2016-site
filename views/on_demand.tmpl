@@ -25,10 +25,10 @@
 </div>
 <div id="index-just-missed" class="container-fluid container-padded bg-primary pb-0">
   <h2>You just missed...</h2>
-  <div class="row custom-scrollbar scroll-horiz scroll-none-xl">
+  <div class="row custom-scrollbar scroll-horiz scroll-none-xl thumbnail-slider">
     {{range .PageData.LatestTimeslots}}
-    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3">
-      <a class="ury-card" href="/schedule/shows/timeslots/{{.TimeslotID}}/">
+    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
+      <a class="ury-card " href="/schedule/shows/timeslots/{{.TimeslotID}}/">
         <div class="ury-card-img" style="background: url('
             {{- if .Season.ShowMeta.Photo -}}
             https://ury.org.uk{{.Season.ShowMeta.Photo}}
@@ -43,7 +43,7 @@
       </a>
     </div>
     {{end}}
-    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3">
+    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
       <a class="ury-card link" href="//mixcloud.com/ury1350/">
         <div class="ury-card-body">
           <div class="ury-card-lg-title">See more on Mixcloud...</div>
@@ -58,15 +58,15 @@
       <a name="YouTube"></a><h2>URY Sessions</h2>
     </div>
   </div>
-  <div id="sessions-videos" class="row pb-3 youtube-grid">
+  <div id="sessions-videos" class="row pb-3 thumbnail-grid">
   </div>
 </div>
 {{if .PageData.LatestPodcasts}}
 <div id="index-podcasts" class="container-fluid container-padded pb-0 bg-podcasts">
   <h2>Latest Podcasts</h2>
-  <div class="row custom-scrollbar scroll-horiz">
+  <div class="row custom-scrollbar scroll-horiz thumbnail-slider">
     {{range .PageData.LatestPodcasts}}
-      <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3">
+      <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
         <a class="ury-card podcast" href="{{.MicrositeLink.URL}}">
           <div class="ury-card-img" style="background: url('https://ury.org.uk{{.Photo}}');" title="URY Podcast: {{.Title}} Logo"></div>
           <div class="ury-card-body">
@@ -76,7 +76,7 @@
         </a>
       </div>
     {{end}}
-    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3">
+    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
       <a class="ury-card podcast link" href="{{url "/podcasts/"}}">
         <div class="ury-card-body">
           <div class="ury-card-lg-title">See all podcasts...</div>
