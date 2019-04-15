@@ -59,4 +59,16 @@ $button-color: #fff;
     font-size: 2rem;
     padding: .8rem 1.5rem;
   }
+
+  &.listen-btn {
+    display: table;
+    border-radius: .4em .4em 0 0;
+    box-shadow: 0px 1px 1px 1px rgba(0,0,0, 0.33);
+    position: absolute;
+    bottom: 0;
+    right: 1em;
+    margin: 0 0 0 auto;
+    padding: .25em .5em;
+  }
+
 }
