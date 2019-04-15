@@ -2,6 +2,7 @@
 {{define "content"}}
 {{with .PageData}}
 
+<!-- top banner -->
 <div class="container-fluid header-large current-next mobile-shrink">
   <div class="container">
       <div class="row justify-content-center">
@@ -24,8 +25,15 @@
         <h1 class="display-4 mobile-hide">Schedule <a class="fa fa-key schedule-key-icon" href="#key"></a></h1>
         <h2 class="text-muted mobile-hide">{{week (index .Schedule.Dates 0)}}</h2>
       </div>
-      <div class="col-12 mobile-only">
-        <h1 class=" inline"><a class="fa fa-key schedule-key-icon" data-toggle="collapse" data-target=".schedule-keys" aria-expanded="false" aria-controls="schedule-keys"></a></h1>
+      <div class="col-12">
+        <div class="row justify-content-center">
+          {{with $weekName := week (index .Schedule.Dates 0)}}
+            {{if eq $weekName "this week"}}
+              <button class="btn btn-secondary mobile-only inline" id="jumpToNow" type="button" onclick="jumpToNow()">Jump to the current show</button>
+            {{end}}
+          {{end}}
+          <h1 class="mobile-only inline"><a class="fa fa-key schedule-key-icon" data-toggle="collapse" data-target=".schedule-keys" aria-expanded="false" aria-controls="schedule-keys"></a></h1>
+        </div>
         <div class="schedule-keys collapse">
           <div class="key-row">
             <span class="schedule-block-regular">Regular</span>
@@ -74,7 +82,7 @@
         {{end}}
       </table>
       {{range .Table}}
-        <table class="schedule-table">
+        <table class="schedule-table day-{{.Day.Weekday}}">
           <colgroup>
             <col class="mobile-only time-col">
           </colgroup>
@@ -83,7 +91,7 @@
           </tr>
           {{range .Cells}}
             <tr>
-              <td class="time-header mobile-only">{{.Hour | printf "%02d"}}:{{.Minute | printf "%02d"}}</td>
+              <td class="time-header mobile-only hour-{{.Hour | printf "%02d"}}">{{.Hour | printf "%02d"}}:{{.Minute | printf "%02d"}}</td>
               {{if ne .RowSpan 0}}
               <td rowspan="{{.RowSpan}}" class="schedule-timeslot schedule-block-{{.Item.Block}}" title="{{stripHTML .Item.Desc}}"
                   {{if .Item.PageURL}} onclick="window.location.href='{{url .Item.PageURL}}'" {{end}} >
@@ -127,4 +135,8 @@
 {{end}}
 {{end}}
 {{end}}
-
+{{define "footer-scripts"}}
+<!-- Jump to day button -->
+<script>var StartHour = {{.PageData.StartHour}};</script>
+<script src='{{url "/js/schedule.js"}}' id="jumpToNow"></script>
+{{end}}
