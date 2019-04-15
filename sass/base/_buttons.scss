@@ -59,10 +59,11 @@ $button-color: #fff;
     padding: 0.8rem 1.5rem;
   }
 
+  $listen-shadow: rgba(0, 0, 0, 0.33);
   &.listen-btn {
     display: table;
     border-radius: 0.4em 0.4em 0 0;
-    box-shadow: 1px 1px 0 1px rgba(0, 0, 0, 0.33);
+    box-shadow: 1px 1px 0 1px $listen-shadow;
     position: absolute;
     bottom: 0;
     right: 1em;
