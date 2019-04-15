@@ -105,12 +105,14 @@ $breakpoints: sm, md, lg, xl;
   }
 }
 
+$badge-colour: #868e96;
+
 .tag {
   transition: 350ms;
 
   &:hover {
     transform: scale(1.08);
-    color: #868e96;
-    background-color: #ffffff;
+    color: $badge-colour;
+    background-color: $white;
   }
 }

@@ -264,8 +264,8 @@ footer {
 
     // Padding for desktop
     @include media-breakpoint-up(md) {
-    // Remove the height of the nav bar roughly 60px
-    padding: calc(5em + 60px) 0 5em;
+      // Remove the height of the nav bar roughly 60px
+      padding: calc(5em + 60px) 0 5em;
     }
   }
 
