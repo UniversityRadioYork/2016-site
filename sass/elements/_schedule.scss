@@ -136,8 +136,8 @@ $sustainer-color: tint($primary-color, 40%);
   @include schedule-block($primary-color, $off-white-color);
 }
 
-.schedule-block-flagship {
-  @include schedule-block($flagship, $black);
+.schedule-block-primetime {
+  @include schedule-block($primetime, $black);
 }
 
 .schedule-block-news {
@@ -158,6 +158,10 @@ $sustainer-color: tint($primary-color, 40%);
 
 .schedule-block-specialist-music {
   @include schedule-block(tint($music-purple, 60%), $white);
+}
+
+.schedule-block-collab {
+  @include schedule-block($collab, $off-white-color);
 }
 
 .schedule-keys .key-row {
