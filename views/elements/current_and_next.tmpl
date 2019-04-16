@@ -53,10 +53,10 @@
 {{define "current_next"}}
 <div class="template-box">
 {{if .Title}}
-<h3 class="show-title ellipsis">
+<div class="h3 show-title ellipsis">
   {{.Title}}
-</h3>
-<h4 class="show-time h6">
+</div>
+<div class="show-time h4">
   {{if not .EndTime.IsZero}}
     {{- if .StartTime.IsZero -}}
       Now
@@ -65,7 +65,7 @@
     {{- end}} -
     {{.EndTime.Format "15:04"}}
   {{end}}
-</h4>
+</div>
 {{else}}
 <span>Looks like there is nothing on here.</span>
 {{end}}
