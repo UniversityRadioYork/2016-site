@@ -1,6 +1,7 @@
 $button-color: #fff;
 
 .btn {
+  border: 0;
   border-radius: .4em;
   padding: .25em 1em;
   font-family: $font-family-heading;
@@ -17,7 +18,6 @@ $button-color: #fff;
   &.btn-primary {
     background: $blue;
     color: $button-color;
-    border: 2px solid $button-color;
 
     &:hover:not(:disabled) {
       background: $button-color;
@@ -28,7 +28,6 @@ $button-color: #fff;
   &.btn-primary-inverse {
     background: $button-color;
     color: $blue;
-    border: 2px solid $button-color;
 
     &:hover:not(:disabled) {
       background: $blue;
@@ -57,6 +56,20 @@ $button-color: #fff;
   &.btn-xl {
     border-radius: .3em;
     font-size: 2rem;
-    padding: .8rem 1.5rem;
+    padding: 0.8rem 1.5rem;
   }
+
+  $listen-shadow: rgba(0, 0, 0, 0.33);
+
+  &.listen-btn {
+    display: table;
+    border-radius: 0.4em 0.4em 0 0;
+    box-shadow: 1px 1px 0 1px $listen-shadow;
+    position: absolute;
+    bottom: 0;
+    right: 1em;
+    margin: 0 0 0 auto;
+    padding: 0.25em 0.5em;
+  }
+
 }
