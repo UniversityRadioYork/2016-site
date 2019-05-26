@@ -66,7 +66,6 @@ $button-color: #fff;
     border-radius: 0.4em 0.4em 0 0;
     box-shadow: 0 1px 1px 1px $listen-shadow;
     position: absolute;
-    bottom: 0;
     right: 1em;
     margin: 0 0 0 auto;
     padding: 0.25em 0.5em;
@@ -74,6 +73,7 @@ $button-color: #fff;
 
   &.listen-btn {
     @extend %listen-btn-defaults;
+    bottom: 0;
   }
 
   &.listen-btn-animated {
