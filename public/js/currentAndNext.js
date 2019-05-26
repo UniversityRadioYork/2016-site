@@ -23,8 +23,8 @@ $(document).ready(function() {
           if (typeof show.title !== "undefined") {
             // If we're off air
             if (show.end_time === "The End of Time") {
-              return "<h3 class=\"show-title ellipsis\">We're off air right now.</h3>" +
-                "<h4 class=\"show-time h6\">Check back next term.</h4>";
+              return "<div class=\"h3 show-title ellipsis\">We're off air right now.</div>" +
+                "<div class=\"show-time h4\">Check back next term.</div>";
             }
             // Use "Now" as start time if it's missing
             let startTimeString = calcTime(show.start_time);
@@ -32,10 +32,10 @@ $(document).ready(function() {
               startTimeString = "Now";
             }
             // Default case (regular show)
-            return "<h3 class=\"show-title ellipsis\">" +
+            return "<div class=\"h3 show-title ellipsis\">" +
               show.title +
-              "</h3>" +
-              "<h4 class=\"show-time h6\">" + startTimeString + " - " + calcTime(show.end_time) + "</h4>";
+              "</div>" +
+              "<div class=\"show-time h4\">" + startTimeString + " - " + calcTime(show.end_time) + "</div>";
           } else {
             return "<span>Looks like there is nothing on here.</span>";
           }
@@ -63,7 +63,7 @@ $(document).ready(function() {
           $(".current-and-next-now").replaceWith(
             "<div class=\"current-and-next-now p-2 pt-3 px-3 p-md-3 p-lg-4 \" title=\"View the show now on air.\">" +
             "<h2 class=\"font-weight-bold\">Now</h2>" +
-            "<h3 class=\"show-title ellipsis\">There's nothing on right now.</h3>");
+            "<div class=\"h3 show-title ellipsis\">There's nothing on right now.</div>");
           $("#studiomessage *").attr("disabled", true);
         } else if (typeof data.payload.current.url !== "undefined") {
           $(".current-and-next-now").replaceWith(
@@ -89,7 +89,7 @@ $(document).ready(function() {
           $(".current-and-next-next").replaceWith(
             "<div class=\"current-and-next-next p-2 pt-3 px-3 p-sm-3 p-lg-4 \" title=\"View the show up next.\">" +
             "<h2 class=\"font-weight-bold\">Next</h2>" +
-            "<h3 class=\"show-title ellipsis\">There's nothing up next yet.</h3>" +
+            "<div class=\"h3 show-title ellipsis\">There's nothing up next yet.</div>" +
             "</a>");
         } else if (typeof data.payload.next.url !== "undefined") {
           $(".current-and-next-next").replaceWith(
