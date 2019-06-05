@@ -61,14 +61,25 @@ $button-color: #fff;
 
   $listen-shadow: rgba(0, 0, 0, 0.33);
 
-  &.listen-btn {
+  %listen-btn-defaults {
+    transition-duration: 0.3s;
     border-radius: 0.4em 0.4em 0 0;
-    box-shadow: 1px 1px 0 1px $listen-shadow;
+    box-shadow: 0 1px 1px 1px $listen-shadow;
     position: absolute;
-    bottom: 0;
     right: 1em;
     margin: 0 0 0 auto;
     padding: 0.25em 0.5em;
+  }
+
+  &.listen-btn {
+    @extend %listen-btn-defaults;
+    bottom: 0;
+  }
+
+  &.listen-btn-animated {
+    @extend %listen-btn-defaults;
+    padding-bottom: 50px;
+    bottom: calc(-50px + 0.5em);
   }
 
 }
