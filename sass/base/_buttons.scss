@@ -1,4 +1,15 @@
 $button-color: #fff;
+$listen-shadow: rgba(0, 0, 0, 0.33);
+
+%listen-btn-defaults {
+  transition-duration: 0.3s;
+  border-radius: 0.4em 0.4em 0 0;
+  box-shadow: 0 1px 1px 1px $listen-shadow;
+  position: absolute;
+  right: 1em;
+  margin: 0 0 0 auto;
+  padding: 0.25em 0.5em;
+}
 
 .btn {
   border: 0;
@@ -59,17 +70,7 @@ $button-color: #fff;
     padding: 0.8rem 1.5rem;
   }
 
-  $listen-shadow: rgba(0, 0, 0, 0.33);
 
-  %listen-btn-defaults {
-    transition-duration: 0.3s;
-    border-radius: 0.4em 0.4em 0 0;
-    box-shadow: 0 1px 1px 1px $listen-shadow;
-    position: absolute;
-    right: 1em;
-    margin: 0 0 0 auto;
-    padding: 0.25em 0.5em;
-  }
 
   &.listen-btn {
     @extend %listen-btn-defaults;
