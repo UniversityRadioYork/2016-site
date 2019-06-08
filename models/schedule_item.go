@@ -80,14 +80,14 @@ func getBlock(name string, StartTime time.Time) string {
 		block        string
 	}
 	var blockMatches = []blockMatch{
-		{"ury: early morning", "flagship"},
-		{"ury breakfast", "flagship"},
-		{"ury lunch", "flagship"},
-		{"ury brunch", "flagship"},
-		{"URY Brunch", "flagship"},
-		{"URY Afternoon Tea:", "flagship"},
-		{"URY:PM", "flagship"},
-		{"Alumni Takeover:", "flagship"},
+		{"ury: early morning", "primetime"},
+		{"ury breakfast", "primetime"},
+		{"ury lunch", "primetime"},
+		{"ury brunch", "primetime"},
+		{"URY Brunch", "primetime"},
+		{"URY Afternoon Tea:", "primetime"},
+		{"URY:PM", "primetime"},
+		{"Alumni Takeover:", "primetime"},
 
 		{"ury news", "news"},
 		{"ury sports", "news"},
@@ -129,6 +129,10 @@ func getBlock(name string, StartTime time.Time) string {
 		{"URY Presents", "event"},
 		{"URYOnTour", "event"},
 		{"URY On Tour", "event"},
+
+		{"YSTV", "collab"},
+		{"Nouse", "collab"},
+		{"York Politics Digest", "collab"},
 	}
 	for _, bm := range blockMatches {
 		if strings.Contains(name, strings.ToLower(bm.nameFragment)) {
@@ -137,7 +141,7 @@ func getBlock(name string, StartTime time.Time) string {
 	}
 	// certain times of the day correspond to a specific show type.
 	if (StartTime.Hour() == 11) || (StartTime.Hour() == 19) { // missed flagship
-		return "flagship"
+		return "primetime"
 	}
 	return "regular"
 }

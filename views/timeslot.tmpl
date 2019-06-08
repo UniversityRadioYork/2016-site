@@ -34,7 +34,7 @@
         {{else if eq .PageData.ODState 2}}
           <h3 class="float-lg-left">This show is on right now!</h3>
             <a href="https://ury.org.uk/listen" class="btn btn-xl btn-red listen-btn float-lg-right" title="Listen Live" onclick="window.open('http://ury.org.uk/live', 'radioplayer', 'height=665,width=380'); return false;">
-              Listen Live
+              <i class="fa fa-volume-up mr-2"></i>Listen Live
             </a>
           <br><br>
           <p class="float-lg-left h5">Missed the start? Check out previous shows while you wait, <a href="{{.PageData.Timeslot.Season.ShowMeta.MicroSiteLink.URL}}">{{.PageContext.ODName}}...</a></p>
@@ -83,7 +83,7 @@
             <span class="h5 mg-right-5">Tags:</span>
             {{range .Timeslot.Tags}}
             <a href="/search?term={{.}}" alt="Search for '{{.}}'.">
-              <span class="badge badge-secondary">{{.}}</span>
+              <span class="badge badge-secondary tag">{{.}}</span>
             </a>
             {{end}}
           </div>

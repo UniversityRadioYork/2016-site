@@ -174,7 +174,15 @@ footer {
   background: url("/images/bg-banner-1.jpg") center center no-repeat;
   background-size: cover;
   color: $white;
-  padding: 6em 0;
+
+  // Padding for mobile
+  padding: calc(5em + 60px) 0 5em;
+
+  // Padding for desktop
+  @include media-breakpoint-up(md) {
+    // Remove the height of the nav bar roughly 60px
+    padding: calc(5em + 60px) 0 5em;
+  }
 }
 
 .uryplayer-podcast-embed {
@@ -251,7 +259,14 @@ footer {
 
   // Give more padding to banners
   .banner-2 {
-    padding: 10em 0;
+    // Padding for mobile
+    padding: calc(5em + 60px) 0 5em;
+
+    // Padding for desktop
+    @include media-breakpoint-up(md) {
+      // Remove the height of the nav bar roughly 60px
+      padding: calc(5em + 60px) 0 5em;
+    }
   }
 
   .drone-banner {
@@ -320,7 +335,7 @@ footer {
 .mixcloud {
   background: #FCFCFC;
   color: #555;
-  border: 1px solid #D7D7D7;
+  border-radius: 1em;
 }
 
 .show-img {

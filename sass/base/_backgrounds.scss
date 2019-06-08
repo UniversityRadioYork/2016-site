@@ -49,6 +49,16 @@
   background: none !important;
 }
 
+.bg-sessions {
+  background: desaturate($music-purple, 20%);
+  color: $white;
+}
+
+.bg-podcasts {
+  background: $computing-grey;
+  color: $white;
+}
+
 .bg-cin {
   background: $cin-background;
 }
@@ -57,5 +67,12 @@
   background: url("/images/holdingcard.gif") center center no-repeat;
   background-size: cover;
   color: $cin-primary;
-  padding: 6em 0;
+  // Padding for mobile
+  padding: calc(5em + 60px) 0 5em;
+
+  // Padding for desktop
+  @include media-breakpoint-up(md) {
+  // Remove the height of the nav bar roughly 60px
+    padding: calc(5em + 60px) 0 5em;
+  }
 }
