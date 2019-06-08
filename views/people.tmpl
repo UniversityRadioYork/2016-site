@@ -25,7 +25,7 @@
     <div class="container-fluid current-next">
       <div class="container mobile-hide">
         <div class="row justify-content-center">
-          <div class="col-11 col-md-10">
+          <div class="col-11 col-md-10 box-shadow-1 current-next-container">
           {{template "current_and_next" .}}
           </div>
         </div>
@@ -40,7 +40,7 @@
             </div>
             <div class="row">
               <div class="col text-center">
-                <h6>Shows: {{len .ShowCredits}}</h6>
+                <span class="h3">Shows: {{len .ShowCredits}}</span>
               </div>
             </div>
           </div>

@@ -2,15 +2,16 @@
 {{define "content"}}
 {{with .PageData}}
 
+<!-- top banner -->
 <div class="container-fluid header-large current-next mobile-shrink">
   <div class="container">
       <div class="row justify-content-center">
-        <div class="col-11 col-md-10 box-shadow-1 mobile-hide">
+        <div class="col-11 col-md-10 box-shadow-1 current-next-container mobile-hide">
           {{template "current_and_next" .}}
         </div>
         <div class="col-11 col-md-10 text-center mobile-only">
           <h1 class="display-3">Schedule</h1>
-          <h5 class="display-5">{{week (index .Schedule.Dates 0)}}</h5>
+          <h2 class="display-5">{{week (index .Schedule.Dates 0)}}</h2>
         </div>
       </div>
     </div>
@@ -22,18 +23,26 @@
     <div class="row">
       <div class="col-auto">
         <h1 class="display-4 mobile-hide">Schedule <a class="fa fa-key schedule-key-icon" href="#key"></a></h1>
-        <h5 class="text-muted mobile-hide">{{week (index .Schedule.Dates 0)}}</h5>
+        <h2 class="text-muted mobile-hide">{{week (index .Schedule.Dates 0)}}</h2>
       </div>
-      <div class="col-12 mobile-only">
-        <h1 class=" inline"><a class="fa fa-key schedule-key-icon" data-toggle="collapse" data-target=".schedule-keys" aria-expanded="false" aria-controls="schedule-keys"></a></h1>
+      <div class="col-12">
+        <div class="row justify-content-center">
+          {{with $weekName := week (index .Schedule.Dates 0)}}
+            {{if eq $weekName "this week"}}
+              <button class="btn btn-secondary mobile-only inline" id="jumpToNow" type="button" onclick="jumpToNow()">Jump to the current show</button>
+            {{end}}
+          {{end}}
+          <h1 class="mobile-only inline"><a class="fa fa-key schedule-key-icon" data-toggle="collapse" data-target=".schedule-keys" aria-expanded="false" aria-controls="schedule-keys"></a></h1>
+        </div>
         <div class="schedule-keys collapse">
           <div class="key-row">
             <span class="schedule-block-regular">Regular</span>
-            <span class="schedule-block-flagship">Flagship</span>
+            <span class="schedule-block-primetime">Primetime</span>
             <span class="schedule-block-event">Events</span>
             <span class="schedule-block-news">News</span>
             <span class="schedule-block-speech">Speech</span>
             <span class="schedule-block-music">Music</span>
+            <span class="schedule-block-collab">Collaboration</span>
           </div>
         </div>
       </div>
@@ -73,7 +82,7 @@
         {{end}}
       </table>
       {{range .Table}}
-        <table class="schedule-table">
+        <table class="schedule-table day-{{.Day.Weekday}}">
           <colgroup>
             <col class="mobile-only time-col">
           </colgroup>
@@ -82,7 +91,7 @@
           </tr>
           {{range .Cells}}
             <tr>
-              <td class="time-header mobile-only">{{.Hour | printf "%02d"}}:{{.Minute | printf "%02d"}}</td>
+              <td class="time-header mobile-only hour-{{.Hour | printf "%02d"}}">{{.Hour | printf "%02d"}}:{{.Minute | printf "%02d"}}</td>
               {{if ne .RowSpan 0}}
               <td rowspan="{{.RowSpan}}" class="schedule-timeslot schedule-block-{{.Item.Block}}" title="{{stripHTML .Item.Desc}}"
                   {{if .Item.PageURL}} onclick="window.location.href='{{url .Item.PageURL}}'" {{end}} >
@@ -110,13 +119,14 @@
     <div class="row justify-content-center pb-3">
         <div class="schedule-keys" id="key">
           <div class="key-row">
-            <h5 class="inline">Schedule Key:</h5>
+            <h2 class="inline">Schedule Key:</h2>
             <span class="schedule-block-regular">Regular</span>
-            <span class="schedule-block-flagship">Flagship</span>
+            <span class="schedule-block-primetime">Primetime</span>
             <span class="schedule-block-event">Events</span>
             <span class="schedule-block-news">News</span>
             <span class="schedule-block-speech">Speech</span>
             <span class="schedule-block-music">Music</span>
+            <span class="schedule-block-collab">Collaboration</span>
           </div>
         </div>
     </div>
@@ -125,4 +135,8 @@
 {{end}}
 {{end}}
 {{end}}
-
+{{define "footer-scripts"}}
+<!-- Jump to day button -->
+<script>var StartHour = {{.PageData.StartHour}};</script>
+<script src='{{url "/js/schedule.js"}}' id="jumpToNow"></script>
+{{end}}

@@ -54,3 +54,11 @@ func (staticC *StaticController) GetCompetitions(w http.ResponseWriter, r *http.
 		return
 	}
 }
+
+func (staticC *StaticController) GetCIN(w http.ResponseWriter, r *http.Request) {
+	err := utils.RenderTemplate(w, staticC.config.PageContext, nil, "cin.tmpl")
+	if err != nil {
+		log.Println(err)
+		return
+	}
+}

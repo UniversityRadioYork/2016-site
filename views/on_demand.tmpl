@@ -13,8 +13,8 @@
 {{end}}
 
 {{define "content"}}
-<div class="container-fluid on-demand">
-  <div class="container container-padded">
+<div class="container-fluid header-medium on-demand position-relative">
+  <div class="container">
     <div class="row align-items-center text-center">
       <div class="col">
         <h1 class="display-3">{{.PageContext.ShortName}} {{.PageContext.ODName}}</h1>
@@ -25,10 +25,10 @@
 </div>
 <div id="index-just-missed" class="container-fluid container-padded bg-primary pb-0">
   <h2>You just missed...</h2>
-  <div class="row custom-scrollbar scroll-horiz scroll-none-xl">
+  <div class="row custom-scrollbar scroll-horiz scroll-none-xl thumbnail-slider">
     {{range .PageData.LatestTimeslots}}
-    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 pb-3">
-      <a class="ury-card" href="/schedule/shows/timeslots/{{.TimeslotID}}/">
+    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
+      <a class="ury-card " href="/schedule/shows/timeslots/{{.TimeslotID}}/">
         <div class="ury-card-img" style="background: url('
             {{- if .Season.ShowMeta.Photo -}}
             https://ury.org.uk{{.Season.ShowMeta.Photo}}
@@ -43,26 +43,30 @@
       </a>
     </div>
     {{end}}
-  </div>
-</div>
-<div id="index-videos" class="container-fluid container-padded bg-secondary">
-  <div class="row">
-    <div class="col-12 col-md-8">
-      <a name="YouTube"></a><h2>{{.PageContext.ShortName}} on Youtube</h2>
+    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
+      <a class="ury-card link" href="//mixcloud.com/ury1350/">
+        <div class="ury-card-body">
+          <div class="ury-card-lg-title">See more on Mixcloud...</div>
+        </div>
+      </a>
     </div>
   </div>
-  <div id="youtube-videos" class="row pb-3 youtube-grid">
+</div>
+<div id="index-videos" class="container-fluid container-padded bg-sessions">
+  <div class="row">
+    <div class="col-12 col-md-8">
+      <a name="YouTube"></a><h2>URY Sessions</h2>
+    </div>
   </div>
-  <div class="row justify-content-center">
-    <a href="{{.PageContext.Youtube.ChannelURL}}" class="view-more-link" title="View more on Youtube...">View more on Youtube...</a>
+  <div id="sessions-videos" class="row pb-3 thumbnail-grid">
   </div>
 </div>
 {{if .PageData.LatestPodcasts}}
-<div id="index-podcasts" class="container-fluid container-padded pb-0 bg-third">
+<div id="index-podcasts" class="container-fluid container-padded pb-0 bg-podcasts">
   <h2>Latest Podcasts</h2>
-  <div class="row custom-scrollbar scroll-horiz">
+  <div class="row custom-scrollbar scroll-horiz thumbnail-slider">
     {{range .PageData.LatestPodcasts}}
-      <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 pb-3">
+      <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
         <a class="ury-card podcast" href="{{.MicrositeLink.URL}}">
           <div class="ury-card-img" style="background: url('https://ury.org.uk{{.Photo}}');" title="URY Podcast: {{.Title}} Logo"></div>
           <div class="ury-card-body">
@@ -72,7 +76,7 @@
         </a>
       </div>
     {{end}}
-    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 pb-3">
+    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
       <a class="ury-card podcast link" href="{{url "/podcasts/"}}">
         <div class="ury-card-body">
           <div class="ury-card-lg-title">See all podcasts...</div>
@@ -88,7 +92,12 @@
 <!-- Youtube slider script -->
 <script>
 var youtubeAPIKey = {{.PageContext.Youtube.APIKey}};
-var youtubePlaylistID = "{{.PageContext.Youtube.PlaylistID}}";
+var youtubeSessionsPlaylistID = "{{.PageContext.Youtube.SessionsPlaylistID}}";
+var youtubeCINPlaylistID = "{{.PageContext.Youtube.CINPlaylistID}}";
+var youtubeLink = "{{.PageContext.Youtube.ChannelURL}}";
+var isIndex = false;
+var isCIN = false;
+var isOD = true;
 </script>
 <script src='{{url "/js/index.js"}}'></script>
 <script src="https://apis.google.com/js/client.js?onload=onGoogleLoad"></script>

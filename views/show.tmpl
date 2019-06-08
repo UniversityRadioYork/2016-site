@@ -34,10 +34,10 @@
         alt="{{.Show.Title}} Logo">
         <div class="row">
           <div class="col-6 text-center">
-            <h6>Seasons: {{len .Seasons}}</h6>
+            <span class="h3">Seasons: {{len .Seasons}}</span>
           </div>
           <div class="col-6 text-center">
-            <h6>Episodes: {{showCount .Seasons}}</h6>
+            <span class="h3">Episodes: {{showCount .Seasons}}</span>
           </div>
         </div>
       </div>
@@ -52,6 +52,7 @@
           <div class="col-auto share-links">
               <span class="h5 mg-right-5">Share:</span>
               <a href="#"
+                  title="Share this show episode on Twitter"
                   data-type="twitter"
                   data-url="{{.PageContext.FullURL}}/schedule/shows/{{.PageData.Show.ShowID}}"
                   {{if .PageData.Show.Photo}}
@@ -63,6 +64,7 @@
               </a>
 
               <a href="#"
+                  title="Share this show episode on Facebook"
                   data-type="facebook"
                   data-url="{{.PageContext.FullURL}}/schedule/shows/{{.PageData.Show.ShowID}}"
                   data-title="{{.PageData.Show.Title}} | {{.PageContext.ShortName}}"
@@ -72,17 +74,6 @@
                   {{end}}
                   class="prettySocial fab fa-facebook">
               </a>
-
-              <a href="#"
-                  data-type="googleplus"
-                  data-url="{{.PageContext.FullURL}}/schedule/shows/{{.PageData.Show.ShowID}}"
-                  data-description="{{.PageData.Show.Description}}"
-                  {{if .PageData.Show.Photo}}
-                      data-media="{{.PageContext.FullURL}}{{.PageData.Show.Photo}}"
-                  {{end}}
-                  class="prettySocial fab fa-google">
-              </a>
-
           </div>
         </div>
       </div>
@@ -99,9 +90,9 @@
       {{range $key, $value := .CreditsToUsers}}
       <div class="col-sm-4 pb-3">
         {{if gt (len $value) 1}}
-          <h4>{{plural $key}}</h4>
+          <h3>{{plural $key}}</h3>
         {{else}}
-          <h4>{{$key}}</h4>
+          <h3>{{$key}}</h3>
         {{end}}
         {{range $value}}
         <a href="/people/{{.MemberID}}/">{{.Fname}} {{.Sname}}</a> <br>
@@ -117,14 +108,14 @@
     <div class="row">
 {{end}}
       <div class="col-12 col-xl-4 p-4">
-        <h1>{{.PageContext.ShortName}} {{.PageContext.ODName}}</h1>
-        <h3><small>Explore the show catalogue, and listen back to your favorite episodes!</small></h3>
+        <h2>{{.PageContext.ShortName}} {{.PageContext.ODName}}</h2>
+        <p>Explore the show catalogue, and listen back to your favorite episodes!</p>
         <a href="/ontap/">View all of our on demand content...</a>
       </div>
       <div id="season-list" class="col-12 col-md-6 col-xl-4 bg-off-white">
-        <h2>
+        <h3>
           Seasons
-        </h2>
+        </h3>
         <table id="seasons" class="table seasons-table">
           <thead>
             <tr>
@@ -140,7 +131,7 @@
               <tr class="timeslot-filter-season" data-SeasonID="{{.SeasonID}}">
                 <td>{{.SeasonID}}</td>
                 <td style="width:10px">{{.SeasonNum}}.</td>
-                <td>{{.FirstTime.Format "Jan 2006"}}</td>
+                <td><a href="#" title="Show episodes for season {{.SeasonNum}}">{{.FirstTime.Format "Jan 2006"}}</a></td>
                 <td style="width:10px"><span class="badge badge-pill badge-light">
                   {{.NumEpisodes.Value}}</span>
                 </td>
@@ -151,7 +142,7 @@
         </table>
       </div>
       <div id="timeslot-latest" class="col-12 col-md-6 col-xl-4 p-4 bg-white">
-        <h3>Latest Episode</h3>
+        <h4>Latest Episode</h4>
         {{if ne .PageData.LatestTimeslot.TimeslotID 0}}
         <p>Catchup with the latest episode from <strong>{{.PageData.LatestTimeslot.StartTime.Format "Monday, _2 Jan 2006"}}</strong></p>
         {{if .PageData.LatestMixcloud}}
@@ -171,7 +162,7 @@
       </div>
 {{with .PageData}}
       <div id="timeslot-list" class="col-12 col-md-6 col-xl-4 bg-off-white">
-        <h2 class="inline">Episodes</h2><h3 id="timeslot-season-title" class="inline"></h3>
+        <h4 class="inline">Episodes</h4><h5 id="timeslot-season-title" class="inline"></h5>
         <table id="timeslots" class="table timeslots-table">
           <thead>
             <tr>

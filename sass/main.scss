@@ -9,9 +9,6 @@
   text-overflow: ellipsis;
 }
 
-html {
-  font-size: 14px;
-}
 
 @include media-breakpoint-down(lg) {
   .container {
@@ -42,10 +39,13 @@ html {
 }
 
 // Custom page footer
-
 footer {
-  color: #777;
+  color: #646464;
   background: $off-white-color;
+
+  a {
+    color: $link-color-dark;
+  }
 
   .row {
     min-height: 3em;
@@ -56,8 +56,20 @@ footer {
   background: url("/images/bg-banner-2.jpg") center center no-repeat;
   background-size: cover;
   color: $white;
-  padding: 3em;
-  padding-bottom: 0;
+  padding: 5em 0;
+  padding-bottom: 2.5em;
+
+  .slim {
+    padding: 6em 0 3em;
+  }
+}
+
+.drone-banner {
+  background: url("/images/drone-banner.jpg") top center no-repeat;
+  background-size: cover;
+  color: $white;
+  padding: 10em 0 2.5em 0;
+  background-position-y: 20px;
 
   .slim {
     padding: 6em 0 3em;
@@ -158,34 +170,19 @@ footer {
   color: $white;
 }
 
-.team-card {
-  .card-body {
-    height: 12em;
-  }
-
-  .card-text {
-    position: relative;
-    height: 7.5em; // exactly 5 lines
-    overflow: hidden;
-
-    &::after {
-      content: "";
-      text-align: right;
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 70%;
-      height: 1.5em;
-      background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%); // scss-lint:disable ColorVariable
-    }
-  }
-}
-
 .on-demand {
   background: url("/images/bg-banner-1.jpg") center center no-repeat;
   background-size: cover;
   color: $white;
-  padding: 6em 0;
+
+  // Padding for mobile
+  padding: calc(5em + 60px) 0 5em;
+
+  // Padding for desktop
+  @include media-breakpoint-up(md) {
+    // Remove the height of the nav bar roughly 60px
+    padding: calc(5em + 60px) 0 5em;
+  }
 }
 
 .uryplayer-podcast-embed {
@@ -262,7 +259,20 @@ footer {
 
   // Give more padding to banners
   .banner-2 {
-    padding: 10em 0;
+    // Padding for mobile
+    padding: calc(5em + 60px) 0 5em;
+
+    // Padding for desktop
+    @include media-breakpoint-up(md) {
+      // Remove the height of the nav bar roughly 60px
+      padding: calc(5em + 60px) 0 5em;
+    }
+  }
+
+  .drone-banner {
+    padding: 35vh 0 5em 0;
+    background-attachment: fixed;
+    background-size: cover;
   }
 
   .display-1 {
@@ -325,11 +335,12 @@ footer {
 .mixcloud {
   background: #FCFCFC;
   color: #555;
-  border: 1px solid #D7D7D7;
+  border-radius: 1em;
+  overflow: hidden;
 }
 
 .show-img {
-  border: #e1e1e1 7px solid;
+  border: $off-white-color 7px solid;
   background-color: $primary-color;
 
   @include media-breakpoint-up(md) {

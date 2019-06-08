@@ -1,0 +1,58 @@
+{{define "title"}}{{.PageContext.ShortName}} | CIN{{end}}
+
+{{define "content"}}
+<div class="container-fluid bg-cin bg-cin-gif">
+    <div class="container container-padded">
+      <div class="row align-items-center text-center">
+        <div class="col">
+          <h1 class="display-3 cin-text">{{.PageContext.ShortName}} Candidate Interview Night</h1>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid container-padded text-center">
+      <div class="row">
+          <div class="col-md-4 align-self-center">
+            <a href="//twitter.com/{{.PageContext.MainTwitter}}"><i class="fab fa-twitter fa-2x"></i><h3>Find us on Twitter</h3></a>
+          </div>
+          <div class="col-md-4 align-self-center">
+            <h3>Join in with the conversation<br>#CIN19</h3>
+          </div>
+          <div class="col-md-4 align-self-center">
+            <a href="//facebook.com/{{.PageContext.MainFacebook}}"><i class="fab fa-facebook fa-2x"></i><h3>Find us on Facebook</h3></a>
+          </div>
+      </div>
+    </div>
+    {{if not .PageContext.CINLivestreaming}}
+    <div class="container-fluid container-padded text-center">
+          <h3>Broadcast will begin at 7pm</h3>
+    </div>
+    {{end}}
+    {{if .PageContext.CINLivestreaming}}
+    <div class="row align-items-center"></div>
+      <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FURY1350%2F&width=800&show_text=false&height=0&appId" width="800" height="0" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media" allowFullScreen="true"></iframe>
+    </div>
+    {{end}}
+</div>
+<div class="container-fluid bg-cin">
+  
+</div>
+<div id="index-videos" class="container-fluid container-padded bg-cin">
+    <div id="cin-videos" class="row pb-3 youtube-grid">
+    </div>
+</div>
+{{end}}
+
+{{define "footer-scripts"}}
+<!-- Youtube slider script -->
+<script>
+var youtubeAPIKey = {{.PageContext.Youtube.APIKey}};
+var youtubeSessionsPlaylistID = "{{.PageContext.Youtube.SessionsPlaylistID}}";
+var youtubeCINPlaylistID = "{{.PageContext.Youtube.CINPlaylistID}}";
+var youtubeLink = "{{.PageContext.Youtube.ChannelURL}}";
+var isIndex = false;
+var isCIN = true;
+var isOD = false;
+</script>
+<script src='{{url "/js/index.js"}}'></script>
+<script src="https://apis.google.com/js/client.js?onload=onGoogleLoad"></script>
+{{end}}

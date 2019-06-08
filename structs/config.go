@@ -30,8 +30,11 @@ type PageContext struct {
 	MainTwitter     string `toml:"mainTwitter"`
 	MainFacebook    string `toml:"mainFacebook"`
 	NewsTwitter     string `toml:"newsTwitter"`
-	MyRadioAPIKey   string `toml:"myRadioAPIKey"`
+	MyRadioAPIKey   string `toml:"publicMyRadioAPIKey"`
 	ODName          string `toml:"odName"`
+	Christmas       bool   `toml:"christmas"`
+	CIN             bool   `toml:"cin"`
+	CINLivestreaming bool  `toml:"cinLivestreaming"`
 	Pages           []Page
 	Youtube         youtube
 	Gmaps           gmaps
@@ -57,7 +60,8 @@ type Page struct {
 
 type youtube struct {
 	APIKey     string `toml:"apiKey"`
-	PlaylistID string `toml:"playlistID"`
+	SessionsPlaylistID string `toml:"sessionsPlaylistID"`
+	CINPlaylistID string `toml:"cinPlaylistID"`
 	ChannelURL string `toml:"channelURL"`
 }
 
