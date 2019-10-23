@@ -100,6 +100,7 @@ func getBlock(name string, StartTime time.Time) string {
 		{"The Second Half With Josh Kerr", "news"},
 		{"URY SPORT", "news"},
 		{"URY News & Sport:", "news"},
+    {"URY N&S:", "news"},
 
 		{"ury speech", "speech"},
 		{"yorworld", "speech"},
