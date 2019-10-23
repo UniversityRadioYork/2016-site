@@ -71,14 +71,14 @@ $shadow: rgba(0, 0, 0, 0.5);
       border: 0;
     }
   }
-  
+
   tbody {
     display: table;
     width: 100%;
   }
 
   tr {
-    height: 84px;
+    height: 135px;
   }
 
   td,
@@ -201,6 +201,10 @@ $sustainer-color: tint($primary-color, 40%);
     margin-bottom: 10px;
     padding: 10px;
     border-radius: 2px;
+
+    tr {
+      height: 70px;
+    }
 
     tbody {
       display: table-row-group;
