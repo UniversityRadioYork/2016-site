@@ -51,7 +51,7 @@
       {{if .Photo}}
             https://ury.org.uk{{.Photo}}
       {{else}}
-            /images/default_show_profile.png
+            {{url "/images/default_show_profile.png"}}
       {{end}}
 
         " alt="{{.Title}} Logo">
