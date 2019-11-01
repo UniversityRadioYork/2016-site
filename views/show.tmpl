@@ -29,7 +29,7 @@
         {{- if .Show.Photo -}}
         https://ury.org.uk{{.Show.Photo}}
         {{- else -}}
-        /images/default_show_profile.png
+        {{url "/images/default_show_profile.png"}}
         {{- end -}}"
         alt="{{.Show.Title}} Logo">
         <div class="row">
