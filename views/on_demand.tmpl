@@ -33,7 +33,7 @@
             {{- if .Season.ShowMeta.Photo -}}
             https://ury.org.uk{{.Season.ShowMeta.Photo}}
             {{- else -}}
-              /images/show-current.png
+              {{url "/images/default_show_profile.png"}}
             {{- end -}}');
           " title="{{.Title}} Logo"></div>
         <div class="ury-card-body">
