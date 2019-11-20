@@ -4,7 +4,6 @@ import (
 	"errors"
 	"log"
 	"net/url"
-	"strings"
 	"time"
 
 	"github.com/UniversityRadioYork/2016-site/structs"
@@ -67,85 +66,9 @@ func NewTimeslotItem(t *myradio.Timeslot, finish time.Time, u func(*myradio.Time
 		Desc:    t.Description,
 		Start:   t.StartTime,
 		Finish:  finish,
-		Block:   getBlock(t.Title, t.StartTime),
+		Block:   t.Subtype.Class,
 		PageURL: url.Path,
 	}, nil
-}
-
-func getBlock(name string, StartTime time.Time) string {
-	name = strings.ToLower(name)
-
-	type blockMatch struct {
-		nameFragment string
-		block        string
-	}
-	var blockMatches = []blockMatch{
-		{"ury: early morning", "primetime"},
-		{"ury breakfast", "primetime"},
-		{"ury lunch", "primetime"},
-		{"ury brunch", "primetime"},
-		{"URY Brunch", "primetime"},
-		{"URY Afternoon Tea:", "primetime"},
-		{"URY:PM", "primetime"},
-		{"Alumni Takeover:", "primetime"},
-
-		{"ury news", "news"},
-		{"ury sports", "news"},
-		{"ury football", "news"},
-		{"york sport report", "news"},
-		{"university radio talk", "news"},
-		{"candidate interview night", "news"},
-		{"election results night", "news"},
-		{"yusu election", "news"},
-		{"The Second Half With Josh Kerr", "news"},
-		{"URY SPORT", "news"},
-		{"URY News & Sport:", "news"},
-    {"URY N&S:", "news"},
-
-		{"ury speech", "speech"},
-		{"yorworld", "speech"},
-		{"in the stalls", "speech"},
-		{"screen", "speech"},
-		{"stage", "speech"},
-		{"game breaking", "speech"},
-		{"radio drama", "speech"},
-		{"Book Corner", "speech"},
-		{"Saturated Facts", "speech"},
-		{"URWatch", "speech"},
-		{"Society Challenge", "speech"},
-		{"Speech Showcase", "speech"},
-		{"URY Speech:", "speech"},
-
-		{"URY Music:", "music"},
-
-		{"roses live 20", "event"},
-		{"roses 20", "event"},
-    {"freshers 20", "event"},
-		{"woodstock", "event"},
-		{"movember", "event"},
-		{"panto", "event"},
-		{"101:", "event"},
-		{"Vanbrugh Chair Debate", "event"},
-		{"URY Does RAG Courtyard Takeover", "event"},
-		{"URY Presents", "event"},
-		{"URYOnTour", "event"},
-		{"URY On Tour", "event"},
-
-		{"YSTV", "collab"},
-		{"Nouse", "collab"},
-		{"York Politics Digest", "collab"},
-    {"Breakz", "collab"},
-	}
-	for _, bm := range blockMatches {
-		if strings.Contains(name, strings.ToLower(bm.nameFragment)) {
-			return bm.block
-		}
-	}
-	// certain times of the day correspond to a specific show type.
-	if (StartTime.Hour() == 11) || (StartTime.Hour() == 19) { // missed flagship
-		return "primetime"
-	}
-	return "regular"
 }
 
 // scheduleBuilder is an internal type holding information about a schedule slice under construction.

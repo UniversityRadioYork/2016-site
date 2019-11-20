@@ -141,11 +141,19 @@ func (sc *ScheduleWeekController) makeAndRenderWeek(w http.ResponseWriter, year,
 		// Safe to continue since we can check if CaN is absent in the template
 	}
 
+	subtypes, err := sc.session.GetAllShowSubtypes()
+	if err != nil {
+		//@TODO: Do something proper here, render 404 or something
+		log.Println(err)
+		return
+	}
+
 	data := struct {
 		Schedule                  *models.WeekSchedule
 		PrevURL, CurrURL, NextURL *url.URL
 		CurrentAndNext            *myradio.CurrentAndNext
 		StartHour                 int
+		Subtypes                  []myradio.ShowSeasonSubtype
 	}{
 		Schedule:       ws,
 		PrevURL:        purl,
@@ -153,6 +161,7 @@ func (sc *ScheduleWeekController) makeAndRenderWeek(w http.ResponseWriter, year,
 		NextURL:        nurl,
 		CurrentAndNext: currentAndNext,
 		StartHour:      utils.StartHour,
+		Subtypes:       subtypes,
 	}
 
 	err = utils.RenderTemplate(w, sc.config.PageContext, data, "schedule_week.tmpl", "elements/current_and_next.tmpl")
