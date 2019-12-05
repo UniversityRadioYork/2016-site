@@ -1,5 +1,19 @@
 {{define "current_and_next"}}
 <script src='{{url "/js/currentAndNext.js"}}'></script>
+{{ if ne .YoutubeId "" }}
+  <div class="row justify-content-center">
+    <iframe
+            width="560"
+            height="315"
+            style="width: 100%"
+            src="https://www.youtube-nocookie.com/embed/{{ .YoutubeId }}?autoplay=1"
+            frameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+
+    </iframe>
+  </div>
+{{ end }}
 {{with .CurrentAndNext}}
 <div class="current-and-next row justify-content-center">
   {{if .Current}}

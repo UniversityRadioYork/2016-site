@@ -139,16 +139,24 @@ func (sc *ShowController) GetTimeslot(w http.ResponseWriter, r *http.Request) {
 			odState = 6 // Something else happend (eg. show didn't want Mixcloud)
 		}
 	}
+
+	var youtubeId string
+	if odState > 1 {
+		youtubeId, err = sc.session.GetTimeslotMetadata(timeslot.TimeslotID, "youtube_id")
+	}
+
 	data := struct {
 		Timeslot       myradio.Timeslot
 		Tracklist      []myradio.TracklistItem
 		ODState        int
 		CreditsToUsers map[string][]myradio.User
+		YoutubeId      string
 	}{
 		Timeslot:       timeslot,
 		Tracklist:      tracklist,
 		ODState:        odState,
 		CreditsToUsers: creditsToUsers,
+		YoutubeId:      youtubeId,
 	}
 
 	if err != nil {
