@@ -77,3 +77,12 @@ function onGoogleLoad() {
     getYoutubeFeed(youtubeCINPlaylistID, 15, "#cin-videos");
   }
 }
+
+//Comments Character Count
+comments.onkeyup = function(){
+  var remaining = 1000 - document.getElementById("comments").value.length;
+  document.getElementById("charcount").style.visibility = (remaining<=100) ? "visible":"hidden";
+  document.getElementById("charcount").style.color = (remaining<=10) ? "red":"black";
+  document.getElementById("charcount").innerHTML = remaining + " Characters Remaining";
+
+}
