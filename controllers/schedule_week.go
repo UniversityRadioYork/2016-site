@@ -154,7 +154,6 @@ func (sc *ScheduleWeekController) makeAndRenderWeek(w http.ResponseWriter, year,
 		CurrentAndNext            *myradio.CurrentAndNext
 		StartHour                 int
 		Subtypes                  []myradio.ShowSeasonSubtype
-		YoutubeId                 string
 	}{
 		Schedule:       ws,
 		PrevURL:        purl,
@@ -163,7 +162,6 @@ func (sc *ScheduleWeekController) makeAndRenderWeek(w http.ResponseWriter, year,
 		CurrentAndNext: currentAndNext,
 		StartHour:      utils.StartHour,
 		Subtypes:       subtypes,
-		YoutubeId:      "", // currentAndNext is embedded here as well so we need this, even if it's empty
 	}
 
 	err = utils.RenderTemplate(w, sc.config.PageContext, data, "schedule_week.tmpl", "elements/current_and_next.tmpl")

@@ -28,18 +28,7 @@
           </a>
           {{- if ge .PageData.ODState 3 -}}: Listen Again{{end}}
         </h2>
-        {{ if ne .PageData.YoutubeId "" }}
-          <iframe
-                  width="560"
-                  height="315"
-                  style="width: 100%"
-                  src="https://www.youtube-nocookie.com/embed/{{ .PageData.YoutubeId }}?autoplay=1"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen>
-
-          </iframe>
-        {{else if eq .PageData.ODState 1}}
+        {{if eq .PageData.ODState 1}}
           <p class="h3">This show starts on {{.PageData.Timeslot.StartTime.Format "Monday, _2 Jan 2006 at 15:04"}}.</p>
           <p class="h5">Just can't wait? Check out previous shows <a href="{{.PageData.Timeslot.Season.ShowMeta.MicroSiteLink.URL}}">{{.PageContext.ODName -}}...</a></p>
         {{else if eq .PageData.ODState 2}}

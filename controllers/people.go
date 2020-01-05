@@ -50,13 +50,11 @@ func (pc *PeopleController) Get(w http.ResponseWriter, r *http.Request) {
 		Officerships   []myradio.Officership
 		ShowCredits    []myradio.ShowMeta
 		CurrentAndNext *myradio.CurrentAndNext
-		YoutubeId      string
 	}{
 		User:           user,
 		Officerships:   officerships,
 		ShowCredits:    credits,
 		CurrentAndNext: currentAndNext,
-		YoutubeId:      "",
 	}
 
 	err = utils.RenderTemplate(w, pc.config.PageContext, data, "people.tmpl", "elements/current_and_next.tmpl")
