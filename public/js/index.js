@@ -2,7 +2,7 @@ function getYoutubeFeed(playlistid, results, htmlid)
 {
   gapi.client.setApiKey(youtubeAPIKey);
   gapi.client.load('youtube', 'v3', function() {
-  
+
     var request = gapi.client.youtube.playlistItems.list({
       part: 'snippet',
       playlistId: playlistid,
@@ -61,9 +61,37 @@ function getYoutubeFeed(playlistid, results, htmlid)
   });
 }
 
+const isToday = () => {
+  // 12 feb 2020
+  someDate = new Date('2020-02-12')
+  let today = new Date();
+  today = someDate.getDate() == today.getDate() &&
+    someDate.getMonth() == today.getMonth() &&
+    someDate.getFullYear() == today.getFullYear();
+  return today;
+};
+
+// CIN countdown
+function cinCounter() {
+  if (isCIN) {
+    const now = new Date();
+    const cin = new Date("2020-02-12T19:00:00Z");
+
+    const diffSeconds = (cin - now) / 1000;
+    const timerSeconds = (diffSeconds % 60).toFixed(0).padStart(2, "0");
+    const timerMinutes = Math.floor(diffSeconds % 3600 / 60).toFixed(0).padStart(2, "0");
+    const timerHours = Math.floor(diffSeconds / 3600).toFixed(0).padStart(2, "0");
+
+    document.getElementById("cinCountdown").innerText = "" + timerHours + ":" + timerMinutes + ":" + timerSeconds;
+
+    window.setTimeout(cinCounter, 1000);
+  }
+}
+cinCounter();
+
 //Youtube slideshow for index page
 function onGoogleLoad() {
-  
+
   if(isIndex) {
     getYoutubeFeed(youtubeSessionsPlaylistID, 7, "#sessions-videos");
   }

@@ -60,12 +60,21 @@
 }
 
 .bg-cin {
-  background: $cin-background;
+  //background: $cin-background;
+}
+
+.cin {
+  background: url("/images/background THING.png") top center repeat;
+  background-size: cover;
 }
 
 .bg-cin-gif {
-  background: url("/images/holdingcard.gif") center center no-repeat;
-  background-size: cover;
+  //@media all and (max-device-width: 960px) {
+  //  background-image: url("/images/cin2020bg-0.5x.jpg");
+  //}
+  //@media all and (max-device-width: 1440px) {
+  //  background-image: url("/images/cin2020bg-0.75x.jpg");
+  //}
   color: $cin-primary;
   // Padding for mobile
   padding: calc(5em + 60px) 0 5em;
@@ -74,5 +83,9 @@
   @include media-breakpoint-up(md) {
   // Remove the height of the nav bar roughly 60px
     padding: calc(5em + 60px) 0 5em;
+  }
+
+  a {
+    color: $cin-primary;
   }
 }
