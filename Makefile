@@ -3,7 +3,7 @@ SASS_COMPILER ?= sassc
 SASS_DIR    := sass/
 SASS_SRC    := $(shell find sass/ -name '*.scss')
 MAIN_FILE   := sass/main.scss
-OUTPUT_FILE := public/css/main.scss.css
+OUTPUT_FILE := public/css/main2.scss.css
 
 SOURCES := $(shell find . -name '*.go')
 BINARY  := 2016-site

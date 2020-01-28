@@ -1,4 +1,5 @@
 @import "variables";
+@import "fonts";
 @import "typography";
 @import "buttons";
 @import "searchBox";
@@ -97,8 +98,47 @@ $breakpoints: sm, md, lg, xl;
 
 .cin-text {
   color: $cin-primary;
+  font-family: "MonumentExtended", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.25rem;
+  &.outline {
+    -webkit-text-stroke: 2px $cin-primary;
+    -webkit-text-fill-color: transparent;
+  }
 }
 
+.leaning-tower-of-pizza {
+  font-style: italic;
+  @media all and (max-width: 500px) {
+    display: none;
+  }
+}
+
+.cin-countdown {
+  display: inline-block;
+  //background-color: white;
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: white;
+  padding: 0.15em;
+  //letter-spacing: 0.4rem;
+  //border: 2px solid $cin-primary;
+  .smol {
+    font-size: 50%;
+  }
+}
+
+.bg-cin .col {
+  max-width: 100vw;
+}
+
+.cin-social {
+  @media screen and (max-width: map_get($grid-breakpoints, "md")) {
+    margin: 1em;
+  }
+}
 
 @media (min-width: 1600px) {
   .container {
