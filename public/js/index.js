@@ -80,9 +80,17 @@ function cinCounter() {
     const diffSeconds = (cin - now) / 1000;
     const timerSeconds = (diffSeconds % 60).toFixed(0).padStart(2, "0");
     const timerMinutes = Math.floor(diffSeconds % 3600 / 60).toFixed(0).padStart(2, "0");
-    const timerHours = Math.floor(diffSeconds / 3600).toFixed(0).padStart(2, "0");
+    const timerHours = Math.floor(diffSeconds % 86400 / 3600).toFixed(0).padStart(2, "0");
+    const timerDays = Math.floor(diffSeconds / 86400).toFixed(0);
 
-    document.getElementById("cinCountdown").innerText = "" + timerHours + ":" + timerMinutes + ":" + timerSeconds;
+    if (false) {
+      document.getElementById("cinCountdown").innerText = "" + timerDays + " days " + timerHours + ":" + timerMinutes + ":" + timerSeconds;
+    } else {
+      document.getElementById("cinCountdownDays").innerText = timerDays;
+      document.getElementById("cinCountdownHours").innerText = timerHours;
+      document.getElementById("cinCountdownMinutes").innerText = timerMinutes;
+      document.getElementById("cinCountdownSeconds").innerText = timerSeconds;
+    }
 
     window.setTimeout(cinCounter, 1000);
   }

@@ -122,6 +122,9 @@ $breakpoints: sm, md, lg, xl;
   padding: 0.15em;
   //letter-spacing: 0.4rem;
   //border: 2px solid $cin-primary;
+  .smol {
+    font-size: 50%;
+  }
 }
 
 
