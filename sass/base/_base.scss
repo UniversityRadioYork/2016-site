@@ -110,6 +110,9 @@ $breakpoints: sm, md, lg, xl;
 
 .leaning-tower-of-pizza {
   font-style: italic;
+  @media all and (max-width: 500px) {
+    display: none;
+  }
 }
 
 .cin-countdown {
@@ -127,6 +130,9 @@ $breakpoints: sm, md, lg, xl;
   }
 }
 
+.bg-cin .col {
+  max-width: 100vw;
+}
 
 @media (min-width: 1600px) {
   .container {

@@ -63,10 +63,11 @@
   //background: $cin-background;
 }
 
-.cin {
+.cin, .bg-cin.videos-container {
   background: url("/images/background THING.png") top center repeat;
   background-size: cover;
 }
+
 
 .bg-cin-gif {
   //@media all and (max-device-width: 960px) {

@@ -11,7 +11,7 @@ function getYoutubeFeed(playlistid, results, htmlid)
 
     request.execute(function(response) {
       for (var i = 0; i < response.items.length; i++) {
-        $(htmlid).append('<div class="thumbnail-container col-10 col-sm-7 col-md-4 col-lg-3">' +
+        $(htmlid).append('<div class="thumbnail-container">' +
           '<div class="thumbnail">' +
             '<a href="//youtube.com/watch?v=' + response.items[i].snippet.resourceId.videoId + '" target="_blank">' +
               '<img src="' + response.items[i].snippet.thumbnails.maxres.url +
@@ -30,7 +30,7 @@ function getYoutubeFeed(playlistid, results, htmlid)
         '</div>');
       }
       if(isOD && htmlid === "#sessions-videos") {
-        $(htmlid).append('<div class="thumbnail-container col-10 col-sm-7 col-md-4 col-lg-3">' +
+        $(htmlid).append('<div class="thumbnail-container">' +
           '<a class="ury-card sessions link" href=\"' + youtubeLink + '\">' +
             '<div class="ury-card-body">' +
               '<div class="ury-card-lg-title">View more on Youtube...</div>' +
@@ -48,7 +48,7 @@ function getYoutubeFeed(playlistid, results, htmlid)
         '</div>');
       }
       if(isCIN && htmlid === "#cin-videos") {
-        $(htmlid).append('<div class="thumbnail-container col-10 col-sm-7 col-md-4 col-lg-3">' +
+        $(htmlid).append('<div class="thumbnail-container">' +
           '<a class="ury-card cin link" href=\"' + youtubeLink + '\">' +
             '<div class="ury-card-body">' +
               '<div class="ury-card-lg-title">View more on Youtube...</div>' +
