@@ -64,18 +64,19 @@
 }
 
 .cin, .bg-cin.videos-container {
-  background: url("/images/background THING.png") top center repeat;
+  background: url("/images/background THING-smol.jpg") top center repeat;
   background-size: cover;
 }
 
 
 .bg-cin-gif {
-  //@media all and (max-device-width: 960px) {
-  //  background-image: url("/images/cin2020bg-0.5x.jpg");
-  //}
-  //@media all and (max-device-width: 1440px) {
-  //  background-image: url("/images/cin2020bg-0.75x.jpg");
-  //}
+  @media all and (max-device-width: 960px) {
+    background-image: url("/images/background THING-0.5.jpg");
+  }
+  @media all and (max-device-width: 1440px) {
+    background-image: url("/images/background THING-0.75.jpg");
+  }
+  background-image: url("/images/background THING.jpg");
   color: $cin-primary;
   // Padding for mobile
   padding: calc(5em + 60px) 0 5em;
