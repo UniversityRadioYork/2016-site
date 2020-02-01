@@ -63,21 +63,25 @@
   //background: $cin-background;
 }
 
-.cin, .bg-cin.videos-container {
+.bg-cin.videos-container {
   background: url("/images/background THING-smol.jpg") top center repeat;
   background-size: cover;
 }
 
-
-.bg-cin-gif {
+.cin {
   @media all and (max-device-width: 960px) {
     background-image: url("/images/background THING-0.5.jpg");
   }
   @media all and (max-device-width: 1440px) {
     background-image: url("/images/background THING-0.75.jpg");
   }
-  background-image: url("/images/background THING.jpg");
-  color: $cin-primary;
+  background: url("/images/background THING.jpg") repeat top center;
+  background-size: cover;
+}
+
+
+.bg-cin-gif {
+    color: $cin-primary;
   // Padding for mobile
   padding: calc(5em + 60px) 0 5em;
 
