@@ -83,9 +83,16 @@ function cinCounter() {
     const timerHours = Math.floor(diffSeconds % 86400 / 3600).toFixed(0).padStart(2, "0");
     const timerDays = Math.floor(diffSeconds / 86400).toFixed(0);
 
-    if (false) {
-      document.getElementById("cinCountdown").innerText = "" + timerDays + " days " + timerHours + ":" + timerMinutes + ":" + timerSeconds;
-    } else {
+    if (timerDays < 0){
+     document.getElemmentById("cinCountdownDays").innerText = 0;
+      document.getElemmentById("cinCountdownMinutes").innerText = 0;
+      document.getElemmentById("cinCountdownHours").innerText = 0;
+      document.getElemmentById("cinCountdownSeconds").innerText = 0;
+                                  
+    }
+    
+    
+     else {
       document.getElementById("cinCountdownDays").innerText = timerDays;
       document.getElementById("cinCountdownHours").innerText = timerHours;
       document.getElementById("cinCountdownMinutes").innerText = timerMinutes;
