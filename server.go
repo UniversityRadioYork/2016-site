@@ -52,6 +52,8 @@ func NewServer(c *structs.Config) (*Server, error) {
 	getRouter.HandleFunc("/schedule/shows/timeslots/{id:[0-9]+}/", showC.GetTimeslot).Name("timeslot")
 	getRouter.HandleFunc("/schedule/shows/seasons/{id:[0-9]+}/", showC.GetSeason).Name("season")
 
+	getRouter.HandleFunc("/uyco/", showC.GetUyco).Name("uyco")
+
 	getRouter.HandleFunc("/schedule/", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/schedule/thisweek/", 301)
 	})
@@ -109,7 +111,7 @@ func NewServer(c *structs.Config) (*Server, error) {
 	getRouter.HandleFunc("/about/", staticC.GetAbout)
 	getRouter.HandleFunc("/contact/", staticC.GetContact)
 	getRouter.HandleFunc("/competitions/", staticC.GetCompetitions)
-	if(c.PageContext.CIN) {
+	if c.PageContext.CIN {
 		getRouter.HandleFunc("/cin/", staticC.GetCIN)
 	}
 	// End routes

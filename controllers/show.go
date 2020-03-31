@@ -187,3 +187,43 @@ func (sc *ShowController) GetSeason(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, showURL, 301)
 
 }
+
+// GetUyco handles the HTTP GET request r for the UYCO page, writing to w.
+func (sc *ShowController) GetUyco(w http.ResponseWriter, r *http.Request) {
+	sm := models.NewShowModel(sc.session)
+
+	//Yes, I know this line shouldn't just be here and it should be better for changing later. But that'll happen one day. MG
+	id := [...]int{147223}
+
+	type data struct {
+		Timeslot myradio.Timeslot
+	}
+
+	var concertData [len(id)]data
+
+	for index, value := range id {
+		timeslot, _, _, err := sm.GetTimeslot(value)
+
+		if err != nil {
+			log.Println(err)
+			utils.RenderTemplate(w, sc.config.PageContext, concertData, "404.tmpl")
+			return
+		}
+
+		singleData := data{Timeslot: timeslot}
+		concertData[index] = singleData
+
+	}
+
+	toSend := struct {
+		Concert [len(id)]data
+	}{
+		Concert: concertData,
+	}
+
+	err := utils.RenderTemplate(w, sc.config.PageContext, toSend, "uyco.tmpl")
+	if err != nil {
+		log.Println(err)
+		return
+	}
+}
