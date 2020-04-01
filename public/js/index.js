@@ -2,7 +2,7 @@ function getYoutubeFeed(playlistid, results, htmlid)
 {
   gapi.client.setApiKey(youtubeAPIKey);
   gapi.client.load('youtube', 'v3', function() {
-  
+
     var request = gapi.client.youtube.playlistItems.list({
       part: 'snippet',
       playlistId: playlistid,
@@ -11,11 +11,16 @@ function getYoutubeFeed(playlistid, results, htmlid)
 
     request.execute(function(response) {
       for (var i = 0; i < response.items.length; i++) {
+        var thumb;
+        if (response.items[i].snippet.thumbnails.maxres != undefined) {
+          thumb = response.items[i].snippet.thumbnails.maxres.url;
+        } else {
+          thumb = response.items[i].snippet.thumbnails.standard.url;
+        }
         $(htmlid).append('<div class="thumbnail-container col-10 col-sm-7 col-md-4 col-lg-3">' +
           '<div class="thumbnail">' +
             '<a href="//youtube.com/watch?v=' + response.items[i].snippet.resourceId.videoId + '" target="_blank">' +
-              '<img src="' + response.items[i].snippet.thumbnails.maxres.url +
-              '" alt="' + response.items[i].snippet.title + '" class="img-fluid">' +
+              '<img src="' + thumb + '" alt="' + response.items[i].snippet.title + '" class="img-fluid">' +
             '</a>' +
           '</div>' +
         '</div>');
@@ -63,7 +68,7 @@ function getYoutubeFeed(playlistid, results, htmlid)
 
 //Youtube slideshow for index page
 function onGoogleLoad() {
-  
+
   if(isIndex) {
     getYoutubeFeed(youtubeSessionsPlaylistID, 7, "#sessions-videos");
   }
