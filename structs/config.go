@@ -22,22 +22,23 @@ type Server struct {
 // This contains the website's long and short names, as well as a directory
 // of pages for navigation.
 type PageContext struct {
-	LongName        string `toml:"longName"`
-	ShortName       string `toml:"shortName"`
-	SiteDescription string `toml:"siteDescription"`
-	URLPrefix       string `toml:"urlPrefix"`
-	FullURL         string `toml:"fullURL"`
-	MainTwitter     string `toml:"mainTwitter"`
-	MainFacebook    string `toml:"mainFacebook"`
-	NewsTwitter     string `toml:"newsTwitter"`
-	MyRadioAPIKey   string `toml:"publicMyRadioAPIKey"`
-	ODName          string `toml:"odName"`
-	Christmas       bool   `toml:"christmas"`
-	CIN             bool   `toml:"cin"`
-	CINLivestreaming bool  `toml:"cinLivestreaming"`
-	Pages           []Page
-	Youtube         youtube
-	Gmaps           gmaps
+	LongName         string `toml:"longName"`
+	ShortName        string `toml:"shortName"`
+	SiteDescription  string `toml:"siteDescription"`
+	URLPrefix        string `toml:"urlPrefix"`
+	FullURL          string `toml:"fullURL"`
+	MainTwitter      string `toml:"mainTwitter"`
+	MainFacebook     string `toml:"mainFacebook"`
+	NewsTwitter      string `toml:"newsTwitter"`
+	MyRadioAPIKey    string `toml:"publicMyRadioAPIKey"`
+	ODName           string `toml:"odName"`
+	Christmas        bool   `toml:"christmas"`
+	AprilFools       bool   `toml:"aprilFools"`
+	CIN              bool   `toml:"cin"`
+	CINLivestreaming bool   `toml:"cinLivestreaming"`
+	Pages            []Page
+	Youtube          youtube
+	Gmaps            gmaps
 }
 
 // ScheduleConfig is a structure configuring the schedule views.
@@ -59,10 +60,10 @@ type Page struct {
 }
 
 type youtube struct {
-	APIKey     string `toml:"apiKey"`
+	APIKey             string `toml:"apiKey"`
 	SessionsPlaylistID string `toml:"sessionsPlaylistID"`
-	CINPlaylistID string `toml:"cinPlaylistID"`
-	ChannelURL string `toml:"channelURL"`
+	CINPlaylistID      string `toml:"cinPlaylistID"`
+	ChannelURL         string `toml:"channelURL"`
 }
 
 type gmaps struct {

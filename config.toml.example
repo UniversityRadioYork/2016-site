@@ -30,6 +30,7 @@
 	newsTwitter = "URYNews"
 
 	christmas = true
+	aprilFools = false
 	cin = true
 	cinLivestreaming = true
 
