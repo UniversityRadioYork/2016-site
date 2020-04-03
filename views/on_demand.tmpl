@@ -52,15 +52,6 @@
     </div>
   </div>
 </div>
-<div id="index-videos" class="container-fluid container-padded bg-sessions">
-  <div class="row">
-    <div class="col-12 col-md-8">
-      <a name="YouTube"></a><h2>URY Sessions</h2>
-    </div>
-  </div>
-  <div id="sessions-videos" class="row pb-3 thumbnail-grid">
-  </div>
-</div>
 {{if .PageData.LatestPodcasts}}
 <div id="index-podcasts" class="container-fluid container-padded pb-0 bg-podcasts">
   <h2>Latest Podcasts</h2>
@@ -86,6 +77,15 @@
   </div>
 </div>
 {{end}}
+<div id="index-videos" class="container-fluid container-padded bg-sessions">
+  <div class="row">
+    <div class="col-12 col-md-8">
+      <a name="YouTube"></a><h2>URY Sessions</h2>
+    </div>
+  </div>
+  <div id="sessions-videos" class="row pb-3 thumbnail-grid">
+  </div>
+</div>
 {{end}}
 
 {{define "footer-scripts"}}
