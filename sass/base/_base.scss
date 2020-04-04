@@ -99,6 +99,63 @@ $breakpoints: sm, md, lg, xl;
   color: $cin-primary;
 }
 
+.cin-countdown {
+  display: inline-block;
+  //background-color: white;
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: white;
+  padding: 0.15em;
+  //letter-spacing: 0.4rem;
+  //border: 2px solid $cin-primary;
+  .smol {
+    font-size: 50%;
+  }
+}
+
+.istorn2020-countdown {
+  height: 100vh !important;
+  background-color: #002d5a;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  .callout {
+    color: #c9c9c9;
+    font-size: 1.8rem;
+    font-style: italic;
+    font-family: Raleway, Roboto, sans-serif;
+  }
+}
+
+.istorn-countdown {
+  display: inline-block;
+  //background-color: white;
+  font-family: "Raleway", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: white;
+  padding: 0.15em;
+  //letter-spacing: 0.4rem;
+  //border: 2px solid $cin-primary;
+  .smol {
+    font-size: 50%;
+  }
+}
+
+.bg-cin .col {
+  max-width: 100vw;
+}
+
+.cin-social {
+  @media screen and (max-width: map_get($grid-breakpoints, "md")) {
+    margin: 1em;
+  }
+}
 
 @media (min-width: 1600px) {
   .container {
