@@ -139,6 +139,6 @@ var placeName = "{{.PageContext.LongName}}";
 var Lat = {{.PageContext.Gmaps.Lat}};
 var Lng = {{.PageContext.Gmaps.Lng}};
 </script>
-<script src='{{url "/js/responsivemap.js"}}'></script>
+<script src='{{url "/js/responsivemap.js"}}?ver={{ .PageContext.CacheBuster }}'></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key={{.PageContext.Gmaps.APIKey}}"></script>
 {{end}}

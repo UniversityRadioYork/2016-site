@@ -196,8 +196,8 @@
 <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="//cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
 <script src="//cdn.datatables.net/plug-ins/1.10.16/api/fnFindCellRowIndexes.js"></script>
-<script src="{{url "/js/show.js"}}"></script>
-<script src="{{url "/js/jquery.prettySocial.min.js"}}"></script>
+<script src="{{url "/js/show.js"}}?ver={{ .PageContext.CacheBuster }}"></script>
+<script src="{{url "/js/jquery.prettySocial.min.js"}}?ver={{ .PageContext.CacheBuster }}"></script>
 <script type="text/javascript" class="source">
   $(".prettySocial").prettySocial();
 </script>
