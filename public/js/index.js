@@ -80,7 +80,7 @@ const isToday = () => {
 function istorn2020Counter() {
   if (isISTORN2020) {
     const now = new Date();
-    const istorn2020 = new Date("2020-04-13T11:00:00Z");
+    const istorn2020 = new Date("2020-04-13T09:00:00Z");
 
     const diffSeconds = (istorn2020 - now) / 1000;
     const timerSeconds = (diffSeconds % 60).toFixed(0).padStart(2, "0");
