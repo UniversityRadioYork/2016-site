@@ -130,5 +130,5 @@
 {{define "footer-scripts"}}
 <!-- Jump to day button -->
 <script>var StartHour = {{.PageData.StartHour}};</script>
-<script src='{{url "/js/schedule.js"}}' id="jumpToNow"></script>
+<script src='{{url "/js/schedule.js"}}?ver={{ .PageContext.CacheBuster }}' id="jumpToNow"></script>
 {{end}}

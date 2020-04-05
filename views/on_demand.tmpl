@@ -99,6 +99,6 @@ var isIndex = false;
 var isCIN = false;
 var isOD = true;
 </script>
-<script src='{{url "/js/index.js"}}'></script>
+<script src='{{url "/js/index.js"}}?ver={{ .PageContext.CacheBuster }}'></script>
 <script src="https://apis.google.com/js/client.js?onload=onGoogleLoad"></script>
 {{end}}
