@@ -73,10 +73,10 @@ function istorn2020Counter() {
     const istorn2020 = new Date("2020-04-13T09:00:00Z");
 
     const diffSeconds = (istorn2020 - now) / 1000;
-    const timerSeconds = (diffSeconds % 60).toFixed(0).padStart(2, "0");
-    const timerMinutes = Math.floor(diffSeconds % 3600 / 60).toFixed(0).padStart(2, "0");
-    const timerHours = Math.floor(diffSeconds % 86400 / 3600).toFixed(0).padStart(2, "0");
-    const timerDays = Math.floor(diffSeconds / 86400).toFixed(0);
+    var timerSeconds = (diffSeconds % 60).toFixed(0).padStart(2, "0");
+    var timerMinutes = Math.floor(diffSeconds % 3600 / 60).toFixed(0).padStart(2, "0");
+    var timerHours = Math.floor(diffSeconds % 86400 / 3600).toFixed(0).padStart(2, "0");
+    var timerDays = Math.floor(diffSeconds / 86400).toFixed(0);
     
     if (timerSeconds == 60){
       timerSeconds = 0;
