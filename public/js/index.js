@@ -78,7 +78,7 @@ const isToday = () => {
 
 // ISTORN 2020 countdown
 function istorn2020Counter() {
-  if (isISTORN2020) {
+  if (window.isISTORN2020) {
     const now = new Date();
     const istorn2020 = new Date("2020-04-13T09:00:00Z");
 
