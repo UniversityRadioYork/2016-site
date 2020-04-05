@@ -35,6 +35,8 @@
 	cinLivestreaming = true
 	istorn2020 = true
 
+	cacheBuster = "v1"
+
 	odName = "On Tap"
 
 	publicMyRadioAPIKey = "DFm1QGGyDZXHvGjjKYxv72ItpZe5oPiNvqTKEJLC2CmPYvdbYQ591DNKhpXwb1U9NVIgBuQ4XOBdSAKbaGzliqHm7pu4H4PxmO7mrH4JvKV6dBZx5n32obnEE2pE9vWC"
