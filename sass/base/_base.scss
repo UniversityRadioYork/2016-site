@@ -101,7 +101,7 @@ $breakpoints: sm, md, lg, xl;
 
 .istorn2020-countdown {
   height: 100vh !important;
-  background-color: #002d5a;
+  background-color: transparent;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -130,6 +130,16 @@ $breakpoints: sm, md, lg, xl;
   .smol {
     font-size: 50%;
   }
+}
+
+#istorn020_bg {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -100;
+  background-color: #002d5a;
 }
 
 .bg-cin .col {
