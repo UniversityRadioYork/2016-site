@@ -77,6 +77,23 @@ function istorn2020Counter() {
     const timerMinutes = Math.floor(diffSeconds % 3600 / 60).toFixed(0).padStart(2, "0");
     const timerHours = Math.floor(diffSeconds % 86400 / 3600).toFixed(0).padStart(2, "0");
     const timerDays = Math.floor(diffSeconds / 86400).toFixed(0);
+    
+    if (timerSeconds == 60){
+      timerSeconds = 0;
+      timerMinutes++;
+    }
+    
+    if (timerMinutes == 60){
+      timerMinutes = 0;
+      timerHours++;
+    }
+    
+    if (timerDays < 0){
+      timerDays = 0;
+      timerMinutes = 0;
+      timerHours = 0;
+      timerSeconds = 0;
+    }
 
     document.getElementById("istornCountdownDays").innerText = timerDays;
     document.getElementById("istornCountdownHours").innerText = timerHours;
