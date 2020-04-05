@@ -66,16 +66,6 @@ function getYoutubeFeed(playlistid, results, htmlid)
   });
 }
 
-const isToday = () => {
-  // 12 feb 2020
-  someDate = new Date('2020-02-12')
-  let today = new Date();
-  today = someDate.getDate() == today.getDate() &&
-    someDate.getMonth() == today.getMonth() &&
-    someDate.getFullYear() == today.getFullYear();
-  return today;
-};
-
 // ISTORN 2020 countdown
 function istorn2020Counter() {
   if (window.isISTORN2020) {
