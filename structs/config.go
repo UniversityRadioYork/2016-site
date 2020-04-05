@@ -37,6 +37,7 @@ type PageContext struct {
 	CIN              bool   `toml:"cin"`
 	CINLivestreaming bool   `toml:"cinLivestreaming"`
 	ISTORN2020       bool   `toml:"istorn2020"`
+	CacheBuster      string `toml:"cacheBuster"`
 	Pages            []Page
 	Youtube          youtube
 	Gmaps            gmaps
