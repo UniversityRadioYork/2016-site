@@ -36,6 +36,7 @@ type PageContext struct {
 	AprilFools       bool   `toml:"aprilFools"`
 	CIN              bool   `toml:"cin"`
 	CINLivestreaming bool   `toml:"cinLivestreaming"`
+	ISTORN2020       bool   `toml:"istorn2020"`
 	Pages            []Page
 	Youtube          youtube
 	Gmaps            gmaps

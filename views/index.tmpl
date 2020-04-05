@@ -1,4 +1,7 @@
 {{define "content"}}
+  {{if .PageContext.ISTORN2020}}
+    {{template "istorn2020_countdown" .}}
+  {{end}}
   <div class="container-fluid header-large current-next position-relative">
   {{if .PageContext.Christmas}}
     <div class="snow"></div>
@@ -99,8 +102,9 @@ var youtubeAPIKey = {{.PageContext.Youtube.APIKey}};
 var youtubeSessionsPlaylistID = "{{.PageContext.Youtube.SessionsPlaylistID}}";
 var youtubeCINPlaylistID = "{{.PageContext.Youtube.CINPlaylistID}}";
 var isIndex = true;
-var isCIN = false;
+var isCIN = {{if .PageContext.CIN}}true{{else}}false{{end}};
 var isOD = false;
+var isISTORN2020 = {{if .PageContext.ISTORN2020}}true{{else}}false{{end}};
 </script>
 <script src='{{url "js/index.js"}}'></script>
 <script src="https://apis.google.com/js/client.js?onload=onGoogleLoad"></script>
