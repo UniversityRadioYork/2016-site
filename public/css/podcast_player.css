@@ -51,13 +51,9 @@
   content: "";
   display: table;
   clear: both; }
-.time-container .current-time {
+.time-container .current-time, .time-container .duration {
   display: inline-block;
-  margin: 0 20px;
-}
-.time-container .duration {
-  display: inline-block;
-  margin: 0 20px;
+  margin: 0 5px;
 }
 
 /*
