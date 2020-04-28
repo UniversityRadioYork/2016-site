@@ -188,6 +188,30 @@ func (sc *ShowController) GetSeason(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// GetPodcastRSS handles the GET request for the show's associated podcast RSS feed.
+func (sc *ShowController) GetPodcastRss(w http.ResponseWriter, r *http.Request) {
+	sm := models.NewShowModel(sc.session)
+
+	vars := mux.Vars(r)
+
+	id, _ := strconv.Atoi(vars["id"])
+
+	rss, err := sm.GetPodcastRSS(id)
+	if err != nil {
+		w.WriteHeader(404)
+		utils.RenderTemplate(w, sc.config.PageContext, struct{}{}, "404.tmpl")
+		log.Println(err)
+		return
+	}
+
+	w.Header().Add("content-type", "application/rss+xml")
+
+	_, err = w.Write([]byte(rss))
+	if err != nil {
+		log.Println(err)
+	}
+}
+
 // GetUyco handles the HTTP GET request r for the UYCO page, writing to w.
 func (sc *ShowController) GetUyco(w http.ResponseWriter, r *http.Request) {
 	sm := models.NewShowModel(sc.session)
