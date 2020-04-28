@@ -72,3 +72,7 @@ func (m *ShowModel) GetSeason(id int) (season myradio.Season, timeslots []myradi
 	timeslots, err = m.session.GetTimeslotsForSeason(id)
 	return
 }
+
+func (m *ShowModel) GetPodcastRSS(id int) (string, error) {
+	return m.session.GetPodcastRSS(id)
+}
