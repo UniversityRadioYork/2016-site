@@ -55,6 +55,7 @@ func (staticC *StaticController) GetCompetitions(w http.ResponseWriter, r *http.
 	}
 }
 
+// GetCIN handles the GET request r for the CIN page, writing to w
 func (staticC *StaticController) GetCIN(w http.ResponseWriter, r *http.Request) {
 	err := utils.RenderTemplate(w, staticC.config.PageContext, nil, "cin.tmpl")
 	if err != nil {
