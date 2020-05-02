@@ -212,7 +212,7 @@ func (sc *ShowController) GetPodcastRssHead(w http.ResponseWriter, r *http.Reque
 	rssHashBytes := hasher.Sum(nil)
 	hash := hex.EncodeToString(rssHashBytes)
 
-	w.Header().Add("Content-Type", "text/xml")
+	w.Header().Add("Content-Type", "application/rss+xml; charset=UTF-8")
 	w.Header().Add("Content-Length", strconv.Itoa(len(rssBytes)))
 	w.Header().Add("ETag", "\""+hash+"\"")
 }
@@ -241,7 +241,7 @@ func (sc *ShowController) GetPodcastRss(w http.ResponseWriter, r *http.Request) 
 	rssHashBytes := hasher.Sum(nil)
 	hash := hex.EncodeToString(rssHashBytes)
 
-	w.Header().Add("Content-Type", "text/xml")
+	w.Header().Add("Content-Type", "application/rss+xml; charset=UTF-8")
 	w.Header().Add("Content-Length", strconv.Itoa(len(rssBytes)))
 
 	w.Header().Add("ETag", "\""+hash+"\"")
