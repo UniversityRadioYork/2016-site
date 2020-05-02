@@ -188,6 +188,26 @@ func (sc *ShowController) GetSeason(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func (sc *ShowController) GetPodcastRssHead(w http.ResponseWriter, r *http.Request) {
+	sm := models.NewShowModel(sc.session)
+
+	vars := mux.Vars(r)
+
+	id, _ := strconv.Atoi(vars["id"])
+
+	rss, err := sm.GetPodcastRSS(id)
+	if err != nil {
+		w.WriteHeader(404)
+		log.Println(err)
+		return
+	}
+
+	rssBytes := []byte(rss)
+
+	w.Header().Add("Content-Type", "text/xml")
+	w.Header().Add("Content-Length", string(len(rssBytes)))
+}
+
 // GetPodcastRSS handles the GET request for the show's associated podcast RSS feed.
 func (sc *ShowController) GetPodcastRss(w http.ResponseWriter, r *http.Request) {
 	sm := models.NewShowModel(sc.session)
@@ -204,9 +224,12 @@ func (sc *ShowController) GetPodcastRss(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
-	w.Header().Add("content-type", "application/rss+xml")
+	rssBytes := []byte(rss)
 
-	_, err = w.Write([]byte(rss))
+	w.Header().Add("Content-Type", "text/xml")
+	w.Header().Add("Content-Length", string(len(rssBytes)))
+
+	_, err = w.Write(rssBytes)
 	if err != nil {
 		log.Println(err)
 	}

@@ -32,6 +32,7 @@ func NewServer(c *structs.Config) (*Server, error) {
 
 	getRouter := router.Methods("GET").Subrouter()
 	postRouter := router.Methods("POST").Subrouter()
+	headRouter := router.Methods("HEAD").Subrouter()
 
 	// Routes go in here
 	nfc := controllers.NewNotFoundController(c)
@@ -53,6 +54,7 @@ func NewServer(c *structs.Config) (*Server, error) {
 	getRouter.HandleFunc("/schedule/shows/seasons/{id:[0-9]+}/", showC.GetSeason).Name("season")
 
 	getRouter.HandleFunc("/schedule/shows/{id:[0-9]+}/podcast_rss", showC.GetPodcastRss).Name("podcast_rss")
+	headRouter.HandleFunc("/schedule/shows/{id:[0-9]+}/podcast_rss", showC.GetPodcastRssHead).Name("podcast_rss_head")
 
 	getRouter.HandleFunc("/uyco/", showC.GetUyco).Name("uyco")
 
