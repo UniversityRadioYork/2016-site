@@ -1,0 +1,85 @@
+{{define "title"}}{{.PageContext.ShortName}} | {{.PageContext.ODName}}{{end}}
+
+{{define "open-graph"}}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@{{.PageContext.MainTwitter}}">
+<meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="{{.PageContext.LongName}} | About">
+<meta property="og:description" content="{{.PageContext.SiteDescription}}">
+<meta property="og:image" content="{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}">
+<meta property="og:url" content="{{.PageContext.FullURL}}{{url "/about/"}}">
+{{end}}
+
+{{define "content"}}
+<div class="container-fluid header-medium on-demand position-relative">
+  <div class="container">
+    <div class="row align-items-center text-center">
+      <div class="col">
+        <h1 class="display-3">{{.PageContext.ShortName}} {{.PageContext.ODName}}</h1>
+        <h2 class="display-5">{{.PageContext.Description}}</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="index-just-missed" class="container-fluid container-padded bg-primary pb-0">
+  <h2>Up soon...</h2>
+  <div class="row custom-scrollbar scroll-horiz scroll-none-xl thumbnail-slider">
+    {{range .PageData.LatestTimeslots}}
+    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
+      <a class="ury-card " href="/schedule/shows/timeslots/{{.TimeslotID}}/">
+        <div class="ury-card-img" style="background: url('
+            {{- if .Season.ShowMeta.Photo -}}
+            https://ury.org.uk{{.Season.ShowMeta.Photo}}
+            {{- else -}}
+              {{url "/images/default_show_profile.png"}}
+            {{- end -}}');
+          " title="{{.Title}} Logo"></div>
+        <div class="ury-card-body">
+          <div class="ury-card-title">{{.Title}}</div>
+          <span class="ury-card-date">{{.StartTime.Format "15:04 - Mon"}} • {{formatDuration .Duration}}</span>
+        </div>
+      </a>
+    </div>
+    {{end}}
+    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
+      <a class="ury-card link" href="//mixcloud.com/ury1350/">
+        <div class="ury-card-body">
+          <div class="ury-card-lg-title">See more on Mixcloud...</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+
+<div id="index-podcasts" class="container-fluid container-padded pb-0 bg-podcasts">
+  <h2>You just missed...</h2>
+  <div class="row custom-scrollbar scroll-horiz thumbnail-slider">
+    {{range .PageData.LatestPodcasts}}
+      <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
+        <a class="ury-card podcast" href="{{.MicrositeLink.URL}}">
+          <div class="ury-card-img" style="background: url('https://ury.org.uk{{.Photo}}');" title="URY Podcast: {{.Title}} Logo"></div>
+          <div class="ury-card-body">
+            <div class="ury-card-title">{{.Title}}</div>
+            <span>{{.Time.Format "Monday, _2 Jan 2006"}}</span>
+          </div>
+        </a>
+      </div>
+    {{end}}
+    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
+      <a class="ury-card podcast link" href="{{url "/podcasts/"}}">
+        <div class="ury-card-body">
+          <div class="ury-card-lg-title">See all podcasts...</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+{{define "footer-scripts"}}
+<script src='{{url "/js/index.js"}}?ver={{ .PageContext.CacheBuster }}'></script>
+<script src="https://apis.google.com/js/client.js?onload=onGoogleLoad"></script>
+{{end}}
