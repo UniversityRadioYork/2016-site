@@ -118,7 +118,9 @@
           <div class="key-row">
             <h2 class="inline">Schedule Key:</h2>
             {{ range .Subtypes }}
-              <span class="schedule-block-{{.Class}}">{{.Name}}</span>
+              <a href="/schedule/subtype/{{.Class}}/" class="schedule-key-link">
+                <span class="schedule-block-{{.Class}}">{{.Name}}</span>
+              </a>
             {{end}}
           </div>
         </div>

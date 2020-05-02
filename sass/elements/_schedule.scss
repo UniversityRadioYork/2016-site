@@ -1,229 +1,207 @@
 $white: #ffffff;
 $black: #000000;
 $shadow: rgba(0, 0, 0, 0.5);
-
-
 .schedule-key-icon {
-  font-size: 0.6em;
-  color: $black;
-  text-decoration: none !important; // scss-lint:disable ImportantRule
-  opacity: 0.5;
-  position: absolute;
-  right: 10px;
+    font-size: 0.6em;
+    color: $black;
+    text-decoration: none !important; // scss-lint:disable ImportantRule
+    opacity: 0.5;
+    position: absolute;
+    right: 10px;
+    &:hover {
+        opacity: 1;
+    }
+}
 
-  &:hover {
-    opacity: 1;
-  }
+.schedule-key-link:visited,
+.schedule-key-link:link {
+    color: $black;
 }
 
 @mixin schedule-block($bg-color, $txt-color) {
-  border-bottom: $bg-color solid 10px;
-  background: $white;
-  padding: 5px;
-  margin: 5px;
-
-  a {
-    color: $black;
-  }
-
-  &:hover {
-    background-color: tint($bg-color, 60%);
-  }
-
-  &.disabled {
-    border-bottom: $disabled-color solid 10px;
-
-    &:hover {
-      background-color: $white;
+    border-bottom: $bg-color solid 10px;
+    background: $white;
+    padding: 5px;
+    margin: 5px;
+    a {
+        color: $black;
     }
-  }
-
-  box-shadow: 0 2px 4px $shadow;
+    &:hover {
+        background-color: tint($bg-color, 60%);
+    }
+    &.disabled {
+        border-bottom: $disabled-color solid 10px;
+        &:hover {
+            background-color: $white;
+        }
+    }
+    box-shadow: 0 2px 4px $shadow;
 }
 
 .tables-container {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 0;
-  padding-bottom: 10px;
-
-  .row-headers {
-    width: 13.5%;
-
-    &:first-of-type {
-      width: 5%;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0;
+    padding-bottom: 10px;
+    .row-headers {
+        width: 13.5%;
+        &:first-of-type {
+            width: 5%;
+        }
     }
-
-  }
 }
 
 .schedule-table {
-  border-collapse: separate;
-  table-layout: fixed;
-  border-spacing: 2px;
-  display: inline-block;
-  vertical-align: top;
-  text-align: left;
-  width: 13.09%;
-
-  thead {
+    border-collapse: separate;
+    table-layout: fixed;
+    border-spacing: 2px;
+    display: inline-block;
+    vertical-align: top;
+    text-align: left;
+    width: 13.09%;
+    thead {
+        th {
+            border: 0;
+        }
+    }
+    tbody {
+        display: table;
+        width: 100%;
+    }
+    tr {
+        height: 135px;
+    }
+    td,
     th {
-      border: 0;
+        border-top: 0;
+        overflow-y: hidden;
+        p,
+        a {
+            display: block;
+            width: 100%;
+            height: 30px;
+        }
     }
-  }
-
-  tbody {
-    display: table;
-    width: 100%;
-  }
-
-  tr {
-    height: 135px;
-  }
-
-  td,
-  th {
-    border-top: 0;
-    overflow-y: hidden;
-
-    p,
-    a {
-      display: block;
-      width: 100%;
-      height: 30px;
+    .day-header {
+        text-align: center;
+        font-weight: 500;
     }
-  }
-
-
-  .day-header {
-    text-align: center;
-    font-weight: 500;
-  }
-
-  .time-header {
-    border: 0;
-    line-height: 1em;
-    text-align: center;
-    font-weight: 500;
-    .mobile-only {
-      display: none;
+    .time-header {
+        border: 0;
+        line-height: 1em;
+        text-align: center;
+        font-weight: 500;
+        .mobile-only {
+            display: none;
+        }
     }
-  }
-
-  .col-headers {
-    height: 24px;
-  }
-
-  .schedule-timeslot:not(.schedule-block-sustainer) {
-    cursor: pointer;
-
-    &:hover {
-      text-decoration: underline;
+    .col-headers {
+        height: 24px;
     }
-  }
+    .schedule-timeslot:not(.schedule-block-sustainer) {
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }
 
 $sustainer-color: tint($primary-color, 40%);
-
 .schedule-block-sustainer {
-  @include schedule-block($sustainer-color, $black);
-  background-color: $sustainer-color;
-
-  &:hover {
+    @include schedule-block($sustainer-color, $black);
     background-color: $sustainer-color;
-  }
+    &:hover {
+        background-color: $sustainer-color;
+    }
 }
 
 .schedule-block-regular {
-  @include schedule-block($primary-color, $off-white-color);
+    @include schedule-block($primary-color, $off-white-color);
 }
 
 .schedule-block-primetime {
-  @include schedule-block($primetime, $black);
+    @include schedule-block($primetime, $black);
 }
 
 .schedule-block-news {
-  @include schedule-block($news-maroon, $off-white-color);
+    @include schedule-block($news-maroon, $off-white-color);
 }
 
 .schedule-block-speech {
-  @include schedule-block($speech-green, $off-white-color);
+    @include schedule-block($speech-green, $off-white-color);
 }
 
 .schedule-block-music {
-  @include schedule-block($music-purple, $off-white-color);
+    @include schedule-block($music-purple, $off-white-color);
 }
 
 .schedule-block-event {
-  @include schedule-block($red, $off-white-color);
+    @include schedule-block($red, $off-white-color);
 }
 
 .schedule-block-specialist-music {
-  @include schedule-block(tint($music-purple, 60%), $white);
+    @include schedule-block(tint($music-purple, 60%), $white);
 }
 
 .schedule-block-collab {
-  @include schedule-block($collab, $off-white-color);
+    @include schedule-block($collab, $off-white-color);
 }
 
 .schedule-keys .key-row {
-  * {
-    display: inline-block;
-  }
+    * {
+        display: inline-block;
+    }
 }
 
 @include media-breakpoint-down(md) {
-  .schedule-keys .key-row {
-    .h5, .h6 {
-      display: block;
-      margin-top: 10px;
+    .schedule-keys .key-row {
+        .h5,
+        .h6 {
+            display: block;
+            margin-top: 10px;
+        }
     }
-  }
 }
 
 @include media-breakpoint-down(sm) {
-  .current-next.mobile-shrink {
-    height: unset;
-    padding: calc(2em + 60px) 0 2em;
-  }
-  .schedule-keys .key-row {
-    text-align: left;
-    .h5, .h6 {
-      display: block;
-      margin-top: 10px;
+    .current-next.mobile-shrink {
+        height: unset;
+        padding: calc(2em + 60px) 0 2em;
     }
-  }
-  .schedule-table {
-    display: table;
-    width: 100%;
-    background-color: $secondary-color;
-    margin: auto;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 2px;
-
-    tr {
-      height: 70px;
+    .schedule-keys .key-row {
+        text-align: left;
+        .h5,
+        .h6 {
+            display: block;
+            margin-top: 10px;
+        }
     }
-
-    tbody {
-      display: table-row-group;
+    .schedule-table {
+        display: table;
+        width: 100%;
+        background-color: $secondary-color;
+        margin: auto;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 2px;
+        tr {
+            height: 70px;
+        }
+        tbody {
+            display: table-row-group;
+        }
+        .day-header,
+        .time-header {
+            display: table-cell;
+            overflow-x: hidden;
+            color: $white;
+        }
+        .day-header {
+            font-size: 2rem;
+            text-align: center;
+        }
+        .time-col {
+            width: 25%;
+        }
     }
-
-    .day-header,
-    .time-header {
-      display: table-cell;
-      overflow-x: hidden;
-      color: $white;
-    }
-
-    .day-header {
-      font-size: 2rem;
-      text-align: center;
-    }
-
-    .time-col {
-      width: 25%;
-    }
-  }
 }
