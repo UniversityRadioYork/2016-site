@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"crypto/sha1"
+	"encoding/hex"
 	"fmt"
 	"log"
 	"net/http"
@@ -204,8 +206,15 @@ func (sc *ShowController) GetPodcastRssHead(w http.ResponseWriter, r *http.Reque
 
 	rssBytes := []byte(rss)
 
+	hasher := sha1.New()
+	hasher.Write(rssBytes)
+
+	rssHashBytes := hasher.Sum(nil)
+	hash := hex.EncodeToString(rssHashBytes)
+
 	w.Header().Add("Content-Type", "text/xml")
-	w.Header().Add("Content-Length", string(len(rssBytes)))
+	w.Header().Add("Content-Length", strconv.Itoa(len(rssBytes)))
+	w.Header().Add("ETag", "\""+hash+"\"")
 }
 
 // GetPodcastRSS handles the GET request for the show's associated podcast RSS feed.
@@ -226,8 +235,16 @@ func (sc *ShowController) GetPodcastRss(w http.ResponseWriter, r *http.Request) 
 
 	rssBytes := []byte(rss)
 
+	hasher := sha1.New()
+	hasher.Write(rssBytes)
+
+	rssHashBytes := hasher.Sum(nil)
+	hash := hex.EncodeToString(rssHashBytes)
+
 	w.Header().Add("Content-Type", "text/xml")
-	w.Header().Add("Content-Length", string(len(rssBytes)))
+	w.Header().Add("Content-Length", strconv.Itoa(len(rssBytes)))
+
+	w.Header().Add("ETag", "\""+hash+"\"")
 
 	_, err = w.Write(rssBytes)
 	if err != nil {
