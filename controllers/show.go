@@ -190,6 +190,7 @@ func (sc *ShowController) GetSeason(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// GetPodcastRssHead handles the GET request for the head of the show's associated podcast RSS feed.
 func (sc *ShowController) GetPodcastRssHead(w http.ResponseWriter, r *http.Request) {
 	sm := models.NewShowModel(sc.session)
 
@@ -217,7 +218,7 @@ func (sc *ShowController) GetPodcastRssHead(w http.ResponseWriter, r *http.Reque
 	w.Header().Add("ETag", "\""+hash+"\"")
 }
 
-// GetPodcastRSS handles the GET request for the show's associated podcast RSS feed.
+// GetPodcastRss handles the GET request for the show's associated podcast RSS feed.
 func (sc *ShowController) GetPodcastRss(w http.ResponseWriter, r *http.Request) {
 	sm := models.NewShowModel(sc.session)
 
