@@ -205,3 +205,31 @@ $sustainer-color: tint($primary-color, 40%);
         }
     }
 }
+
+.subtype-colour-regular {
+    background-color: $primary-color;
+}
+
+.subtype-colour-primetime {
+    background-color: $primetime;
+}
+
+.subtype-colour-news {
+    background-color: $news-maroon;
+}
+
+.subtype-colour-speech {
+    background-color: $speech-green;
+}
+
+.subtype-colour-music {
+    background-color: $music-purple;
+}
+
+.subtype-colour-event {
+    background-color: $red;
+}
+
+.subtype-colour-collab {
+    background-color: $collab;
+}

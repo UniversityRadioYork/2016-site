@@ -1,4 +1,4 @@
-{{define "title"}}{{.PageContext.ShortName}} | {{.PageData.SubtypeAlias}}{{end}}
+{{define "title"}}{{.PageContext.ShortName}} | {{.PageData.Subtype.Name}} Shows{{end}}
 
 {{define "open-graph"}}
 <meta name="twitter:card" content="summary_large_image">
@@ -17,11 +17,16 @@
   <div class="container">
     <div class="row align-items-center text-center">
       <div class="col">
-        <h1 class="display-3">{{.PageContext.ShortName}} {{.PageData.SubtypeAlias}}</h1>
-        <h2 class="display-5">{{.PageData.Description}}</h2>
+        <h1 class="display-3">{{.PageContext.ShortName}} {{.PageData.Subtype.Name}} Shows</h1>
+        <h2 class="display-5">{{.PageData.Subtype.Name}}</h2>
       </div>
     </div>
   </div>
+</div>
+
+<!--Colour Bar-->
+<div class="container-fluid container-padded subtype-colour-{{.PageData.Subtype.Class}} pb-0">
+
 </div>
 
 <div id="index-just-missed" class="container-fluid container-padded bg-primary pb-0">
