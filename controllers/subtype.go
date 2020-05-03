@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	// "github.com/UniversityRadioYork/2016-site/models"
+	"github.com/UniversityRadioYork/2016-site/models"
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/2016-site/utils"
 	"github.com/UniversityRadioYork/myradio-go"
@@ -25,15 +25,26 @@ func NewSubtypeController(s *myradio.Session, c *structs.Config) *SubtypeControl
 
 // Get handles the HTTP GET request r for the  page, writing to w.
 func (subtypeCon *SubtypeController) Get(w http.ResponseWriter, r *http.Request) {
+	subtypeM := models.NewSubtypeModel(subtypeCon.session)
+
 	vars := mux.Vars(r)
 	alias, _ := vars["alias"]
 
+	subtype, err = subtypeM.Get(alias)
+	if err != nil {
+		log.Println(err)
+		utils.RenderTemplate(w, subtypeCon.config.PageContext, nil, "404.tmpl")
+		return
+	}
+
 	data := struct {
-		SubtypeAlias string
-		Description  string
+		Subtype  myradio.ShowSeasonSubtype
+		Upcoming []myradio.Timeslot
+		Recent   []myradio.Timeslot
 	}{
-		SubtypeAlias: alias,
-		Description:  "Test Description Here",
+		Subtype:  subtype,
+		Upcoming: nil,
+		Recent:   nil,
 	}
 
 	err := utils.RenderTemplate(w, subtypeCon.config.PageContext, data, "subtype.tmpl")
