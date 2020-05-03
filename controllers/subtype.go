@@ -30,7 +30,7 @@ func (subtypeCon *SubtypeController) Get(w http.ResponseWriter, r *http.Request)
 	vars := mux.Vars(r)
 	alias, _ := vars["alias"]
 
-	subtype, err = subtypeM.Get(alias)
+	subtype, err := subtypeM.Get(alias)
 	if err != nil {
 		log.Println(err)
 		utils.RenderTemplate(w, subtypeCon.config.PageContext, nil, "404.tmpl")
@@ -47,7 +47,7 @@ func (subtypeCon *SubtypeController) Get(w http.ResponseWriter, r *http.Request)
 		Recent:   nil,
 	}
 
-	err := utils.RenderTemplate(w, subtypeCon.config.PageContext, data, "subtype.tmpl")
+	err = utils.RenderTemplate(w, subtypeCon.config.PageContext, data, "subtype.tmpl")
 	if err != nil {
 		log.Println(err)
 		return
