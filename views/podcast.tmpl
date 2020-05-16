@@ -37,10 +37,10 @@
           <h1>{{.Podcast.Title}}</h1>
           <h5 class="text-muted">{{.Podcast.Time.Format "Monday, _2 Jan 2006"}}</h5>
           <hr>
+          <iframe src="player/" class="uryplayer-podcast-embed" frameborder="0">
+          <hr>
           <h2>Description</h2>
           <p>{{html .Podcast.Description}}</p>
-          <hr>
-          <iframe src="player/" class="uryplayer-podcast-embed" frameborder="0">
           </iframe>
           <hr>
   {{end}}
