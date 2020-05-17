@@ -189,6 +189,32 @@
     </div>
   </div>
 </div> <!-- /outer containter -->
+{{if gt (len .Podcasts) 0}}
+  <div class="container-fluid p-4 bg-primary">
+    <div class="row">
+      <div class="col-12">
+        <h2>Podcasts</h2>
+        <p>We produce podcasts too! Give them a listen.</p>
+      </div>
+    </div>
+    {{range .Podcasts}}
+      <div class="row podcast-card">
+        <img class="col-3" src="
+    {{if .Photo}}
+      https://ury.org.uk{{.Photo}}
+    {{else}}
+      {{url "/images/default_show_profile.png"}}
+    {{end}}
+      "
+        />
+        <a class="col-9 py-2 text-center text-lg-left meta" id="podcast" href="{{.MicrositeLink.URL}}">
+          <h3>{{.Title}}</h3>
+          <span>{{.Time.Format "Monday, _2 Jan 2006"}}</span>
+        </a>
+      </div>
+    {{end}}
+  </div>
+{{end}}
 {{end}}
 {{end}}
 {{define "footer-scripts"}}

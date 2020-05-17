@@ -24,24 +24,51 @@ func NewShowModel(s *myradio.Session) *ShowModel {
 //
 //}
 
+type ShowInfo struct {
+	Show           *myradio.ShowMeta
+	Seasons        []myradio.Season
+	CreditsToUsers map[string][]myradio.User
+	Podcasts       []myradio.Podcast
+}
+
 // GetShow gets the show with show ID id.
 //
 // On success, it returns the show's metadata, season list, and nil.
 // Otherwise, it returns undefined data and the error causing failure.
-func (m *ShowModel) GetShow(id int) (show *myradio.ShowMeta, seasons []myradio.Season, creditsToUsers map[string][]myradio.User, err error) {
-	show, err = m.session.GetShow(id)
+func (m *ShowModel) GetShow(id int) (show *ShowInfo, err error) {
+	myrShow, err := m.session.GetShow(id)
 	if err != nil {
+		fmt.Println(err)
 		return
 	}
 
-	creditsToUsers, err = m.session.GetCreditsToUsers(id, false)
+	creditsToUsers, err := m.session.GetCreditsToUsers(id, false)
 
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 
-	seasons, err = m.session.GetSeasons(id)
-	return
+	seasons, err := m.session.GetSeasons(id)
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	podcasts, err := m.session.GetAllShowPodcasts(id)
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	return &ShowInfo{
+		Show:           myrShow,
+		Seasons:        seasons,
+		CreditsToUsers: creditsToUsers,
+		Podcasts:       podcasts,
+	}, nil
 }
 
 // GetTimeslot gets the timeslot with ID id.
