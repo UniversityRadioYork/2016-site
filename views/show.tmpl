@@ -199,13 +199,16 @@
     </div>
     {{range .Podcasts}}
       <div class="row podcast-card">
-        <img class="col-3" src="
-    {{if .Photo}}
-      https://ury.org.uk{{.Photo}}
-    {{else}}
-      {{url "/images/default_show_profile.png"}}
-    {{end}}
-      "
+        <img
+          class="col-3"
+          src="
+        {{if .Photo}}
+          https://ury.org.uk{{.Photo}}
+        {{else}}
+          {{url "/images/default_show_profile.png"}}
+        {{end}}
+          "
+          alt="Podcast photo"
         />
         <a class="col-9 py-2 text-center text-lg-left meta" id="podcast" href="{{.MicrositeLink.URL}}">
           <h3>{{.Title}}</h3>
