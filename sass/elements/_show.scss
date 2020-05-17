@@ -1,20 +1,29 @@
 $cardSize: 8em;
 
-.podcast-card {
-  background-color: white;
-  color: black;
-  margin: 1em;
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: row;
-  border-radius: 4px 4px;
+.podcasts {
+  list-style: none;
+  padding: 0;
+  box-sizing: border-box;
 
-  @media all and (min-width: 600px) {
-    max-height: $cardSize;
-  }
+  .podcast-card {
+    background-color: white;
+    color: black;
+    margin-bottom: 1em;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
 
-  img {
-    max-height: $cardSize;
-    max-width: $cardSize;
+    a {
+      color: $link-color-dark;
+    }
+
+    @media all and (min-width: 600px) {
+      max-height: $cardSize;
+    }
+
+    img {
+      max-height: $cardSize;
+      max-width: $cardSize;
+    }
   }
 }
