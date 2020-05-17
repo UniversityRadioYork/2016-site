@@ -1,15 +1,18 @@
 $cardSize: 8em;
+
 .podcast-card {
   background-color: white;
   color: black;
   margin: 1em;
-  @media all and (min-width: 600px) {
-    max-height: $cardSize;
-  }
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
   border-radius: 4px 4px;
+
+  @media all and (min-width: 600px) {
+    max-height: $cardSize;
+  }
+
   img {
     max-height: $cardSize;
     max-width: $cardSize;
