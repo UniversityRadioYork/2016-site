@@ -1,4 +1,17 @@
 {{define "title"}}{{.PageContext.ShortName}} | {{with .PageData.Team}}{{.Name}}{{end}}{{end}}
+
+{{define "open-graph"}}
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@{{.PageContext.MainTwitter}}">
+<meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="{{.PageContext.ShortName}} | Teams | {{.PageData.Team.Name}}">
+<meta property="og:image" content="{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{.PageContext.FullURL}}{{url "/teams/"}}{{.PageData.Team.Alias}}">
+<meta property="og:description" content="{{ stripHtml .PageData.Team.Description}}">
+{{end}}
+
 {{define "officer"}}
 <div class="col-12 col-sm-6 col-md-3 col-lg-2">
   <a href="/people/{{.User.MemberID}}" title="Goto {{.User.Fname}} {{.User.Sname}}'s profile">
