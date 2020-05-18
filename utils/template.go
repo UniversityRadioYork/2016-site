@@ -56,8 +56,9 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 
 	t := template.New("base.tmpl")
 	t.Funcs(template.FuncMap{
-		"url":  func(s string) string { return PrefixURL(s, context.URLPrefix) },
-		"html": renderHTML,
+		"url":       func(s string) string { return PrefixURL(s, context.URLPrefix) },
+		"html":      renderHTML,
+		"stripHtml": StripHTML,
 		//Takes a splice of show meta and returns the last x elements
 		"getLastShowMeta": func(a []myradio.ShowMeta, amount int) []myradio.ShowMeta {
 			if len(a) < amount {
