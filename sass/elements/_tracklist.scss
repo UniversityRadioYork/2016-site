@@ -1,0 +1,17 @@
+$spotify-badge-height: 48px;
+$spotify-badge-padding: 4px;
+
+.spotify-badge-button {
+  background-color: #191414;
+  border: none;
+  color: white;
+  border-radius: $spotify-badge-height / 3;
+  padding: $spotify-badge-padding;
+  max-height: $spotify-badge-height;
+  margin: 8px 0;
+  img {
+    width: auto;
+    height: auto;
+    max-height: $spotify-badge-height - ($spotify-badge-padding * 2);
+  }
+}
