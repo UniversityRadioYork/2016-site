@@ -9,7 +9,7 @@
 {{if .PageData.Timeslot.Season.ShowMeta.Photo}}
 <meta property="og:image" content="{{.PageContext.FullURL}}{{url .PageData.Timeslot.Season.ShowMeta.Photo}}">
 {{else}}
-<meta property="og:image" content="{{.PageContext.FullURL}}{{url "images/open_graph-general.jpg"}}">
+<meta property="og:image" content="{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}">
 {{end}}
 <meta property="og:type" content="website">
 <meta property="og:url" content="{{.PageContext.FullURL}}{{url "/shows/timeslots/"}}{{.PageData.Timeslot.TimeslotID}}">
