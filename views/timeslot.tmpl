@@ -147,7 +147,7 @@
   <div class="container p-3">
     <h2>Tracklist</h2>
     {{if .Tracklist}}
-    <table class="table">
+    <table class="table" id="tracklistContainer">
       <thead>
         <tr>
           <th>Track</th>
@@ -155,11 +155,11 @@
           <th>Time</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="tracklist">
       {{range .Tracklist}}
         <tr>
-          <td>{{.Title}}</td>
-          <td>{{.Artist}}</td>
+          <td class="title">{{.Title}}</td>
+          <td class="artist">{{.Artist}}</td>
           <td>{{.StartTime.Format "15:04"}}</td>
         </tr>
       {{end}}
@@ -175,7 +175,22 @@
 
 {{define "footer-scripts"}}
 <script src="{{url "/js/jquery.prettySocial.min.js"}}?ver={{ .PageContext.CacheBuster }}"></script>
+<script src="{{url "/js/spotify-web-api-js.js"}}?ver={{ .PageContext.CacheBuster }}"></script>
+<script src="{{url "/js/spotify-saver.js"}}?ver={{ .PageContext.CacheBuster }}"></script>
 <script type="text/javascript" class="source">
   $(".prettySocial").prettySocial();
+  $(function() {
+    if($("#tracklist").length) {
+      const spotifyBadge = $(`<button class="spotify-badge-button"><img src="/images/Spotify_Icon_RGB_White.png"> Save as Spotify playlist</button>`);
+      spotifyBadge.click(function() {
+        savePlaylistToSpotify(
+                spotifyBadge,
+                $("#tracklist"),
+                `{{.PageData.Timeslot.Title}} - {{.PageData.Timeslot.StartTime.Format  "2006/01/02 15:04"}}`
+        );
+      });
+      spotifyBadge.insertBefore($("#tracklistContainer"));
+    }
+  });
 </script>
 {{end}}
