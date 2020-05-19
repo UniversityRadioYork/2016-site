@@ -42,7 +42,7 @@
         <div class="col-12 col-lg-3">
           <img class="img-fluid show-img" src="
           {{if .Podcast.Photo}}
-            https://ury.org.uk{{.Podcast.Photo}}
+              {{$.PageContext.FullURL}}{{.Podcast.Photo}}
           {{else}}
             {{url "/images/default_show_profile.png"}}
           {{end}}
@@ -109,7 +109,7 @@
       <div class="row">
         <div class="col-12 col-lg-6">
           <p>Want to put our podcast on your blog or website? Just copy the HTML code below...</p>
-          <textarea class="uryplayer-podcast-code" readonly="readonly" onclick="this.focus(); this.select();" style="border: none;" type="text" cols="30"><iframe width=&quot;500&quot; height=&quot;500&quot; src=&quot;https://ury.org.uk/podcasts/{{.PageData.Podcast.PodcastID}}/player/&quot; frameborder=&quot;0&quot; allowfullscreen > </iframe>
+          <textarea class="uryplayer-podcast-code" readonly="readonly" onclick="this.focus(); this.select();" style="border: none;" type="text" cols="30"><iframe width=&quot;500&quot; height=&quot;500&quot; src=&quot;{{$.PageContext.FullURL}}/podcasts/{{.PageData.Podcast.PodcastID}}/player/&quot; frameborder=&quot;0&quot; allowfullscreen > </iframe>
           </textarea>
         </div>
       </div>

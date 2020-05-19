@@ -49,7 +49,7 @@
     <div class="mobile-hide col-12 col-md-3 col-lg-2">
       <img class="img-fluid" src="
       {{if .Photo}}
-            https://ury.org.uk{{.Photo}}
+              {{$.PageContext.FullURL}}{{.Photo}}
       {{else}}
             {{url "/images/default_show_profile.png"}}
       {{end}}

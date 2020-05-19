@@ -25,7 +25,7 @@
   <div class="player">
     <img src="
       {{- if .Podcast.Photo -}}
-            https://ury.org.uk{{.Podcast.Photo}}
+        {{$.PageContext.FullURL}}{{.Podcast.Photo}}
       {{- else -}}
             {{url "/images/default_show_profile.png"}}
       {{- end -}}
@@ -65,10 +65,10 @@
               "name": "{{.Podcast.Title}}",
               "artist": "Artist Name",
               "album": "URY On Tap",
-              "url": "https://ury.org.uk{{.Podcast.File}}",
+              "url": "{{$.PageContext.FullURL}}{{.Podcast.File}}",
               "cover_art_url": "
                 {{- if .Podcast.Photo -}}
-                      https://ury.org.uk{{.Podcast.Photo}}
+                      {{ $.PageContext.FullURL }}{{.Podcast.Photo}}
                 {{- else -}}
                       {{url "/images/default_show_profile.png"}}
                 {{- end -}}

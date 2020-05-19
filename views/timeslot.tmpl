@@ -60,7 +60,7 @@
       <div class="col-12 col-sm-5 col-lg-3">
         <img class="img-fluid show-img" src="
         {{if .Timeslot.Season.ShowMeta.Photo}}
-        https://ury.org.uk{{.Timeslot.Season.ShowMeta.Photo}}
+            {{$.PageContext.FullURL}}{{.Timeslot.Season.ShowMeta.Photo}}
         {{else}}
         {{url "/images/default_show_profile.png"}}
         {{end}}"
