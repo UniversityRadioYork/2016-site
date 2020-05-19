@@ -6,7 +6,7 @@
 <meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}">
 <meta property="og:locale" content="en_GB">
 <meta property="og:title" content="{{.PageContext.ShortName}} | {{.PageData.User.Fname}} {{.PageData.User.Sname}} Profile">
-<meta property="og:url" content="{{.PageContext.FullURL}}{{url "/people/"}}{{.PageData.User.MemberID}}">
+<meta property="og:url" content='{{.PageContext.FullURL}}{{url "/people/"}}{{.PageData.User.MemberID}}'>
 {{if.PageData.User.Bio}}
 <meta property="og:description" content="{{.PageData.User.Bio}}">
 {{else}}

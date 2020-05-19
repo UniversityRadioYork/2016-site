@@ -12,10 +12,10 @@
 {{if .PageData.Podcast.Photo}}
 <meta property="og:image" content="{{.PageContext.FullURL}}{{url .PageData.Podcast.Photo}}">
 {{else}}
-<meta property="og:image" content="{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}">
+<meta property="og:image" content='{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}'>
 {{end}}
 <meta property="og:type" content="website">
-<meta property="og:url" content="{{.PageContext.FullURL}}{{url "/podcasts/"}}{{.PageData.Podcast.PodcastID}}">
+<meta property="og:url" content='{{.PageContext.FullURL}}{{url "/podcasts/"}}{{.PageData.Podcast.PodcastID}}'>
 <meta property="og:description" content="{{ stripHtml .PageData.Podcast.Description}}">
 {{end}}
 
@@ -23,13 +23,13 @@
 
 {{with .PageData}}
   <div class="player">
-    <img src="
+    <img src='
       {{- if .Podcast.Photo -}}
         {{$.PageContext.FullURL}}{{.Podcast.Photo}}
       {{- else -}}
-            {{url "/images/default_show_profile.png"}}
+        {{url "/images/default_show_profile.png"}}
       {{- end -}}
-    " class="album-art"/>
+    ' class="album-art"/>
     <div class="branding">
       URY On Tap<br>
       <span>Podcast</span>
@@ -66,14 +66,14 @@
               "artist": "Artist Name",
               "album": "URY On Tap",
               "url": "{{$.PageContext.FullURL}}{{.Podcast.File}}",
-              "cover_art_url": "
+              "cover_art_url": '
                 {{- if .Podcast.Photo -}}
                       {{ $.PageContext.FullURL }}{{.Podcast.Photo}}
                 {{- else -}}
                       {{url "/images/default_show_profile.png"}}
                 {{- end -}}
-              "
-          },
+              '
+          }
       ]
   });
   /*
@@ -87,7 +87,7 @@
   });
 
 </script>
-<link rel="stylesheet" href="{{url "/css/podcast_player.css"}}">
+<link rel="stylesheet" href='{{url "/css/podcast_player.css"}}'>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500">
 {{end}}
 {{end}}

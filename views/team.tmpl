@@ -6,9 +6,9 @@
 <meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}">
 <meta property="og:locale" content="en_GB">
 <meta property="og:title" content="{{.PageContext.ShortName}} | Teams | {{.PageData.Team.Name}}">
-<meta property="og:image" content="{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}">
+<meta property="og:image" content='{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}'>
 <meta property="og:type" content="website">
-<meta property="og:url" content="{{.PageContext.FullURL}}{{url "/teams/"}}{{.PageData.Team.Alias}}">
+<meta property="og:url" content='{{.PageContext.FullURL}}{{url "/teams/"}}{{.PageData.Team.Alias}}'>
 <meta property="og:description" content="{{ stripHtml .PageData.Team.Description}}">
 {{end}}
 
@@ -30,10 +30,10 @@
       <div class="container container-padded">
         <div class="row justify-content-center">
           <div class="text-center">
-            <h1 class="display-5"><a href="{{url "/teams/"}}" title="View all teams">Our Teams</a></h1>
+            <h1 class="display-5"><a href='{{url "/teams/"}}' title="View all teams">Our Teams</a></h1>
             <h2 class="display-5">The people who make URY happen!</h2>
             <br>
-            <a href="{{url "/getinvolved/#signUp"}}" class="btn btn-primary-inverse btn-lg">Be part of one!</a>
+            <a href='{{url "/getinvolved/#signUp"}}' class="btn btn-primary-inverse btn-lg">Be part of one!</a>
           </div>
         </div>
       </div>
@@ -74,9 +74,9 @@
       <div class="container container-padded">
         <h2>Get Involved</h2>
         <p>
-         If you have any further questions, please contact the team officers by using the email seen above. You can also come and visit our station in Vanbrugh College, where there'll almost always be someone there to talk to you and will help you to join the team.
+          If you have any further questions, please contact the team officers by using the email seen above. You can also come and visit our station in Vanbrugh College, where there'll almost always be someone there to talk to you and will help you to join the team.
         </p>
-        <a href="{{url "/getinvolved/"}}" class="btn btn-primary-inverse btn-md">Sign up for URY!</a>
+        <a href='{{url "/getinvolved/"}}' class="btn btn-primary-inverse btn-md">Sign up for URY!</a>
       </div>
     </div>
   {{end}}

@@ -40,13 +40,13 @@
     <div class="container container-padded">
       <div class="row">
         <div class="col-12 col-lg-3">
-          <img class="img-fluid show-img" src="
-          {{if .Podcast.Photo}}
+          <img class="img-fluid show-img" src='
+            {{if .Podcast.Photo}}
               {{$.PageContext.FullURL}}{{.Podcast.Photo}}
-          {{else}}
-            {{url "/images/default_show_profile.png"}}
-          {{end}}
-            " alt="{{.Podcast.Title}} Logo">
+            {{else}}
+              {{url "/images/default_show_profile.png"}}
+            {{end}}
+          ' alt="{{.Podcast.Title}} Logo">
         </div>
         <div class="col-12 col-lg-9">
           <h1>{{.Podcast.Title}}</h1>
@@ -68,7 +68,7 @@
               <span class="h5 mg-right-5">Share:</span>
               <a href="#"
                   data-type="twitter"
-                  data-url="{{.PageContext.FullURL}}{{url "/podcasts/"}}{{.PageData.Podcast.PodcastID}}/"
+                  data-url='{{.PageContext.FullURL}}{{url "/podcasts/"}}{{.PageData.Podcast.PodcastID}}/'
                   {{if .PageData.Podcast.Photo}}
                       data-media="{{.PageContext.FullURL}}{{.PageData.Podcast.Photo}}"
                   {{end}}
@@ -79,7 +79,7 @@
 
               <a href="#"
                   data-type="facebook"
-                  data-url="{{.PageContext.FullURL}}{{url "/podcasts/"}}{{.PageData.Podcast.PodcastID}}/"
+                  data-url='{{.PageContext.FullURL}}{{url "/podcasts/"}}{{.PageData.Podcast.PodcastID}}/'
                   data-title="{{.PageData.Podcast.Title}} | {{.PageContext.ShortName}}"
                   data-description="{{.PageData.Podcast.Description}}"
                   {{if .PageData.Podcast.Photo}}
@@ -107,8 +107,8 @@
   </div>
 {{end}}
 {{define "footer-scripts"}}
-<script src="{{url "/js/show.js"}}?ver={{ .PageContext.CacheBuster }}"></script>
-<script src="{{url "/js/jquery.prettySocial.min.js"}}?ver={{ .PageContext.CacheBuster }}"></script>
+<script src='{{url "/js/show.js"}}?ver={{ .PageContext.CacheBuster }}'></script>
+<script src='{{url "/js/jquery.prettySocial.min.js"}}?ver={{ .PageContext.CacheBuster }}'></script>
 <script type="text/javascript" class="source">
   $(".prettySocial").prettySocial();
 </script>
