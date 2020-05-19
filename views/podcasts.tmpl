@@ -7,7 +7,7 @@
 				<div class="row align-items-end text-center">
 					<div class="col">
 						<h1 class="display-5 header-title">
-								<a href="{{url "/ontap/"}}" title="Go back to {{.PageContext.ODName}}">
+								<a href='{{url "/ontap/"}}' title="Go back to {{.PageContext.ODName}}">
 									{{- .PageContext.ShortName }} {{.PageContext.ODName -}}
 								</a>
             </h1>
@@ -27,19 +27,19 @@
         {{if gt .PageNumber 1}}
           disabled
         {{end}}
-      " href="{{url "/podcasts/"}}page/{{.PageNumberPrev}}">&larr; Previous page</a>
+      " href='{{url "/podcasts/"}}page/{{.PageNumberPrev}}'>&larr; Previous page</a>
       <a class="nav-link
       {{if gt .PageNumber 1}}
         disabled
       {{end}}
-      " href="{{url "/podcasts/"}}">Latest</a>
+      " href='{{url "/podcasts/"}}'>Latest</a>
     </span>
     <span>
     Page {{.PageNumber}}
     </span>
     <span>
     {{if .PageNext}}
-      <a class="nav-link" href="{{url "/podcasts/"}}page/{{.PageNumberNext}}">Next page &rarr;</a>
+      <a class="nav-link" href='{{url "/podcasts/"}}page/{{.PageNumberNext}}'>Next page &rarr;</a>
     {{end}}
     </span>
   </nav>
@@ -47,14 +47,13 @@
   {{range .Podcasts}}
   <div class="row">
     <div class="mobile-hide col-12 col-md-3 col-lg-2">
-      <img class="img-fluid" src="
-      {{if .Photo}}
-            https://ury.org.uk{{.Photo}}
-      {{else}}
-            {{url "/images/default_show_profile.png"}}
-      {{end}}
-
-        " alt="{{.Title}} Logo">
+      <img class="img-fluid" src='
+        {{if .Photo}}
+              {{$.PageContext.FullURL}}{{.Photo}}
+        {{else}}
+              {{url "/images/default_show_profile.png"}}
+        {{end}}
+      ' alt="{{.Title}} Logo">
     </div>
     <div class="col-12 col-md-9 col-lg-10">
       <h4>

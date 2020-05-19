@@ -4,13 +4,13 @@
 <div class="current-and-next row justify-content-center">
   {{if .Current}}
   <div class="col-5 col-sm-3 col-md-2 p-0 current-and-next-img">
-    <img src="
+    <img src='
     {{- if .Current.Photo -}}
       //ury.org.uk{{.Current.Photo}}
     {{- else -}}
       {{url "/images/default_show_profile.png"}}
     {{- end -}}
-    " alt="{{.Current.Title}} Logo" />
+    ' alt="{{.Current.Title}} Logo" />
   </div>
   <div class="col-7 col-sm-9 col-md-5 p-0 m-0">
     {{if .Current.Url}}
