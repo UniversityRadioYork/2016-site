@@ -52,7 +52,7 @@
           <div class="col-auto share-links">
               <span class="h5 mg-right-5">Share:</span>
               <a href="#"
-                  title="Share this show episode on Twitter"
+                  title="Share this show on Twitter"
                   data-type="twitter"
                   data-url="{{.PageContext.FullURL}}/schedule/shows/{{.PageData.Show.ShowID}}"
                   {{if .PageData.Show.Photo}}
@@ -64,7 +64,7 @@
               </a>
 
               <a href="#"
-                  title="Share this show episode on Facebook"
+                  title="Share this show on Facebook"
                   data-type="facebook"
                   data-url="{{.PageContext.FullURL}}/schedule/shows/{{.PageData.Show.ShowID}}"
                   data-title="{{.PageData.Show.Title}} | {{.PageContext.ShortName}}"
@@ -191,9 +191,9 @@
 </div> <!-- /outer containter -->
 {{if gt (len .Podcasts) 0}}
   <div class="container-fluid bg-podcasts">
-    <div class="container pt-3">
+    <div class="container pt-3 pb-1">
       <h2>Podcasts</h2>
-      <p>We produce podcasts too! Give them a listen.</p>
+      <p>This show comes in podcast form, enjoy this content whenever and wherever you like!</p>
       <ul class="podcasts">
       {{range .Podcasts}}
       <li class="podcast-card box-shadow-1" onclick="window.location.href='{{url .MicrositeLink.URL}}'">
