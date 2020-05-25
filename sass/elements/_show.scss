@@ -17,6 +17,7 @@ $cardSize: 8em;
 
     &:hover {
       background: lighten($computing-grey, 65%);
+
       a.podcast-link {
         text-decoration: underline;
       }
