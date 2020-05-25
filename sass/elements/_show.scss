@@ -27,13 +27,9 @@ $cardSize: 8em;
       color: $link-color-dark;
     }
 
-    @media all and (min-width: 600px) {
-      max-height: $cardSize;
-    }
-
     img {
-      max-height: $cardSize;
-      max-width: $cardSize;
+      height: $cardSize;
+      width: $cardSize;
     }
 
     .podcast-card-body {
