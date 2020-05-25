@@ -192,8 +192,15 @@
 {{if gt (len .Podcasts) 0}}
   <div class="container-fluid bg-podcasts">
     <div class="container pt-3 pb-1">
-      <h2>Podcasts</h2>
-      <p>This show comes in podcast form, enjoy this content whenever and wherever you like!</p>
+      <div class="row justify-content-between">
+        <div class="col">
+          <h2>Podcasts</h2>
+          <p>This show comes in podcast form, enjoy this content whenever and wherever you like!</p>
+        </div>
+        <div class="col-auto d-flex align-items-end">
+          <a href="" class="btn btn-primary mb-3"><i aria-hidden="true" class="fas fa-rss-square"></i> RSS Feed</a>
+        </div>
+      </div>
       <ul class="podcasts">
       {{range .Podcasts}}
       <li class="podcast-card box-shadow-1" onclick="window.location.href='{{url .MicrositeLink.URL}}'">
