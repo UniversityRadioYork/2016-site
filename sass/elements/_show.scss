@@ -31,6 +31,10 @@ $cardSize: 8em;
       height: $cardSize;
       width: $cardSize;
       align-self: center;
+
+      @include media-breakpoint-down(xs) {
+        display: none;
+      }
     }
 
     .podcast-card-body {
