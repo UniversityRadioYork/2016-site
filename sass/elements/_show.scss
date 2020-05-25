@@ -30,6 +30,7 @@ $cardSize: 8em;
     img {
       height: $cardSize;
       width: $cardSize;
+      align-self: center;
     }
 
     .podcast-card-body {
