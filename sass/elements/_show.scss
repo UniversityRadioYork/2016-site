@@ -12,6 +12,15 @@ $cardSize: 8em;
     display: flex;
     flex-wrap: nowrap;
     flex-direction: row;
+    cursor: pointer;
+    transition: $transition-time;
+
+    &:hover {
+      background: lighten($computing-grey, 65%);
+      a.podcast-link {
+        text-decoration: underline;
+      }
+    }
 
     a {
       color: $link-color-dark;
@@ -24,6 +33,15 @@ $cardSize: 8em;
     img {
       max-height: $cardSize;
       max-width: $cardSize;
+    }
+
+    .podcast-card-body {
+      display: flex;
+      flex-direction: column;
+
+      .podcast-card-body-links {
+        margin-top: auto;
+      }
     }
   }
 }

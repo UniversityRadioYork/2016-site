@@ -196,12 +196,12 @@
       <p>We produce podcasts too! Give them a listen.</p>
       <ul class="podcasts">
       {{range .Podcasts}}
-        <li class="podcast-card box-shadow-1">
+      <li class="podcast-card box-shadow-1" onclick="window.location.href='{{url .MicrositeLink.URL}}'">
           <img
             class="podcast-card-image"
             src="
           {{if .Photo}}
-            https://ury.org.uk{{.Photo}}
+            {{$.PageContext.FullURL}}{{url .Photo}}
           {{else}}
             {{url "/images/default_show_profile.png"}}
           {{end}}
@@ -210,14 +210,14 @@
           />
           <div class="podcast-card-body p-3">
             <h3>
-              <a id="podcast" href="{{.MicrositeLink.URL}}">
-                {{- .Title -}}
-              </a>
+              <a class="podcast-link" href="{{url .MicrositeLink.URL}}">{{- .Title -}}</a>
             </h3>
             <span>{{.Time.Format "Monday, _2 Jan 2006"}}</span>
             <div class="podcast-card-body-links">
-              <a>Download</a>
-
+              <a href="{{$.PageContext.FullURL}}{{.File}}" download="{{.Title}}">
+                <span class="fa fa-download" aria-hidden="true"></span>
+                Download
+              </a>
             </div>
           </div>
         </li>
