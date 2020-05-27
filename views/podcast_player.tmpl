@@ -3,17 +3,33 @@
 {{define "header-block"}}<!-- header -->{{end}}
 {{define "footer-block"}}<!-- footer -->{{end}}
 
+{{define "open-graph"}}
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@{{.PageContext.MainTwitter}}">
+<meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="{{.PageContext.ShortName}} | {{.PageData.Podcast.Title}}">
+{{if .PageData.Podcast.Photo}}
+<meta property="og:image" content="{{.PageContext.FullURL}}{{url .PageData.Podcast.Photo}}">
+{{else}}
+<meta property="og:image" content='{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}'>
+{{end}}
+<meta property="og:type" content="website">
+<meta property="og:url" content='{{.PageContext.FullURL}}{{url "/podcasts/"}}{{.PageData.Podcast.PodcastID}}'>
+<meta property="og:description" content="{{ stripHtml .PageData.Podcast.Description}}">
+{{end}}
+
 {{define "content"}}
 
 {{with .PageData}}
   <div class="player">
-    <img src="
+    <img src='
       {{- if .Podcast.Photo -}}
-            https://ury.org.uk{{.Podcast.Photo}}
+        {{$.PageContext.FullURL}}{{.Podcast.Photo}}
       {{- else -}}
-            {{url "/images/default_show_profile.png"}}
+        {{url "/images/default_show_profile.png"}}
       {{- end -}}
-    " class="album-art"/>
+    ' class="album-art"/>
     <div class="branding">
       URY On Tap<br>
       <span>Podcast</span>
@@ -49,15 +65,15 @@
               "name": "{{.Podcast.Title}}",
               "artist": "Artist Name",
               "album": "URY On Tap",
-              "url": "https://ury.org.uk{{.Podcast.File}}",
-              "cover_art_url": "
+              "url": "{{$.PageContext.FullURL}}{{.Podcast.File}}",
+              "cover_art_url": '
                 {{- if .Podcast.Photo -}}
-                      https://ury.org.uk{{.Podcast.Photo}}
+                      {{ $.PageContext.FullURL }}{{.Podcast.Photo}}
                 {{- else -}}
                       {{url "/images/default_show_profile.png"}}
                 {{- end -}}
-              "
-          },
+              '
+          }
       ]
   });
   /*
@@ -71,7 +87,7 @@
   });
 
 </script>
-<link rel="stylesheet" href="{{url "/css/podcast_player.css"}}">
+<link rel="stylesheet" href='{{url "/css/podcast_player.css"}}'>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500">
 {{end}}
 {{end}}

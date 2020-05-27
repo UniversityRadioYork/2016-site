@@ -9,11 +9,11 @@
 {{if .PageData.Show.Photo}}
 <meta property="og:image" content="{{.PageContext.FullURL}}{{url .PageData.Show.Photo}}">
 {{else}}
-<meta property="og:image" content="{{.PageContext.FullURL}}{{url "images/open_graph-general.jpg"}}">
+<meta property="og:image" content='{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}'>
 {{end}}
 <meta property="og:type" content="website">
-<meta property="og:url" content="{{.PageContext.FullURL}}{{url "/schedule/shows/"}}{{.PageData.Show.ShowID}}">
-<meta property="og:description" content="{{.PageData.Show.Description}}">
+<meta property="og:url" content='{{.PageContext.FullURL}}{{url "/schedule/shows/"}}{{.PageData.Show.ShowID}}'>
+<meta property="og:description" content="{{ stripHtml .PageData.Show.Description}}">
 {{end}}
 
 {{define "content"}}
@@ -26,9 +26,9 @@
       <div class="col-12 col-sm-5 col-lg-3">
         <img class="img-fluid show-img" src="
         {{- if .PageData.Show.Photo -}}
-        https://ury.org.uk{{.PageData.Show.Photo}}
+          {{$.PageContext.FullURL}}{{.PageData.Show.Photo}}
         {{- else -}}
-        {{url "/images/default_show_profile.png"}}
+          {{url "/images/default_show_profile.png"}}
         {{- end -}}"
         alt="{{.PageData.Show.Title}} Logo">
         <div class="row">
@@ -240,8 +240,8 @@
 <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="//cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
 <script src="//cdn.datatables.net/plug-ins/1.10.16/api/fnFindCellRowIndexes.js"></script>
-<script src="{{url "/js/show.js"}}?ver={{ .PageContext.CacheBuster }}"></script>
-<script src="{{url "/js/jquery.prettySocial.min.js"}}?ver={{ .PageContext.CacheBuster }}"></script>
+<script src='{{url "/js/show.js"}}?ver={{ .PageContext.CacheBuster }}'></script>
+<script src='{{url "/js/jquery.prettySocial.min.js"}}?ver={{ .PageContext.CacheBuster }}'></script>
 <script type="text/javascript" class="source">
   $(".prettySocial").prettySocial();
 </script>

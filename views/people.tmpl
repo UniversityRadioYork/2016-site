@@ -6,7 +6,7 @@
 <meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}">
 <meta property="og:locale" content="en_GB">
 <meta property="og:title" content="{{.PageContext.ShortName}} | {{.PageData.User.Fname}} {{.PageData.User.Sname}} Profile">
-<meta property="og:url" content="{{.PageContext.FullURL}}{{url "/people/"}}{{.PageData.User.MemberID}}">
+<meta property="og:url" content='{{.PageContext.FullURL}}{{url "/people/"}}{{.PageData.User.MemberID}}'>
 {{if.PageData.User.Bio}}
 <meta property="og:description" content="{{.PageData.User.Bio}}">
 {{else}}
@@ -36,7 +36,7 @@
         <div class="row">
           <div class="col-12 col-lg-3">
             <div class="user-img profile">
-              <img class="img-fluid" src="https://ury.org.uk{{.User.Photo}}" alt="Photo of {{.User.Fname}} {{.User.Sname}}">
+              <img class="img-fluid" src="{{$.PageContext.FullURL}}{{.User.Photo}}" alt="Photo of {{.User.Fname}} {{.User.Sname}}">
             </div>
             <div class="row">
               <div class="col text-center">
@@ -51,7 +51,7 @@
               {{range getLastShowMeta .ShowCredits 6}}
                 <div class="col-4 col-md-2 p-0">
                   <a href="{{.MicroSiteLink.URL}}" title="View the {{.Title}} webpage.">
-                    <img class="img-fluid p-1" src="https://ury.org.uk{{.Photo}}" alt="{{.Title}} logo." />
+                    <img class="img-fluid p-1" src="{{$.PageContext.FullURL}}{{.Photo}}" alt="{{.Title}} logo." />
                   </a>
                 </div>
               {{end}}

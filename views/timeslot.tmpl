@@ -5,15 +5,15 @@
 <meta name="twitter:site" content="@{{.PageContext.MainTwitter}}">
 <meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}">
 <meta property="og:locale" content="en_GB">
-<meta property="og:title" content="{{.PageContext.ShortName}} | {{.PageData.Timeslot.Title}} {{.PageData.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}}">
+<meta property="og:title" content='{{.PageContext.ShortName}} | {{.PageData.Timeslot.Title}} {{.PageData.Timeslot.StartTime.Format "Monday, _2 Jan 2006 - 15:04"}}'>
 {{if .PageData.Timeslot.Season.ShowMeta.Photo}}
 <meta property="og:image" content="{{.PageContext.FullURL}}{{url .PageData.Timeslot.Season.ShowMeta.Photo}}">
 {{else}}
-<meta property="og:image" content="{{.PageContext.FullURL}}{{url "images/open_graph-general.jpg"}}">
+<meta property="og:image" content='{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}'>
 {{end}}
 <meta property="og:type" content="website">
-<meta property="og:url" content="{{.PageContext.FullURL}}{{url "/shows/timeslots/"}}{{.PageData.Timeslot.TimeslotID}}">
-<meta property="og:description" content="{{.PageData.Timeslot.Description}}">
+<meta property="og:url" content='{{.PageContext.FullURL}}{{url "/shows/timeslots/"}}{{.PageData.Timeslot.TimeslotID}}'>
+<meta property="og:description" content="{{ stripHtml .PageData.Timeslot.Description}}">
 {{end}}
 
 {{define "content"}}
@@ -58,12 +58,12 @@
   <div class="container p-3">
     <div class="row">
       <div class="col-12 col-sm-5 col-lg-3">
-        <img class="img-fluid show-img" src="
-        {{if .Timeslot.Season.ShowMeta.Photo}}
-        https://ury.org.uk{{.Timeslot.Season.ShowMeta.Photo}}
-        {{else}}
-        {{url "/images/default_show_profile.png"}}
-        {{end}}"
+        <img class="img-fluid show-img" src='
+          {{if .Timeslot.Season.ShowMeta.Photo}}
+            {{$.PageContext.FullURL}}{{.Timeslot.Season.ShowMeta.Photo}}
+          {{else}}
+            {{url "/images/default_show_profile.png"}}
+          {{end}}'
         alt="{{.Timeslot.Title}} Logo">
         <div class="row">
           <div class="col text-center">
