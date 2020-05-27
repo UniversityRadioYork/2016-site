@@ -13,11 +13,8 @@ func NewSubtypeModel(s *myradio.Session) *SubtypeModel {
 }
 
 // Get returns a myradio ShowSeasonSubtype given an alias for the class
-func (m *SubtypeModel) Get(alias string) (subtype myradio.ShowSeasonSubtype, err error) {
-	subtype, err = m.session.GetShowSubtype(alias)
-	if err != nil {
-		return
-	}
+func (m *SubtypeModel) Get(alias string) (subtype *myradio.ShowSeasonSubtype, err error) {
+	subtype, err = m.session.GetShowSubtypeByClass(alias)
 	return
 }
 

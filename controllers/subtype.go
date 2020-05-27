@@ -1,14 +1,13 @@
 package controllers
 
 import (
-	"github.com/gorilla/mux"
-	"log"
-	"net/http"
-
 	"github.com/UniversityRadioYork/2016-site/models"
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/2016-site/utils"
 	"github.com/UniversityRadioYork/myradio-go"
+	"github.com/gorilla/mux"
+	"log"
+	"net/http"
 )
 
 // SubtypeController is the controller for the URY Show Subtype pages.
@@ -31,8 +30,7 @@ func (subtypeCon *SubtypeController) Get(w http.ResponseWriter, r *http.Request)
 	alias, _ := vars["alias"]
 
 	subtype, err := subtypeM.Get(alias)
-	if err != nil {
-		log.Println(err)
+	if subtype == nil || err != nil {
 		utils.RenderTemplate(w, subtypeCon.config.PageContext, nil, "404.tmpl")
 		return
 	}
@@ -42,7 +40,7 @@ func (subtypeCon *SubtypeController) Get(w http.ResponseWriter, r *http.Request)
 		Upcoming []myradio.Timeslot
 		Recent   []myradio.Timeslot
 	}{
-		Subtype:  subtype,
+		Subtype:  *subtype,
 		Upcoming: nil,
 		Recent:   nil,
 	}

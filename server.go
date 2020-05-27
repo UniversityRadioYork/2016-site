@@ -56,6 +56,9 @@ func NewServer(c *structs.Config) (*Server, error) {
 	getRouter.HandleFunc("/schedule/shows/{id:[0-9]+}/podcast_rss", showC.GetPodcastRss).Name("podcast_rss")
 	headRouter.HandleFunc("/schedule/shows/{id:[0-9]+}/podcast_rss", showC.GetPodcastRssHead).Name("podcast_rss_head")
 
+	subC := controllers.NewSubtypeController(session, c)
+	getRouter.HandleFunc("/schedule/subtype/{alias}/", subC.Get).Name("subtype")
+
 	getRouter.HandleFunc("/uyco/", showC.GetUyco).Name("uyco")
 
 	getRouter.HandleFunc("/schedule/", func(w http.ResponseWriter, r *http.Request) {
