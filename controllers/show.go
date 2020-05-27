@@ -47,7 +47,7 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 
 	id, _ := strconv.Atoi(vars["id"])
 
-	show, seasons, creditsToUsers, err := sm.GetShow(id)
+	showInfo, err := sm.GetShow(id)
 
 	// Needed so that credits are grouped by type
 
@@ -60,7 +60,7 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	for _, season := range seasons {
+	for _, season := range showInfo.Seasons {
 		_, timeslotsSingleSeason, _ := sm.GetSeason(season.SeasonID)
 		if season.FirstTimeRaw != "0" && len(timeslotsSingleSeason) > 0 {
 			scheduledSeasons = append(scheduledSeasons, season)
@@ -91,19 +91,15 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 		LatestTimeslot myradio.Timeslot
 		LatestMixcloud bool
 		CreditsToUsers map[string][]myradio.User
+		Podcasts       []myradio.Podcast
 	}{
-		Show:           *show,
+		Show:           *showInfo.Show,
 		Seasons:        scheduledSeasons,
 		Timeslots:      timeslots,
 		LatestTimeslot: latestTimeslot,
 		LatestMixcloud: latestMixcloud,
-		CreditsToUsers: creditsToUsers,
-	}
-
-	if err != nil {
-		log.Println(err)
-		utils.RenderTemplate(w, sc.config.PageContext, data, "404.tmpl")
-		return
+		CreditsToUsers: showInfo.CreditsToUsers,
+		Podcasts:       showInfo.Podcasts,
 	}
 
 	err = utils.RenderTemplate(w, sc.config.PageContext, data, "show.tmpl")
