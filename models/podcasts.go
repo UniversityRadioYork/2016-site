@@ -38,5 +38,5 @@ func (m *PodcastModel) GetAllPodcasts(number int, page int) (podcasts []myradio.
 // On success, it returns the users name, bio, a list of officerships, their photo if they have one and nil
 // Otherwise, it returns undefined data and the error causing failure.
 func (m *PodcastModel) Get(id int) (podcast *myradio.Podcast, err error) {
-	return m.session.Get(id)
+	return m.session.GetPodcastWithShow(id)
 }
