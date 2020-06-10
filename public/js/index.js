@@ -1,10 +1,8 @@
-function getYoutubeFeed(playlistid, results, htmlid)
-{
+function getYoutubeFeed(playlistid, results, htmlid) {
   gapi.client.setApiKey(youtubeAPIKey);
-  gapi.client.load('youtube', 'v3', function() {
-
+  gapi.client.load("youtube", "v3", function() {
     var request = gapi.client.youtube.playlistItems.list({
-      part: 'snippet',
+      part: "snippet",
       playlistId: playlistid,
       maxResults: results
     });
@@ -17,52 +15,71 @@ function getYoutubeFeed(playlistid, results, htmlid)
         } else {
           thumb = response.items[i].snippet.thumbnails.standard.url;
         }
-        $(htmlid).append('<div class="thumbnail-container col-10 col-sm-7 col-md-4 col-lg-3">' +
-          '<div class="thumbnail">' +
-            '<a href="//youtube.com/watch?v=' + response.items[i].snippet.resourceId.videoId + '" target="_blank">' +
-              '<img src="' + thumb + '" alt="' + response.items[i].snippet.title + '" class="img-fluid">' +
-            '</a>' +
-          '</div>' +
-        '</div>');
+        $(htmlid).append(
+          '<div class="thumbnail-container col-10 col-sm-7 col-md-4 col-lg-3">' +
+            '<div class="thumbnail">' +
+            '<a href="//youtube.com/watch?v=' +
+            response.items[i].snippet.resourceId.videoId +
+            '" target="_blank" noopener>' +
+            '<img src="' +
+            thumb +
+            '" alt="' +
+            response.items[i].snippet.title +
+            '" class="img-fluid">' +
+            "</a>" +
+            "</div>" +
+            "</div>"
+        );
       }
-      if(isIndex && htmlid === "#sessions-videos") {
-        $(htmlid).append('<div class="thumbnail-container col-10 col-sm-7 col-md-4 col-lg-3">' +
-          '<a class="ury-card sessions link" href=\'/ontap/\'>' +
+      if (isIndex && htmlid === "#sessions-videos") {
+        $(htmlid).append(
+          '<div class="thumbnail-container col-10 col-sm-7 col-md-4 col-lg-3">' +
+            "<a class=\"ury-card sessions link\" href='/ontap/'>" +
             '<div class="ury-card-body">' +
-              '<div class="ury-card-lg-title">See more...</div>' +
-            '</div>' +
-          '</a>' +
-        '</div>');
+            '<div class="ury-card-lg-title">See more...</div>' +
+            "</div>" +
+            "</a>" +
+            "</div>"
+        );
       }
-      if(isOD && htmlid === "#sessions-videos") {
-        $(htmlid).append('<div class="thumbnail-container col-10 col-sm-7 col-md-4 col-lg-3">' +
-          '<a class="ury-card sessions link" href=\"' + youtubeLink + '\">' +
+      if (isOD && htmlid === "#sessions-videos") {
+        $(htmlid).append(
+          '<div class="thumbnail-container col-10 col-sm-7 col-md-4 col-lg-3">' +
+            '<a class="ury-card sessions link" href="' +
+            youtubeLink +
+            '">' +
             '<div class="ury-card-body">' +
-              '<div class="ury-card-lg-title">View more on Youtube...</div>' +
-            '</div>' +
-          '</a>' +
-        '</div>');
+            '<div class="ury-card-lg-title">View more on Youtube...</div>' +
+            "</div>" +
+            "</a>" +
+            "</div>"
+        );
       }
-      if(isIndex && htmlid === "#cin-videos") {
-        $(htmlid).append('<div class="thumbnail-container col-10 col-sm-7 col-md-4 col-lg-3">' +
-          '<a class="ury-card cin link" href=\'/cin/\'>' +
+      if (isIndex && htmlid === "#cin-videos") {
+        $(htmlid).append(
+          '<div class="thumbnail-container col-10 col-sm-7 col-md-4 col-lg-3">' +
+            "<a class=\"ury-card cin link\" href='/cin/'>" +
             '<div class="ury-card-body">' +
-              '<div class="ury-card-lg-title">See more...</div>' +
-            '</div>' +
-          '</a>' +
-        '</div>');
+            '<div class="ury-card-lg-title">See more...</div>' +
+            "</div>" +
+            "</a>" +
+            "</div>"
+        );
       }
-      if(isCIN && htmlid === "#cin-videos") {
-        $(htmlid).append('<div class="thumbnail-container col-10 col-sm-7 col-md-4 col-lg-3">' +
-          '<a class="ury-card cin link" href=\"' + youtubeLink + '\">' +
+      if (isCIN && htmlid === "#cin-videos") {
+        $(htmlid).append(
+          '<div class="thumbnail-container col-10 col-sm-7 col-md-4 col-lg-3">' +
+            '<a class="ury-card cin link" href="' +
+            youtubeLink +
+            '">' +
             '<div class="ury-card-body">' +
-              '<div class="ury-card-lg-title">View more on Youtube...</div>' +
-            '</div>' +
-          '</a>' +
-        '</div>');
+            '<div class="ury-card-lg-title">View more on Youtube...</div>' +
+            "</div>" +
+            "</a>" +
+            "</div>"
+        );
       }
     });
-
   });
 }
 
@@ -74,21 +91,25 @@ function istorn2020Counter() {
 
     const diffSeconds = (istorn2020 - now) / 1000;
     var timerSeconds = (diffSeconds % 60).toFixed(0).padStart(2, "0");
-    var timerMinutes = Math.floor(diffSeconds % 3600 / 60).toFixed(0).padStart(2, "0");
-    var timerHours = Math.floor(diffSeconds % 86400 / 3600).toFixed(0).padStart(2, "0");
+    var timerMinutes = Math.floor((diffSeconds % 3600) / 60)
+      .toFixed(0)
+      .padStart(2, "0");
+    var timerHours = Math.floor((diffSeconds % 86400) / 3600)
+      .toFixed(0)
+      .padStart(2, "0");
     var timerDays = Math.floor(diffSeconds / 86400).toFixed(0);
-    
-    if (timerSeconds == 60){
+
+    if (timerSeconds == 60) {
       timerSeconds = 0;
       timerMinutes++;
     }
-    
-    if (timerMinutes == 60){
+
+    if (timerMinutes == 60) {
       timerMinutes = 0;
       timerHours++;
     }
-    
-    if (timerDays < 0){
+
+    if (timerDays < 0) {
       timerDays = 0;
       timerMinutes = 0;
       timerHours = 0;
@@ -107,17 +128,16 @@ istorn2020Counter();
 
 //Youtube slideshow for index page
 function onGoogleLoad() {
-
-  if(isIndex) {
+  if (isIndex) {
     getYoutubeFeed(youtubeSessionsPlaylistID, 7, "#sessions-videos");
   }
-  if(isOD) {
+  if (isOD) {
     getYoutubeFeed(youtubeSessionsPlaylistID, 15, "#sessions-videos");
   }
-  if(isIndex) {
+  if (isIndex) {
     getYoutubeFeed(youtubeCINPlaylistID, 7, "#cin-videos");
   }
-  if(isCIN) {
+  if (isCIN) {
     getYoutubeFeed(youtubeCINPlaylistID, 15, "#cin-videos");
   }
 }
