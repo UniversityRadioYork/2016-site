@@ -10,12 +10,7 @@ function updateShow() {
   request.onload = function () {
     if (this.status >= 200 && this.status < 400) {
       success(this.response)
-    } else {
-      // We reached our target server, but it returned an error
     }
-  }
-  request.onerror = function () {
-    // There was a connection error of some sort
   }
   request.send()
 
