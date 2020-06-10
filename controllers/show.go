@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"crypto/sha1"
+	"encoding/hex"
 	"fmt"
 	"log"
 	"net/http"
@@ -45,7 +47,7 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 
 	id, _ := strconv.Atoi(vars["id"])
 
-	show, seasons, creditsToUsers, err := sm.GetShow(id)
+	showInfo, err := sm.GetShow(id)
 
 	// Needed so that credits are grouped by type
 
@@ -58,7 +60,7 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	for _, season := range seasons {
+	for _, season := range showInfo.Seasons {
 		_, timeslotsSingleSeason, _ := sm.GetSeason(season.SeasonID)
 		if season.FirstTimeRaw != "0" && len(timeslotsSingleSeason) > 0 {
 			scheduledSeasons = append(scheduledSeasons, season)
@@ -89,19 +91,15 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 		LatestTimeslot myradio.Timeslot
 		LatestMixcloud bool
 		CreditsToUsers map[string][]myradio.User
+		Podcasts       []myradio.Podcast
 	}{
-		Show:           *show,
+		Show:           *showInfo.Show,
 		Seasons:        scheduledSeasons,
 		Timeslots:      timeslots,
 		LatestTimeslot: latestTimeslot,
 		LatestMixcloud: latestMixcloud,
-		CreditsToUsers: creditsToUsers,
-	}
-
-	if err != nil {
-		log.Println(err)
-		utils.RenderTemplate(w, sc.config.PageContext, data, "404.tmpl")
-		return
+		CreditsToUsers: showInfo.CreditsToUsers,
+		Podcasts:       showInfo.Podcasts,
 	}
 
 	err = utils.RenderTemplate(w, sc.config.PageContext, data, "show.tmpl")
@@ -186,4 +184,106 @@ func (sc *ShowController) GetSeason(w http.ResponseWriter, r *http.Request) {
 
 	http.Redirect(w, r, showURL, 301)
 
+}
+
+func (sc *ShowController) GetPodcastRssHead(w http.ResponseWriter, r *http.Request) {
+	sm := models.NewShowModel(sc.session)
+
+	vars := mux.Vars(r)
+
+	id, _ := strconv.Atoi(vars["id"])
+
+	rss, err := sm.GetPodcastRSS(id)
+	if err != nil {
+		w.WriteHeader(404)
+		log.Println(err)
+		return
+	}
+
+	rssBytes := []byte(rss)
+
+	hasher := sha1.New()
+	hasher.Write(rssBytes)
+
+	rssHashBytes := hasher.Sum(nil)
+	hash := hex.EncodeToString(rssHashBytes)
+
+	w.Header().Add("Content-Type", "application/rss+xml; charset=UTF-8")
+	w.Header().Add("Content-Length", strconv.Itoa(len(rssBytes)))
+	w.Header().Add("ETag", "\""+hash+"\"")
+}
+
+// GetPodcastRSS handles the GET request for the show's associated podcast RSS feed.
+func (sc *ShowController) GetPodcastRss(w http.ResponseWriter, r *http.Request) {
+	sm := models.NewShowModel(sc.session)
+
+	vars := mux.Vars(r)
+
+	id, _ := strconv.Atoi(vars["id"])
+
+	rss, err := sm.GetPodcastRSS(id)
+	if err != nil {
+		w.WriteHeader(404)
+		utils.RenderTemplate(w, sc.config.PageContext, struct{}{}, "404.tmpl")
+		log.Println(err)
+		return
+	}
+
+	rssBytes := []byte(rss)
+
+	hasher := sha1.New()
+	hasher.Write(rssBytes)
+
+	rssHashBytes := hasher.Sum(nil)
+	hash := hex.EncodeToString(rssHashBytes)
+
+	w.Header().Add("Content-Type", "application/rss+xml; charset=UTF-8")
+	w.Header().Add("Content-Length", strconv.Itoa(len(rssBytes)))
+
+	w.Header().Add("ETag", "\""+hash+"\"")
+
+	_, err = w.Write(rssBytes)
+	if err != nil {
+		log.Println(err)
+	}
+}
+
+// GetUyco handles the HTTP GET request r for the UYCO page, writing to w.
+func (sc *ShowController) GetUyco(w http.ResponseWriter, r *http.Request) {
+	sm := models.NewShowModel(sc.session)
+
+	//Yes, I know this line shouldn't just be here and it should be better for changing later. But that'll happen one day. MG
+	id := [...]int{147223}
+
+	type data struct {
+		Timeslot myradio.Timeslot
+	}
+
+	var concertData [len(id)]data
+
+	for index, value := range id {
+		timeslot, _, _, err := sm.GetTimeslot(value)
+
+		if err != nil {
+			log.Println(err)
+			utils.RenderTemplate(w, sc.config.PageContext, concertData, "404.tmpl")
+			return
+		}
+
+		singleData := data{Timeslot: timeslot}
+		concertData[index] = singleData
+
+	}
+
+	toSend := struct {
+		Concert [len(id)]data
+	}{
+		Concert: concertData,
+	}
+
+	err := utils.RenderTemplate(w, sc.config.PageContext, toSend, "uyco.tmpl")
+	if err != nil {
+		log.Println(err)
+		return
+	}
 }

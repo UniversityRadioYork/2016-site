@@ -32,6 +32,7 @@ func NewServer(c *structs.Config) (*Server, error) {
 
 	getRouter := router.Methods("GET").Subrouter()
 	postRouter := router.Methods("POST").Subrouter()
+	headRouter := router.Methods("HEAD").Subrouter()
 
 	// Routes go in here
 	nfc := controllers.NewNotFoundController(c)
@@ -51,6 +52,11 @@ func NewServer(c *structs.Config) (*Server, error) {
 	getRouter.HandleFunc("/schedule/shows/{id:[0-9]+}/", showC.GetShow).Name("show")
 	getRouter.HandleFunc("/schedule/shows/timeslots/{id:[0-9]+}/", showC.GetTimeslot).Name("timeslot")
 	getRouter.HandleFunc("/schedule/shows/seasons/{id:[0-9]+}/", showC.GetSeason).Name("season")
+
+	getRouter.HandleFunc("/schedule/shows/{id:[0-9]+}/podcast_rss", showC.GetPodcastRss).Name("podcast_rss")
+	headRouter.HandleFunc("/schedule/shows/{id:[0-9]+}/podcast_rss", showC.GetPodcastRssHead).Name("podcast_rss_head")
+
+	getRouter.HandleFunc("/uyco/", showC.GetUyco).Name("uyco")
 
 	getRouter.HandleFunc("/schedule/", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/schedule/thisweek/", 301)
@@ -109,7 +115,7 @@ func NewServer(c *structs.Config) (*Server, error) {
 	getRouter.HandleFunc("/about/", staticC.GetAbout)
 	getRouter.HandleFunc("/contact/", staticC.GetContact)
 	getRouter.HandleFunc("/competitions/", staticC.GetCompetitions)
-	if(c.PageContext.CIN) {
+	if c.PageContext.CIN {
 		getRouter.HandleFunc("/cin/", staticC.GetCIN)
 	}
 	// End routes

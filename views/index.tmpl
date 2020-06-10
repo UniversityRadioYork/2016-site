@@ -1,7 +1,16 @@
 {{define "content"}}
+  {{if .PageContext.ISTORN2020}}
+    {{template "istorn2020_countdown" .}}
+  {{end}}
   <div class="container-fluid header-large current-next position-relative">
   {{if .PageContext.Christmas}}
     <div class="snow"></div>
+  {{end}}
+  {{if .PageContext.AprilFools}}
+    <div id="april-fool">
+      <iframe src="//brookehatton.com/dvd-screensaver/src" width="100%" height="100%"></iframe>
+      <script src='{{url "js/april-fools.js"}}'></script>
+    </div>
   {{end}}
   {{with .PageData}}
     <div class="container">
@@ -49,11 +58,6 @@
   </div>
   {{end}}
   {{with .PageData}}
-  <div id="index-videos" class="container-fluid container-padded pb-0 bg-sessions">
-    <h2>URY Sessions</h2>
-    <div id="sessions-videos" class="row scroll-horiz pb-3 custom-scrollbar-music thumbnail-slider">
-    </div>
-  </div>
   {{if .Podcasts}}
   <div id="index-podcasts" class="container-fluid container-padded pb-0 bg-podcasts">
     <div class="row">
@@ -65,7 +69,7 @@
       {{range .Podcasts}}
       <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
         <a class="ury-card podcast" href="{{.MicrositeLink.URL}}">
-          <div class="ury-card-img" style="background: url('https://ury.org.uk{{.Photo}}');" title="URY Podcast: {{.Title}} Logo"></div>
+          <div class="ury-card-img" style="background: url('{{$.PageContext.FullURL}}{{.Photo}}');" title="URY Podcast: {{.Title}} Logo"></div>
           <div class="ury-card-body">
             <div class="ury-card-title">{{.Title}}</div>
             <span>{{.Time.Format "Monday, _2 Jan 2006"}}</span>
@@ -83,6 +87,11 @@
     </div>
   </div>
   {{end}}
+  <div id="index-videos" class="container-fluid container-padded pb-0 bg-sessions">
+    <h2>URY Sessions</h2>
+    <div id="sessions-videos" class="row scroll-horiz pb-3 custom-scrollbar-music thumbnail-slider">
+    </div>
+  </div>
   {{end}}
 {{end}}
 
@@ -93,9 +102,10 @@ var youtubeAPIKey = {{.PageContext.Youtube.APIKey}};
 var youtubeSessionsPlaylistID = "{{.PageContext.Youtube.SessionsPlaylistID}}";
 var youtubeCINPlaylistID = "{{.PageContext.Youtube.CINPlaylistID}}";
 var isIndex = true;
-var isCIN = false;
+var isCIN = {{if .PageContext.CIN}}true{{else}}false{{end}};
 var isOD = false;
+var isISTORN2020 = {{if .PageContext.ISTORN2020}}true{{else}}false{{end}};
 </script>
-<script src='{{url "js/index.js"}}'></script>
+<script src='{{url "js/index.js"}}?ver={{ .PageContext.CacheBuster }}'></script>
 <script src="https://apis.google.com/js/client.js?onload=onGoogleLoad"></script>
 {{end}}

@@ -30,8 +30,12 @@
 	newsTwitter = "URYNews"
 
 	christmas = true
+	aprilFools = false
 	cin = true
 	cinLivestreaming = true
+	istorn2020 = true
+
+	cacheBuster = "v1"
 
 	odName = "On Tap"
 

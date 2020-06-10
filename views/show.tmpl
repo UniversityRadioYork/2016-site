@@ -9,15 +9,14 @@
 {{if .PageData.Show.Photo}}
 <meta property="og:image" content="{{.PageContext.FullURL}}{{url .PageData.Show.Photo}}">
 {{else}}
-<meta property="og:image" content="{{.PageContext.FullURL}}{{url "images/open_graph-general.jpg"}}">
+<meta property="og:image" content='{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}'>
 {{end}}
 <meta property="og:type" content="website">
-<meta property="og:url" content="{{.PageContext.FullURL}}{{url "/schedule/shows/"}}{{.PageData.Show.ShowID}}">
-<meta property="og:description" content="{{.PageData.Show.Description}}">
+<meta property="og:url" content='{{.PageContext.FullURL}}{{url "/schedule/shows/"}}{{.PageData.Show.ShowID}}'>
+<meta property="og:description" content="{{ stripHtml .PageData.Show.Description}}">
 {{end}}
 
 {{define "content"}}
-{{with .PageData}}
 <div class="container-fluid current-next">
 
 </div>
@@ -26,33 +25,32 @@
     <div class="row">
       <div class="col-12 col-sm-5 col-lg-3">
         <img class="img-fluid show-img" src="
-        {{- if .Show.Photo -}}
-        https://ury.org.uk{{.Show.Photo}}
+        {{- if .PageData.Show.Photo -}}
+          {{$.PageContext.FullURL}}{{.PageData.Show.Photo}}
         {{- else -}}
-        {{url "/images/default_show_profile.png"}}
+          {{url "/images/default_show_profile.png"}}
         {{- end -}}"
-        alt="{{.Show.Title}} Logo">
+        alt="{{.PageData.Show.Title}} Logo">
         <div class="row">
           <div class="col-6 text-center">
-            <span class="h3">Seasons: {{len .Seasons}}</span>
+            <span class="h3">Seasons: {{len .PageData.Seasons}}</span>
           </div>
           <div class="col-6 text-center">
-            <span class="h3">Episodes: {{showCount .Seasons}}</span>
+            <span class="h3">Episodes: {{showCount .PageData.Seasons}}</span>
           </div>
         </div>
       </div>
       <div class="col-12 col-sm-7 col-lg-9">
-        <h1>{{.Show.Title}}</h1>
+        <h1>{{.PageData.Show.Title}}</h1>
         <hr>
         <h2>Description</h2>
-        <p>{{html .Show.Description}}</p>
+        <p>{{html .PageData.Show.Description}}</p>
         <hr>
         <div class="row justify-content-end">
-{{end}}
           <div class="col-auto share-links">
               <span class="h5 mg-right-5">Share:</span>
               <a href="#"
-                  title="Share this show episode on Twitter"
+                  title="Share this show on Twitter"
                   data-type="twitter"
                   data-url="{{.PageContext.FullURL}}/schedule/shows/{{.PageData.Show.ShowID}}"
                   {{if .PageData.Show.Photo}}
@@ -64,7 +62,7 @@
               </a>
 
               <a href="#"
-                  title="Share this show episode on Facebook"
+                  title="Share this show on Facebook"
                   data-type="facebook"
                   data-url="{{.PageContext.FullURL}}/schedule/shows/{{.PageData.Show.ShowID}}"
                   data-title="{{.PageData.Show.Title}} | {{.PageContext.ShortName}}"
@@ -81,32 +79,33 @@
   </div>
 </div>
 {{with .PageData}}
-{{if .CreditsToUsers}}
-<div class="container-fluid bg-primary">
-  <div class="container pt-3">
-    <h2>Credits</h2>
-    <hr>
-    <div class="row">
-      {{range $key, $value := .CreditsToUsers}}
-      <div class="col-sm-4 pb-3">
-        {{if gt (len $value) 1}}
-          <h3>{{plural $key}}</h3>
-        {{else}}
-          <h3>{{$key}}</h3>
-        {{end}}
-        {{range $value}}
-        <a href="/people/{{.MemberID}}/">{{.Fname}} {{.Sname}}</a> <br>
+  {{if .CreditsToUsers}}
+  <div class="container-fluid bg-primary">
+    <div class="container pt-3">
+      <h2>Credits</h2>
+      <hr>
+      <div class="row">
+        {{range $key, $value := .CreditsToUsers}}
+        <div class="col-sm-4 pb-3">
+          {{if gt (len $value) 1}}
+            <h3>{{plural $key}}</h3>
+          {{else}}
+            <h3>{{$key}}</h3>
+          {{end}}
+          {{range $value}}
+          <a href="/people/{{.MemberID}}/">{{.Fname}} {{.Sname}}</a> <br>
+          {{end}}
+        </div>
         {{end}}
       </div>
-      {{end}}
     </div>
   </div>
-</div>
+  {{end}}
 {{end}}
+{{if gt (len .PageData.Seasons) 0}}
 <div class="container-fluid bg-secondary">
   <div class="container show-selector">
     <div class="row">
-{{end}}
       <div class="col-12 col-xl-4 p-4">
         <h2>{{.PageContext.ShortName}} {{.PageContext.ODName}}</h2>
         <p>Explore the show catalogue, and listen back to your favorite episodes!</p>
@@ -160,7 +159,6 @@
           </p>
         {{end}}
       </div>
-{{with .PageData}}
       <div id="timeslot-list" class="col-12 col-md-6 col-xl-4 bg-off-white">
         <h4 class="inline">Episodes</h4><h5 id="timeslot-season-title" class="inline"></h5>
         <table id="timeslots" class="table timeslots-table">
@@ -173,7 +171,7 @@
             </tr>
           </thead>
           <tbody>
-          {{range .Timeslots}}
+          {{range .PageData.Timeslots}}
             {{if ne .TimeslotNum 0}}
               <tr>
                 <td>{{.Season.SeasonID}}</td>
@@ -190,14 +188,60 @@
   </div>
 </div> <!-- /outer containter -->
 {{end}}
+{{with .PageData}}
+{{if gt (len .Podcasts) 0}}
+  <div class="container-fluid bg-podcasts">
+    <div class="container pt-3 pb-1">
+      <div class="row justify-content-between">
+        <div class="col">
+          <h2>Podcasts</h2>
+          <p>This show comes in podcast form, enjoy this content whenever and wherever you like!</p>
+        </div>
+        <div class="col-auto d-flex align-items-center">
+          <a href="{{url "/schedule/shows/"}}{{.Show.ShowID}}/podcast_rss" class="btn btn-primary"><i aria-hidden="true" class="fas fa-rss-square"></i> RSS Feed</a>
+        </div>
+      </div>
+      <ul class="podcasts">
+      {{range .Podcasts}}
+      <li class="podcast-card box-shadow-1" onclick="window.location.href='{{url .MicrositeLink.URL}}'">
+          <img
+            class="podcast-card-image"
+            src="
+          {{if .Photo}}
+            {{$.PageContext.FullURL}}{{url .Photo}}
+          {{else}}
+            {{url "/images/default_show_profile.png"}}
+          {{end}}
+            "
+            alt="Podcast photo"
+          />
+          <div class="podcast-card-body p-2 p-md-3">
+            <h3>
+              <a class="podcast-link" href="{{url .MicrositeLink.URL}}">{{- .Title -}}</a>
+            </h3>
+            <span>{{.Time.Format "Monday, _2 Jan 2006"}}</span>
+            <div class="podcast-card-body-links">
+              <a href="{{$.PageContext.FullURL}}{{.File}}" download="{{.Title}}">
+                <span class="fa fa-download" aria-hidden="true"></span>
+                Download
+              </a>
+            </div>
+          </div>
+        </li>
+      {{end}}
+      </ul>
+    </div>
+  </div>
+{{end}}
+{{end}}
 {{end}}
 {{define "footer-scripts"}}
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
 <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="//cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
 <script src="//cdn.datatables.net/plug-ins/1.10.16/api/fnFindCellRowIndexes.js"></script>
-<script src="{{url "/js/show.js"}}"></script>
-<script src="{{url "/js/jquery.prettySocial.min.js"}}"></script>
+<script src='{{url "/js/show.js"}}?ver={{ .PageContext.CacheBuster }}'></script>
+<script src='{{url "/js/jquery.prettySocial.min.js"}}?ver={{ .PageContext.CacheBuster }}'></script>
 <script type="text/javascript" class="source">
   $(".prettySocial").prettySocial();
 </script>

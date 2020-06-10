@@ -1,5 +1,20 @@
 {{define "title"}}{{.PageContext.ShortName}} | {{.PageContext.ODName}} | {{with .PageData}} {{.Podcast.Title}} {{end}} Podcast {{end}}
 
+{{define "open-graph"}}
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@{{.PageContext.MainTwitter}}">
+<meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="{{.PageContext.ShortName}} | {{.PageData.Podcast.Title}}">
+{{if .PageData.Podcast.Photo}}
+<meta property="og:image" content="{{.PageContext.FullURL}}{{url .PageData.Podcast.Photo}}">
+{{else}}
+<meta property="og:image" content="{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}">
+{{end}}
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{.PageContext.FullURL}}{{url "/podcasts/"}}{{.PageData.Podcast.PodcastID}}">
+<meta property="og:description" content="{{ stripHtml .PageData.Podcast.Description}}">
+{{end}}
 
 {{define "content"}}
 
@@ -25,23 +40,31 @@
     <div class="container container-padded">
       <div class="row">
         <div class="col-12 col-lg-3">
-          <img class="img-fluid show-img" src="
-          {{if .Podcast.Photo}}
-            https://ury.org.uk{{.Podcast.Photo}}
-          {{else}}
-            {{url "/images/default_show_profile.png"}}
-          {{end}}
-            " alt="{{.Podcast.Title}} Logo">
+          <img class="img-fluid show-img" src='
+            {{if .Podcast.Photo}}
+              {{$.PageContext.FullURL}}{{.Podcast.Photo}}
+            {{else}}
+              {{url "/images/default_show_profile.png"}}
+            {{end}}
+          ' alt="{{.Podcast.Title}} Logo">
         </div>
         <div class="col-12 col-lg-9">
           <h1>{{.Podcast.Title}}</h1>
+          {{if ne .Podcast.Show nil}}
+            <h3>
+              Brought to you by
+              <a href="{{$.PageContext.FullURL}}{{url "/schedule/shows/"}}{{.Podcast.Show.ShowID}}">
+                {{.Podcast.Show.Title}}
+              </a>
+            </h3>
+          {{end}}
           <h5 class="text-muted">{{.Podcast.Time.Format "Monday, _2 Jan 2006"}}</h5>
-          <hr>
-          <h2>Description</h2>
-          <p>{{html .Podcast.Description}}</p>
           <hr>
           <iframe src="player/" class="uryplayer-podcast-embed" frameborder="0">
           </iframe>
+          <hr>
+          <h2>Description</h2>
+          <p>{{html .Podcast.Description}}</p>
           <hr>
   {{end}}
           <div class="row justify-content-between">
@@ -53,7 +76,7 @@
               <span class="h5 mg-right-5">Share:</span>
               <a href="#"
                   data-type="twitter"
-                  data-url="{{.PageContext.FullURL}}{{url "/podcasts/"}}{{.PageData.Podcast.PodcastID}}/"
+                  data-url='{{.PageContext.FullURL}}{{url "/podcasts/"}}{{.PageData.Podcast.PodcastID}}/'
                   {{if .PageData.Podcast.Photo}}
                       data-media="{{.PageContext.FullURL}}{{.PageData.Podcast.Photo}}"
                   {{end}}
@@ -64,23 +87,13 @@
 
               <a href="#"
                   data-type="facebook"
-                  data-url="{{.PageContext.FullURL}}{{url "/podcasts/"}}{{.PageData.Podcast.PodcastID}}/"
+                  data-url='{{.PageContext.FullURL}}{{url "/podcasts/"}}{{.PageData.Podcast.PodcastID}}/'
                   data-title="{{.PageData.Podcast.Title}} | {{.PageContext.ShortName}}"
                   data-description="{{.PageData.Podcast.Description}}"
                   {{if .PageData.Podcast.Photo}}
                       data-media="{{.PageContext.FullURL}}{{.PageData.Podcast.Photo}}"
                   {{end}}
                   class="prettySocial fab fa-facebook">
-              </a>
-
-              <a href="#"
-                  data-type="googleplus"
-                  data-url="{{.PageContext.FullURL}}{{url "/podcasts/"}}{{.PageData.Podcast.PodcastID}}/"
-                  data-description="{{.PageData.Podcast.Description}}"
-                  {{if .PageData.Podcast.Photo}}
-                      data-media="{{.PageContext.FullURL}}{{.PageData.Podcast.Photo}}"
-                  {{end}}
-                  class="prettySocial fab fa-google">
               </a>
             </div>
           </div>
@@ -94,7 +107,7 @@
       <div class="row">
         <div class="col-12 col-lg-6">
           <p>Want to put our podcast on your blog or website? Just copy the HTML code below...</p>
-          <textarea class="uryplayer-podcast-code" readonly="readonly" onclick="this.focus(); this.select();" style="border: none;" type="text" cols="30"><iframe width=&quot;500&quot; height=&quot;500&quot; src=&quot;https://ury.org.uk/podcasts/{{.PageData.Podcast.PodcastID}}/player/&quot; frameborder=&quot;0&quot; allowfullscreen > </iframe>
+          <textarea class="uryplayer-podcast-code" readonly="readonly" onclick="this.focus(); this.select();" style="border: none;" type="text" cols="30"><iframe width=&quot;500&quot; height=&quot;500&quot; src=&quot;{{$.PageContext.FullURL}}/podcasts/{{.PageData.Podcast.PodcastID}}/player/&quot; frameborder=&quot;0&quot; allowfullscreen > </iframe>
           </textarea>
         </div>
       </div>
@@ -102,8 +115,8 @@
   </div>
 {{end}}
 {{define "footer-scripts"}}
-<script src="{{url "/js/show.js"}}"></script>
-<script src="{{url "/js/jquery.prettySocial.min.js"}}"></script>
+<script src='{{url "/js/show.js"}}?ver={{ .PageContext.CacheBuster }}'></script>
+<script src='{{url "/js/jquery.prettySocial.min.js"}}?ver={{ .PageContext.CacheBuster }}'></script>
 <script type="text/javascript" class="source">
   $(".prettySocial").prettySocial();
 </script>
