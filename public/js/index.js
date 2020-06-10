@@ -20,7 +20,7 @@ function getYoutubeFeed(playlistid, results, htmlid) {
             '<div class="thumbnail">' +
             '<a href="//youtube.com/watch?v=' +
             response.items[i].snippet.resourceId.videoId +
-            '" target="_blank" noopener>' +
+            '" target="_blank" rel="noopener noreferrer">' +
             '<img src="' +
             thumb +
             '" alt="' +
