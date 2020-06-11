@@ -33,18 +33,17 @@ func (teamC *TeamController) Get(w http.ResponseWriter, r *http.Request) {
 		utils.RenderTemplate(w, teamC.config.PageContext, nil, "404.tmpl")
 		return
 	}
+
 	data := struct {
-		Team         myradio.Team
-		Heads        []myradio.Officer
-		Assistants   []myradio.Officer
-		Officers     []myradio.Officer
-		OfficerCount int
+		Team       myradio.Team
+		Heads      []myradio.Officer
+		Assistants []myradio.Officer
+		Officers   []myradio.Officer
 	}{
-		Team:         team,
-		Heads:        heads,
-		Assistants:   assistants,
-		Officers:     officers,
-		OfficerCount: len(team.Officers),
+		Team:       team,
+		Heads:      heads,
+		Assistants: assistants,
+		Officers:   officers,
 	}
 	err = utils.RenderTemplate(w, teamC.config.PageContext, data, "team.tmpl")
 	if err != nil {
