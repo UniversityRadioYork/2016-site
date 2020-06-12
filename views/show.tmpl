@@ -202,34 +202,39 @@
         </div>
       </div>
       <ul class="podcasts">
-      {{range .Podcasts}}
-      <li class="podcast-card box-shadow-1" onclick="window.location.href='{{url .MicrositeLink.URL}}'">
-          <img
-            class="podcast-card-image"
-            src="
-          {{if .Photo}}
-            {{$.PageContext.FullURL}}{{url .Photo}}
-          {{else}}
-            {{url "/images/default_show_profile.png"}}
-          {{end}}
-            "
-            alt="Podcast photo"
-          />
-          <div class="podcast-card-body p-2 p-md-3">
-            <h3>
-              <a class="podcast-link" href="{{url .MicrositeLink.URL}}">{{- .Title -}}</a>
-            </h3>
-            <span>{{.Time.Format "Monday, _2 Jan 2006"}}</span>
-            <div class="podcast-card-body-links">
-              <a href="{{$.PageContext.FullURL}}{{.File}}" download="{{.Title}}">
-                <span class="fa fa-download" aria-hidden="true"></span>
-                Download
-              </a>
+      {{range $index, $value := .Podcasts}}
+        <li class="podcast-card box-shadow-1 {{if gt $index 4}}older-podcast{{end}}" onclick="window.location.href='{{url .MicrositeLink.URL}}'">
+            <img
+              class="podcast-card-image"
+              src="
+            {{if .Photo}}
+              {{$.PageContext.FullURL}}{{url .Photo}}
+            {{else}}
+              {{url "/images/default_show_profile.png"}}
+            {{end}}
+              "
+              alt="Podcast photo"
+            />
+            <div class="podcast-card-body p-2 p-md-3">
+              <h3>
+                <a class="podcast-link" href="{{url .MicrositeLink.URL}}">{{- .Title -}}</a>
+              </h3>
+              <span>{{.Time.Format "Monday, _2 Jan 2006"}}</span>
+              <div class="podcast-card-body-links">
+                <a href="{{$.PageContext.FullURL}}{{.File}}" download="{{.Title}}">
+                  <span class="fa fa-download" aria-hidden="true"></span>
+                  Download
+                </a>
+              </div>
             </div>
-          </div>
-        </li>
+          </li>
       {{end}}
       </ul>
+      {{if gt (len .Podcasts) 5}}
+      <div class="pb-3">
+      <a href="javascript:void(0)" id="show-more-less-podcasts">Show More</a>
+      </div>
+      {{end}}
     </div>
   </div>
 {{end}}
