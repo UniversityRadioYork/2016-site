@@ -1,0 +1,44 @@
+name: Go
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Set up Go 1.x
+      uses: actions/setup-go@v2
+      with:
+        go-version: ^1.13
+      id: go
+
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v2
+
+    - name: Get dependencies
+      run: |
+        go get -v -t -d ./...
+
+    - name: Build
+      run: go build -v .
+
+    - name: Build Sass
+      uses: gha-utilities/sass-build@v0.2.5
+      with:
+        source: sass/main.scss
+        destination: public/css/main.scss.css
+    - name: ESLint
+      uses: hallee/eslint-action@1.0.3
+      with:
+        # GitHub repository token for publishing inline lint annotations. Should be secrets.GITHUB_TOKEN.
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        # Root directory to lint files in.
+        source-root: public/js
+
