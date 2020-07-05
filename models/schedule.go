@@ -21,9 +21,9 @@ func NewScheduleModel(s *myradio.Session) *ScheduleModel {
 	return &ScheduleModel{Model{session: s}}
 }
 
-// OLD_WeekSchedule gets the week schedule with ISO-8601 year year and week number week.
+// WeekSchedule gets the week schedule with ISO-8601 year year and week number week.
 // It also takes sustainer configuration, and a function to use for generating timeslot URLs.
-// On success, it returns the fully tabulated OLD_WeekSchedule for the given week.
+// On success, it returns the the list of shows for that week, split up as necessary and with sustainer where needed.
 // Otherwise, it returns undefined data and the error causing failure.
 func (m *ScheduleModel) WeekSchedule(
 	year, week int,
