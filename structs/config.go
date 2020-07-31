@@ -11,9 +11,9 @@ type Config struct {
 
 // Server is a structure containing server configuration.
 type Server struct {
-	Address string `toml:"address"`
-	Port    int    `toml:"port"`
-	Timeout int    `toml:"timeout"`
+	Address     string `toml:"address"`
+	Port        int    `toml:"port"`
+	Timeout     int    `toml:"timeout"`
 	MyRadioAPI  string `toml:"myradio_api"`
 }
 
