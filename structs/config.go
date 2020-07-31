@@ -14,6 +14,7 @@ type Server struct {
 	Address string `toml:"address"`
 	Port    int    `toml:"port"`
 	Timeout int    `toml:"timeout"`
+	MyRadioAPI  string `toml:"myradio_api"`
 }
 
 // PageContext is a structure containing static information to provide
