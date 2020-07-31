@@ -22,7 +22,7 @@ func NewServer(c *structs.Config) (*Server, error) {
 
 	s := Server{negroni.Classic()}
 
-	var session myradio.Session
+	var session *myradio.Session
 	var err error
 	if c.Server.MyRadioAPI == "" {
 		session, err = myradio.NewSessionFromKeyFile()
