@@ -1,6 +1,9 @@
 package models
 
-import "github.com/UniversityRadioYork/myradio-go"
+import (
+	"github.com/BurntSushi/toml"
+	"github.com/UniversityRadioYork/myradio-go"
+)
 
 // GetInvolvedModel is the model for getting data for the getinvolved controller
 type GetInvolvedModel struct {
@@ -51,5 +54,19 @@ func (m *GetInvolvedModel) Get() (colleges []myradio.College, numTeams int, team
 			}
 		}
 	}
+	return
+}
+
+// FAQ contains all the FAQ objects, containing a question and an answer
+type FAQ struct {
+	FAQs []struct {
+		Question string `toml:"question"`
+		Answer   string `toml:"answer"`
+	} `toml:"faqs"`
+}
+
+// GetFAQ decodes and returns the FAQs from faqs.toml
+func (m *GetInvolvedModel) GetFAQ() (faq *FAQ, err error) {
+	_, err = toml.DecodeFile("faqs.toml", &faq)
 	return
 }

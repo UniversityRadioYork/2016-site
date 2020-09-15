@@ -1,0 +1,15 @@
+# This is the FAQ file, for the FAQs
+
+# Its an array of objects with question and answer fields
+
+[[faqs]]
+question = "Question 1"
+answer = "Answer 1"
+
+[[faqs]]
+question = "Question 2"
+answer = "Answer 2"
+
+[[faqs]]
+question = "Question 3"
+answer = "Answer 3"
