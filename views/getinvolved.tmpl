@@ -37,6 +37,21 @@
     </div>
   </div>
 </div>
+
+<div class="container-fluid container-padded  bg-secondary">
+  <div class="container container-padded">
+      <h2>Frequently Asked Questions</h2><br>
+      <div> {{/* Prevents bug where p would appear inline with h2 */}}
+        
+        <button type="button" class="faq-question">Question</button>
+        <div class="faq-answer">
+          <p>Answer</p>
+        </div>
+
+      </div>
+  </div>
+</div>
+
 <div class="container-fluid container-padded ">
   <div class="container container-padded">
       <h2>What Can I Do?</h2>
@@ -130,4 +145,5 @@
   </div>
 </div>
 {{end}}
+<script src='{{url "/js/faq.js"}}'></script>
 {{end}}
