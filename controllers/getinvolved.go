@@ -56,14 +56,25 @@ func (gic *GetInvolvedController) Get(w http.ResponseWriter, r *http.Request) {
 	//Sort Colleges Alphabetically, with N/A and Unknown at the start
 	sort.Sort(CollegeSorter(colleges))
 
+	// Frequently Asked Questions
+
+	faqs, err := gim.GetFAQ()
+
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
 	data := struct {
 		Colleges    []myradio.College
 		NumTeams    int
 		ListTeamMap map[int]*myradio.Team
+		FAQs        *models.FAQ
 	}{
 		Colleges:    colleges,
 		NumTeams:    numTeams,
 		ListTeamMap: listTeamMap,
+		FAQs:        faqs,
 	}
 
 	err = utils.RenderTemplate(w, gic.config.PageContext, data, "getinvolved.tmpl")
