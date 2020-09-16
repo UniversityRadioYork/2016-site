@@ -2,14 +2,66 @@
 
 # Its an array of objects with question and answer fields
 
-[[faqs]]
-question = "Question 1"
-answer = "Answer 1"
+# Format: 
+# [[faqs]]
+# question = "Question Here"
+# answer = "Answer Here"
+# seemore = "linkhere
+
+# The seemore field is optional, and provides a "Click here to learn more" link on the FAQ.
+# It is prefaced with the host URL, such as ury.org.uk, so the example would give ury.org.uk/linkhere
+
+# We can't support multi line answers, or embedded HTML :(
+# You can format an answer across multiple lines in this toml file by putting it in """triple quotes""",
+# but this won't be shown on the website
 
 [[faqs]]
-question = "Question 2"
-answer = "Answer 2"
+question = "How do I listen to URY?"
+answer = "Grab the boombox from your parents’ attic and tune it to 1350AM, go to our website: ury.org.uk/live, ask your smart speaker “play University Radio York”, or get the Radioplayer, TuneIn, or Apple Music app."
 
 [[faqs]]
-question = "Question 3"
-answer = "Answer 3"
+question = "Can I get a show?"
+answer = "Yes! Any paid member who has completed our training session, signs our presenter contract and applies for a suitable timeslot can get on air!"
+seemore = "getinvolved#signUp"
+
+[[faqs]]
+question = "Do I have to be on air?"
+answer = "No, we’ve got plenty of opportunities behind-the-scenes, such as our computing and engineering teams, and curating playlists and writing radio dramas."
+seemore = "teams"
+
+[[faqs]]
+question = "Wow! You’re the oldest independent licensed radio station in the UK?"
+answer = "Yes, we started in 1968, and we’ve been going ever since!"
+seemore = "about"
+
+[[faqs]]
+question = "Where are your studios?"
+answer = "Our station building is near the Vanbrugh nucleus building, around the back of the market square shops."
+seemore = "contact#map"
+
+[[faqs]]
+question = "Do I need to do my shows from the studios, or can I do them from home?"
+answer = "In addition to two industry standard studios, we developed our own WebStudio tool last term, enabling anyone to broadcast with just a laptop, a mic, and a pair of headphones. So it is entirely possible for you to do your show without ever leaving your bedroom. You might also be able to do a show from our studios, although this will be subject to availability and social distancing requirements."
+
+[[faqs]]
+question = "I’m not certain yet that I want to join, is there somewhere I can find out more without paying my membership?"
+answer = """You can join our Slack, ury.slack.com, and talk to the teams you’re interested in - each one has their own channel where the team members hang out.
+If you prefer in-person chats, the best place to start is our Production Meetings! There we chat about everything shows and production of shows, and there’s almost always a member of our computing or engineering teams there too, if you’re more interested in the stuff that goes on at our station that isn’t going on air. These are every Monday at 8pm on Zoom - the details will be in our Slack, ury.slack.com, in the #production channel.
+Either of these options are a great way to learn more about how we work, as well as meeting some of the people that work to keep us going - we look forward to meeting you!"""
+seemore = "slack"
+
+[[faqs]]
+question = "Do I need to be trained?"
+answer = "Yes - before your first show we’ll give you a 1-on-1 training session, covering everything you need to know to go on air."
+
+[[faqs]]
+question = "Can I join someone else’s show to see how it works?"
+answer = "Sure - many of our presenters are willing to have people come on, even just to watch - just send them a message, they don’t bite."
+
+[[faqs]]
+question = "Do you have any connections to industry?"
+answer = "Yes, many of our alumni have gone on to work at companies such as the BBC and Global (think Capital, Heart, LBC, ClassicFM etc) in all areas of media, production, presenting, engineering, computing, news coverage and more. Many of our technicians have also gone on to broadcast or software engineering careers."
+
+[[faqs]]
+question = "How much time does URY take up?"
+answer = "As much or as little as you want. Many of our members only do one show per week, but if you want to get more involved there’s plenty of opportunities."

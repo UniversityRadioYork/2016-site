@@ -10,6 +10,15 @@ type GetInvolvedModel struct {
 	Model
 }
 
+// FAQ contains all the FAQ objects, containing a question and an answer
+type FAQ struct {
+	FAQs []struct {
+		Question string `toml:"question"`
+		Answer   string `toml:"answer"`
+		SeeMore  string `toml:"seemore"`
+	} `toml:"faqs"`
+}
+
 // NewGetInvolvedModel returns a new GetInvolvedModel on the MyRadio session s.
 func NewGetInvolvedModel(s *myradio.Session) *GetInvolvedModel {
 	return &GetInvolvedModel{Model{session: s}}
@@ -20,7 +29,7 @@ func NewGetInvolvedModel(s *myradio.Session) *GetInvolvedModel {
 // On success, it returns all the current teams, and a map from listID to
 //     the team associated with that list
 // Otherwise, it returns undefined data and the error causing failure.
-func (m *GetInvolvedModel) Get() (colleges []myradio.College, numTeams int, teamInterestLists map[int]*myradio.Team, err error) {
+func (m *GetInvolvedModel) Get() (colleges []myradio.College, numTeams int, teamInterestLists map[int]*myradio.Team, faq *FAQ, err error) {
 	// Get a list of the colleges and IDs
 	colleges, err = m.session.GetColleges()
 	if err != nil {
@@ -54,19 +63,9 @@ func (m *GetInvolvedModel) Get() (colleges []myradio.College, numTeams int, team
 			}
 		}
 	}
-	return
-}
 
-// FAQ contains all the FAQ objects, containing a question and an answer
-type FAQ struct {
-	FAQs []struct {
-		Question string `toml:"question"`
-		Answer   string `toml:"answer"`
-	} `toml:"faqs"`
-}
-
-// GetFAQ decodes and returns the FAQs from faqs.toml
-func (m *GetInvolvedModel) GetFAQ() (faq *FAQ, err error) {
+	// Decodes the FAQ toml file into faq
 	_, err = toml.DecodeFile("faqs.toml", &faq)
+
 	return
 }

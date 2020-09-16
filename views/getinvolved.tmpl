@@ -46,7 +46,12 @@
         {{ range .FAQs.FAQs}}
           <button type="button" class="faq-question">{{.Question}}</button>
           <div class="faq-answer">
+            <br>
             <p>{{.Answer}}</p>
+            {{ if .SeeMore }}
+              <a href="/{{ .SeeMore }}">Click here to learn more...</a>
+              <br><br>
+            {{ end }}
           </div>
         {{ end}}
       </div>

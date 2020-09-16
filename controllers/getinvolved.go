@@ -45,7 +45,7 @@ func (gic *GetInvolvedController) Get(w http.ResponseWriter, r *http.Request) {
 
 	gim := models.NewGetInvolvedModel(gic.session)
 
-	colleges, numTeams, listTeamMap, err := gim.Get()
+	colleges, numTeams, listTeamMap, faqs, err := gim.Get()
 
 	if err != nil {
 		//@TODO: Do something proper here, render 404 or something
@@ -55,15 +55,6 @@ func (gic *GetInvolvedController) Get(w http.ResponseWriter, r *http.Request) {
 
 	//Sort Colleges Alphabetically, with N/A and Unknown at the start
 	sort.Sort(CollegeSorter(colleges))
-
-	// Frequently Asked Questions
-
-	faqs, err := gim.GetFAQ()
-
-	if err != nil {
-		log.Println(err)
-		return
-	}
 
 	data := struct {
 		Colleges    []myradio.College
