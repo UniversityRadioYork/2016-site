@@ -4,7 +4,6 @@
 
 .faq-question {
     background-color: #f3f3f3;
-    color: #000;
     cursor: pointer;
     padding: 0.5rem 1rem;
     margin-top: 0.5rem;
@@ -30,8 +29,6 @@
 .faq-answer {
     padding: 0 1rem;
     overflow: hidden;
-    background-color: #ffffff;
-    color: #000000;
     max-height: 0;
     transition: max-height 0.2s ease-out;
 }
@@ -40,7 +37,6 @@
     content: '\02795';
     /* Unicode character for "plus" sign (+) */
     font-size: 1em;
-    color: white;
     float: right;
     margin-left: 5px;
 }

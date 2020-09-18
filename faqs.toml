@@ -6,7 +6,7 @@
 # [[faqs]]
 # question = "Question Here"
 # answer = "Answer Here"
-# seemore = "linkhere
+# seemore = "linkhere"
 
 # The seemore field is optional, and provides a "Click here to learn more" link on the FAQ.
 # It is prefaced with the host URL, such as ury.org.uk, so the example would give ury.org.uk/linkhere
@@ -65,3 +65,21 @@ answer = "Yes, many of our alumni have gone on to work at companies such as the 
 [[faqs]]
 question = "How much time does URY take up?"
 answer = "As much or as little as you want. Many of our members only do one show per week, but if you want to get more involved there’s plenty of opportunities."
+
+[[faqs]]
+question = "Can I play my own music?"
+answer = "You can play any music you own, as long as you’ve bought it legally - it’ll be covered in your training. We’ve also got thousands of songs in our library already, with more added all the time, so it’s pretty likely we’ve already got what you want to play."
+
+[[faqs]]
+question = "Is there anything I need to know if I want to get involved in engineering?"
+answer = "Nope, doesn’t matter if you don’t have any knowledge or experience, you learn as you go! If you want to know more, you can join our Slack, ury.slack.com, or listen to How to Break A Radio Station, our podcast all about what engineering at URY is like. It’s on our website as well as Spotify and iTunes -  check it out!"
+seemore = "teams/engineering"
+
+[[faqs]]
+question = "I want to help make a show, but I don’t want to actually go on air. Can I do that?"
+answer = "Of course! Our Production team offers help to anyone wanting to do a show, as well as producing the bigger events URY cover throughout the year; they’re heavily involved in our coverage of YUSU’s election season, Roses as well as any Outside Broadcasts people want to do. If you have an idea for a show, but don’t want to present it yourself, come along to our Production Meetings and pitch it - someone will be willing to help you out, and the rest of our Production team will support you in production of the show. For more information, check out the #production channel on our Slack (ury.slack.com), send a message to our Production Manager, or email the Production team on production@ury.org.uk"
+seemore = "teams/production"
+
+[[faqs]]
+question = "Can I do more than one show? Do I need to pay extra?"
+answer = "You can do as many shows as you want - if you see a gap on our schedule, chances are you can fill it! You only pay once, and then you’re a member for the rest of the year, no matter how many shows you do."
