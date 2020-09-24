@@ -40,6 +40,15 @@ answer = "Our station building is near the Vanbrugh nucleus building, around the
 seemore = "contact#map"
 
 [[faqs]]
+question = "What measures are you taking to protect against COVID-19?"
+answer = "The number of shows in our physical studios is strictly limited, as is the number of people in the studios. All equipment is cleaned and quarantined after each show, we ask presenters to use their own headphones rather than sharing, and we have perspex screens on our desks. In addition, everyone in the building must wear face coverings unless presenting or exempt. If you don’t feel comfortable presenting from our studios, you are more than welcome to do your show remotely - we have industry-grade technology to enable anyone to broadcast from their home, in fact we expect most of our shows will use this tech."
+
+[[faqs]]
+question = "Do I have to audition?"
+answer = "No! If you see a space on our schedule, you can fill it - all you need is to be trained."
+seemore = "schedule"
+
+[[faqs]]
 question = "Do I need to do my shows from the studios, or can I do them from home?"
 answer = "In addition to two industry standard studios, we developed our own WebStudio tool last term, enabling anyone to broadcast with just a laptop, a mic, and a pair of headphones. So it is entirely possible for you to do your show without ever leaving your bedroom. You might also be able to do a show from our studios, although this will be subject to availability and social distancing requirements."
 
@@ -74,6 +83,12 @@ answer = "You can play any music you own, as long as you’ve bought it legally 
 question = "Is there anything I need to know if I want to get involved in engineering?"
 answer = "Nope, doesn’t matter if you don’t have any knowledge or experience, you learn as you go! If you want to know more, you can join our Slack, ury.slack.com, or listen to How to Break A Radio Station, our podcast all about what engineering at URY is like. It’s on our website as well as Spotify and iTunes -  check it out!"
 seemore = "teams/engineering"
+
+[[faqs]]
+question = "I like writing code and/or messing with computer hardware, do you have any of that?"
+answer = """There’s always something to do at URY Computing. Almost all of our software is made in-house, including our broadcasting tools WebStudio, Jukebox, and BAPS, as well as our website and our backend system MyRadio. Don’t worry if you don’t have much experience, we’re all learning as we go here! When it comes to hardware, we have our own private section of the University network, with eight physical servers (and a few virtual ones too) that we install and manage ourselves.
+ We also build and maintain our studio PCs and piles of other hardware around the place, so if you want to learn about breaking computers, there’s plenty of that here. If you want to find out more, join our Slack (ury.slack.com) and ask in the #computing channel or DM our Head of Computing or email them at head.of.computing@ury.org.uk"""
+seemore = "teams/computing"
 
 [[faqs]]
 question = "I want to help make a show, but I don’t want to actually go on air. Can I do that?"
