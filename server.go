@@ -113,7 +113,10 @@ func NewServer(c *structs.Config) (*Server, error) {
 
 	getinvolvedC := controllers.NewGetInvolvedController(session, c)
 	getRouter.HandleFunc("/getinvolved/", getinvolvedC.Get)
-	getRouter.HandleFunc("/getinvolved/meetings.ics", getinvolvedC.GetICal)
+
+	eventC := controllers.NewEventController(session, c)
+	//getRouter.HandleFunc("/calendar.ics", eventC.Get)
+	getRouter.HandleFunc("/meetings.ics", eventC.GetMeetings)
 
 	signupC := controllers.NewSignUpController(session, c)
 	postRouter.HandleFunc("/signup/", signupC.Post)

@@ -157,5 +157,9 @@ func RenderICal(w http.ResponseWriter, data interface{}) error {
 		return err
 	}
 
+	w.Header().Set("Content-type", "text/calendar")
+	w.Header().Set("charset", "utf-8")
+	w.Header().Set("Content-Disposition", "inline")
+
 	return t.Execute(w, td)
 }

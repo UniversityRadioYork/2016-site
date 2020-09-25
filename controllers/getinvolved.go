@@ -73,31 +73,3 @@ func (gic *GetInvolvedController) Get(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
-
-func (gic *GetInvolvedController) GetICal(w http.ResponseWriter, r *http.Request) {
-	em := models.NewEventsModel(gic.session)
-
-	events, err := em.Get()
-
-	if err != nil {
-		log.Println(err)
-		return
-	}
-
-	w.Header().Set("Content-type", "text/calendar")
-	w.Header().Set("charset", "utf-8")
-	w.Header().Set("Content-Disposition", "inline")
-	w.Header().Set("filename", "mathsoc.ics")
-
-	data := struct {
-		Events []myradio.Event
-	}{
-		Events: events,
-	}
-
-	err = utils.RenderICal(w, data)
-	if err != nil {
-		log.Println(err)
-		return
-	}
-}
