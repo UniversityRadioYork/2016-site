@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"database/sql"
 	"fmt"
 	"html/template"
 	"net/http"
@@ -147,9 +146,6 @@ func RenderICal(w http.ResponseWriter, data interface{}) error {
 
 	t := template.New("ical.tmpl")
 	t.Funcs(template.FuncMap{
-		"date":     func(date time.Time) string { return date.Format("20060102T") },
-		"time":     func(time time.Time) string { return time.Format("150405Z") },
-		"time2":    func(time sql.NullTime) string { return time.Time.Format("150405Z") },
 		"datetime": func(time time.Time) string { return time.Format("20060102T150405Z") },
 	})
 	t, err := t.ParseFiles(templatePath)
