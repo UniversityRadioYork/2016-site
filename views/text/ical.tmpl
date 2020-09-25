@@ -1,0 +1,18 @@
+{{with .EventData}}
+BEGIN:VCALENDAR
+VERSION:2.0
+CALSCALE:GREGORIAN
+{{range .Events}}
+BEGIN:VEVENT
+UID:{{.ID}}@events.yums.org.uk
+DTSTAMP:{{datetime $.Now}}
+ORGANIZER;CN=URY Computing Team:MAILTO:webmaster@ury.org.uk
+DESCRIPTION:{{.Description}}
+DTSTART:{{.Start}}
+DTEND:{{.End}}
+URL:https://ury.org.uk/myradio/Events/viewEvent/?eventid={{.ID}}
+SUMMARY:{{.Title}}
+END:VEVENT
+{{end}}
+END:VCALENDAR
+{{end}}

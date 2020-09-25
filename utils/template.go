@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"database/sql"
 	"fmt"
 	"html/template"
 	"net/http"
@@ -131,4 +132,30 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 // Handles plain text gracefully.
 func renderHTML(value interface{}) template.HTML {
 	return template.HTML(fmt.Sprint(value))
+}
+
+func RenderICal(w http.ResponseWriter, data interface{}) error {
+	templatePath := filepath.Join(TemplatePrefix, "text", "ical.tmpl")
+
+	td := struct {
+		Now       time.Time
+		EventData interface{}
+	}{
+		Now:       time.Now(),
+		EventData: data,
+	}
+
+	t := template.New("ical.tmpl")
+	t.Funcs(template.FuncMap{
+		"date":     func(date time.Time) string { return date.Format("20060102T") },
+		"time":     func(time time.Time) string { return time.Format("150405Z") },
+		"time2":    func(time sql.NullTime) string { return time.Time.Format("150405Z") },
+		"datetime": func(time time.Time) string { return time.Format("20060102T150405Z") },
+	})
+	t, err := t.ParseFiles(templatePath)
+	if err != nil {
+		return err
+	}
+
+	return t.Execute(w, td)
 }
