@@ -48,7 +48,21 @@
 
 	[pageContext.youtube]
 		APIKey = "AIzaSyCzI5Gvpq1hPlfjvB81EVc0vLv_11eW7NI"
-		sessionsPlaylistID = "PLsxUDJzU4VKDudlmlYb-ImFKreFKAfFln"
+		homepagePlaylistID = "PLsxUDJzU4VKDag-NVag4kMN1i5C7ZyP85"
+		homepageDescription = "Fresh music from fresh artists, something witty here..."
+		homepageTitle = "Q-Fest"
+		homepageBGColour = "#235660"
+		homepageColor = "#fff"
+		od1PlaylistID = "PLsxUDJzU4VKDudlmlYb-ImFKreFKAfFln"
+		od1Description = "Fresh music from fresh artists, something witty here..."
+		od1Title = "URY Sessions"
+		od1BGColor = "#53306a"
+		od1Color = "#fff"
+		od2PlaylistID = "PLsxUDJzU4VKDag-NVag4kMN1i5C7ZyP85"
+		od2Description = "Fresh music from fresh artists, something witty here..."
+		od2Title = "Q-Fest"
+		od2BGColor = "#235660"
+		od2Color = "#fff"
 		cinPlaylistID = "PLsxUDJzU4VKAAH1pOogbzJx7pZgd-2zOx"
 		channelURL = "//youtube.com/ury1350"
 

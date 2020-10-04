@@ -11,10 +11,10 @@ type Config struct {
 
 // Server is a structure containing server configuration.
 type Server struct {
-	Address     string `toml:"address"`
-	Port        int    `toml:"port"`
-	Timeout     int    `toml:"timeout"`
-	MyRadioAPI  string `toml:"myradio_api"`
+	Address    string `toml:"address"`
+	Port       int    `toml:"port"`
+	Timeout    int    `toml:"timeout"`
+	MyRadioAPI string `toml:"myradio_api"`
 }
 
 // PageContext is a structure containing static information to provide
@@ -63,10 +63,24 @@ type Page struct {
 }
 
 type youtube struct {
-	APIKey             string `toml:"apiKey"`
-	SessionsPlaylistID string `toml:"sessionsPlaylistID"`
-	CINPlaylistID      string `toml:"cinPlaylistID"`
-	ChannelURL         string `toml:"channelURL"`
+	APIKey              string `toml:"apiKey"`
+	HomepagePlaylistID  string `toml:"homepagePlaylistID"`
+	HomepageTitle       string `toml:"homepageTitle"`
+	HomepageDescription string `toml:"homepageDescription"`
+	HomepageBGColor     string `toml:"homepageBGColour"`
+	HomepageColor       string `toml:"homepageColor"`
+	OD1PlaylistID       string `toml:"od1PlaylistID"`
+	OD1Title            string `toml:"od1Title"`
+	OD1Description      string `toml:"od1Description"`
+	OD1BGColor          string `toml:"od1BGColor"`
+	OD1Color            string `toml:"od1Color"`
+	OD2PlaylistID       string `toml:"od2PlaylistID"`
+	OD2Title            string `toml:"od2Title"`
+	OD2Description      string `toml:"od2Description"`
+	OD2BGColor          string `toml:"od2BGColor"`
+	OD2Color            string `toml:"od2Color"`
+	CINPlaylistID       string `toml:"cinPlaylistID"`
+	ChannelURL          string `toml:"channelURL"`
 }
 
 type gmaps struct {
