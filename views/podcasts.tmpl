@@ -71,6 +71,28 @@
     We haven't got any podcasts right now, please try again later.
   </p>
   {{end}}
+  <nav class="row nav justify-content-between">
+    <span>
+      <a class="nav-link
+        {{if gt .PageNumber 1}}
+          disabled
+        {{end}}
+      " href='{{url "/podcasts/"}}page/{{.PageNumberPrev}}'>&larr; Previous page</a>
+      <a class="nav-link
+      {{if gt .PageNumber 1}}
+        disabled
+      {{end}}
+      " href='{{url "/podcasts/"}}'>Latest</a>
+    </span>
+    <span>
+    Page {{.PageNumber}}
+    </span>
+    <span>
+    {{if .PageNext}}
+      <a class="nav-link" href='{{url "/podcasts/"}}page/{{.PageNumberNext}}'>Next page &rarr;</a>
+    {{end}}
+    </span>
+  </nav>
 </div><!-- /.container container-padded -->
 
 {{end}}
