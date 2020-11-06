@@ -39,10 +39,9 @@
     font-size: 1em;
     float: right;
     margin-left: 5px;
-
-    &:after {
-        content: "\2796";
-        /* Unicode character for "minus" sign (-) */
-    }
 }
 
+.faq-question.active:after {
+    content: "\2796";
+    /* Unicode character for "minus" sign (-) */
+}
