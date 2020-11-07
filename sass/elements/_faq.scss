@@ -18,7 +18,7 @@
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 
-.active,
+.faq-question.active,
 .faq-question:hover {
     background-color: #ccc;
 }
@@ -41,7 +41,7 @@
     margin-left: 5px;
 }
 
-.active:after {
+.faq-question.active:after {
     content: "\2796";
     /* Unicode character for "minus" sign (-) */
 }
