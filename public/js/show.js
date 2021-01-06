@@ -115,4 +115,10 @@ $(document).ready(function() {
     }
   };
   getSeasonFilter();
+
+  $(".older-podcast").hide();
+  $("#show-more-less-podcasts").click(function() {
+    $(".older-podcast").toggle();
+    $("#show-more-less-podcasts").text(($("#show-more-less-podcasts").text() == "Show More") ? "Show Less" : "Show More");
+  })
 });
