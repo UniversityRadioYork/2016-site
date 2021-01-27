@@ -32,9 +32,13 @@
 
 	christmas = true
 	aprilFools = false
+	istorn2020 = false
+	
+	# Candidate Interview Night Stuff
 	cin = true
 	cinLivestreaming = true
-	istorn2020 = true
+	cinAPI = "http://127.0.0.1:8000"
+	cinHashtag = "#CIN21"	
 
 	cacheBuster = "v1"
 

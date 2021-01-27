@@ -15,7 +15,7 @@
             <a href="//twitter.com/{{.PageContext.MainTwitter}}"><i class="fab fa-twitter fa-2x"></i><h3>Find us on Twitter</h3></a>
           </div>
           <div class="col-md-4 align-self-center">
-            <h3>Join in with the conversation<br>#CIN19</h3>
+            <h3>Join in with the conversation<br>{{.PageContext.CINHashtag}}</h3>
           </div>
           <div class="col-md-4 align-self-center">
             <a href="//facebook.com/{{.PageContext.MainFacebook}}"><i class="fab fa-facebook fa-2x"></i><h3>Find us on Facebook</h3></a>
@@ -33,7 +33,7 @@
     </div>
     {{end}}
 </div>
-<div class="container-fluid bg-cin">
+<div id="interactive" class="container">
 
 </div>
 <div id="index-videos" class="container-fluid container-padded bg-cin">
@@ -54,5 +54,6 @@ var isCIN = true;
 var isOD = false;
 </script>
 <script src='{{url "/js/index.js"}}?ver={{ .PageContext.CacheBuster }}'></script>
+<script src='{{url "/js/cin.js"}}' type="module"></script>
 <script src="https://apis.google.com/js/client.js?onload=onGoogleLoad"></script>
 {{end}}
