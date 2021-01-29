@@ -10,12 +10,9 @@ import htm from 'https://unpkg.com/htm?module';
 const html = htm.bind(h);
 
 var api = "";
+var lastUpdate = 0;
+var interviews = [];
 
-const getApiEndpoint = async() => {
-    const apiCall = await fetch("/cinapi");
-    const res = await apiCall.text();
-    return res;
-}
 
 function LiveCard(props) {
     return html `
@@ -41,7 +38,7 @@ function prettifyCandidates(candidates) {
 
 function LiveArea() {
 
-    const [loaded, setLoaded] = useState(false);
+    const [update, setUpdate] = useState(0);
 
     const [positions, setPositions] = useState(["Live Position", "Next Position"])
     const [candidates, setCandidates] = useState(["Live Candidate", "Next Candidate"])
@@ -49,14 +46,26 @@ function LiveArea() {
 
     useEffect(() => {
         const updateLives = async() => {
-            fetch(api + "/events/live")
-                .then(res => res.json())
-                .then((data) => {
-                    console.log(data);
-                    setPositions([data.current.interview.position.full_name, data.next.interview.position.full_name]);
-                    setCandidates([prettifyCandidates(data.current.interview.candidates), prettifyCandidates(data.next.interview.candidates)]);
-                    setInterviewers(["some interviewer", "some other interviewer"]);
-                })
+
+            if (update != lastUpdate) {
+                for (let i = 0; i < interviews.length; i++) {
+                    if (interviews[i].start_time < Date.now() && interviews[i].end_time > Date.now()) {
+                        setPositions([
+                            interviews[i].position.full_name,
+                            interviews[i + 1].position.full_name
+                        ])
+
+                        setCandidates([
+                            prettifyCandidates(interviews[i].interview.candidates),
+                            prettifyCandidates(interviews[i + 1].interview.candidates)
+                        ])
+
+                        setInterviewers(["some interviewer", "some other interviewer"]);
+                        break;
+                    }
+                }
+                setUpdate(lastUpdate);
+            }
         }
 
         if (loaded) {
@@ -73,14 +82,57 @@ function LiveArea() {
     `
 }
 
-function App(props) {
+const quickSortTime = (data) => {
+    if (data.length === 0) {
+        return [];
+    } else {
+        var before = [];
+        var after = [];
+        var pivot = data[0];
+        for (let i = 1; i < data.length; i++) {
+            if (data[i].start_time < pivot.start_time) {
+                before.push(data[i])
+            } else {
+                after.push(data[i])
+            }
+        }
+        return quickSortTime(before).push(pivot).concat(quickSortTime(after))
+    }
+}
+
+const getData = async() => {
+    fetch(api + "/events")
+        .then(r => r.json())
+        .then(data => {
+            interviews = quickSortTime(data);
+            lastUpdate = Date.now();
+        })
+}
+
+const App = () => {
+
+    const [loaded, setLoaded] = useState(false);
+
+    useEffect(() => {
+
+        if (loaded) {
+            setTimeout(() => { updateLives() }, 20000);
+        } else {
+            getData();
+            setLoaded(true);
+        }
+    })
 
     return html `
     <${LiveArea}/>
     `
 }
 
-getApiEndpoint().then((x) => {
+(() => {
+    const apiCall = await fetch("/cinapi");
+    const res = await apiCall.text();
+    return res;
+})().then((x) => {
     api = x;
     console.log(api);
     render(html `<${App} />`, interactive)
