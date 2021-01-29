@@ -21,8 +21,8 @@ function LiveCard(props) {
             <div class="card-body">
                 <div class="card-title"><h1 class="cin-text"><b>${props.live}</b></h1></div>
                 <div class="card-text"><h2>${props.position}</h2></div>
-                <div class="card-text"><h2>${props.candidate}</h2></div>
-                <div class="card-text">${props.interviewer}</div>
+                <div class="card-text"><h3>${props.candidate}</h3></div>
+                <div class="card-text">with <b>${props.interviewer}</b></div>
                 <div class="card-text">${props.time}</div>
             </div>
         </div>
@@ -34,11 +34,10 @@ const FutureScheduleCard = (props) => {
     return html `
     <div class="card mx-auto m-2" style="width: 35em";>
         <div class="card-body">
-            <div class="card-title"><h1><b>${props.time}</b></h1></div>
             <div class="card-text"><h2>${props.position}</h2></div>
-            <div class="card-text"><h2>${props.candidate}</h2></div>
-            <div class="card-text">${props.interviewer}</div>
-            <div class="card-text">Time</div>
+            <div class="card-text"><h3>${props.candidate}</h3></div>
+            <div class="card-text">with <b>${props.interviewer}</b></div>
+            <div class="card-title">${props.time}</div>
         </div>
     </div>
     `;
@@ -50,9 +49,9 @@ const LiveScheduleCard = (props) => {
         <div class="card-body">
             <div class="card-title"><h1 class="text-danger">Live</h1></div>
             <div class="card-text"><h2>${props.position}</h2></div>
-            <div class="card-text"><h2>${props.candidate}</h2></div>
-            <div class="card-text">${props.interviewer}</div>
-            <div class="card-text">Time</div>
+            <div class="card-text"><h3>${props.candidate}</h3></div>
+            <div class="card-text">with <b>${props.interviewer}</b></div>
+            <div class="card-text">${props.time}</div>
         </div>
     </div>
     `;
@@ -65,11 +64,13 @@ const PastScheduleCard = (props) => {
             <div class="card-text"><h2>${props.position}</h2></div>
             <div class="row">
                 <div class="col">
-                    <div class="card-text"><h2>${props.candidate}</h2></div>
-                    <div class="card-text">${props.interviewer}</div>
+                    <div class="card-text"><h3>${props.candidate}</h3></div>
+                    <div class="card-text">with <b>${props.interviewer}</b></div>
                 </div>
                 <div class="col">
-                    <img class="float-right row vtop mr-1" src="/images/playbutton.png" style="border-radius: 10px;"/>
+                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+                        <img class="float-right row vtop mr-1" src="/images/playbutton.png" style="border-radius: 10px;"/>
+                    </a>
                 </div>
             </div>
         </div>
@@ -115,10 +116,12 @@ const ScheduleArea = () => {
                 interviewer="Interviewer Name"
                 />`)
             } else {
+                let time = "Now - " + new Date(event.end_time).toLocaleTimeString().slice(0, -3)
                 tmp.push(html `<${LiveScheduleCard} 
                 position=${event.interview.position.full_name} 
                 candidate=${prettifyCandidates(event.interview.candidates)} 
                 interviewer="Interviewer Name"
+                time=${time}
                 />`)
             }
         })
