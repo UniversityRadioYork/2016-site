@@ -10,30 +10,31 @@ import htm from 'https://unpkg.com/htm?module';
 const html = htm.bind(h);
 
 var api = "";
-var lastUpdate = 0;
 var interviews = [];
 var refreshTime = 5000;
 
 
 function LiveCard(props) {
-    return html `
-    <div class="card mx-auto m-2" style="width: 35em;">
-        <div class="card-body">
-            <div class="card-title"><h1>${props.live}</h1></div>
-            <div class="card-text"><h2>${props.position}</h2></div>
-            <div class="card-text"><h2>${props.candidate}</h2></div>
-            <div class="card-text">${props.interviewer}</div>
-            <div class="card-text">Time</div>
+    if (props.show) {
+        return html `
+        <div class="card mx-auto m-2" style="width: 35em;">
+            <div class="card-body">
+                <div class="card-title"><h1 class="cin-text"><b>${props.live}</b></h1></div>
+                <div class="card-text"><h2>${props.position}</h2></div>
+                <div class="card-text"><h2>${props.candidate}</h2></div>
+                <div class="card-text">${props.interviewer}</div>
+                <div class="card-text">${props.time}</div>
+            </div>
         </div>
-    </div>
-    `;
+        `;
+    }
 }
 
 const FutureScheduleCard = (props) => {
     return html `
     <div class="card mx-auto m-2" style="width: 35em";>
         <div class="card-body">
-            <div class="card-title"><h1>Future</h1></div>
+            <div class="card-title"><h1><b>${props.time}</b></h1></div>
             <div class="card-text"><h2>${props.position}</h2></div>
             <div class="card-text"><h2>${props.candidate}</h2></div>
             <div class="card-text">${props.interviewer}</div>
@@ -47,7 +48,7 @@ const LiveScheduleCard = (props) => {
     return html `
     <div class="card mx-auto m-2" style="width: 35em";>
         <div class="card-body">
-            <div class="card-title"><h1>Live</h1></div>
+            <div class="card-title"><h1 class="text-danger">Live</h1></div>
             <div class="card-text"><h2>${props.position}</h2></div>
             <div class="card-text"><h2>${props.candidate}</h2></div>
             <div class="card-text">${props.interviewer}</div>
@@ -61,11 +62,16 @@ const PastScheduleCard = (props) => {
     return html `
     <div class="card mx-auto m-2" style="width: 35em";>
         <div class="card-body">
-            <div class="card-title"><h1>Past</h1></div>
             <div class="card-text"><h2>${props.position}</h2></div>
-            <div class="card-text"><h2>${props.candidate}</h2></div>
-            <div class="card-text">${props.interviewer}</div>
-            <div class="card-text">Time</div>
+            <div class="row">
+                <div class="col">
+                    <div class="card-text"><h2>${props.candidate}</h2></div>
+                    <div class="card-text">${props.interviewer}</div>
+                </div>
+                <div class="col">
+                    <img class="float-right row vtop mr-1" src="/images/playbutton.png" style="border-radius: 10px;"/>
+                </div>
+            </div>
         </div>
     </div>
     `;
@@ -101,7 +107,9 @@ const ScheduleArea = () => {
             } else if (
                 new Date(event.start_time).getTime() > Date.now()
             ) {
+                let time = new Date(event.start_time).toLocaleTimeString().slice(0, -3) + " - " + new Date(event.end_time).toLocaleTimeString().slice(0, -3)
                 tmp.push(html `<${FutureScheduleCard}
+                time=${time}
                 position=${event.interview.position.full_name} 
                 candidate=${prettifyCandidates(event.interview.candidates)} 
                 interviewer="Interviewer Name"
@@ -124,6 +132,7 @@ const ScheduleArea = () => {
     return html `
     <div>
         <h1 class="display-3 cin-text text-center">Schedule</h1>
+        <input type="search" id="search" class="form-control mx-auto" placeholder="Search" aria-label="Search" style="width: 25em";/>
         ${slots}
     </div>
     `
@@ -134,6 +143,8 @@ const LiveArea = () => {
     const [positions, setPositions] = useState(["Live Position", "Next Position"])
     const [candidates, setCandidates] = useState(["Live Candidate", "Next Candidate"])
     const [interviewers, setInterviewers] = useState(["Live Interviewer", "Next Interviewer"])
+    const [times, setTimes] = useState(["Live Time", "Next Time"])
+    const [showNext, setShowNext] = useState(true);
 
     const updateLives = async() => {
         console.log("Updating Live Tiles");
@@ -142,18 +153,36 @@ const LiveArea = () => {
                 new Date(interviews[i].start_time).getTime() < Date.now() &&
                 new Date(interviews[i].end_time).getTime() > Date.now()
             ) {
-                setPositions([
-                    interviews[i].interview.position.full_name,
-                    interviews[i + 1].interview.position.full_name
-                ])
+                if (i + 1 != interviews.length) {
+                    setPositions([
+                        interviews[i].interview.position.full_name,
+                        interviews[i + 1].interview.position.full_name
+                    ])
 
-                setCandidates([
-                    prettifyCandidates(interviews[i].interview.candidates),
-                    prettifyCandidates(interviews[i + 1].interview.candidates)
-                ])
+                    setCandidates([
+                        prettifyCandidates(interviews[i].interview.candidates),
+                        prettifyCandidates(interviews[i + 1].interview.candidates)
+                    ])
 
-                setInterviewers(["some interviewer", "some other interviewer"]);
-                break;
+                    setInterviewers(["some interviewer", "some other interviewer"]);
+
+                    setTimes([
+                        "Now - " + new Date(interviews[i].end_time).toLocaleTimeString().slice(0, -3),
+                        new Date(interviews[i + 1].start_time).toLocaleTimeString().slice(0, -3) + " - " + new Date(interviews[i + 1].end_time).toLocaleTimeString().slice(0, -3),
+                    ])
+                    break;
+
+                } else {
+                    setPositions([interviews[i].interview.position.full_name, ""])
+
+                    setCandidates([prettifyCandidates(interviews[i].interview.candidates), ""])
+
+                    setInterviewers(["some interviewer", "some other interviewer"]);
+
+                    setTimes(["Now - " + new Date(interviews[i].end_time).toLocaleTimeString().slice(0, -3), ""])
+
+                    setShowNext(false);
+                }
             }
         }
 
@@ -164,8 +193,21 @@ const LiveArea = () => {
     })
 
     return html `
-    <${LiveCard} live="Live Now" position=${positions[0]} candidate=${candidates[0]} interviewer=${interviewers[0]}/>
-    <${LiveCard} live="Next Up" position=${positions[1]} candidate=${candidates[1]} interviewer=${interviewers[1]}/>
+    <${LiveCard} live="Live Now" 
+        show=true
+        position=${positions[0]} 
+        candidate=${candidates[0]} 
+        interviewer=${interviewers[0]} 
+        time=${times[0]}
+        />
+
+    <${LiveCard} live="Next Up" 
+        show=${showNext}
+        position=${positions[1]} 
+        candidate=${candidates[1]} 
+        interviewer=${interviewers[1]} 
+        time=${times[1]}
+        />
     `
 }
 
@@ -193,7 +235,6 @@ const getData = async() => {
         .then(r => r.json())
         .then(data => {
             interviews = quickSortTime(data.data);
-            lastUpdate = Date.now();
         })
 
 }
