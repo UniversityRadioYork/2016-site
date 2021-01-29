@@ -12,6 +12,7 @@ const html = htm.bind(h);
 var api = "";
 var lastUpdate = 0;
 var interviews = [];
+var refreshTime = 5000;
 
 
 function LiveCard(props) {
@@ -28,6 +29,49 @@ function LiveCard(props) {
     `;
 }
 
+const FutureScheduleCard = (props) => {
+    return html `
+    <div class="card mx-auto m-2" style="width: 35em";>
+        <div class="card-body">
+            <div class="card-title"><h1>Future</h1></div>
+            <div class="card-text"><h2>${props.position}</h2></div>
+            <div class="card-text"><h2>${props.candidate}</h2></div>
+            <div class="card-text">${props.interviewer}</div>
+            <div class="card-text">Time</div>
+        </div>
+    </div>
+    `;
+}
+
+const LiveScheduleCard = (props) => {
+    return html `
+    <div class="card mx-auto m-2" style="width: 35em";>
+        <div class="card-body">
+            <div class="card-title"><h1>Live</h1></div>
+            <div class="card-text"><h2>${props.position}</h2></div>
+            <div class="card-text"><h2>${props.candidate}</h2></div>
+            <div class="card-text">${props.interviewer}</div>
+            <div class="card-text">Time</div>
+        </div>
+    </div>
+    `;
+}
+
+const PastScheduleCard = (props) => {
+    return html `
+    <div class="card mx-auto m-2" style="width: 35em";>
+        <div class="card-body">
+            <div class="card-title"><h1>Past</h1></div>
+            <div class="card-text"><h2>${props.position}</h2></div>
+            <div class="card-text"><h2>${props.candidate}</h2></div>
+            <div class="card-text">${props.interviewer}</div>
+            <div class="card-text">Time</div>
+        </div>
+    </div>
+    `;
+}
+
+
 function prettifyCandidates(candidates) {
     var names = [];
     candidates.forEach(candidate => {
@@ -36,9 +80,56 @@ function prettifyCandidates(candidates) {
     return names.join(", ");
 }
 
-function LiveArea() {
+const ScheduleArea = () => {
 
-    const [update, setUpdate] = useState(0);
+    const [slots, setSlots] = useState([]);
+
+
+    const updateSchedule = () => {
+        console.log("Update Schedule");
+        var tmp = [];
+
+        interviews.forEach(event => {
+            if (
+                new Date(event.end_time).getTime() < Date.now()
+            ) {
+                tmp.push(html `<${PastScheduleCard}
+                position=${event.interview.position.full_name} 
+                candidate=${prettifyCandidates(event.interview.candidates)} 
+                interviewer="Interviewer Name"
+                />`)
+            } else if (
+                new Date(event.start_time).getTime() > Date.now()
+            ) {
+                tmp.push(html `<${FutureScheduleCard}
+                position=${event.interview.position.full_name} 
+                candidate=${prettifyCandidates(event.interview.candidates)} 
+                interviewer="Interviewer Name"
+                />`)
+            } else {
+                tmp.push(html `<${LiveScheduleCard} 
+                position=${event.interview.position.full_name} 
+                candidate=${prettifyCandidates(event.interview.candidates)} 
+                interviewer="Interviewer Name"
+                />`)
+            }
+        })
+        setSlots(tmp);
+    }
+
+    useEffect(() => {
+        setTimeout(() => { updateSchedule() }, refreshTime);
+    })
+
+    return html `
+    <div>
+        <h1 class="display-3 cin-text text-center">Schedule</h1>
+        ${slots}
+    </div>
+    `
+}
+
+const LiveArea = () => {
 
     const [positions, setPositions] = useState(["Live Position", "Next Position"])
     const [candidates, setCandidates] = useState(["Live Candidate", "Next Candidate"])
@@ -46,32 +137,30 @@ function LiveArea() {
 
     const updateLives = async() => {
         console.log("Updating Live Tiles");
-        if (update != lastUpdate) {
-            for (let i = 0; i < interviews.length; i++) {
-                if (
-                    new Date(interviews[i].start_time).getTime() < Date.now() &&
-                    new Date(interviews[i].end_time).getTime() > Date.now()
-                ) {
-                    setPositions([
-                        interviews[i].interview.position.full_name,
-                        interviews[i + 1].interview.position.full_name
-                    ])
+        for (let i = 0; i < interviews.length; i++) {
+            if (
+                new Date(interviews[i].start_time).getTime() < Date.now() &&
+                new Date(interviews[i].end_time).getTime() > Date.now()
+            ) {
+                setPositions([
+                    interviews[i].interview.position.full_name,
+                    interviews[i + 1].interview.position.full_name
+                ])
 
-                    setCandidates([
-                        prettifyCandidates(interviews[i].interview.candidates),
-                        prettifyCandidates(interviews[i + 1].interview.candidates)
-                    ])
+                setCandidates([
+                    prettifyCandidates(interviews[i].interview.candidates),
+                    prettifyCandidates(interviews[i + 1].interview.candidates)
+                ])
 
-                    setInterviewers(["some interviewer", "some other interviewer"]);
-                    break;
-                }
+                setInterviewers(["some interviewer", "some other interviewer"]);
+                break;
             }
-            setUpdate(lastUpdate);
         }
+
     }
 
     useEffect(() => {
-        setTimeout(() => { updateLives() }, 20000);
+        setTimeout(() => { updateLives() }, refreshTime);
     })
 
     return html `
@@ -106,16 +195,18 @@ const getData = async() => {
             interviews = quickSortTime(data.data);
             lastUpdate = Date.now();
         })
+
 }
 
 const App = () => {
 
     useEffect(() => {
-        setTimeout(() => { getData() }, 20000);
+        setTimeout(() => { getData() }, refreshTime);
     })
 
     return html `
     <${LiveArea}/>
+    <${ScheduleArea}/>
     `
 }
 
@@ -129,5 +220,6 @@ getApi().then((x) => {
     api = x;
     getData().then(() => {
         render(html `<${App} />`, interactive)
+        setInterval(() => { getData() }, refreshTime);
     })
 })
