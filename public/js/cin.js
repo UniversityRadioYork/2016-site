@@ -44,36 +44,34 @@ function LiveArea() {
     const [candidates, setCandidates] = useState(["Live Candidate", "Next Candidate"])
     const [interviewers, setInterviewers] = useState(["Live Interviewer", "Next Interviewer"])
 
-    useEffect(() => {
-        const updateLives = async() => {
+    const updateLives = async() => {
+        console.log("Updating Live Tiles");
+        if (update != lastUpdate) {
+            for (let i = 0; i < interviews.length; i++) {
+                if (
+                    new Date(interviews[i].start_time).getTime() < Date.now() &&
+                    new Date(interviews[i].end_time).getTime() > Date.now()
+                ) {
+                    setPositions([
+                        interviews[i].interview.position.full_name,
+                        interviews[i + 1].interview.position.full_name
+                    ])
 
-            if (update != lastUpdate) {
-                for (let i = 0; i < interviews.length; i++) {
-                    if (interviews[i].start_time < Date.now() && interviews[i].end_time > Date.now()) {
-                        setPositions([
-                            interviews[i].position.full_name,
-                            interviews[i + 1].position.full_name
-                        ])
+                    setCandidates([
+                        prettifyCandidates(interviews[i].interview.candidates),
+                        prettifyCandidates(interviews[i + 1].interview.candidates)
+                    ])
 
-                        setCandidates([
-                            prettifyCandidates(interviews[i].interview.candidates),
-                            prettifyCandidates(interviews[i + 1].interview.candidates)
-                        ])
-
-                        setInterviewers(["some interviewer", "some other interviewer"]);
-                        break;
-                    }
+                    setInterviewers(["some interviewer", "some other interviewer"]);
+                    break;
                 }
-                setUpdate(lastUpdate);
             }
+            setUpdate(lastUpdate);
         }
+    }
 
-        if (loaded) {
-            setTimeout(() => { updateLives() }, 20000);
-        } else {
-            updateLives();
-            setLoaded(true);
-        }
+    useEffect(() => {
+        setTimeout(() => { updateLives() }, 20000);
     })
 
     return html `
@@ -90,37 +88,30 @@ const quickSortTime = (data) => {
         var after = [];
         var pivot = data[0];
         for (let i = 1; i < data.length; i++) {
-            if (data[i].start_time < pivot.start_time) {
+            if (new Date(data[i].start_time).getTime() < new Date(pivot.start_time).getTime()) {
                 before.push(data[i])
             } else {
                 after.push(data[i])
             }
         }
-        return quickSortTime(before).push(pivot).concat(quickSortTime(after))
+        return quickSortTime(before).concat([pivot]).concat(quickSortTime(after))
     }
 }
 
 const getData = async() => {
-    fetch(api + "/events")
+    console.log("Updating API Data");
+    fetch(api + "/events/")
         .then(r => r.json())
         .then(data => {
-            interviews = quickSortTime(data);
+            interviews = quickSortTime(data.data);
             lastUpdate = Date.now();
         })
 }
 
 const App = () => {
 
-    const [loaded, setLoaded] = useState(false);
-
     useEffect(() => {
-
-        if (loaded) {
-            setTimeout(() => { updateLives() }, 20000);
-        } else {
-            getData();
-            setLoaded(true);
-        }
+        setTimeout(() => { getData() }, 20000);
     })
 
     return html `
@@ -128,12 +119,15 @@ const App = () => {
     `
 }
 
-(() => {
+const getApi = async() => {
     const apiCall = await fetch("/cinapi");
     const res = await apiCall.text();
     return res;
-})().then((x) => {
+}
+
+getApi().then((x) => {
     api = x;
-    console.log(api);
-    render(html `<${App} />`, interactive)
+    getData().then(() => {
+        render(html `<${App} />`, interactive)
+    })
 })
