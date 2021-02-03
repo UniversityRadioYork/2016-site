@@ -69,7 +69,7 @@
     <div class="row scroll-horiz custom-scrollbar thumbnail-slider">
       {{range .Podcasts}}
       <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
-        <a class="ury-card podcast" href="{{.MicrositeLink.URL}}">
+        <a class="ury-card podcast" href="{{.MicrositeLink.URL}}" title="URY Podcast: {{.Title}}">
           <div class="ury-card-img"
             style="background: url('
             {{- if .Photo -}}
@@ -77,7 +77,7 @@
             {{- else -}}
               {{url "/images/default_show_profile.png"}}
             {{- end -}}
-            ');" title="URY Podcast: {{.Title}} Logo">
+            ');" alt="{{.Title}} Logo">
           </div>
           <div class="ury-card-body">
             <div class="ury-card-title">{{.Title}}</div>
