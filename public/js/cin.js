@@ -93,17 +93,30 @@ function prettifyCandidates(candidates) {
 const ScheduleArea = () => {
 
         const [slots, setSlots] = useState([]);
+        const [searchTerm, setSearchTerm] = useState("");
+        const [searched, setSearched] = useState(false);
+
+        const handleSearch = (event) => {
+            setSearchTerm(event.target.value)
+            console.log("Searching: " + event.target.value);
+            setSearched(false);
+            // updateSchedule();
+
+
+        }
 
         const updateSchedule = () => {
                 console.log("Update Schedule");
-                var tmp = [html `<input type="search" id="search" class="form-control mx-auto" placeholder="Search" aria-label="Search" style="width: 25em";/>`];
-
+                var tmp = [html `<input type="search" id="search" class="form-control mx-auto" placeholder="Search" aria-label="Search" onKeyUp=${handleSearch} style="width: 25em;"/>`];
                 interviews.forEach(event => {
-                            if (
-                                new Date(event.end_time).getTime() < Date.now()
-                            ) {
-                                var youtubeAvailable = true;
-                                tmp.push(html `<${PastScheduleCard}
+                            console.log(event.interview.position.full_name.search(searchTerm));
+                            console.log("SEARCH TERM: " + searchTerm);
+                            if (searchTerm == "" || event.interview.position.full_name.search(searchTerm) != -1 || prettifyCandidates(event.interview.candidates).search(searchTerm) != -1) {
+                                if (
+                                    new Date(event.end_time).getTime() < Date.now()
+                                ) {
+                                    var youtubeAvailable = true;
+                                    tmp.push(html `<${PastScheduleCard}
                                 position=${event.interview.position.full_name} 
                                 candidate=${prettifyCandidates(event.interview.candidates)} 
                                 interviewer="Interviewer Name"
@@ -128,6 +141,7 @@ const ScheduleArea = () => {
                                 time=${time}
                                 />`)
                             }
+                        }
         })
         if (tmp.length == 1) { // No Interviews, Only Search
             setSlots([html `<h2 class="text-center">Coming Soon...</h2>`])
@@ -137,7 +151,12 @@ const ScheduleArea = () => {
     }
 
     useEffect(() => {
-        setTimeout(() => { updateSchedule() }, refreshTime);
+        if (searchTerm == "") { // Saves generated loads of refreshes by searching
+            setTimeout(() => { updateSchedule() }, refreshTime);
+        } else if (!searched) {
+            updateSchedule();
+            setSearched(true);
+        }
     })
 
     return html `
@@ -214,7 +233,8 @@ const LiveArea = () => {
     })
 
     return html `
-    <${LiveCard} live="Live Now" 
+    <div class="row">
+    <${LiveCard} class="col" live="Live Now" 
         show=${showLive}
         position=${positions[0]} 
         candidate=${candidates[0]} 
@@ -222,13 +242,14 @@ const LiveArea = () => {
         time=${times[0]}
         />
 
-    <${LiveCard} live="Next Up" 
+    <${LiveCard} class="col" live="Next Up" 
         show=${showNext}
         position=${positions[1]} 
         candidate=${candidates[1]} 
         interviewer=${interviewers[1]} 
         time=${times[1]}
         />
+    </div>
     `
 }
 

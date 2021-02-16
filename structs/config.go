@@ -39,6 +39,7 @@ type PageContext struct {
 	CINLivestreaming bool   `toml:"cinLivestreaming"`
 	CINAPI           string `toml:"cinAPI"`
 	CINHashtag       string `toml:"cinHashtag"`
+	CINLive          string `toml:"cinLive"`
 	ISTORN2020       bool   `toml:"istorn2020"`
 	CacheBuster      string `toml:"cacheBuster"`
 	Pages            []Page

@@ -152,6 +152,10 @@ $breakpoints: sm, md, lg, xl;
   }
 }
 
+.cin-count {
+  padding: 0em 1em;
+}
+
 @media (min-width: 1600px) {
   .container {
     max-width: 1400px;

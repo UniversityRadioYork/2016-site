@@ -38,7 +38,8 @@
 	cin = true
 	cinLivestreaming = true
 	cinAPI = "http://127.0.0.1:8000"
-	cinHashtag = "#CIN21"	
+	cinHashtag = "#CIN21"
+	cinLive = "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FURY1350%2F&width=800&show_text=false&height=0&appId"	
 
 	cacheBuster = "v1"
 

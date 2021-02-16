@@ -27,28 +27,29 @@
     <div class="container-fluid container-padded text-center">
       <table align="center">
         <tr>
-          <td><h1 id="countdownDays"></td>
-          <td><h1 id="countdownHours"></td>
-          <td><h1 id="countdownMinutes"></td>
-          <td><h1 id="countdownSeconds"></td>
+          <td class="cin-count"><h1 id="countdownDays"></td>
+          <td class="cin-count"><h1 id="countdownHours"></td>
+          <td class="cin-count"><h1 id="countdownMinutes"></td>
+          <td class="cin-count"><h1 id="countdownSeconds"></td>
         </tr><tr>
-          <td>DAYS</td>
-          <td>HOURS</td>
-          <td>MINUTES</td>
-          <td>SECONDS</td>
+          <td class="cin-count">DAYS</td>
+          <td class="cin-count">HOURS</td>
+          <td class="cin-count">MINUTES</td>
+          <td class="cin-count">SECONDS</td>
         </tr>
       </table>
     </div>
     {{end}}
     {{if .PageContext.CINLivestreaming}}
-    <div class="row align-items-center"></div>
-      <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FURY1350%2F&width=800&show_text=false&height=0&appId" width="800" height="0" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media" allowFullScreen="true"></iframe>
+    <div class="container-fluid container-padded align-items-center text-center">
+      <iframe src="{{.PageContext.CINLive}}" width="800" height="450" style="border:none;overflow:hidden;" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media" allowFullScreen="true"></iframe>
     </div>
     {{end}}
-</div>
+
 
 <div id="interactive" class="container bg-cin">
 
+</div>
 </div>
 </div>
 <div id="index-videos" class="container-fluid container-padded bg-cin bg-cin-space">
