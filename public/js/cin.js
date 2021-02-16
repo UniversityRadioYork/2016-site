@@ -17,7 +17,7 @@ var refreshTime = 5000;
 function LiveCard(props) {
     if (props.show) {
         return html `
-        <div class="card mx-auto m-2" style="width: 35em;">
+        <div class="card mx-auto m-2 mt-4 mb-4" style="width: 35em;">
             <div class="card-body">
                 <div class="card-title"><h1 class="cin-text"><b>${props.live}</b></h1></div>
                 <div class="card-text"><h2>${props.position}</h2></div>
@@ -32,7 +32,7 @@ function LiveCard(props) {
 
 const FutureScheduleCard = (props) => {
     return html `
-    <div class="card mx-auto m-2" style="width: 35em";>
+    <div class="card mx-auto m-2 mt-4 mb-4" style="width: 35em";>
         <div class="card-body">
             <div class="card-text"><h2>${props.position}</h2></div>
             <div class="card-text"><h3>${props.candidate}</h3></div>
@@ -45,7 +45,7 @@ const FutureScheduleCard = (props) => {
 
 const LiveScheduleCard = (props) => {
     return html `
-    <div class="card mx-auto m-2" style="width: 35em";>
+    <div class="card mx-auto m-2 mt-4 mb-4" style="width: 35em";>
         <div class="card-body">
             <div class="card-title"><h1 class="text-danger">Live</h1></div>
             <div class="card-text"><h2>${props.position}</h2></div>
@@ -59,7 +59,7 @@ const LiveScheduleCard = (props) => {
 
 const PastScheduleCard = (props) => {
     return html `
-    <div class="card mx-auto m-2" style="width: 35em";>
+    <div class="card mx-auto m-2 mt-4 mb-4" style="width: 35em";>
         <div class="card-body">
             <div class="card-text"><h2>${props.position}</h2></div>
             <div class="row">
@@ -143,20 +143,25 @@ const ScheduleArea = () => {
 
 const LiveArea = () => {
 
+    const [keepAlive, setKeepAlive] = useState(false);
     const [positions, setPositions] = useState(["Live Position", "Next Position"])
     const [candidates, setCandidates] = useState(["Live Candidate", "Next Candidate"])
     const [interviewers, setInterviewers] = useState(["Live Interviewer", "Next Interviewer"])
     const [times, setTimes] = useState(["Live Time", "Next Time"])
-    const [showNext, setShowNext] = useState(true);
+    const [showLive, setShowLive] = useState(false);
+    const [showNext, setShowNext] = useState(false);
 
     const updateLives = async() => {
+        setKeepAlive(!keepAlive);
         console.log("Updating Live Tiles");
         for (let i = 0; i < interviews.length; i++) {
             if (
                 new Date(interviews[i].start_time).getTime() < Date.now() &&
                 new Date(interviews[i].end_time).getTime() > Date.now()
             ) {
+                setShowLive(true);
                 if (i + 1 != interviews.length) {
+                    setShowNext(true);
                     setPositions([
                         interviews[i].interview.position.full_name,
                         interviews[i + 1].interview.position.full_name
@@ -186,6 +191,11 @@ const LiveArea = () => {
 
                     setShowNext(false);
                 }
+            } else {
+                setShowLive(false);
+
+                // Maybe here if next within the next 15 mins, show the next up card
+                setShowNext(false);
             }
         }
 
@@ -197,7 +207,7 @@ const LiveArea = () => {
 
     return html `
     <${LiveCard} live="Live Now" 
-        show=true
+        show=${showLive}
         position=${positions[0]} 
         candidate=${candidates[0]} 
         interviewer=${interviewers[0]} 
