@@ -24,7 +24,19 @@
     </div>
     {{if not .PageContext.CINLivestreaming}}
     <div class="container-fluid container-padded text-center">
-          <h3>Broadcast will begin at 7pm</h3>
+      <table align="center">
+        <tr>
+          <td><h1 id="countdownDays"></td>
+          <td><h1 id="countdownHours"></td>
+          <td><h1 id="countdownMinutes"></td>
+          <td><h1 id="countdownSeconds"></td>
+        </tr><tr>
+          <td>DAYS</td>
+          <td>HOURS</td>
+          <td>MINUTES</td>
+          <td>SECONDS</td>
+        </tr>
+      </table>
     </div>
     {{end}}
     {{if .PageContext.CINLivestreaming}}
@@ -52,6 +64,7 @@ var youtubeLink = "{{.PageContext.Youtube.ChannelURL}}";
 var isIndex = false;
 var isCIN = true;
 var isOD = false;
+var isCountdown = true;
 </script>
 <script src='{{url "/js/index.js"}}?ver={{ .PageContext.CacheBuster }}'></script>
 <script src='{{url "/js/cin.js"}}' type="module"></script>
