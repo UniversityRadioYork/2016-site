@@ -62,17 +62,9 @@ const PastScheduleCard = (props) => {
     <div class="card mx-auto m-2 mt-4 mb-4" style="width: 35em";>
         <div class="card-body">
             <div class="card-text"><h2>${props.position}</h2></div>
-            <div class="row">
-                <div class="col">
-                    <div class="card-text"><h3>${props.candidate}</h3></div>
-                    <div class="card-text">with <b>${props.interviewer}</b></div>
-                </div>
-                <div class="col">
-                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-                        <img class="float-right row vtop mr-1" src="/images/playbutton.png" style="border-radius: 10px;"/>
-                    </a>
-                </div>
-            </div>
+            <div class="card-text"><h3>${props.candidate}</h3></div>
+            <div class="card-text">with <b>${props.interviewer}</b></div>
+            <div class="card-text"><h3>${props.youtubeStatus}</h3></div>
         </div>
     </div>
     `;
@@ -89,43 +81,48 @@ function prettifyCandidates(candidates) {
 
 const ScheduleArea = () => {
 
-    const [slots, setSlots] = useState([]);
+        const [slots, setSlots] = useState([]);
 
+        const updateSchedule = () => {
+                console.log("Update Schedule");
+                var tmp = [html `<input type="search" id="search" class="form-control mx-auto" placeholder="Search" aria-label="Search" style="width: 25em";/>`];
 
-    const updateSchedule = () => {
-        console.log("Update Schedule");
-        var tmp = [];
-
-        interviews.forEach(event => {
-            if (
-                new Date(event.end_time).getTime() < Date.now()
-            ) {
-                tmp.push(html `<${PastScheduleCard}
-                position=${event.interview.position.full_name} 
-                candidate=${prettifyCandidates(event.interview.candidates)} 
-                interviewer="Interviewer Name"
-                />`)
-            } else if (
-                new Date(event.start_time).getTime() > Date.now()
-            ) {
-                let time = new Date(event.start_time).toLocaleTimeString().slice(0, -3) + " - " + new Date(event.end_time).toLocaleTimeString().slice(0, -3)
-                tmp.push(html `<${FutureScheduleCard}
-                time=${time}
-                position=${event.interview.position.full_name} 
-                candidate=${prettifyCandidates(event.interview.candidates)} 
-                interviewer="Interviewer Name"
-                />`)
-            } else {
-                let time = "Now - " + new Date(event.end_time).toLocaleTimeString().slice(0, -3)
-                tmp.push(html `<${LiveScheduleCard} 
-                position=${event.interview.position.full_name} 
-                candidate=${prettifyCandidates(event.interview.candidates)} 
-                interviewer="Interviewer Name"
-                time=${time}
-                />`)
-            }
+                interviews.forEach(event => {
+                            if (
+                                new Date(event.end_time).getTime() < Date.now()
+                            ) {
+                                var youtubeAvailable = true;
+                                tmp.push(html `<${PastScheduleCard}
+                                position=${event.interview.position.full_name} 
+                                candidate=${prettifyCandidates(event.interview.candidates)} 
+                                interviewer="Interviewer Name"
+                                youtubeStatus=${youtubeAvailable ? html `<a href="test">Watch on YouTube</a>` : "Available on YouTube Soon"}
+                                />`)
+                            } else if (
+                                new Date(event.start_time).getTime() > Date.now()
+                            ) {
+                                let time = new Date(event.start_time).toLocaleTimeString().slice(0, -3) + " - " + new Date(event.end_time).toLocaleTimeString().slice(0, -3)
+                                tmp.push(html `<${FutureScheduleCard}
+                                time=${time}
+                                position=${event.interview.position.full_name} 
+                                candidate=${prettifyCandidates(event.interview.candidates)} 
+                                interviewer="Interviewer Name"
+                                />`)
+                            } else {
+                                let time = "Now - " + new Date(event.end_time).toLocaleTimeString().slice(0, -3)
+                                tmp.push(html `<${LiveScheduleCard} 
+                                position=${event.interview.position.full_name} 
+                                candidate=${prettifyCandidates(event.interview.candidates)} 
+                                interviewer="Interviewer Name"
+                                time=${time}
+                                />`)
+                            }
         })
-        setSlots(tmp);
+        if (tmp.length == 1) { // No Interviews, Only Search
+            setSlots([html `<h2 class="text-center">Coming Soon...</h2>`])
+        } else {
+            setSlots(tmp);
+        }
     }
 
     useEffect(() => {
@@ -134,8 +131,8 @@ const ScheduleArea = () => {
 
     return html `
     <div>
-        <h1 class="display-3 cin-text text-center">Schedule</h1>
-        <input type="search" id="search" class="form-control mx-auto" placeholder="Search" aria-label="Search" style="width: 25em";/>
+        <h1 class="display-3 cin-text text-center">All Interviews</h1>
+        
         ${slots}
     </div>
     `
