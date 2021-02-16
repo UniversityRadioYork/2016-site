@@ -2,6 +2,15 @@
  * University Radio York Candidate Interview Night
  */
 
+/*
+
+   TODO:
+   * YouTube Interview Integrations - availability and actual link
+   * Coming Up Next if something within next 15 minutes and no currently live thing
+   * Search Bar
+
+*/
+
 import { h, render } from 'https://unpkg.com/preact@latest?module';
 import { useState, useEffect } from 'https://unpkg.com/preact@latest/hooks/dist/hooks.module.js?module';
 import htm from 'https://unpkg.com/htm?module';
@@ -11,7 +20,9 @@ const html = htm.bind(h);
 
 var api = "";
 var interviews = [];
-var refreshTime = 5000;
+
+var refreshTime = 100;
+const longTermRefreshTime = 5000;
 
 
 function LiveCard(props) {
@@ -271,6 +282,10 @@ getApi().then((x) => {
     api = x;
     getData().then(() => {
         render(html `<${App} />`, interactive)
-        setInterval(() => { getData() }, refreshTime);
+
+        // This stuff is fun. It (mostly) works though.
+        setInterval(() => { getData() }, longTermRefreshTime);
+        setTimeout(() => refreshTime = longTermRefreshTime, refreshTime * 5);
+        
     })
 })
