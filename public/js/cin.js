@@ -28,7 +28,7 @@ const longTermRefreshTime = 5000;
 function LiveCard(props) {
     if (props.show) {
         return html `
-        <div class="card mx-auto m-2 mt-4 mb-4" style="width: 35em;">
+        <div class="card bg-cin-card mx-auto m-2 mt-4 mb-4" style="width: 35em;">
             <div class="card-body">
                 <div class="card-title"><h1 class="cin-text"><b>${props.live}</b></h1></div>
                 <div class="card-text"><h2>${props.position}</h2></div>
@@ -43,7 +43,7 @@ function LiveCard(props) {
 
 const FutureScheduleCard = (props) => {
     return html `
-    <div class="card mx-auto m-2 mt-4 mb-4" style="width: 35em";>
+    <div class="card bg-cin-card mx-auto m-2 mt-4 mb-4" style="width: 35em";>
         <div class="card-body">
             <div class="card-text"><h2>${props.position}</h2></div>
             <div class="card-text"><h3>${props.candidate}</h3></div>
@@ -56,7 +56,7 @@ const FutureScheduleCard = (props) => {
 
 const LiveScheduleCard = (props) => {
     return html `
-    <div class="card mx-auto m-2 mt-4 mb-4" style="width: 35em";>
+    <div class="card bg-cin-card mx-auto m-2 mt-4 mb-4" style="width: 35em";>
         <div class="card-body">
             <div class="card-title"><h1 class="text-danger">Live</h1></div>
             <div class="card-text"><h2>${props.position}</h2></div>
@@ -70,7 +70,7 @@ const LiveScheduleCard = (props) => {
 
 const PastScheduleCard = (props) => {
     return html `
-    <div class="card mx-auto m-2 mt-4 mb-4" style="width: 35em";>
+    <div class="card bg-cin-card mx-auto m-2 mt-4 mb-4" style="width: 35em";>
         <div class="card-body">
             <div class="card-text"><h2>${props.position}</h2></div>
             <div class="card-text"><h3>${props.candidate}</h3></div>
