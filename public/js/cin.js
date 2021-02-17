@@ -6,7 +6,6 @@
 
    TODO:
    * YouTube Interview Integrations - availability and actual link
-   * Search Bar
    * Interviewer Names (see if we keep this idea)
 
 */
@@ -90,6 +89,10 @@ function prettifyCandidates(candidates) {
     return names.join(", ");
 }
 
+function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 const ScheduleArea = () => {
 
         const [slots, setSlots] = useState([]);
@@ -109,10 +112,10 @@ const ScheduleArea = () => {
                     console.log("Update Schedule");
                     var tmp = [html `<input type="search" id="search" class="form-control mx-auto" placeholder="Search" aria-label="Search" onKeyUp=${handleSearch} style="width: 25em;"/>`];
                     interviews.forEach(event => {
-                                console.log("SEARCH TERM: " + searchTerm.curret);
+                                // Spaces seem to break the search, so just yeet the space characters
                                 if (searchTerm.current == "" ||
-                                    event.interview.position.full_name.toLowerCase().search(encodeURIComponent(searchTerm.current).toLowerCase()) != -1 ||
-                                    prettifyCandidates(event.interview.candidates).toLowerCase().search(encodeURIComponent(searchTerm.current).toLowerCase()) != -1) {
+                                    event.interview.position.full_name.toLowerCase().replace(/\s/g, '').search(escapeRegExp(searchTerm.current).toLowerCase().replace(/\s/g, '')) != -1 ||
+                                    prettifyCandidates(event.interview.candidates).toLowerCase().replace(/\s/g, '').search(escapeRegExp(searchTerm.current).toLowerCase().replace(/\s/g, '')) != -1) {
                                     if (
                                         new Date(event.end_time).getTime() < Date.now()
                                     ) {
