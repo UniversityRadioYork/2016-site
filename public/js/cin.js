@@ -5,7 +5,6 @@
 /*
 
    TODO:
-   * YouTube Interview Integrations - availability and actual link
    * Interviewer Names (see if we keep this idea)
 
 */
@@ -119,12 +118,12 @@ const ScheduleArea = () => {
                                     if (
                                         new Date(event.end_time).getTime() < Date.now()
                                     ) {
-                                        var youtubeAvailable = true;
+                                        var youtube = event.interview.youtube_id;
                                         tmp.push(html `<${PastScheduleCard}
                                 position=${event.interview.position.full_name} 
                                 candidate=${prettifyCandidates(event.interview.candidates)} 
                                 interviewer="Interviewer Name"
-                                youtubeStatus=${youtubeAvailable ? html `<a class="cin-text-2" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Watch on YouTube</a>` : "Available on YouTube Soon"}
+                                youtubeStatus=${youtube != null ? html `<a class="cin-text-2" href="https://www.youtube.com/watch?v=${youtube}">Watch on YouTube</a>` : "Available on YouTube Soon"}
                                 />`)
                             } else if (
                                 new Date(event.start_time).getTime() > Date.now()
