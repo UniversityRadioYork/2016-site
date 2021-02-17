@@ -12,7 +12,7 @@
 */
 
 import { h, render } from 'https://unpkg.com/preact@latest?module';
-import { useState, useEffect } from 'https://unpkg.com/preact@latest/hooks/dist/hooks.module.js?module';
+import { useState, useEffect, useRef } from 'https://unpkg.com/preact@latest/hooks/dist/hooks.module.js?module';
 import htm from 'https://unpkg.com/htm?module';
 
 // Initialize htm with Preact
@@ -93,30 +93,31 @@ function prettifyCandidates(candidates) {
 const ScheduleArea = () => {
 
         const [slots, setSlots] = useState([]);
-        const [searchTerm, setSearchTerm] = useState("");
-        const [searched, setSearched] = useState(false);
+        const searchTerm = useRef("");
+        const [searched, setSearched] = useState(true);
 
         const handleSearch = (event) => {
-            setSearchTerm(event.target.value)
+            searchTerm.current = event.target.value;
             console.log("Searching: " + event.target.value);
             setSearched(false);
-            // updateSchedule();
-
-
         }
 
-        const updateSchedule = () => {
-                console.log("Update Schedule");
-                var tmp = [html `<input type="search" id="search" class="form-control mx-auto" placeholder="Search" aria-label="Search" onKeyUp=${handleSearch} style="width: 25em;"/>`];
-                interviews.forEach(event => {
-                            console.log(event.interview.position.full_name.search(searchTerm));
-                            console.log("SEARCH TERM: " + searchTerm);
-                            if (searchTerm == "" || event.interview.position.full_name.search(searchTerm) != -1 || prettifyCandidates(event.interview.candidates).search(searchTerm) != -1) {
-                                if (
-                                    new Date(event.end_time).getTime() < Date.now()
-                                ) {
-                                    var youtubeAvailable = true;
-                                    tmp.push(html `<${PastScheduleCard}
+        const updateSchedule = (auto) => {
+                console.log("CALLED: ", auto, searchTerm.current)
+                if (!auto || searchTerm.current == "") {
+
+                    console.log("Update Schedule");
+                    var tmp = [html `<input type="search" id="search" class="form-control mx-auto" placeholder="Search" aria-label="Search" onKeyUp=${handleSearch} style="width: 25em;"/>`];
+                    interviews.forEach(event => {
+                                console.log("SEARCH TERM: " + searchTerm.curret);
+                                if (searchTerm.current == "" ||
+                                    event.interview.position.full_name.toLowerCase().search(encodeURIComponent(searchTerm.current).toLowerCase()) != -1 ||
+                                    prettifyCandidates(event.interview.candidates).toLowerCase().search(encodeURIComponent(searchTerm.current).toLowerCase()) != -1) {
+                                    if (
+                                        new Date(event.end_time).getTime() < Date.now()
+                                    ) {
+                                        var youtubeAvailable = true;
+                                        tmp.push(html `<${PastScheduleCard}
                                 position=${event.interview.position.full_name} 
                                 candidate=${prettifyCandidates(event.interview.candidates)} 
                                 interviewer="Interviewer Name"
@@ -144,19 +145,25 @@ const ScheduleArea = () => {
                         }
         })
         if (tmp.length == 1) { // No Interviews, Only Search
-            setSlots([html `<h2 class="text-center">Coming Soon...</h2>`])
+            if (searchTerm.current == "") {
+                setSlots([html `<h2 class="text-center">Coming Soon...</h2>`]);
+            } else {
+                setSlots(tmp.concat([html `<br /><h2 class="text-center">No Results</h2>`]));
+            }
         } else {
             setSlots(tmp);
         }
     }
+}
+
 
     useEffect(() => {
-        if (searchTerm == "") { // Saves generated loads of refreshes by searching
-            setTimeout(() => { updateSchedule() }, refreshTime);
-        } else if (!searched) {
-            updateSchedule();
-            setSearched(true);
+        if (!searched) {
+            updateSchedule(false);
+        } else if (searchTerm.current == "") { // Saves generating loads of refreshes by searching
+            setTimeout(() => { updateSchedule(true) }, refreshTime);
         }
+        setSearched(true);
     })
 
     return html `
