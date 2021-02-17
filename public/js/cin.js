@@ -6,7 +6,6 @@
 
    TODO:
    * YouTube Interview Integrations - availability and actual link
-   * Coming Up Next if something within next 15 minutes and no currently live thing
    * Search Bar
    * Interviewer Names (see if we keep this idea)
 
@@ -209,21 +208,26 @@ const LiveArea = () => {
                     break;
 
                 } else {
-                    setPositions([interviews[i].interview.position.full_name, ""])
-
-                    setCandidates([prettifyCandidates(interviews[i].interview.candidates), ""])
-
-                    setInterviewers(["some interviewer", "some other interviewer"]);
-
-                    setTimes(["Now - " + new Date(interviews[i].end_time).toLocaleTimeString().slice(0, -3), ""])
-
                     setShowNext(false);
+                    setPositions([interviews[i].interview.position.full_name, ""])
+                    setCandidates([prettifyCandidates(interviews[i].interview.candidates), ""])
+                    setInterviewers(["some interviewer", "some other interviewer"]);
+                    setTimes(["Now - " + new Date(interviews[i].end_time).toLocaleTimeString().slice(0, -3), ""])
+                    break;
                 }
             } else {
                 setShowLive(false);
-
-                // Maybe here if next within the next 15 mins, show the next up card
-                setShowNext(false);
+                var intDate = new Date(interviews[i].start_time);
+                if (intDate.getTime() > Date.now() && intDate.getTime() < Date.now() + 900000) {
+                    setShowNext(true);
+                    setPositions(["", interviews[i].interview.position.full_name]);
+                    setCandidates(["", prettifyCandidates(interviews[i].interview.candidates)]);
+                    setInterviewers(["", "Interviewr"]);
+                    setTimes(["", intDate.toLocaleTimeString().slice(0, -3) + " - " + new Date(interviews[i].end_time).toLocaleTimeString().slice(0, -3)]);
+                    break;
+                } else {
+                    setShowNext(false);
+                }
             }
         }
 
