@@ -64,6 +64,11 @@
   color: $cin-primary;
 }
 
+.bg-cin:focus {
+  background: $cin-background;
+  color: $cin-primary;
+}
+
 .bg-cin-2 {
   background: linear-gradient(190deg, rgba(125,229,81,1) 0%, rgba(1,207,254,1) 100%);
 }
