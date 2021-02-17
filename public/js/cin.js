@@ -8,6 +8,7 @@
    * YouTube Interview Integrations - availability and actual link
    * Coming Up Next if something within next 15 minutes and no currently live thing
    * Search Bar
+   * Interviewer Names (see if we keep this idea)
 
 */
 
@@ -30,7 +31,7 @@ function LiveCard(props) {
         return html `
         <div class="card bg-cin-card mx-auto m-2 mt-4 mb-4" style="width: 35em;">
             <div class="card-body">
-                <div class="card-title"><h1 class="cin-text"><b>${props.live}</b></h1></div>
+                <div class="card-title"><h1 class="cin-text-2"><b>${props.live}</b></h1></div>
                 <div class="card-text"><h2>${props.position}</h2></div>
                 <div class="card-text"><h3>${props.candidate}</h3></div>
                 <div class="card-text">with <b>${props.interviewer}</b></div>
@@ -75,7 +76,7 @@ const PastScheduleCard = (props) => {
             <div class="card-text"><h2>${props.position}</h2></div>
             <div class="card-text"><h3>${props.candidate}</h3></div>
             <div class="card-text">with <b>${props.interviewer}</b></div>
-            <div class="card-text"><h3>${props.youtubeStatus}</h3></div>
+            <div class="card-text">${props.youtubeStatus}</div>
         </div>
     </div>
     `;
@@ -120,7 +121,7 @@ const ScheduleArea = () => {
                                 position=${event.interview.position.full_name} 
                                 candidate=${prettifyCandidates(event.interview.candidates)} 
                                 interviewer="Interviewer Name"
-                                youtubeStatus=${youtubeAvailable ? html `<a href="test">Watch on YouTube</a>` : "Available on YouTube Soon"}
+                                youtubeStatus=${youtubeAvailable ? html `<a class="cin-text-2" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Watch on YouTube</a>` : "Available on YouTube Soon"}
                                 />`)
                             } else if (
                                 new Date(event.start_time).getTime() > Date.now()
