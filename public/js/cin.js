@@ -2,13 +2,6 @@
  * University Radio York Candidate Interview Night
  */
 
-/*
-
-    TODO:
-    * Default YouTube Video
-    * Only Show Video if live
-
-*/
 
 import { h, render } from 'https://unpkg.com/preact@latest?module';
 import { useState, useEffect, useRef } from 'https://unpkg.com/preact@latest/hooks/dist/hooks.module.js?module';
