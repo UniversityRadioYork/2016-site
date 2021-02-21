@@ -4,8 +4,9 @@
 
 /*
 
-   TODO:
-   * Interviewer Names (see if we keep this idea)
+    TODO:
+    * Default YouTube Video
+    * Only Show Video if live
 
 */
 
@@ -106,6 +107,16 @@ function prettifyCandidates(candidates) {
     return names.join(", ");
 }
 
+const getInterviewers = (event) => {
+    var names = [];
+    event.user_roles.forEach(user => {
+        if (user.role.name == "Interviewer") {
+            names.push(user.user.name);
+        }
+    });
+    return names.join(", ");
+}
+
 function escapeRegExp(string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
@@ -145,7 +156,7 @@ const ScheduleArea = () => {
                                         tmp.push(html `<${PastScheduleCard}
                                 position=${event.interview.position.full_name} 
                                 candidate=${prettifyCandidates(event.interview.candidates)} 
-                                interviewer="Interviewer Name"
+                                interviewer=${getInterviewers(event)}
                                 youtubeStatus=${youtube != null ? html `<a class="cin-text-2" href="javascript:void(0)">Watch on YouTube</a>` : "Available on YouTube Soon"}
                                 callback=${updateYoutube}
                                 youtubeID=${youtube}
@@ -158,14 +169,14 @@ const ScheduleArea = () => {
                                 time=${time}
                                 position=${event.interview.position.full_name} 
                                 candidate=${prettifyCandidates(event.interview.candidates)} 
-                                interviewer="Interviewer Name"
+                                interviewer=${getInterviewers(event)}
                                 />`)
                             } else {
                                 let time = "Now - " + new Date(event.end_time).toLocaleTimeString().slice(0, -3)
                                 tmp.push(html `<${LiveScheduleCard} 
                                 position=${event.interview.position.full_name} 
                                 candidate=${prettifyCandidates(event.interview.candidates)} 
-                                interviewer="Interviewer Name"
+                                interviewer=${getInterviewers(event)}
                                 time=${time}
                                 />`)
                             }
@@ -248,7 +259,7 @@ const LiveArea = () => {
                         prettifyCandidates(interviews[i + 1].interview.candidates)
                     ])
 
-                    setInterviewers(["some interviewer", "some other interviewer"]);
+                    setInterviewers([getInterviewers(interviews[i]), getInterviewers(interviews[i+1])]);
 
                     setTimes([
                         "Now - " + new Date(interviews[i].end_time).toLocaleTimeString().slice(0, -3),
@@ -260,7 +271,7 @@ const LiveArea = () => {
                     setShowNext(false);
                     setPositions([interviews[i].interview.position.full_name, ""])
                     setCandidates([prettifyCandidates(interviews[i].interview.candidates), ""])
-                    setInterviewers(["some interviewer", "some other interviewer"]);
+                    setInterviewers([getInterviewers(interviews[i]), ""]);
                     setTimes(["Now - " + new Date(interviews[i].end_time).toLocaleTimeString().slice(0, -3), ""])
                     break;
                 }
@@ -271,7 +282,7 @@ const LiveArea = () => {
                     setShowNext(true);
                     setPositions(["", interviews[i].interview.position.full_name]);
                     setCandidates(["", prettifyCandidates(interviews[i].interview.candidates)]);
-                    setInterviewers(["", "Interviewr"]);
+                    setInterviewers(["", getInterviewers(interviews[i])]);
                     setTimes(["", intDate.toLocaleTimeString().slice(0, -3) + " - " + new Date(interviews[i].end_time).toLocaleTimeString().slice(0, -3)]);
                     break;
                 } else {
@@ -330,7 +341,13 @@ const getData = async() => {
     fetch(api + "/events/")
         .then(r => r.json())
         .then(data => {
-            interviews = quickSortTime(data.data);
+            var usableEvents = [];
+            data.data.forEach(x => {
+                if (x.interview != null) {
+                    usableEvents.push(x);
+                }
+            })
+            interviews = quickSortTime(usableEvents);
         })
 
 }
