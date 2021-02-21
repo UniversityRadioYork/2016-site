@@ -27,7 +27,7 @@ const longTermRefreshTime = 20000;
 function LiveCard(props) {
     if (props.show) {
         return html `
-        <div class="card bg-cin-card mx-auto m-2 mt-4 mb-4" style="width: 35em;">
+        <div class="card bg-cin-card mx-auto m-2 mt-4 mb-4" style="width: 35em; max-width: 90%;">
             <div class="card-body">
                 <div class="card-title"><h1 class="cin-text-2"><b>${props.live}</b></h1></div>
                 <div class="card-text"><h2>${props.position}</h2></div>
@@ -42,7 +42,7 @@ function LiveCard(props) {
 
 const FutureScheduleCard = (props) => {
     return html `
-    <div class="card bg-cin-card mx-auto m-2 mt-4 mb-4" style="width: 35em";>
+    <div class="card bg-cin-card mx-auto m-2 mt-4 mb-4" style="width: 35em; max-width: 90%;">
         <div class="card-body">
             <div class="card-text"><h2>${props.position}</h2></div>
             <div class="card-text"><h3>${props.candidate}</h3></div>
@@ -55,7 +55,7 @@ const FutureScheduleCard = (props) => {
 
 const LiveScheduleCard = (props) => {
     return html `
-    <div class="card bg-cin-card mx-auto m-2 mt-4 mb-4" style="width: 35em";>
+    <div class="card bg-cin-card mx-auto m-2 mt-4 mb-4" style="width: 35em;  max-width: 90%;">
         <div class="card-body">
             <div class="card-title"><h1><a href="#liveStream" class="text-danger">Live</a></h1></div>
             <div class="card-text"><h2>${props.position}</h2></div>
@@ -66,7 +66,7 @@ const LiveScheduleCard = (props) => {
                     <div class="card-text">${props.time}</div>
                 </div>
                 <div class="col">
-                    <a href="#liveStream" class="ml-5 pl-5 fa fa-play-circle" style="font-size:5em;color:white"></a>
+                    <a href="#liveStream" class="ml-5 pl-5 fa fa-play-circle youtubePlay" style="font-size:5em;color:white"></a>
                 </div>
             </div>
         </div>
@@ -77,10 +77,10 @@ const LiveScheduleCard = (props) => {
 const PastScheduleCard = (props) => {
     var playButton = "";
     if (props.youtubeID != null) {
-        playButton = html `<a href="javascript:void(0)" onClick=${() => props.callback(props.youtubeID)} class="ml-5 pl-5 fa fa-play-circle" style="font-size:5em;color:white"></a>`;
+        playButton = html `<a href="javascript:void(0)" onClick=${() => props.callback(props.youtubeID)} class="ml-5 pl-5 fa fa-play-circle youtubePlay" style="font-size:5em;color:white"></a>`;
     }
     return html `
-    <div class="card bg-cin-card mx-auto m-2 mt-4 mb-4" style="width: 35em";>
+    <div class="card bg-cin-card mx-auto m-2 mt-4 mb-4" style="width: 35em;  max-width: 90%;">
         <div class="card-body">
             <div class="card-text"><h2>${props.position}</h2></div>
             <div class="row">
@@ -143,7 +143,7 @@ const ScheduleArea = () => {
                 if (!auto || searchTerm.current == "") {
 
                     console.log("Update Schedule");
-                    var tmp = [html `<input type="search" id="search" class="form-control mx-auto bg-cin" placeholder="Search" aria-label="Search" onKeyUp=${handleSearch} style="width: 25em;"/>`];
+                    var tmp = [html `<input type="search" id="search" class="form-control mx-auto bg-cin" placeholder="Search" aria-label="Search" onKeyUp=${handleSearch} style="width: 25em;  max-width: 90%;"/>`];
                     interviews.forEach(event => {
                                 // Spaces seem to break the search, so just yeet the space characters
                                 if (searchTerm.current == "" ||
@@ -212,11 +212,11 @@ const ScheduleArea = () => {
             ${slots}
             </div>
             <div class="col">
-                <div class="sticky-top pt-5">
-                    <div class="pt-5" style="height:50vh; margin-top: 25vh;">
+                <div style="display: flex; position: -webkit-sticky;position: sticky;top: 33vh;">
+                    <div>
                         <iframe src="https://www.youtube.com/embed/${youtubeVid}" 
                         width="600" height="338" 
-                        style="border:none;overflow:hidden;" 
+                        style="border:none;overflow:hidden; max-width: 90%;" 
                         scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media" 
                         allowFullScreen="true"></iframe>
                         <br /><a href="https://www.youtube.com/watch?v=${youtubeVid}" class="cin-text-2">[External Link]</a>
