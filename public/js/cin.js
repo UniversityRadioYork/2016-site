@@ -226,14 +226,10 @@ const ScheduleArea = () => {
         setSearched(true);
     })
 
-    return html `
-    <div>
-        <h1 class="display-3 cin-text text-center">All Interviews</h1>
-        <div class="row">
-            <div class="col">
-            ${slots}
-            </div>
-            <div class="col">
+    var youtubeColumn = "";
+    if (isCINlive) {
+        youtubeColumn = html `
+        <div class="col">
                 <div style="display: flex; position: -webkit-sticky;position: sticky;top: 33vh;">
                     <div>
                         <h3 class="text-center">${youtubeTitle}</h3>
@@ -246,6 +242,17 @@ const ScheduleArea = () => {
                     </div>
                 </div>
             </div>
+        `;
+    }
+
+    return html `
+    <div>
+        <h1 class="display-3 cin-text text-center">All Interviews</h1>
+        <div class="row">
+            <div class="col">
+            ${slots}
+            </div>
+            ${youtubeColumn}
         </div>
     </div>
     `
