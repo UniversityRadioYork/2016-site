@@ -22,6 +22,7 @@ var interviews = [];
 
 var refreshTime = 100;
 const longTermRefreshTime = 20000;
+const defaultYouTube = "dtRgUJHNHII";
 
 
 function LiveCard(props) {
@@ -117,6 +118,16 @@ const getInterviewers = (event) => {
     return names.join(", ");
 }
 
+const getLatestODVideo = () => {
+    // return "7lUz0xU5d9g";
+    for (let i = interviews.length - 1; i >= 0; i--) {
+        if (interviews[i].interview.youtube_id != null) {
+            return interviews[i].interview.youtube_id;
+        }
+    }
+    return defaultYouTube; // URY Ad (there's nothing else to show :()
+}
+
 function escapeRegExp(string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
@@ -126,20 +137,20 @@ const ScheduleArea = () => {
         const [slots, setSlots] = useState([]);
         const searchTerm = useRef("");
         const [searched, setSearched] = useState(true);
-        const [youtubeVid, setYoutubeVid] = useState("lSlVkHJ7zpY");
+        const [youtubeVid, setYoutubeVid] = useState(getLatestODVideo());
+        const [youtubeTitle, setYoutubeTitle] = useState("You Just Missed");
 
         const handleSearch = (event) => {
             searchTerm.current = event.target.value;
-            console.log("Searching: " + event.target.value);
             setSearched(false);
         }
 
         const updateYoutube = (id) => {
             setYoutubeVid(id);
+            setYoutubeTitle("");
         }
 
         const updateSchedule = (auto) => {
-                console.log("CALLED: ", auto, searchTerm.current)
                 if (!auto || searchTerm.current == "") {
 
                     console.log("Update Schedule");
@@ -190,7 +201,18 @@ const ScheduleArea = () => {
             }
         } else {
             setSlots(tmp);
+            
+            if (youtubeTitle != "") {
+                setYoutubeVid(getLatestODVideo());
+            
+                if (youtubeVid == defaultYouTube) {
+                    setYoutubeTitle("On Demand Videos Available Soon!");
+                } else {
+                    setYoutubeTitle("You Just Missed");
+                }
+            }
         }
+        
     }
 }
 
@@ -214,6 +236,7 @@ const ScheduleArea = () => {
             <div class="col">
                 <div style="display: flex; position: -webkit-sticky;position: sticky;top: 33vh;">
                     <div>
+                        <h3 class="text-center">${youtubeTitle}</h3>
                         <iframe src="https://www.youtube.com/embed/${youtubeVid}" 
                         width="600" height="338" 
                         style="border:none;overflow:hidden; max-width: 90%;" 
