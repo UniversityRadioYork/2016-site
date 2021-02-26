@@ -87,7 +87,7 @@ function getYoutubeFeed(playlistid, results, htmlid) {
 function countdown() {
   if (window.isCountdown) {
     const now = new Date();
-    const istorn2020 = new Date("2021-03-02T19:00:00Z");
+    const istorn2020 = new Date("2021-03-02T18:00:00Z");
 
     const diffSeconds = (istorn2020 - now) / 1000;
     var timerSeconds = (diffSeconds % 60).toFixed(0).padStart(2, "0");
