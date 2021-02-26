@@ -31,7 +31,7 @@ function getYoutubeFeed(playlistid, results, htmlid) {
             "</div>"
         );
       }
-      if (isIndex && htmlid === "#sessions-videos") {
+      if (htmlid === "#homepage-videos") {
         $(htmlid).append(
           '<div class="thumbnail-container col-10 col-sm-7 col-md-4 col-lg-3">' +
             "<a class=\"ury-card sessions link\" href='/ontap/'>" +
@@ -42,7 +42,7 @@ function getYoutubeFeed(playlistid, results, htmlid) {
             "</div>"
         );
       }
-      if (isOD && htmlid === "#sessions-videos") {
+      if (isOD && htmlid !== "#cin-videos") {
         $(htmlid).append(
           '<div class="thumbnail-container col-10 col-sm-7 col-md-4 col-lg-3">' +
             '<a class="ury-card sessions link" href="' +
@@ -66,7 +66,7 @@ function getYoutubeFeed(playlistid, results, htmlid) {
             "</div>"
         );
       }
-      if (isCIN && htmlid === "#cin-videos") {
+      if (!isCIN && htmlid === "#cin-videos") {
         $(htmlid).append(
           '<div class="thumbnail-container col-10 col-sm-7 col-md-4 col-lg-3">' +
             '<a class="ury-card cin link" href="' +
@@ -129,15 +129,22 @@ istorn2020Counter();
 //Youtube slideshow for index page
 function onGoogleLoad() {
   if (isIndex) {
-    getYoutubeFeed(youtubeSessionsPlaylistID, 7, "#sessions-videos");
+    if (youtubeHomepagePlaylistID) {
+      getYoutubeFeed(youtubeHomepagePlaylistID, 7, "#homepage-videos");
+    }
   }
   if (isOD) {
-    getYoutubeFeed(youtubeSessionsPlaylistID, 15, "#sessions-videos");
+    if (youtubeOD1PlaylistID) {
+      getYoutubeFeed(youtubeOD1PlaylistID, 15, "#od1-videos");
+    }
+    if (youtubeOD2PlaylistID) {
+      getYoutubeFeed(youtubeOD2PlaylistID, 15, "#od2-videos");
+    }
   }
-  if (isIndex) {
-    getYoutubeFeed(youtubeCINPlaylistID, 7, "#cin-videos");
-  }
-  if (isCIN) {
+  if (isOD && isCIN) {
     getYoutubeFeed(youtubeCINPlaylistID, 15, "#cin-videos");
+  }
+  if (isIndex && isCIN) {
+    getYoutubeFeed(youtubeCINPlaylistID, 7, "#cin-videos");
   }
 }

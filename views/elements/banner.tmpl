@@ -12,7 +12,7 @@
       {{range $index, $Banners := .Banners}}
       <div class="carousel-item {{ if eq $index 0 }} active {{end}}">
         <a class="w-100" href="{{$Banners.Target}}">
-          <img class="d-block img-fluid" src="https://ury.org.uk{{$Banners.URL}}" alt="{{$Banners.Alt}}">
+          <img class="d-block img-fluid" src="{{$.PageContext.FullURL}}{{$Banners.URL}}" alt="{{$Banners.Alt}}">
         </a>
       </div>
       {{end}}
