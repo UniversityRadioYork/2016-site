@@ -143,7 +143,7 @@ const getInterviewers = (event) => {
     var names = [];
     event.user_roles.forEach((user) => {
         if (user.role.name == "Interviewer") {
-            names.push(user.user.name + " (" + user.user.postnom + ")");
+            names.push(user.user.name + (user.user.postnom.length > 0 ? (" (" + user.user.postnom + ")") : ""));
         }
     });
     return names.join(", ");
