@@ -137,7 +137,7 @@ function onGoogleLoad() {
   if (isIndex) {
     getYoutubeFeed(youtubeCINPlaylistID, 7, "#cin-videos");
   }
-  if (isCIN) {
+  if (isCIN && !isIndex) {
     getYoutubeFeed(youtubeCINPlaylistID, 15, "#cin-videos");
   }
 }
