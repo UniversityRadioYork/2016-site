@@ -323,6 +323,7 @@ const ScheduleArea = () => {
               case "SEARCH":
                 return html `<input
                 type="search"
+                key="search"
                 id="search"
                 class="form-control mx-auto bg-cin"
                 placeholder="Search"
@@ -334,6 +335,7 @@ const ScheduleArea = () => {
               case "PAST":
                 return html `<${PastScheduleCard}
                 position=${item.position}
+                key=${item.candidate.replace(/\s+/g, '')}
                 candidate=${item.candidate}
                 interviewer=${item.interviewer}
                 youtubeStatus=${item.youtubeStatus}
@@ -344,6 +346,7 @@ const ScheduleArea = () => {
               case "FUTURE":
                 return html `<${FutureScheduleCard}
                 time=${item.time}
+                key=${item.candidate.replace(/\s+/g, '')}
                 position=${item.position}
                 candidate=${item.candidate}
                 interviewer=${item.interviewer}
@@ -352,20 +355,21 @@ const ScheduleArea = () => {
               case "LIVE":
                 return html `<${LiveScheduleCard}
                 position=${item.position}
+                key=${item.candidate.replace(/\s+/g, '')}
                 candidate=${item.candidate}
                 interviewer=${item.interviewer}
                 time=${item.time}
               />`;
 
               case "COMING SOON":
-                return html `<h2 class="text-center">Coming Soon...</h2>`;
+                return html `<h2 class="text-center" key="soon">Coming Soon...</h2>`;
 
               case "NO RESULTS":
-                  return html `<br />
-                  <h2 class="text-center">No Results</h2>`;
+                  return html `<div key="noresults"><br />
+                  <h2 class="text-center">No Results</h2></div>`;
 
               case "LOADING":
-                  return html `<h2 class="text-center">Loading...</h2>`
+                  return html `<h2 class="text-center" key="load">Loading...</h2>`
             }
           })
         }</div>
