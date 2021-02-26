@@ -250,7 +250,7 @@ const ScheduleArea = () => {
                 if (scheduleData.length == 1) {
                     // No Interviews, Only Search
                     if (searchTerm.current == "") {
-                        setSlots[{ "type": "COMING SOON" }];
+                        setSlots([{ "type": "COMING SOON" }]);
                     } else {
                         setSlots(scheduleData.concat({ "type": "NO RESULTS" }));
                     }
