@@ -125,10 +125,6 @@ func NewServer(c *structs.Config) (*Server, error) {
 	// Candidate Interview Night Routes
 	if c.PageContext.CIN {
 		getRouter.HandleFunc("/cin/", staticC.GetCIN)
-		getRouter.HandleFunc("/cinapi/",
-			func(w http.ResponseWriter, _ *http.Request) {
-				fmt.Fprint(w, c.PageContext.CINAPI)
-			})
 	}
 	// End routes
 

@@ -4,25 +4,24 @@
 
 import { h, render } from "https://unpkg.com/preact@latest?module";
 import {
-  useState,
-  useEffect,
-  useRef,
+    useState,
+    useEffect,
+    useRef,
 } from "https://unpkg.com/preact@latest/hooks/dist/hooks.module.js?module";
 import htm from "https://unpkg.com/htm?module";
 
 // Initialize htm with Preact
 const html = htm.bind(h);
 
-var api = "";
 var interviews = [];
 
-var refreshTime = 100;
+var refreshTime = 3000;
 const longTermRefreshTime = 20000;
 const defaultYouTube = "dtRgUJHNHII";
 
 function LiveCard(props) {
-  if (props.show) {
-    return html`
+    if (props.show) {
+        return html `
       <div
         class="card bg-cin-card mx-auto m-2 mt-4 mb-4"
         style="width: 35em; max-width: 90%;"
@@ -38,11 +37,11 @@ function LiveCard(props) {
         </div>
       </div>
     `;
-  }
+    }
 }
 
 const FutureScheduleCard = (props) => {
-  return html`
+    return html `
     <div
       class="card bg-cin-card mx-auto m-2 mt-4 mb-4"
       style="width: 35em; max-width: 90%;"
@@ -58,7 +57,7 @@ const FutureScheduleCard = (props) => {
 };
 
 const LiveScheduleCard = (props) => {
-  return html`
+    return html `
     <div
       class="card bg-cin-card mx-auto m-2 mt-4 mb-4"
       style="width: 35em;  max-width: 90%;"
@@ -88,16 +87,26 @@ const LiveScheduleCard = (props) => {
 };
 
 const PastScheduleCard = (props) => {
-  var playButton = "";
-  if (props.youtubeID != null) {
-    playButton = html`<a
+    var playButton = "";
+    if (props.youtubeID != null) {
+        playButton = html `<a
       href="javascript:void(0)"
       onClick=${() => props.callback(props.youtubeID)}
       class="ml-5 pl-5 fa fa-play-circle youtubePlay"
       style="font-size:5em;color:white"
     ></a>`;
-  }
-  return html`
+    }
+
+    var youtubeStatus = "";
+    if (props.youtubeStatus == "WATCH") {
+        youtubeStatus = html `<a class="cin-text-2" href="javascript:void(0)"
+        >Watch on YouTube</a
+      >`;
+    } else if (props.youtubeStatus == "AVAILABLE SOON") {
+        youtubeStatus = "Available on YouTube Soon";
+    }
+
+    return html `
     <div
       class="card bg-cin-card mx-auto m-2 mt-4 mb-4"
       style="width: 35em;  max-width: 90%;"
@@ -112,7 +121,7 @@ const PastScheduleCard = (props) => {
               class="card-text"
               onClick=${() => props.callback(props.youtubeID)}
             >
-              ${props.youtubeStatus}
+              ${youtubeStatus}
             </div>
           </div>
           <div class="col">${playButton}</div>
@@ -123,166 +132,159 @@ const PastScheduleCard = (props) => {
 };
 
 function prettifyCandidates(candidates) {
-  var names = [];
-  candidates.forEach((candidate) => {
-    names.push(candidate.full_name);
-  });
-  return names.join(", ");
+    var names = [];
+    candidates.forEach((candidate) => {
+        names.push(candidate.full_name);
+    });
+    return names.join(", ");
 }
 
 const getInterviewers = (event) => {
-  var names = [];
-  event.user_roles.forEach((user) => {
-    if (user.role.name == "Interviewer") {
-      names.push(user.user.name);
-    }
-  });
-  return names.join(", ");
+    var names = [];
+    event.user_roles.forEach((user) => {
+        if (user.role.name == "Interviewer") {
+            names.push(user.user.name + " (" + user.user.postnom + ")");
+        }
+    });
+    return names.join(", ");
 };
 
 const getLatestODVideo = () => {
-  // return "7lUz0xU5d9g";
-  for (let i = interviews.length - 1; i >= 0; i--) {
-    if (interviews[i].interview.youtube_id != null) {
-      return interviews[i].interview.youtube_id;
+    // return "7lUz0xU5d9g";
+    for (let i = interviews.length - 1; i >= 0; i--) {
+        if (interviews[i].interview.youtube_id != null) {
+            return interviews[i].interview.youtube_id;
+        }
     }
-  }
-  return defaultYouTube; // URY Ad (there's nothing else to show :()
+    return defaultYouTube; // URY Ad (there's nothing else to show :()
 };
 
 function escapeRegExp(string) {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 const ScheduleArea = () => {
-  const [slots, setSlots] = useState([]);
-  const searchTerm = useRef("");
-  const [searched, setSearched] = useState(true);
-  const [youtubeVid, setYoutubeVid] = useState(getLatestODVideo());
-  const [youtubeTitle, setYoutubeTitle] = useState("You Just Missed");
+        const [slots, setSlots] = useState([{ "type": "LOADING" }]);
+        const searchTerm = useRef("");
+        const [searched, setSearched] = useState(true);
+        const [youtubeVid, setYoutubeVid] = useState(getLatestODVideo());
+        const [youtubeTitle, setYoutubeTitle] = useState("You Just Missed");
 
-  const handleSearch = (event) => {
-    searchTerm.current = event.target.value;
-    setSearched(false);
-  };
+        const handleSearch = (event) => {
+            searchTerm.current = event.target.value;
+            setSearched(false);
+        };
 
-  const updateYoutube = (id) => {
-    setYoutubeVid(id);
-    setYoutubeTitle("");
-  };
+        const updateYoutube = (id) => {
+            setYoutubeVid(id);
+            setYoutubeTitle("");
+        };
 
-  const updateSchedule = (auto) => {
-    if (!auto || searchTerm.current == "") {
-      console.log("Update Schedule");
-      var tmp = [
-        html`<input
-          type="search"
-          id="search"
-          class="form-control mx-auto bg-cin"
-          placeholder="Search"
-          aria-label="Search"
-          onKeyUp=${handleSearch}
-          style="width: 25em;  max-width: 90%;"
-        />`,
-      ];
-      interviews.forEach((event) => {
-        // Spaces seem to break the search, so just yeet the space characters
-        if (
-          searchTerm.current == "" ||
-          event.interview.position.full_name
-            .toLowerCase()
-            .replace(/\s/g, "")
-            .search(
-              escapeRegExp(searchTerm.current).toLowerCase().replace(/\s/g, "")
-            ) != -1 ||
-          prettifyCandidates(event.interview.candidates)
-            .toLowerCase()
-            .replace(/\s/g, "")
-            .search(
-              escapeRegExp(searchTerm.current).toLowerCase().replace(/\s/g, "")
-            ) != -1
-        ) {
-          if (new Date(event.end_time).getTime() < Date.now()) {
-            var youtube = event.interview.youtube_id;
-            tmp.push(html`<${PastScheduleCard}
-              position=${event.interview.position.full_name}
-              candidate=${prettifyCandidates(event.interview.candidates)}
-              interviewer=${getInterviewers(event)}
-              youtubeStatus=${youtube != null
-                ? html`<a class="cin-text-2" href="javascript:void(0)"
-                    >Watch on YouTube</a
-                  >`
-                : "Available on YouTube Soon"}
-              callback=${updateYoutube}
-              youtubeID=${youtube}
-            />`);
-          } else if (new Date(event.start_time).getTime() > Date.now()) {
-            let time =
-              new Date(event.start_time).toLocaleTimeString().slice(0, -3) +
-              " - " +
-              new Date(event.end_time).toLocaleTimeString().slice(0, -3);
-            tmp.push(html`<${FutureScheduleCard}
-              time=${time}
-              position=${event.interview.position.full_name}
-              candidate=${prettifyCandidates(event.interview.candidates)}
-              interviewer=${getInterviewers(event)}
-            />`);
-          } else {
-            let time =
-              "Now - " +
-              new Date(event.end_time).toLocaleTimeString().slice(0, -3);
-            tmp.push(html`<${LiveScheduleCard}
-              position=${event.interview.position.full_name}
-              candidate=${prettifyCandidates(event.interview.candidates)}
-              interviewer=${getInterviewers(event)}
-              time=${time}
-            />`);
-          }
-        }
-      });
-      if (tmp.length == 1) {
-        // No Interviews, Only Search
-        if (searchTerm.current == "") {
-          setSlots([html`<h2 class="text-center">Coming Soon...</h2>`]);
-        } else {
-          setSlots(
-            tmp.concat([
-              html`<br />
-                <h2 class="text-center">No Results</h2>`,
-            ])
-          );
-        }
-      } else {
-        setSlots(tmp);
+        const updateSchedule = (auto) => {
+            if (!auto || searchTerm.current == "") {
+                console.log("Update Schedule");
+                var scheduleData = [{
+                    "type": "SEARCH"
+                }];
+                interviews.forEach((event) => {
+                    // Spaces seem to break the search, so just yeet the space characters
+                    if (
+                        searchTerm.current == "" ||
+                        event.interview.position.full_name
+                        .toLowerCase()
+                        .replace(/\s/g, "")
+                        .search(
+                            escapeRegExp(searchTerm.current).toLowerCase().replace(/\s/g, "")
+                        ) != -1 ||
+                        prettifyCandidates(event.interview.candidates)
+                        .toLowerCase()
+                        .replace(/\s/g, "")
+                        .search(
+                            escapeRegExp(searchTerm.current).toLowerCase().replace(/\s/g, "")
+                        ) != -1
+                    ) {
+                        if (new Date(event.end_time).getTime() < Date.now()) {
+                            var youtube = event.interview.youtube_id;
 
-        if (youtubeTitle != "") {
-          setYoutubeVid(getLatestODVideo());
+                            scheduleData.push({
+                                "type": "PAST",
+                                "position": event.interview.position.full_name,
+                                "candidate": prettifyCandidates(event.interview.candidates),
+                                "interviewer": getInterviewers(event),
+                                "youtubeStatus": youtube != null ? "WATCH" : "AVAILABLE SOON",
+                                "callback": updateYoutube,
+                                "youtubeID": youtube
+                            });
 
-          if (youtubeVid == defaultYouTube) {
-            setYoutubeTitle("On Demand Videos Available Soon!");
-          } else {
-            setYoutubeTitle("You Just Missed");
-          }
-        }
-      }
-    }
-  };
+                        } else if (new Date(event.start_time).getTime() > Date.now()) {
+                            let startTime = new Date(event.start_time);
+                            let endTime = new Date(event.end_time);
+                            let time = startTime.getHours() + ":" + startTime.getMinutes() +
+                                " - " + endTime.getHours() + ":" + endTime.getMinutes();
 
-  useEffect(() => {
-    if (!searched) {
-      updateSchedule(false);
-    } else if (searchTerm.current == "") {
-      // Saves generating loads of refreshes by searching
-      setTimeout(() => {
-        updateSchedule(true);
-      }, refreshTime);
-    }
-    setSearched(true);
-  });
+                            scheduleData.push({
+                                "type": "FUTURE",
+                                "position": event.interview.position.full_name,
+                                "candidate": prettifyCandidates(event.interview.candidates),
+                                "interviewer": getInterviewers(event),
+                                "time": time
+                            });
 
-  var youtubeColumn = "";
-  if (isCINlive) {
-    youtubeColumn = html`
+                        } else {
+                            let endTime = new Date(event.end_time);
+                            let time =
+                                "Now - " +
+                                endTime.getHours() + ":" + endTime.getMinutes();
+
+                            scheduleData.push({
+                                "type": "LIVE",
+                                "position": event.interview.position.full_name,
+                                "candidate": prettifyCandidates(event.interview.candidates),
+                                "interviewer": getInterviewers(event),
+                                "time": time
+                            });
+
+                        }
+                    }
+                });
+                if (scheduleData.length == 1) {
+                    // No Interviews, Only Search
+                    if (searchTerm.current == "") {
+                        setSlots[{ "type": "COMING SOON" }];
+                    } else {
+                        setSlots(scheduleData.concat({ "type": "NO RESULTS" }));
+                    }
+                } else {
+                    setSlots(scheduleData);
+
+                    if (youtubeTitle != "") {
+                        setYoutubeVid(getLatestODVideo());
+
+                        if (youtubeVid == defaultYouTube) {
+                            setYoutubeTitle("On Demand Videos Available Soon!");
+                        } else {
+                            setYoutubeTitle("You Just Missed");
+                        }
+                    }
+                }
+            }
+        };
+
+        useEffect(() => {
+            if (!searched) {
+                updateSchedule(false);
+            } else if (searchTerm.current == "") {
+                // Saves generating loads of refreshes by searching
+                setTimeout(() => {
+                    updateSchedule(true);
+                }, refreshTime);
+            }
+            setSearched(true);
+        });
+
+        var youtubeColumn = "";
+        if (isCINlive) {
+            youtubeColumn = html `
       <div class="col">
         <div
           style="display: flex; position: -webkit-sticky;position: sticky;top: 33vh;"
@@ -309,13 +311,64 @@ const ScheduleArea = () => {
         </div>
       </div>
     `;
-  }
+        }
 
-  return html`
+        return html `
     <div>
       <h1 class="display-3 cin-text text-center">All Interviews</h1>
       <div class="row">
-        <div class="col">${slots}</div>
+        <div class="col">${
+          slots.map(item => {
+            switch(item.type){
+              case "SEARCH":
+                return html `<input
+                type="search"
+                id="search"
+                class="form-control mx-auto bg-cin"
+                placeholder="Search"
+                aria-label="Search"
+                onKeyUp=${handleSearch}
+                style="width: 25em;  max-width: 90%;"
+              />`;
+
+              case "PAST":
+                return html `<${PastScheduleCard}
+                position=${item.position}
+                candidate=${item.candidate}
+                interviewer=${item.interviewer}
+                youtubeStatus=${item.youtubeStatus}
+                callback=${item.callback}
+                youtubeID=${item.youtubeID}
+              />`;
+
+              case "FUTURE":
+                return html `<${FutureScheduleCard}
+                time=${item.time}
+                position=${item.position}
+                candidate=${item.candidate}
+                interviewer=${item.interviewer}
+              />`;
+
+              case "LIVE":
+                return html `<${LiveScheduleCard}
+                position=${item.position}
+                candidate=${item.candidate}
+                interviewer=${item.interviewer}
+                time=${item.time}
+              />`;
+
+              case "COMING SOON":
+                return html `<h2 class="text-center">Coming Soon...</h2>`;
+
+              case "NO RESULTS":
+                  return html `<br />
+                  <h2 class="text-center">No Results</h2>`;
+
+              case "LOADING":
+                  return html `<h2 class="text-center">Loading...</h2>`
+            }
+          })
+        }</div>
         ${youtubeColumn}
       </div>
     </div>
@@ -366,19 +419,17 @@ const LiveArea = () => {
             getInterviewers(interviews[i + 1]),
           ]);
 
+          let currentEnd = new Date(interviews[i].end_time);
+          let nextStart = new Date(interviews[i+1].start_time);
+          let nextEnd = new Date(interviews[i+1].end_time);
+
           setTimes([
             "Now - " +
-              new Date(interviews[i].end_time)
-                .toLocaleTimeString()
-                .slice(0, -3),
-            new Date(interviews[i + 1].start_time)
-              .toLocaleTimeString()
-              .slice(0, -3) +
-              " - " +
-              new Date(interviews[i + 1].end_time)
-                .toLocaleTimeString()
-                .slice(0, -3),
-          ]);
+              currentEnd.getHours() + ":" + currentEnd.getMinutes(),
+
+              nextStart.getHours() + ":" + nextStart.getMinutes() + " - "
+              + nextEnd.getHours() + ":" + nextEnd.getMinutes()
+            ]);
           break;
         } else {
           setShowNext(false);
@@ -388,11 +439,11 @@ const LiveArea = () => {
             "",
           ]);
           setInterviewers([getInterviewers(interviews[i]), ""]);
+
+          let endTime = new Date(interviews[i].end_time);
           setTimes([
             "Now - " +
-              new Date(interviews[i].end_time)
-                .toLocaleTimeString()
-                .slice(0, -3),
+              endTime.getHours() + ":" + endTime.getMinutes(),
             "",
           ]);
           break;
@@ -411,13 +462,13 @@ const LiveArea = () => {
             prettifyCandidates(interviews[i].interview.candidates),
           ]);
           setInterviewers(["", getInterviewers(interviews[i])]);
+
+          let nextEndTime = new Date(interviews[i].end_time);
           setTimes([
             "",
-            intDate.toLocaleTimeString().slice(0, -3) +
+            intDate.getHours() + ":" + intDate.getMinutes() +
               " - " +
-              new Date(interviews[i].end_time)
-                .toLocaleTimeString()
-                .slice(0, -3),
+              nextEndTime.getHours() + ":" + nextEndTime.getMinutes()
           ]);
           break;
         } else {
@@ -481,7 +532,7 @@ const quickSortTime = (data) => {
 
 const getData = async () => {
   console.log("Updating API Data");
-  fetch(api + "/events/")
+  fetch(cinAPI + "/events/")
     .then((r) => r.json())
     .then((data) => {
       var usableEvents = [];
@@ -507,21 +558,13 @@ const App = () => {
   `;
 };
 
-const getApi = async () => {
-  const apiCall = await fetch("/cinapi");
-  const res = await apiCall.text();
-  return res;
-};
 
-getApi().then((x) => {
-  api = x;
-  getData().then(() => {
-    render(html`<${App} />`, interactive);
+getData();
+render(html`<${App} />`, document.getElementById("interactive"));
 
-    // This stuff is fun. It (mostly) works though.
-    setInterval(() => {
-      getData();
-    }, longTermRefreshTime);
-    setTimeout(() => (refreshTime = longTermRefreshTime), refreshTime * 10);
-  });
-});
+// This stuff is fun. It (mostly) works though.
+setInterval(() => {
+  getData();
+}, longTermRefreshTime);
+
+setTimeout(() => {refreshTime = longTermRefreshTime}, refreshTime * 20);
