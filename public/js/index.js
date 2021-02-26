@@ -83,11 +83,11 @@ function getYoutubeFeed(playlistid, results, htmlid) {
   });
 }
 
-// ISTORN 2020 countdown
-function istorn2020Counter() {
-  if (window.isISTORN2020) {
+// Countdown Timer
+function countdown() {
+  if (window.isCountdown) {
     const now = new Date();
-    const istorn2020 = new Date("2020-04-13T08:00:00Z");
+    const istorn2020 = new Date("2021-03-02T19:00:00Z");
 
     const diffSeconds = (istorn2020 - now) / 1000;
     var timerSeconds = (diffSeconds % 60).toFixed(0).padStart(2, "0");
@@ -116,15 +116,15 @@ function istorn2020Counter() {
       timerSeconds = 0;
     }
 
-    document.getElementById("istornCountdownDays").innerText = timerDays;
-    document.getElementById("istornCountdownHours").innerText = timerHours;
-    document.getElementById("istornCountdownMinutes").innerText = timerMinutes;
-    document.getElementById("istornCountdownSeconds").innerText = timerSeconds;
+    document.getElementById("countdownDays").innerText = timerDays;
+    document.getElementById("countdownHours").innerText = timerHours;
+    document.getElementById("countdownMinutes").innerText = timerMinutes;
+    document.getElementById("countdownSeconds").innerText = timerSeconds;
 
-    window.setTimeout(istorn2020Counter, 1000);
+    window.setTimeout(countdown, 1000);
   }
 }
-istorn2020Counter();
+countdown();
 
 //Youtube slideshow for index page
 function onGoogleLoad() {

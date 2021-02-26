@@ -11,10 +11,10 @@ type Config struct {
 
 // Server is a structure containing server configuration.
 type Server struct {
-	Address     string `toml:"address"`
-	Port        int    `toml:"port"`
-	Timeout     int    `toml:"timeout"`
-	MyRadioAPI  string `toml:"myradio_api"`
+	Address    string `toml:"address"`
+	Port       int    `toml:"port"`
+	Timeout    int    `toml:"timeout"`
+	MyRadioAPI string `toml:"myradio_api"`
 }
 
 // PageContext is a structure containing static information to provide
@@ -37,6 +37,9 @@ type PageContext struct {
 	AprilFools       bool   `toml:"aprilFools"`
 	CIN              bool   `toml:"cin"`
 	CINLivestreaming bool   `toml:"cinLivestreaming"`
+	CINAPI           string `toml:"cinAPI"`
+	CINHashtag       string `toml:"cinHashtag"`
+	CINLive          string `toml:"cinLive"`
 	ISTORN2020       bool   `toml:"istorn2020"`
 	CacheBuster      string `toml:"cacheBuster"`
 	Pages            []Page

@@ -121,6 +121,8 @@ func NewServer(c *structs.Config) (*Server, error) {
 	getRouter.HandleFunc("/about/", staticC.GetAbout)
 	getRouter.HandleFunc("/contact/", staticC.GetContact)
 	getRouter.HandleFunc("/competitions/", staticC.GetCompetitions)
+
+	// Candidate Interview Night Routes
 	if c.PageContext.CIN {
 		getRouter.HandleFunc("/cin/", staticC.GetCIN)
 	}

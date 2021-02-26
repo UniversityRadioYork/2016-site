@@ -1,9 +1,11 @@
-{{define "title"}}{{.PageContext.ShortName}} | CIN{{end}}
+{{define "title"}}{{.PageContext.ShortName}} | Candidate Interview Night{{end}}
 
 {{define "content"}}
-<div class="container-fluid bg-cin bg-cin-gif">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="container-fluid bg-cin-2">
+<div class="container bg-cin bg-cin-space">
     <div class="container container-padded">
-      <div class="row align-items-center text-center">
+      <div class="row align-items-center text-center" id="liveStream">
         <div class="col">
           <h1 class="display-3 cin-text">{{.PageContext.ShortName}} Candidate Interview Night</h1>
         </div>
@@ -15,7 +17,7 @@
             <a href="//twitter.com/{{.PageContext.MainTwitter}}"><i class="fab fa-twitter fa-2x"></i><h3>Find us on Twitter</h3></a>
           </div>
           <div class="col-md-4 align-self-center">
-            <h3>Join in with the conversation<br>#CIN19</h3>
+            <h3>Join in with the conversation<br>{{.PageContext.CINHashtag}}</h3>
           </div>
           <div class="col-md-4 align-self-center">
             <a href="//facebook.com/{{.PageContext.MainFacebook}}"><i class="fab fa-facebook fa-2x"></i><h3>Find us on Facebook</h3></a>
@@ -24,19 +26,38 @@
     </div>
     {{if not .PageContext.CINLivestreaming}}
     <div class="container-fluid container-padded text-center">
-          <h3>Broadcast will begin at 7pm</h3>
+      <table align="center">
+        <tr>
+          <td class="cin-count"><h1 id="countdownDays"></td>
+          <td class="cin-count"><h1 id="countdownHours"></td>
+          <td class="cin-count"><h1 id="countdownMinutes"></td>
+          <td class="cin-count"><h1 id="countdownSeconds"></td>
+        </tr><tr>
+          <td class="cin-count">DAYS</td>
+          <td class="cin-count">HOURS</td>
+          <td class="cin-count">MINUTES</td>
+          <td class="cin-count">SECONDS</td>
+        </tr>
+      </table>
+      <br>  
+      <h2 class="cin-text-2">The broadcast will start at 7pm on Tuesday 2nd March.</h2>
+
+      <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FURY1350&tabs=events&width=500&height=450&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="500" height="450" style="border:none;overflow:hidden; max-width: 90%;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
     </div>
     {{end}}
     {{if .PageContext.CINLivestreaming}}
-    <div class="row align-items-center"></div>
-      <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FURY1350%2F&width=800&show_text=false&height=0&appId" width="800" height="0" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media" allowFullScreen="true"></iframe>
+    <div class="container-fluid container-padded align-items-center text-center">
+      <iframe src="{{.PageContext.CINLive}}" width="800" height="450" style="border:none;overflow:hidden;max-width: 90%;" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media" allowFullScreen="true"></iframe>
     </div>
     {{end}}
-</div>
-<div class="container-fluid bg-cin">
+
+
+<div id="interactive" class="container bg-cin">
 
 </div>
-<div id="index-videos" class="container-fluid container-padded bg-cin">
+</div>
+</div>
+<div id="index-videos" class="container-fluid container-padded bg-cin bg-cin-space">
     <div id="cin-videos" class="row pb-3 youtube-grid">
     </div>
 </div>
@@ -51,8 +72,12 @@ var youtubeCINPlaylistID = "{{.PageContext.Youtube.CINPlaylistID}}";
 var youtubeLink = "{{.PageContext.Youtube.ChannelURL}}";
 var isIndex = false;
 var isCIN = true;
+var cinAPI = {{.PageContext.CINAPI}};
+var isCINlive = {{.PageContext.CINLivestreaming}};
 var isOD = false;
+var isCountdown = true;
 </script>
 <script src='{{url "/js/index.js"}}?ver={{ .PageContext.CacheBuster }}'></script>
+<script src='{{url "/js/cin.js"}}' type="module"></script>
 <script src="https://apis.google.com/js/client.js?onload=onGoogleLoad"></script>
 {{end}}
