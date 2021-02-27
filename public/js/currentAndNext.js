@@ -84,7 +84,7 @@ function fail(data) {
 }
 
 function success(data) {
-  console.log("Successfully retrieved for now and next.")
+  console.log("Successfully retrieved now and next.")
   // Current show
   if (typeof data.payload.current === 'undefined') {
     // There is no current show; Something is probably very wrong...
@@ -149,6 +149,8 @@ function success(data) {
     'src',
     '//ury.org.uk' + data.payload.current.photo,
   )
+
+  console.log("Finished rendering now and next.")
 }
 
 $(document).ready(function () {
