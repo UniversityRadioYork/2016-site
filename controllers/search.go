@@ -28,12 +28,12 @@ func (sc *SearchController) Get(w http.ResponseWriter, r *http.Request) {
 	var source = r.URL.Query().Get("source")
 
 	var errorMsg string
-	var searching = false
+	var searching = len(term) != 0
+	var validSearch = true
 
 	if len(term) < 3 {
 		errorMsg = "Your search term is too short. Try using more keywords."
-	} else {
-		searching = true
+		validSearch = false
 	}
 
 	var showResults []myradio.ShowMeta
@@ -42,7 +42,7 @@ func (sc *SearchController) Get(w http.ResponseWriter, r *http.Request) {
 
 	var err error
 
-	if searching {
+	if validSearch {
 		// Contact the DB and get search results
 		sm := models.NewSearchModel(sc.session)
 
@@ -64,6 +64,8 @@ func (sc *SearchController) Get(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+
+	// TODO Need to filter for unpublished podcasts/shows/people somehow!
 	var numResults = len(showResults) + len(podcastResults) + len(peopleResults)
 	data := struct {
 		Searching      bool
