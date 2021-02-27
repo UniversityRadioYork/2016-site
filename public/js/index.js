@@ -162,3 +162,24 @@ function onGoogleLoad() {
     getYoutubeFeed(youtubeCINPlaylistID, 15, "#cin-videos");
   }
 }
+
+//Comments Character Count
+
+function updateMessageboxCharacterCount() {
+  var remaining =
+    document.getElementById("comments").maxLength -
+    document.getElementById("comments").value.length;
+  document.getElementById("charcount").style.color =
+    remaining <= 10 ? "red" : "black";
+  document.getElementById(
+    "charcount"
+  ).innerHTML = `${remaining} characters remaining`;
+}
+
+document.getElementById("comments").onkeyup = () => {
+  updateMessageboxCharacterCount();
+};
+
+$(document).ready(() => {
+  updateMessageboxCharacterCount();
+});
