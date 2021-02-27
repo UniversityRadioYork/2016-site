@@ -1,5 +1,8 @@
 /* global MyRadioAPIKey */
 function updateShow() {
+
+  console.log("Starting to update now and next.");
+
   var request = new XMLHttpRequest()
   request.open(
     'GET',
@@ -9,7 +12,9 @@ function updateShow() {
 
   request.onload = function () {
     if (this.status >= 200 && this.status < 400) {
-      success(this.response)
+      success(JSON.parse(this.response))
+    } else {
+      fail(this.response)
     }
   }
   request.send()
@@ -19,7 +24,7 @@ function updateShow() {
 }
 
 function scheduleUpdate() {
-  // Call the function 10 seconds past every half hour
+  // Call the function 15 seconds past every half hour (to line up with live stream)
   let nextCall = new Date()
 
   if (nextCall.getMinutes() >= 30) {
@@ -28,7 +33,7 @@ function scheduleUpdate() {
   } else {
     nextCall.setMinutes(30)
   }
-  nextCall.setSeconds(10)
+  nextCall.setSeconds(15)
 
   let difference = nextCall - new Date()
   setTimeout(updateShow, difference)
@@ -74,7 +79,12 @@ function makeContent(show) {
   }
 }
 
+function fail(data) {
+  console.log("Failed to update now and next.", data)
+}
+
 function success(data) {
+  console.log("Successfully retrieved for now and next.")
   // Current show
   if (typeof data.payload.current === 'undefined') {
     // There is no current show; Something is probably very wrong...
@@ -142,6 +152,6 @@ function success(data) {
 }
 
 $(document).ready(function () {
-  // Call on startup too, mainly to schedule next update.
-  scheduleUpdate()
+  // Call on startup too, this will schedule the next update.
+  updateShow()
 })
