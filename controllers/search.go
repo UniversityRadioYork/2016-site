@@ -52,10 +52,11 @@ func (sc *SearchController) Get(w http.ResponseWriter, r *http.Request) {
 			showResults, err = sm.GetShows(term)
 		case "podcast":
 			podcastResults, err = sm.GetPodcasts(term)
-		case "people":
-			peopleResults, err = sm.GetUsers(term)
 		case "show":
 			showResults, err = sm.GetShows(term)
+			// Sadly the people endpoint doesn't return just public users yet.
+			//case "people":
+			//	peopleResults, err = sm.GetUsers(term)
 		}
 
 		if err != nil {
@@ -69,21 +70,21 @@ func (sc *SearchController) Get(w http.ResponseWriter, r *http.Request) {
 		Source         string
 		ShowResults    []myradio.ShowMeta
 		PodcastResults []myradio.Podcast
-		PeopleResults  []myradio.UserSearch
-		NumResults     int
-		BaseURL        string
-		Term           string
-		ErrorMsg       string
+		//PeopleResults  []myradio.UserSearch
+		NumResults int
+		BaseURL    string
+		Term       string
+		ErrorMsg   string
 	}{
 		Searching:      searching,
 		Source:         source,
 		ShowResults:    showResults,
 		PodcastResults: podcastResults,
-		PeopleResults:  peopleResults,
-		NumResults:     numResults,
-		BaseURL:        r.URL.Path,
-		Term:           term,
-		ErrorMsg:       errorMsg,
+		//PeopleResults:  peopleResults,
+		NumResults: numResults,
+		BaseURL:    r.URL.Path,
+		Term:       term,
+		ErrorMsg:   errorMsg,
 	}
 
 	err = utils.RenderTemplate(w, sc.config.PageContext, data, "search.tmpl")
