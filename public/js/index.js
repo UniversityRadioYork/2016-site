@@ -152,7 +152,7 @@ function updateMessageboxCharacterCount() {
     remaining <= 10 ? "red" : "black";
   document.getElementById(
     "charcount"
-  ).innerHTML = `${remaining} Characters Remaining`;
+  ).innerHTML = `${remaining} characters remaining`;
 }
 
 document.getElementById("comments").onkeyup = () => {
