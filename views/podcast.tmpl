@@ -53,7 +53,7 @@
           {{if .Podcast.Show}}
             <h3>
               Brought to you by
-              <a href="{{$.PageContext.FullURL}}{{url "/schedule/shows/"}}{{.Podcast.Show.ShowID}}">
+              <a href="{{url "/schedule/shows/"}}{{.Podcast.Show.ShowID}}">
                 {{.Podcast.Show.Title}}
               </a>
             </h3>
