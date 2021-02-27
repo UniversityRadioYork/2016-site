@@ -66,7 +66,7 @@ function getYoutubeFeed(playlistid, results, htmlid) {
             "</div>"
         );
       }
-      if (isCIN && htmlid === "#cin-videos") {
+      if (isCIN && !isIndex && htmlid === "#cin-videos") {
         $(htmlid).append(
           '<div class="thumbnail-container col-10 col-sm-7 col-md-4 col-lg-3">' +
             '<a class="ury-card cin link" href="' +
@@ -137,7 +137,7 @@ function onGoogleLoad() {
   if (isIndex) {
     getYoutubeFeed(youtubeCINPlaylistID, 7, "#cin-videos");
   }
-  if (isCIN) {
+  if (isCIN && !isIndex) {
     getYoutubeFeed(youtubeCINPlaylistID, 15, "#cin-videos");
   }
 }
