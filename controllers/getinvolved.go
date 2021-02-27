@@ -45,7 +45,7 @@ func (gic *GetInvolvedController) Get(w http.ResponseWriter, r *http.Request) {
 
 	gim := models.NewGetInvolvedModel(gic.session)
 
-	colleges, numTeams, listTeamMap, err := gim.Get()
+	colleges, numTeams, listTeamMap, faqs, err := gim.Get()
 
 	if err != nil {
 		//@TODO: Do something proper here, render 404 or something
@@ -60,10 +60,12 @@ func (gic *GetInvolvedController) Get(w http.ResponseWriter, r *http.Request) {
 		Colleges    []myradio.College
 		NumTeams    int
 		ListTeamMap map[int]*myradio.Team
+		FAQs        *models.FAQ
 	}{
 		Colleges:    colleges,
 		NumTeams:    numTeams,
 		ListTeamMap: listTeamMap,
+		FAQs:        faqs,
 	}
 
 	err = utils.RenderTemplate(w, gic.config.PageContext, data, "getinvolved.tmpl")

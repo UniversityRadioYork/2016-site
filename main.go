@@ -24,6 +24,8 @@ func main() {
 		utils.StartHour = config.Schedule.StartHour
 	}
 
+	config.PageContext.CurrentYear = time.Now().Year()
+
 	s, err := NewServer(config)
 	if err != nil {
 		log.Fatal(err)

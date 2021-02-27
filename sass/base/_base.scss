@@ -95,8 +95,30 @@ $breakpoints: sm, md, lg, xl;
   overflow: hidden;
 }
 
+// CIN Stuff
+
 .cin-text {
   color: $cin-primary;
+}
+
+.cin-text-2 {
+  color: $cin-dark-primary;
+}
+
+.youtubePlay:link {
+  text-decoration: none;
+}
+
+.youtubePlay:visited {
+  text-decoration: none;
+}
+
+.youtubePlay:hover {
+  text-decoration: none;
+}
+
+.youtubePlay:active {
+  text-decoration: none;
 }
 
 .istorn2020-countdown {
@@ -150,6 +172,10 @@ $breakpoints: sm, md, lg, xl;
   @media screen and (max-width: map_get($grid-breakpoints, "md")) {
     margin: 1em;
   }
+}
+
+.cin-count {
+  padding: 0em 1em;
 }
 
 @media (min-width: 1600px) {

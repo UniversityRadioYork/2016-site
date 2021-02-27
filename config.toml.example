@@ -15,6 +15,7 @@
 	address	= "localhost"
 	port    = 3000
 	timeout	= 0
+	myradio_api = "https://www.ury.org.uk/api/v2"
 
 # This is data that will be passed into all templates
 [pageContext]
@@ -31,9 +32,14 @@
 
 	christmas = true
 	aprilFools = false
+	istorn2020 = false
+	
+	# Candidate Interview Night Stuff
 	cin = true
 	cinLivestreaming = true
-	istorn2020 = true
+	cinAPI = "http://127.0.0.1:8000"
+	cinHashtag = "#CIN21"
+	cinLive = "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FURY1350%2F&width=800&show_text=false&height=0&appId"	
 
 	cacheBuster = "v1"
 

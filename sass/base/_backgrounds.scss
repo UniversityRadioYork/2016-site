@@ -61,6 +61,32 @@
 
 .bg-cin {
   background: $cin-background;
+  color: $cin-primary;
+}
+
+.bg-cin:focus {
+  background: $cin-background;
+  color: $cin-primary;
+}
+
+.bg-cin-2 {
+  background: linear-gradient(190deg, rgba(125,229,81,1) 0%, rgba(1,207,254,1) 100%);
+}
+
+.bg-cin-space {
+  // Padding for mobile
+  padding: calc(5em + 60px) 0 5em;
+
+  // Padding for desktop
+  @include media-breakpoint-up(md) {
+  // Remove the height of the nav bar roughly 60px
+    padding: calc(5em + 60px) 0 5em;
+  }
+}
+
+.bg-cin-card {
+  background: $cin-background;
+  border: 1px solid $cin-dark-primary;
 }
 
 .bg-cin-gif {

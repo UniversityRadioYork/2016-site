@@ -1,0 +1,104 @@
+# This is the FAQ file, for the FAQs
+
+# Its an array of objects with question and answer fields
+
+# Format: 
+# [[faqs]]
+# question = "Question Here"
+# answer = "Answer Here"
+# seemore = "linkhere"
+
+# The seemore field is optional, and provides a "Click here to learn more" link on the FAQ.
+# It is prefaced with the host URL, such as ury.org.uk, so the example would give ury.org.uk/linkhere
+
+# We can't support multi line answers, or embedded HTML :(
+# You can format an answer across multiple lines in this toml file by putting it in """triple quotes""",
+# but this won't be shown on the website
+
+[[faqs]]
+question = "How do I listen to URY?"
+answer = "Grab the boombox from your parents’ attic and tune it to 1350AM, go to our website: ury.org.uk/live, ask your smart speaker “play University Radio York”, or get the Radioplayer, TuneIn, or Apple Music app."
+
+[[faqs]]
+question = "Can I get a show?"
+answer = "Yes! Any paid member who has completed our training session, signs our presenter contract and applies for a suitable timeslot can get on air!"
+seemore = "getinvolved#signUp"
+
+[[faqs]]
+question = "How much does it cost to be part of URY?"
+answer = "To be on air or work with any of our equipment, you must pay membership for the year, which is £7 to do as much as you want."
+
+[[faqs]]
+question = "Do I have to be on air?"
+answer = "No, we’ve got plenty of opportunities behind-the-scenes, such as our computing and engineering teams, and curating playlists and writing radio dramas."
+seemore = "teams"
+
+[[faqs]]
+question = "Wow! You’re the oldest independent licensed radio station in the UK?"
+answer = "Yes, we started in 1968, and we’ve been going ever since!"
+seemore = "about"
+
+[[faqs]]
+question = "Where are your studios?"
+answer = "Our station building is near the Vanbrugh nucleus building, around the back of the market square shops."
+seemore = "contact#map"
+
+[[faqs]]
+question = "What measures are you taking to protect against COVID-19?"
+answer = "The number of shows in our physical studios is strictly limited, as is the number of people in the studios. All equipment is cleaned and quarantined after each show, we ask presenters to use their own headphones rather than sharing, and we have perspex screens on our desks. In addition, everyone in the building must wear face coverings unless presenting or exempt. If you don’t feel comfortable presenting from our studios, you are more than welcome to do your show remotely - we have industry-grade technology to enable anyone to broadcast from their home, in fact we expect most of our shows will use this tech."
+
+[[faqs]]
+question = "Do I have to audition?"
+answer = "No! If you see a space on our schedule, you can fill it - all you need is to be trained."
+seemore = "schedule"
+
+[[faqs]]
+question = "Do I need to do my shows from the studios, or can I do them from home?"
+answer = "In addition to two industry standard studios, we developed our own WebStudio tool last term, enabling anyone to broadcast with just a laptop, a mic, and a pair of headphones. So it is entirely possible for you to do your show without ever leaving your bedroom. You might also be able to do a show from our studios, although this will be subject to availability and social distancing requirements."
+
+[[faqs]]
+question = "I’m not certain yet that I want to join, is there somewhere I can find out more without paying my membership?"
+answer = """You can join our Slack, ury.slack.com, and talk to the teams you’re interested in - each one has their own channel where the team members hang out.
+If you prefer in-person chats, the best place to start is our Production Meetings! There we chat about everything shows and production of shows, and there’s almost always a member of our computing or engineering teams there too, if you’re more interested in the stuff that goes on at our station that isn’t going on air. These are every Monday at 8pm on Zoom - the details will be in our Slack, ury.slack.com, in the #production channel.
+Either of these options are a great way to learn more about how we work, as well as meeting some of the people that work to keep us going - we look forward to meeting you!"""
+seemore = "slack"
+
+[[faqs]]
+question = "Do I need to be trained?"
+answer = "Yes - before your first show we’ll give you a 1-on-1 training session, covering everything you need to know to go on air."
+
+[[faqs]]
+question = "Can I join someone else’s show to see how it works?"
+answer = "Sure - many of our presenters are willing to have people come on, even just to watch - just send them a message, they don’t bite."
+
+[[faqs]]
+question = "Do you have any connections to industry?"
+answer = "Yes, many of our alumni have gone on to work at companies such as the BBC and Global (think Capital, Heart, LBC, ClassicFM etc) in all areas of media, production, presenting, engineering, computing, news coverage and more. Many of our technicians have also gone on to broadcast or software engineering careers."
+
+[[faqs]]
+question = "How much time does URY take up?"
+answer = "As much or as little as you want. Many of our members only do one show per week, but if you want to get more involved there’s plenty of opportunities."
+
+[[faqs]]
+question = "Can I play my own music?"
+answer = "You can play any music you own, as long as you’ve bought it legally - it’ll be covered in your training. We’ve also got thousands of songs in our library already, with more added all the time, so it’s pretty likely we’ve already got what you want to play."
+
+[[faqs]]
+question = "Is there anything I need to know if I want to get involved in engineering?"
+answer = "Nope, doesn’t matter if you don’t have any knowledge or experience, you learn as you go! If you want to know more, you can join our Slack, ury.slack.com, or listen to How to Break A Radio Station, our podcast all about what engineering at URY is like. It’s on our website as well as Spotify and iTunes -  check it out!"
+seemore = "teams/engineering"
+
+[[faqs]]
+question = "I like writing code and/or messing with computer hardware, do you have any of that?"
+answer = """There’s always something to do at URY Computing. Almost all of our software is made in-house, including our broadcasting tools WebStudio, Jukebox, and BAPS, as well as our website and our backend system MyRadio. Don’t worry if you don’t have much experience, we’re all learning as we go here! When it comes to hardware, we have our own private section of the University network, with eight physical servers (and a few virtual ones too) that we install and manage ourselves.
+ We also build and maintain our studio PCs and piles of other hardware around the place, so if you want to learn about breaking computers, there’s plenty of that here. If you want to find out more, join our Slack (ury.slack.com) and ask in the #computing channel or DM our Head of Computing or email them at head.of.computing@ury.org.uk"""
+seemore = "teams/computing"
+
+[[faqs]]
+question = "I want to help make a show, but I don’t want to actually go on air. Can I do that?"
+answer = "Of course! Our Production team offers help to anyone wanting to do a show, as well as producing the bigger events URY cover throughout the year; they’re heavily involved in our coverage of YUSU’s election season, Roses as well as any Outside Broadcasts people want to do. If you have an idea for a show, but don’t want to present it yourself, come along to our Production Meetings and pitch it - someone will be willing to help you out, and the rest of our Production team will support you in production of the show. For more information, check out the #production channel on our Slack (ury.slack.com), send a message to our Production Manager, or email the Production team on production@ury.org.uk"
+seemore = "teams/production"
+
+[[faqs]]
+question = "Can I do more than one show? Do I need to pay extra?"
+answer = "You can do as many shows as you want - if you see a gap on our schedule, chances are you can fill it! You only pay once, and then you’re a member for the rest of the year, no matter how many shows you do."

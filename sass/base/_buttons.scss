@@ -1,20 +1,10 @@
 $button-color: #fff;
 $listen-shadow: rgba(0, 0, 0, 0.33);
 
-%listen-btn-defaults {
-  transition-duration: 0.3s;
-  border-radius: 0.4em 0.4em 0 0;
-  box-shadow: 0 1px 1px 1px $listen-shadow;
-  position: absolute;
-  right: 1em;
-  margin: 0 0 0 auto;
-  padding: 0.25em 0.5em;
-}
-
 .btn {
   border: 0;
-  border-radius: .4em;
-  padding: .25em 1em;
+  border-radius: 0.4em;
+  padding: 0.25em 1em;
   font-family: $font-family-heading;
   font-weight: 500;
   font-size: 1rem;
@@ -65,22 +55,33 @@ $listen-shadow: rgba(0, 0, 0, 0.33);
   }
 
   &.btn-xl {
-    border-radius: .3em;
+    border-radius: 0.3em;
     font-size: 2rem;
     padding: 0.8rem 1.5rem;
   }
 
-
-
   &.listen-btn {
-    @extend %listen-btn-defaults;
+    transition-duration: 0.3s;
+    border-radius: 0.4em 0.4em 0 0;
+    box-shadow: 0 1px 1px 1px $listen-shadow;
+    position: absolute;
+    right: 1em;
+    margin: 0 0 0 auto;
+    padding: 0.25em 0.5em;
     bottom: 0;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.8);
+    }
   }
 
-  &.listen-btn-animated {
-    @extend %listen-btn-defaults;
-    padding-bottom: 50px;
-    bottom: calc(-50px + 0.5em);
+  @media not prefers-reduced-motion {
+    &.listen-btn-animated {
+      animation-fill-mode: both;
+      animation-duration: 1s;
+      animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+      animation-name: listen-live-btn-bounce;
+    }
   }
-
 }

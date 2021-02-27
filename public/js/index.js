@@ -1,6 +1,22 @@
+function hideParentVideoContainer(htmlid) {
+  $(htmlid).closest(".container-fluid").remove(); // Delete the box if we couldn't load.
+}
+
+
 function getYoutubeFeed(playlistid, results, htmlid) {
+  if (!playlistid || !youtubeAPIKey) {
+    console.error(`Failed to get YouTube videos for ${htmlid}, missing playlistid (${playlistid}) or youtubeAPIKey (${youtubeAPIKey}).`);
+    hideParentVideoContainer(htmlid);
+    return;
+  }
+  console.log(`Getting YouTube videos for ${htmlid}, with playlistid ${playlistid}.`);
   gapi.client.setApiKey(youtubeAPIKey);
   gapi.client.load("youtube", "v3", function() {
+    if (!gapi.client.youtube) {
+      console.error("Failed to init YouTube API.");
+      hideParentVideoContainer(htmlid);
+      return;
+    }
     var request = gapi.client.youtube.playlistItems.list({
       part: "snippet",
       playlistId: playlistid,
@@ -8,6 +24,11 @@ function getYoutubeFeed(playlistid, results, htmlid) {
     });
 
     request.execute(function(response) {
+      if (!response || !response.items) {
+        console.log(`Failed to get YouTube videos for ${htmlid} with playlistid ${playlistid}.`);
+        hideParentVideoContainer(htmlid);
+        return;
+      }
       for (var i = 0; i < response.items.length; i++) {
         var thumb;
         if (response.items[i].snippet.thumbnails.maxres != undefined) {
@@ -20,7 +41,7 @@ function getYoutubeFeed(playlistid, results, htmlid) {
             '<div class="thumbnail">' +
             '<a href="//youtube.com/watch?v=' +
             response.items[i].snippet.resourceId.videoId +
-            '" target="_blank" noopener>' +
+            '" target="_blank" rel="noopener noreferrer">' +
             '<img src="' +
             thumb +
             '" alt="' +
@@ -66,7 +87,7 @@ function getYoutubeFeed(playlistid, results, htmlid) {
             "</div>"
         );
       }
-      if (isCIN && htmlid === "#cin-videos") {
+      if (isCIN && !isIndex && htmlid === "#cin-videos") {
         $(htmlid).append(
           '<div class="thumbnail-container col-10 col-sm-7 col-md-4 col-lg-3">' +
             '<a class="ury-card cin link" href="' +
@@ -83,11 +104,11 @@ function getYoutubeFeed(playlistid, results, htmlid) {
   });
 }
 
-// ISTORN 2020 countdown
-function istorn2020Counter() {
-  if (window.isISTORN2020) {
+// Countdown Timer
+function countdown() {
+  if (window.isCountdown) {
     const now = new Date();
-    const istorn2020 = new Date("2020-04-13T08:00:00Z");
+    const istorn2020 = new Date("2021-03-02T18:00:00Z");
 
     const diffSeconds = (istorn2020 - now) / 1000;
     var timerSeconds = (diffSeconds % 60).toFixed(0).padStart(2, "0");
@@ -116,15 +137,15 @@ function istorn2020Counter() {
       timerSeconds = 0;
     }
 
-    document.getElementById("istornCountdownDays").innerText = timerDays;
-    document.getElementById("istornCountdownHours").innerText = timerHours;
-    document.getElementById("istornCountdownMinutes").innerText = timerMinutes;
-    document.getElementById("istornCountdownSeconds").innerText = timerSeconds;
+    document.getElementById("countdownDays").innerText = timerDays;
+    document.getElementById("countdownHours").innerText = timerHours;
+    document.getElementById("countdownMinutes").innerText = timerMinutes;
+    document.getElementById("countdownSeconds").innerText = timerSeconds;
 
-    window.setTimeout(istorn2020Counter, 1000);
+    window.setTimeout(countdown, 1000);
   }
 }
-istorn2020Counter();
+countdown();
 
 //Youtube slideshow for index page
 function onGoogleLoad() {
@@ -137,7 +158,7 @@ function onGoogleLoad() {
   if (isIndex) {
     getYoutubeFeed(youtubeCINPlaylistID, 7, "#cin-videos");
   }
-  if (isCIN) {
+  if (isCIN && !isIndex) {
     getYoutubeFeed(youtubeCINPlaylistID, 15, "#cin-videos");
   }
 }

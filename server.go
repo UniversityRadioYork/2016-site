@@ -22,7 +22,13 @@ func NewServer(c *structs.Config) (*Server, error) {
 
 	s := Server{negroni.Classic()}
 
-	session, err := myradio.NewSessionFromKeyFile()
+	var session *myradio.Session
+	var err error
+	if c.Server.MyRadioAPI == "" {
+		session, err = myradio.NewSessionFromKeyFile()
+	} else {
+		session, err = myradio.NewSessionFromKeyFileForServer(c.Server.MyRadioAPI)
+	}
 
 	if err != nil {
 		return &s, err
@@ -115,6 +121,8 @@ func NewServer(c *structs.Config) (*Server, error) {
 	getRouter.HandleFunc("/about/", staticC.GetAbout)
 	getRouter.HandleFunc("/contact/", staticC.GetContact)
 	getRouter.HandleFunc("/competitions/", staticC.GetCompetitions)
+
+	// Candidate Interview Night Routes
 	if c.PageContext.CIN {
 		getRouter.HandleFunc("/cin/", staticC.GetCIN)
 	}
