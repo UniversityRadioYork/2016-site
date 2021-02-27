@@ -45,6 +45,7 @@ type PageContext struct {
 	Pages            []Page
 	Youtube          youtube
 	Gmaps            gmaps
+	CurrentYear      int
 }
 
 // ScheduleConfig is a structure configuring the schedule views.
