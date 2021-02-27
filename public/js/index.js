@@ -1,6 +1,22 @@
+function hideParentVideoContainer(htmlid) {
+  $(htmlid).closest(".container-fluid").remove(); // Delete the box if we couldn't load.
+}
+
+
 function getYoutubeFeed(playlistid, results, htmlid) {
+  if (!playlistid || !youtubeAPIKey) {
+    console.error(`Failed to get YouTube videos for ${htmlid}, missing playlistid (${playlistid}) or youtubeAPIKey (${youtubeAPIKey}).`);
+    hideParentVideoContainer(htmlid);
+    return;
+  }
+  console.log(`Getting YouTube videos for ${htmlid}, with playlistid ${playlistid}.`);
   gapi.client.setApiKey(youtubeAPIKey);
   gapi.client.load("youtube", "v3", function() {
+    if (!gapi.client.youtube) {
+      console.error("Failed to init YouTube API.");
+      hideParentVideoContainer(htmlid);
+      return;
+    }
     var request = gapi.client.youtube.playlistItems.list({
       part: "snippet",
       playlistId: playlistid,
@@ -8,6 +24,11 @@ function getYoutubeFeed(playlistid, results, htmlid) {
     });
 
     request.execute(function(response) {
+      if (!response || !response.items) {
+        console.log(`Failed to get YouTube videos for ${htmlid} with playlistid ${playlistid}.`);
+        hideParentVideoContainer(htmlid);
+        return;
+      }
       for (var i = 0; i < response.items.length; i++) {
         var thumb;
         if (response.items[i].snippet.thumbnails.maxres != undefined) {
