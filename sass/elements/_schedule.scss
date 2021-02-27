@@ -2,6 +2,20 @@ $white: #ffffff;
 $black: #000000;
 $shadow: rgba(0, 0, 0, 0.5);
 
+
+.schedule-key-icon {
+  font-size: 0.6em;
+  color: $black;
+  text-decoration: none !important; // scss-lint:disable ImportantRule
+  opacity: 0.5;
+  position: absolute;
+  right: 10px;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
 @mixin schedule-block($bg-color, $txt-color) {
   border-bottom: $bg-color solid 10px;
   background: $white;
@@ -16,21 +30,15 @@ $shadow: rgba(0, 0, 0, 0.5);
     background-color: tint($bg-color, 60%);
   }
 
-  box-shadow: 0 2px 4px $shadow;
-}
-@mixin schedule-key($color) {
-  display: inline-block;
-  background: $white;
-  border-bottom: $color solid 10px;
-  padding: 2px 5px;
-  margin: 5px 5px 10px;
+  &.disabled {
+    border-bottom: $disabled-color solid 10px;
 
-  &:hover {
-    background-color: tint($color, 60%);
+    &:hover {
+      background-color: $white;
+    }
   }
 
   box-shadow: 0 2px 4px $shadow;
-
 }
 
 .tables-container {
@@ -40,7 +48,12 @@ $shadow: rgba(0, 0, 0, 0.5);
   padding-bottom: 10px;
 
   .row-headers {
-    width: 8%;
+    width: 13.5%;
+
+    &:first-of-type {
+      width: 5%;
+    }
+
   }
 }
 
@@ -51,7 +64,7 @@ $shadow: rgba(0, 0, 0, 0.5);
   display: inline-block;
   vertical-align: top;
   text-align: left;
-  width: 11%;
+  width: 13.09%;
 
   thead {
     th {
@@ -59,8 +72,13 @@ $shadow: rgba(0, 0, 0, 0.5);
     }
   }
 
+  tbody {
+    display: table;
+    width: 100%;
+  }
+
   tr {
-    height: 84px;
+    height: 135px;
   }
 
   td,
@@ -76,10 +94,17 @@ $shadow: rgba(0, 0, 0, 0.5);
     }
   }
 
+
+  .day-header {
+    text-align: center;
+    font-weight: 500;
+  }
+
   .time-header {
     border: 0;
+    line-height: 1em;
     text-align: center;
-
+    font-weight: 500;
     .mobile-only {
       display: none;
     }
@@ -89,7 +114,7 @@ $shadow: rgba(0, 0, 0, 0.5);
     height: 24px;
   }
 
-  .schedule-timeslot:not(.schedule-blocks-sustainer) {
+  .schedule-timeslot:not(.schedule-block-sustainer) {
     cursor: pointer;
 
     &:hover {
@@ -100,7 +125,7 @@ $shadow: rgba(0, 0, 0, 0.5);
 
 $sustainer-color: tint($primary-color, 40%);
 
-.schedule-blocks-sustainer {
+.schedule-block-sustainer {
   @include schedule-block($sustainer-color, $black);
   background-color: $sustainer-color;
 
@@ -109,78 +134,53 @@ $sustainer-color: tint($primary-color, 40%);
   }
 }
 
-.schedule-blocks-regular {
+.schedule-block-regular {
   @include schedule-block($primary-color, $off-white-color);
 }
 
-.schedule-blocks-flagship {
-  @include schedule-block($flagship, $black);
+.schedule-block-primetime {
+  @include schedule-block($primetime, $black);
 }
 
-.schedule-blocks-news {
+.schedule-block-news {
   @include schedule-block($news-maroon, $off-white-color);
 }
 
-.schedule-blocks-speech {
+.schedule-block-speech {
   @include schedule-block($speech-green, $off-white-color);
 }
 
-.schedule-blocks-music {
+.schedule-block-music {
   @include schedule-block($music-purple, $off-white-color);
 }
 
-.schedule-blocks-event {
+.schedule-block-event {
   @include schedule-block($red, $off-white-color);
 }
 
-.schedule-blocks-specialist-music {
+.schedule-block-specialist-music {
   @include schedule-block(tint($music-purple, 60%), $white);
 }
 
-
-.schedule-keys-regular {
-  @include schedule-key($primary-color);
-}
-
-.schedule-keys-flagship {
-  @include schedule-key($flagship);
-}
-
-.schedule-keys-news {
-  @include schedule-key($news-maroon);
-}
-
-.schedule-keys-speech {
-  @include schedule-key($speech-green);
-}
-
-.schedule-keys-music {
-  @include schedule-key($music-purple);
-}
-
-.schedule-keys-event {
-  @include schedule-key($red);
-}
-
-.schedule-keys-specialist-music {
-  @include schedule-key(tint($music-purple, 60%));
+.schedule-block-collab {
+  @include schedule-block($collab, $off-white-color);
 }
 
 .schedule-keys .key-row {
-  text-align: right;
+  * {
+    display: inline-block;
+  }
 }
 
 @include media-breakpoint-down(md) {
   .schedule-keys .key-row {
-    text-align: left;
-
     .h5, .h6 {
       display: block;
       margin-top: 10px;
     }
-
   }
 }
+
 @include media-breakpoint-down(sm) {
   .current-next.mobile-shrink {
     height: unset;
@@ -188,12 +188,10 @@ $sustainer-color: tint($primary-color, 40%);
   }
   .schedule-keys .key-row {
     text-align: left;
-
     .h5, .h6 {
       display: block;
       margin-top: 10px;
     }
-
   }
   .schedule-table {
     display: table;
@@ -204,6 +202,13 @@ $sustainer-color: tint($primary-color, 40%);
     padding: 10px;
     border-radius: 2px;
 
+    tr {
+      height: 70px;
+    }
+
+    tbody {
+      display: table-row-group;
+    }
 
     .day-header,
     .time-header {

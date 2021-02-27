@@ -7,7 +7,7 @@
 #
 #
 # This is the main config file for the 2016-site.
-# Api Key should not be stored in this file. It should be in `.myradio.key`
+# The main API Key should not be stored in this file. It should be in `.myradio.key`
 # Any changes to this config should be reflected in the struct `structs.Config`
 
 # This is the config for the server
@@ -15,11 +15,12 @@
 	address	= "localhost"
 	port    = 3000
 	timeout	= 0
+	myradio_api = "https://www.ury.org.uk/api/v2"
 
 # This is data that will be passed into all templates
 [pageContext]
 	longName  = "University Radio York"
-	shortName = "((URY))"
+	shortName = "URY"
 	siteDescription = "University Radio York (URY) is the student radio station for the University of York, broadcasting 24 hours a day during term time on 1350am across campus, and worldwide via this website."
 
 	urlPrefix = ""
@@ -29,8 +30,22 @@
 	mainFacebook = "URY1350"
 	newsTwitter = "URYNews"
 
+	christmas = true
+	aprilFools = false
+	istorn2020 = false
+	
+	# Candidate Interview Night Stuff
+	cin = true
+	cinLivestreaming = true
+	cinAPI = "http://127.0.0.1:8000"
+	cinHashtag = "#CIN21"
+	cinLive = "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FURY1350%2F&width=800&show_text=false&height=0&appId"	
+
+	cacheBuster = "v1"
+
 	odName = "On Tap"
-	myRadioAPIKey = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+	publicMyRadioAPIKey = "DFm1QGGyDZXHvGjjKYxv72ItpZe5oPiNvqTKEJLC2CmPYvdbYQ591DNKhpXwb1U9NVIgBuQ4XOBdSAKbaGzliqHm7pu4H4PxmO7mrH4JvKV6dBZx5n32obnEE2pE9vWC"
 
 	[[pageContext.pages]]
 		name = "Search"
@@ -38,7 +53,8 @@
 
 	[pageContext.youtube]
 		APIKey = "AIzaSyCzI5Gvpq1hPlfjvB81EVc0vLv_11eW7NI"
-		playlistID = "PLsxUDJzU4VKDudlmlYb-ImFKreFKAfFln"
+		sessionsPlaylistID = "PLsxUDJzU4VKDudlmlYb-ImFKreFKAfFln"
+		cinPlaylistID = "PLsxUDJzU4VKAAH1pOogbzJx7pZgd-2zOx"
 		channelURL = "//youtube.com/ury1350"
 
 	[pageContext.gmaps]

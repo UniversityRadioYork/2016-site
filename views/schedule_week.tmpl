@@ -2,15 +2,16 @@
 {{define "content"}}
 {{with .PageData}}
 
+<!-- top banner -->
 <div class="container-fluid header-large current-next mobile-shrink">
   <div class="container">
       <div class="row justify-content-center">
-        <div class="col-11 col-md-10 box-shadow-1 mobile-hide">
+        <div class="col-11 col-md-10 box-shadow-1 current-next-container mobile-hide">
           {{template "current_and_next" .}}
         </div>
         <div class="col-11 col-md-10 text-center mobile-only">
           <h1 class="display-3">Schedule</h1>
-          <h5 class="display-5">{{week (index .Schedule.Dates 0)}}</h5>
+          <h2 class="display-5">{{week (index .Schedule.Dates 0)}}</h2>
         </div>
       </div>
     </div>
@@ -18,25 +19,26 @@
 
 <!-- schedule header -->
 <div class="container-fluid bg-off-white">
-  <div class="container p-3">
+  <div class="container justify-content-between py-3">
     <div class="row">
-      <div class="col-12 col-lg-6">
-        <h1 class="display-4 mobile-hide">Schedule</h1>
-        <h5 class="muted mobile-hide">for {{week (index .Schedule.Dates 0)}}</h5>
+      <div class="col-auto">
+        <h1 class="display-4 mobile-hide">Schedule <a class="fa fa-key schedule-key-icon" href="#key"></a></h1>
+        <h2 class="text-muted mobile-hide">{{week (index .Schedule.Dates 0)}}</h2>
       </div>
-      <div class="col-12 col-lg-6 justify-content-end">
-        <div class="schedule-keys">
+      <div class="col-12">
+        <div class="row justify-content-center">
+          {{with $weekName := week (index .Schedule.Dates 0)}}
+            {{if eq $weekName "this week"}}
+              <button class="btn btn-secondary mobile-only inline" id="jumpToNow" type="button" onclick="jumpToNow()">Jump to the current show</button>
+            {{end}}
+          {{end}}
+          <h1 class="mobile-only inline"><a class="fa fa-key schedule-key-icon" data-toggle="collapse" data-target=".schedule-keys" aria-expanded="false" aria-controls="schedule-keys"></a></h1>
+        </div>
+        <div class="schedule-keys collapse">
           <div class="key-row">
-            <span class="h5">Key: </span>
-            <span class="schedule-keys-flagship">Flagship</span>
-            <span class="schedule-keys-event">Events</span>
-            <span class="schedule-keys-specialist-music">Specialist Music</span>
-          </div>
-          <div class="key-row">
-            <span class="h6">Team Content: </span>
-            <span class="schedule-keys-news">News</span>
-            <span class="schedule-keys-speech">Speech</span>
-            <span class="schedule-keys-music">Music</span>
+              {{ range .Subtypes }}
+                <span class="schedule-block-{{.Class}}">{{.Name}}</span>
+              {{end}}
           </div>
         </div>
       </div>
@@ -44,13 +46,13 @@
 
     <nav aria-label="Related Schedules" class="row nav justify-content-between">
       {{if .PrevURL}}
-        <a class="nav-link" href="{{url .PrevURL.Path}}">Previous week</a>
+        <a class="nav-link" href="{{url .PrevURL.Path}}">&larr; Previous week</a>
       {{end}}
       {{if .CurrURL}}
         <a class="nav-link" href="{{url .CurrURL.Path}}">Permalink</a>
       {{end}}
       {{if .NextURL}}
-        <a class="nav-link" href="{{url .NextURL.Path}}">Next week</a>
+        <a class="nav-link" href="{{url .NextURL.Path}}">Next week &rarr;</a>
       {{end}}
     </nav>
   </div>
@@ -76,7 +78,7 @@
         {{end}}
       </table>
       {{range .Table}}
-        <table class="schedule-table">
+        <table class="schedule-table day-{{.Day.Weekday}}">
           <colgroup>
             <col class="mobile-only time-col">
           </colgroup>
@@ -85,9 +87,9 @@
           </tr>
           {{range .Cells}}
             <tr>
-              <td class="time-header mobile-only">{{.Hour | printf "%02d"}}:{{.Minute | printf "%02d"}}</td>
+              <td class="time-header mobile-only hour-{{.Hour | printf "%02d"}}">{{.Hour | printf "%02d"}}:{{.Minute | printf "%02d"}}</td>
               {{if ne .RowSpan 0}}
-              <td rowspan="{{.RowSpan}}" class="schedule-timeslot schedule-blocks-{{.Item.Block}}" title="{{stripHTML .Item.Desc}}"
+              <td rowspan="{{.RowSpan}}" class="schedule-timeslot schedule-block-{{.Item.Block}}" title="{{stripHTML .Item.Desc}}"
                   {{if .Item.PageURL}} onclick="window.location.href='{{url .Item.PageURL}}'" {{end}} >
                 {{if .Item.PageURL}}
                   <a href="{{url .Item.PageURL}}" >{{.Item.Name}}</a>
@@ -103,15 +105,30 @@
     </div>
   {{else}}
     <div class="row justify-content-center p-5">
-      <div class="col-12 col-lg-8 p-5 text-center schedule-blocks-regular">
-        <h3>There's nothing on for this week.</p>
+      <div class="col-12 col-lg-8 p-5 text-center schedule-block-regular disabled">
+        <h3>There's nothing on for this week.</h3>
         <h4>We're most likely off air, or we haven't scheduled it yet!</h4>
       </div>
     </div>
   {{end}}
+  {{end}}
+  <br>
+    <div class="row justify-content-center pb-3">
+        <div class="schedule-keys" id="key">
+          <div class="key-row">
+            <h2 class="inline">Schedule Key:</h2>
+            {{ range .Subtypes }}
+              <span class="schedule-block-{{.Class}}">{{.Name}}</span>
+            {{end}}
+          </div>
+        </div>
+    </div>
   </div>
 </div>
 {{end}}
 {{end}}
+{{define "footer-scripts"}}
+<!-- Jump to day button -->
+<script>var StartHour = {{.PageData.StartHour}};</script>
+<script src='{{url "/js/schedule.js"}}?ver={{ .PageContext.CacheBuster }}' id="jumpToNow"></script>
 {{end}}
-

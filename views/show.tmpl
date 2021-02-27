@@ -9,15 +9,14 @@
 {{if .PageData.Show.Photo}}
 <meta property="og:image" content="{{.PageContext.FullURL}}{{url .PageData.Show.Photo}}">
 {{else}}
-<meta property="og:image" content="{{.PageContext.FullURL}}{{url "images/open_graph-general.jpg"}}">
+<meta property="og:image" content='{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}'>
 {{end}}
 <meta property="og:type" content="website">
-<meta property="og:url" content="{{.PageContext.FullURL}}{{url "/schedule/shows/"}}{{.PageData.Show.ShowID}}">
-<meta property="og:description" content="{{.PageData.Show.Description}}">
+<meta property="og:url" content='{{.PageContext.FullURL}}{{url "/schedule/shows/"}}{{.PageData.Show.ShowID}}'>
+<meta property="og:description" content="{{ stripHtml .PageData.Show.Description}}">
 {{end}}
 
 {{define "content"}}
-{{with .PageData}}
 <div class="container-fluid current-next">
 
 </div>
@@ -25,33 +24,33 @@
   <div class="container p-3">
     <div class="row">
       <div class="col-12 col-sm-5 col-lg-3">
-         <img class="img-fluid show-img" src="
-         {{if .Show.Photo}}
-         https://ury.org.uk{{.Show.Photo}}
-         {{else}}
-         /images/show-current.png
-         {{end}}"
-         alt="{{.Show.Title}} Logo">
+        <img class="img-fluid show-img" src="
+        {{- if .PageData.Show.Photo -}}
+          {{$.PageContext.FullURL}}{{.PageData.Show.Photo}}
+        {{- else -}}
+          {{url "/images/default_show_profile.png"}}
+        {{- end -}}"
+        alt="{{.PageData.Show.Title}} Logo">
         <div class="row">
           <div class="col-6 text-center">
-            <h6>Seasons: {{len .Seasons}}</h6>
+            <span class="h3">Seasons: {{len .PageData.Seasons}}</span>
           </div>
           <div class="col-6 text-center">
-            <h6>Shows: {{showCount .Seasons}}</h6>
+            <span class="h3">Episodes: {{showCount .PageData.Seasons}}</span>
           </div>
         </div>
       </div>
       <div class="col-12 col-sm-7 col-lg-9">
-        <h1>{{.Show.Title}}</h1>
+        <h1>{{.PageData.Show.Title}}</h1>
         <hr>
         <h2>Description</h2>
-        <p>{{html .Show.Description}}</p>
+        <p>{{html .PageData.Show.Description}}</p>
         <hr>
         <div class="row justify-content-end">
-{{end}}
           <div class="col-auto share-links">
               <span class="h5 mg-right-5">Share:</span>
               <a href="#"
+                  title="Share this show on Twitter"
                   data-type="twitter"
                   data-url="{{.PageContext.FullURL}}/schedule/shows/{{.PageData.Show.ShowID}}"
                   {{if .PageData.Show.Photo}}
@@ -59,10 +58,11 @@
                   {{end}}
                   data-description="Checkout {{.PageData.Show.Title}} on {{.PageContext.LongName}}"
                   data-via="{{.PageContext.MainTwitter}}"
-                  class="prettySocial fa fa-twitter">
+                  class="prettySocial fab fa-twitter">
               </a>
 
               <a href="#"
+                  title="Share this show on Facebook"
                   data-type="facebook"
                   data-url="{{.PageContext.FullURL}}/schedule/shows/{{.PageData.Show.ShowID}}"
                   data-title="{{.PageData.Show.Title}} | {{.PageContext.ShortName}}"
@@ -70,69 +70,184 @@
                   {{if .PageData.Show.Photo}}
                       data-media="{{.PageContext.FullURL}}{{.PageData.Show.Photo}}"
                   {{end}}
-                  class="prettySocial fa fa-facebook">
+                  class="prettySocial fab fa-facebook">
               </a>
-
-              <a href="#"
-                  data-type="googleplus"
-                  data-url="{{.PageContext.FullURL}}/schedule/shows/{{.PageData.Show.ShowID}}"
-                  data-description="{{.PageData.Show.Description}}"
-                  {{if .PageData.Show.Photo}}
-                      data-media="{{.PageContext.FullURL}}{{.PageData.Show.Photo}}"
-                  {{end}}
-                  class="prettySocial fa fa-google">
-              </a>
-
-            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
 {{with .PageData}}
-{{if .CreditsToUsers}}
+  {{if .CreditsToUsers}}
+  <div class="container-fluid bg-primary">
+    <div class="container pt-3">
+      <h2>Credits</h2>
+      <hr>
+      <div class="row">
+        {{range $key, $value := .CreditsToUsers}}
+        <div class="col-sm-4 pb-3">
+          {{if gt (len $value) 1}}
+            <h3>{{plural $key}}</h3>
+          {{else}}
+            <h3>{{$key}}</h3>
+          {{end}}
+          {{range $value}}
+          <a href="/people/{{.MemberID}}/">{{.Fname}} {{.Sname}}</a> <br>
+          {{end}}
+        </div>
+        {{end}}
+      </div>
+    </div>
+  </div>
+  {{end}}
+{{end}}
+{{if gt (len .PageData.Seasons) 0}}
 <div class="container-fluid bg-secondary">
-  <div class="container pt-3">
-    <h2>Credits</h2>
-    <hr>
+  <div class="container show-selector">
     <div class="row">
-      {{range $key, $value := .CreditsToUsers}}
-      <div class="col-sm-4 pb-3">
-        {{if gt (len $value) 1}}
-          <h4>{{plural $key}}</h4>
+      <div class="col-12 col-xl-4 p-4">
+        <h2>{{.PageContext.ShortName}} {{.PageContext.ODName}}</h2>
+        <p>Explore the show catalogue, and listen back to your favorite episodes!</p>
+        <a href="/ontap/">View all of our on demand content...</a>
+      </div>
+      <div id="season-list" class="col-12 col-md-6 col-xl-4 bg-off-white">
+        <h3>
+          Seasons
+        </h3>
+        <table id="seasons" class="table seasons-table">
+          <thead>
+            <tr>
+              <th>SeasonID</th>
+              <th>Season</th>
+              <th>First Episode</th>
+              <th>Episodes</th>
+            </tr>
+          </thead>
+          <tbody>
+          {{range .PageData.Seasons}}
+            {{if ne .SeasonNum 0}}
+              <tr class="timeslot-filter-season" data-SeasonID="{{.SeasonID}}">
+                <td>{{.SeasonID}}</td>
+                <td style="width:10px">{{.SeasonNum}}.</td>
+                <td><a href="#" title="Show episodes for season {{.SeasonNum}}">{{.FirstTime.Format "Jan 2006"}}</a></td>
+                <td style="width:10px"><span class="badge badge-pill badge-light">
+                  {{.NumEpisodes.Value}}</span>
+                </td>
+              </tr>
+            {{end}}
+          {{end}}
+          </tbody>
+        </table>
+      </div>
+      <div id="timeslot-latest" class="col-12 col-md-6 col-xl-4 p-4 bg-white">
+        <h4>Latest Episode</h4>
+        {{if ne .PageData.LatestTimeslot.TimeslotID 0}}
+        <p>Catchup with the latest episode from <strong>{{.PageData.LatestTimeslot.StartTime.Format "Monday, _2 Jan 2006"}}</strong></p>
+        {{if .PageData.LatestMixcloud}}
+          <iframe width="100%" height="120" src="https://www.mixcloud.com/widget/iframe/?feed={{.PageData.LatestTimeslot.MixcloudStatus}}&hide_cover=1&light=1"
+            frameborder="0"></iframe>
         {{else}}
-          <h4>{{$key}}</h4>
+          <p>
+            <strong>This episode isn't available on {{.PageContext.ShortName}} {{.PageContext.ODName}}, sorry about that.</strong>
+          </p>
         {{end}}
-        {{range $value}}
-        <a href="/people/{{.MemberID}}/">{{.Fname}} {{.Sname}}</a> <br>
+        <a href="/schedule/shows/timeslots/{{.PageData.LatestTimeslot.TimeslotID}}/">View full episode information...</a>
+        {{else}}
+          <p>
+            <strong>No episodes of this show have been broadcast yet.</strong>
+          </p>
         {{end}}
+      </div>
+      <div id="timeslot-list" class="col-12 col-md-6 col-xl-4 bg-off-white">
+        <h4 class="inline">Episodes</h4><h5 id="timeslot-season-title" class="inline"></h5>
+        <table id="timeslots" class="table timeslots-table">
+          <thead>
+            <tr>
+              <th>SeasonID</th>
+              <th>Season</th>
+              <th>Episode</th>
+              <th>Broadcast Time</th>
+            </tr>
+          </thead>
+          <tbody>
+          {{range .PageData.Timeslots}}
+            {{if ne .TimeslotNum 0}}
+              <tr>
+                <td>{{.Season.SeasonID}}</td>
+                <td>{{.Season.SeasonNum}}</td>
+                <td style="width:10px">{{.TimeslotNum}}.</td>
+                <td><a href="/schedule/shows/timeslots/{{.TimeslotID}}/">{{.StartTime.Format "Monday, _2 Jan 2006 at 15:04"}}</a></td>
+              </tr>
+            {{end}}
+          {{end}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div> <!-- /outer containter -->
+{{end}}
+{{with .PageData}}
+{{if gt (len .Podcasts) 0}}
+  <div class="container-fluid bg-off-white">
+    <div class="container pt-3 pb-1">
+      <div class="row justify-content-between">
+        <div class="col">
+          <h2>Podcasts</h2>
+          <p>This show comes in podcast form, enjoy this content whenever and wherever you like!</p>
+        </div>
+        <div class="col-auto d-flex align-items-center">
+          <a href="{{url "/schedule/shows/"}}{{.Show.ShowID}}/podcast_rss" class="btn btn-primary"><i aria-hidden="true" class="fas fa-rss-square"></i> RSS Feed</a>
+        </div>
+      </div>
+      <ul class="podcasts">
+      {{range $index, $value := .Podcasts}}
+        <li class="podcast-card box-shadow-1 {{if gt $index 4}}older-podcast{{end}}" onclick="window.location.href='{{url .MicrositeLink.URL}}'">
+            <img
+              class="podcast-card-image"
+              src="
+            {{if .Photo}}
+              {{$.PageContext.FullURL}}{{url .Photo}}
+            {{else}}
+              {{url "/images/default_show_profile.png"}}
+            {{end}}
+              "
+              alt="Podcast photo"
+            />
+            <div class="podcast-card-body p-2 p-md-3">
+              <h3>
+                <a class="podcast-link" href="{{url .MicrositeLink.URL}}">{{- .Title -}}</a>
+              </h3>
+              <span>{{.Time.Format "Monday, _2 Jan 2006"}}</span>
+              <div class="podcast-card-body-links">
+                <a href="{{$.PageContext.FullURL}}{{.File}}" download="{{.Title}}">
+                  <span class="fa fa-download" aria-hidden="true"></span>
+                  Download
+                </a>
+              </div>
+            </div>
+          </li>
+      {{end}}
+      </ul>
+      {{if gt (len .Podcasts) 5}}
+      <div class="pb-3">
+      <a href="javascript:void(0)" id="show-more-less-podcasts">Show More</a>
       </div>
       {{end}}
     </div>
   </div>
-</div>
 {{end}}
-<div class="container-fluid">
-  <div class="container pt-3">
-    <div class="row">
-      <div class="col">
-        <h2>Seasons</h2>
-        <ul>
-        {{range .Seasons}}
-          <li>
-            <a href="/schedule/shows/seasons/{{.SeasonID}}/">Seasion {{.SeasonNum}}: {{.FirstTime.Format "Monday, _2 Jan 2006 at 15:04"}} - {{.NumEpisodes.Value}} Episode(s)</a>
-          </li>
-        {{end}}
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
 {{end}}
 {{end}}
 {{define "footer-scripts"}}
-  <script src="{{url "/js/jquery.prettySocial.min.js"}}"></script>
-  <script type="text/javascript" class="source">
-    $(".prettySocial").prettySocial();
-  </script>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
+<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="//cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+<script src="//cdn.datatables.net/plug-ins/1.10.16/api/fnFindCellRowIndexes.js"></script>
+<script src='{{url "/js/show.js"}}?ver={{ .PageContext.CacheBuster }}'></script>
+<script src='{{url "/js/jquery.prettySocial.min.js"}}?ver={{ .PageContext.CacheBuster }}'></script>
+<script type="text/javascript" class="source">
+  $(".prettySocial").prettySocial();
+</script>
 {{end}}

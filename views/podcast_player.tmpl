@@ -3,47 +3,91 @@
 {{define "header-block"}}<!-- header -->{{end}}
 {{define "footer-block"}}<!-- footer -->{{end}}
 
+{{define "open-graph"}}
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@{{.PageContext.MainTwitter}}">
+<meta name="twitter:creator" content="@{{.PageContext.MainTwitter}}">
+<meta property="og:locale" content="en_GB">
+<meta property="og:title" content="{{.PageContext.ShortName}} | {{.PageData.Podcast.Title}}">
+{{if .PageData.Podcast.Photo}}
+<meta property="og:image" content="{{.PageContext.FullURL}}{{url .PageData.Podcast.Photo}}">
+{{else}}
+<meta property="og:image" content='{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}'>
+{{end}}
+<meta property="og:type" content="website">
+<meta property="og:url" content='{{.PageContext.FullURL}}{{url "/podcasts/"}}{{.PageData.Podcast.PodcastID}}'>
+<meta property="og:description" content="{{ stripHtml .PageData.Podcast.Description}}">
+{{end}}
+
 {{define "content"}}
 
 {{with .PageData}}
-  <div class="container-fluid uryplayer-podcast p-0">
-    <div class="row">
-      <div class="section img col-sm-auto">
-        <img class="podcast-img" src="
-        {{if .Podcast.Photo}}
-              https://ury.org.uk{{.Podcast.Photo}}
-        {{else}}
-              /images/podcast.png
-        {{end}}
+  <div class="player">
+    <img src='
+      {{- if .Podcast.Photo -}}
+        {{$.PageContext.FullURL}}{{.Podcast.Photo}}
+      {{- else -}}
+        {{url "/images/default_show_profile.png"}}
+      {{- end -}}
+    ' class="album-art"/>
+    <div class="branding">
+      URY On Tap<br>
+      <span>Podcast</span>
+    </div>
+    <div class="meta-container">
+      <div class="podcast-title">{{.Podcast.Title}}</div>
+    </div>
+    <div class="podcast-description">
+      {{- html .Podcast.Description -}}
+    </div>
 
-          " alt="{{.Podcast.Title}} Logo">
-      </div>
-      <div class="col-sm-9">
-
-        <div class="row">
-          <div class="col-12">
-            <div class="section info">
-              <div class="row py-2">
-                  <div class="col-6 od-date">{{.Podcast.Time.Format "Monday, _2 Jan 2006"}}</div>
-                  <div class="col 6 od-brand text-right">((URY)) on Tap<br><small>Podcast</small></div>
-              </div>
-              <h1 class="podcast-title"><a href="https://ury.org.uk{{.Podcast.MicrositeLink.URL}}" target="_parent">{{.Podcast.Title}}</a></h1>
-            </div>
-          </div>
-          <hr>
-          <div class="col-12">
-              <audio class="podcast-audio" controls>
-                <source src="https://ury.org.uk{{.Podcast.File}}" type="audio/mpeg">
-                It looks like your browser can't play this file, please update your browser.
-              </audio>
-            </div>
+      <div class="time-container">
+        <div class="amplitude-play-pause" amplitude-song-index="0"></div>
+        <div class="current-time">
+          <span class="amplitude-current-hours" amplitude-song-index="0"></span>:
+          <span class="amplitude-current-minutes" amplitude-song-index="0"></span>:
+          <span class="amplitude-current-seconds" amplitude-song-index="0"></span>
+        </div>
+        <progress class="amplitude-song-played-progress" amplitude-song-index="0" id="song-played-progress-1"></progress>
+        <div class="duration">
+          <span class="amplitude-duration-hours" amplitude-song-index="0"></span>:
+          <span class="amplitude-duration-minutes" amplitude-song-index="0"></span>:
+          <span class="amplitude-duration-seconds" amplitude-song-index="0"></span>
         </div>
       </div>
-
+    </div>
   </div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/amplitudejs@3.2.3/dist/amplitude.js"></script>
+<script>
+  Amplitude.init({
+      "songs": [
+          {
+              "name": "{{.Podcast.Title}}",
+              "artist": "Artist Name",
+              "album": "URY On Tap",
+              "url": "{{$.PageContext.FullURL}}{{.Podcast.File}}",
+              "cover_art_url": '
+                {{- if .Podcast.Photo -}}
+                      {{ $.PageContext.FullURL }}{{.Podcast.Photo}}
+                {{- else -}}
+                      {{url "/images/default_show_profile.png"}}
+                {{- end -}}
+              '
+          }
+      ]
+  });
+  /*
+    Handles a click on the song played progress bar.
+  */
+  document.getElementById('song-played-progress-1').addEventListener('click', function( e ){
+    var offset = this.getBoundingClientRect();
+    var x = e.pageX - offset.left;
 
+    Amplitude.setSongPlayedPercentage( ( parseFloat( x ) / parseFloat( this.offsetWidth) ) * 100 );
+  });
 
-						 <!-- {{html .Podcast.Description}} -->
-
+</script>
+<link rel="stylesheet" href='{{url "/css/podcast_player.css"}}'>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500">
 {{end}}
 {{end}}

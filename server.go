@@ -22,7 +22,13 @@ func NewServer(c *structs.Config) (*Server, error) {
 
 	s := Server{negroni.Classic()}
 
-	session, err := myradio.NewSessionFromKeyFile()
+	var session *myradio.Session
+	var err error
+	if c.Server.MyRadioAPI == "" {
+		session, err = myradio.NewSessionFromKeyFile()
+	} else {
+		session, err = myradio.NewSessionFromKeyFileForServer(c.Server.MyRadioAPI)
+	}
 
 	if err != nil {
 		return &s, err
@@ -32,6 +38,7 @@ func NewServer(c *structs.Config) (*Server, error) {
 
 	getRouter := router.Methods("GET").Subrouter()
 	postRouter := router.Methods("POST").Subrouter()
+	headRouter := router.Methods("HEAD").Subrouter()
 
 	// Routes go in here
 	nfc := controllers.NewNotFoundController(c)
@@ -51,6 +58,11 @@ func NewServer(c *structs.Config) (*Server, error) {
 	getRouter.HandleFunc("/schedule/shows/{id:[0-9]+}/", showC.GetShow).Name("show")
 	getRouter.HandleFunc("/schedule/shows/timeslots/{id:[0-9]+}/", showC.GetTimeslot).Name("timeslot")
 	getRouter.HandleFunc("/schedule/shows/seasons/{id:[0-9]+}/", showC.GetSeason).Name("season")
+
+	getRouter.HandleFunc("/schedule/shows/{id:[0-9]+}/podcast_rss", showC.GetPodcastRss).Name("podcast_rss")
+	headRouter.HandleFunc("/schedule/shows/{id:[0-9]+}/podcast_rss", showC.GetPodcastRssHead).Name("podcast_rss_head")
+
+	getRouter.HandleFunc("/uyco/", showC.GetUyco).Name("uyco")
 
 	getRouter.HandleFunc("/schedule/", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/schedule/thisweek/", 301)
@@ -74,6 +86,9 @@ func NewServer(c *structs.Config) (*Server, error) {
 	// Redirect old podcast URLs
 	getRouter.HandleFunc("/uryplayer/", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/ontap/", 301)
+	})
+	getRouter.HandleFunc("/listen/", func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, "/about/", 301)
 	})
 	getRouter.HandleFunc("/uryplayer/podcasts/", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/podcasts/", 301)
@@ -107,6 +122,10 @@ func NewServer(c *structs.Config) (*Server, error) {
 	getRouter.HandleFunc("/contact/", staticC.GetContact)
 	getRouter.HandleFunc("/competitions/", staticC.GetCompetitions)
 
+	// Candidate Interview Night Routes
+	if c.PageContext.CIN {
+		getRouter.HandleFunc("/cin/", staticC.GetCIN)
+	}
 	// End routes
 
 	s.UseHandler(router)

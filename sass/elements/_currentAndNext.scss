@@ -12,10 +12,22 @@
     // Remove the height of the nav bar roughly 60px
     padding: calc(8em + 60px) 0 8em;
   }
+
+  .sra-2020-bug {
+    position: absolute;
+    top: calc(1em + 60px);
+    left: 1em;
+    max-width: 90vw;
+    max-height: 54px;
+  }
+}
+.current-next-container {
+  max-width: 950px;
 }
 
 .current-and-next {
   color: white;
+  overflow: hidden;
 
   .current-and-next-img {
     background: $current-next-now-bg;
@@ -60,11 +72,4 @@
     background: $current-next-next-bg;
   }
 
-  .listen-btn {
-    position: absolute;
-    bottom: 0.5em;
-    right: 0;
-    left: 0;
-    margin: 0 1em;
-  }
 }

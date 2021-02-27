@@ -5,9 +5,16 @@
 @import "backgrounds";
 @import "utils";
 @import "uryCard";
+@import "animations";
 
 html {
   font-size: $base-font-size;
+}
+
+@include media-breakpoint-down(md) {
+  html {
+    font-size: 14px;
+  }
 }
 
 .container-padded {
@@ -16,24 +23,36 @@ html {
 }
 
 
-.custom-scrollbar {
+@mixin custom-scrollbar($color) {
   &::-webkit-scrollbar {
     width: 12px;
     height: 12px;
   }
 
   &::-webkit-scrollbar-track {
-    background: transparentize($custom-scrollbar-color, 0.9);
+    background: transparentize($color, 0.9);
   }
 
   &::-webkit-scrollbar-thumb {
     border-radius: 7.5px;
-    background: transparentize($custom-scrollbar-color, 0.3);
+    background: transparentize($color, 0.3);
 
     &:hover {
-      background: $custom-scrollbar-color;
+      background: $color;
     }
   }
+}
+
+.custom-scrollbar {
+  @include custom-scrollbar($custom-scrollbar-color);
+}
+
+.custom-scrollbar-music {
+  @include custom-scrollbar(darken($music-purple, 20%));
+}
+
+.custom-scrollbar-cin {
+  @include custom-scrollbar($cin-primary);
 }
 
 // Scroll horizontal, used for horizontal scrolling rows
@@ -74,4 +93,105 @@ $breakpoints: sm, md, lg, xl;
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+// CIN Stuff
+
+.cin-text {
+  color: $cin-primary;
+}
+
+.cin-text-2 {
+  color: $cin-dark-primary;
+}
+
+.youtubePlay:link {
+  text-decoration: none;
+}
+
+.youtubePlay:visited {
+  text-decoration: none;
+}
+
+.youtubePlay:hover {
+  text-decoration: none;
+}
+
+.youtubePlay:active {
+  text-decoration: none;
+}
+
+.istorn2020-countdown {
+  height: 100vh !important;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  .callout {
+    color: #c9c9c9;
+    font-size: 1.8rem;
+    font-style: italic;
+    font-family: Raleway, Roboto, sans-serif;
+  }
+}
+
+.istorn-countdown {
+  display: inline-block;
+  //background-color: white;
+  font-family: "Raleway", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: white;
+  padding: 0.15em;
+  //letter-spacing: 0.4rem;
+  //border: 2px solid $cin-primary;
+  .smol {
+    font-size: 50%;
+  }
+}
+
+#istorn020_bg {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -100;
+  background-color: #002d5a;
+}
+
+.bg-cin .col {
+  max-width: 100vw;
+}
+
+.cin-social {
+  @media screen and (max-width: map_get($grid-breakpoints, "md")) {
+    margin: 1em;
+  }
+}
+
+.cin-count {
+  padding: 0em 1em;
+}
+
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1400px;
+  }
+}
+
+$badge-colour: #868e96;
+
+.tag {
+  transition: 350ms;
+
+  &:hover {
+    transform: scale(1.08);
+    color: $badge-colour;
+    background-color: $white;
+  }
 }

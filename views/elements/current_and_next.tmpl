@@ -1,40 +1,41 @@
 {{define "current_and_next"}}
+<script src='{{url "/js/currentAndNext.js"}}'></script>
 {{with .CurrentAndNext}}
 <div class="current-and-next row justify-content-center">
   {{if .Current}}
-  <div class="col-4 col-md-2 p-0 current-and-next-img">
-    <img src="
-    {{if .Current.Photo}}
+  <div class="col-5 col-sm-3 col-md-2 p-0 current-and-next-img">
+    <img src='
+    {{- if .Current.Photo -}}
       //ury.org.uk{{.Current.Photo}}
-    {{else}}
-      {{url "/images/show-current.png"}}
-    {{end}}
-    " alt="{{.Current.Title}} Photo" />
-    <a href="https://ury.org.uk/listen" class="btn btn-red listen-btn mobile-hide px-0" title="Listen Live" onclick="window.open('http://ury.org.uk/live', 'radioplayer', 'height=665,width=380'); return false;">Listen Live</a>
+    {{- else -}}
+      {{url "/images/default_show_profile.png"}}
+    {{- end -}}
+    ' alt="{{.Current.Title}} Logo" />
   </div>
-  <div class="col-8 col-md-5 p-0 m-0">
+  <div class="col-7 col-sm-9 col-md-5 p-0 m-0">
     {{if .Current.Url}}
-    <a class="current-and-next-now p-2 pt-3 px-3 p-md-3 p-lg-4 " href="{{.Current.Url}}" title="View the show now playing">
+    <a class="current-and-next-now p-2 px-3 p-sm-3 p-lg-4 " href="{{.Current.Url}}" title="Show currently on air: {{.Current.Title}}">
     {{else}}
-    <div class="current-and-next-now p-2 pt-3 px-3 p-md-3 p-lg-4">
+    <div class="current-and-next-now p-2 px-3 p-sm-3 p-lg-4">
     {{end}}
-    <h2>Now</h2>
+    <h2 class="font-weight-bold">Now</h2>
     {{template "current_next" .Current}}
     {{if .Current.Url}}
     </a>
     {{else}}
     </div>
     {{end}}
+    <a href="https://ury.org.uk/listen" class="btn btn-red listen-btn listen-btn-animated mobile-hide" title="Listen Live" onclick="window.open('http://ury.org.uk/live', 'radioplayer', 'height=665,width=380'); return false;"><i class="fa fa-volume-up mr-2"></i>Listen Live</a>
   </div>
   {{end}}
   {{if .Next}}
   <div class="col col-md-5 p-0 m-0">
     {{if .Next.Url}}
-    <a class="current-and-next-next p-3 p-lg-4" href="{{.Next.Url}}" title="View the show next up">
+    <a class="current-and-next-next p-3 p-lg-4" href="{{.Next.Url}}" title="Show on air next: {{.Next.Title}}">
     {{else}}
     <div class="current-and-next-next p-3 p-lg-4">
     {{end}}
-    <h2>Next</h2>
+    <h2 class="font-weight-bold">Next</h2>
     {{template "current_next" .Next}}
     {{if .Next.Url}}
     </a>
@@ -44,19 +45,30 @@
   </div>
   {{end}}
   <div class="col-12 mobile-only p-0">
-    <a href="https://ury.org.uk/listen" class="btn btn-lg btn-block btn-square btn-red listen-btn-mobile" title="Listen Live" onclick="window.open('http://ury.org.uk/live', 'radioplayer', 'height=665,width=380'); return false;">Listen Live</a>
+    <a aria-hidden="true" href="https://ury.org.uk/listen" class="btn btn-lg btn-block btn-square btn-red listen-btn-mobile" title="Listen Live" onclick="window.open('http://ury.org.uk/live', 'radioplayer', 'height=665,width=380'); return false;"><i class="fa fa-volume-up mr-2"></i>Listen Live</a>
   </div>
 </div>
 {{end}}
 {{end}}
-
 {{define "current_next"}}
+<div class="template-box">
 {{if .Title}}
-<h5 class="ellipsis">
+<div class="h3 show-title ellipsis">
   {{.Title}}
-</h5>
-<h6>{{.StartTime.Format "15:04"}} - {{.EndTime.Format "15:04"}}</h6>
+</div>
+<div class="show-time h4">
+  {{if not .EndTime.IsZero}}
+    {{- if .StartTime.IsZero -}}
+      Now
+    {{- else -}}
+      {{- .StartTime.Format "15:04" -}}
+    {{- end}} -
+    {{.EndTime.Format "15:04"}}
+  {{end}}
+</div>
 {{else}}
-<span>Looks like there is nothing coming up next yet.</span>
+<span>Looks like there is nothing on here.</span>
 {{end}}
+</div>
 {{end}}
+

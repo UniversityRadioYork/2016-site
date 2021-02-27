@@ -33,6 +33,7 @@ func (teamC *TeamController) Get(w http.ResponseWriter, r *http.Request) {
 		utils.RenderTemplate(w, teamC.config.PageContext, nil, "404.tmpl")
 		return
 	}
+
 	data := struct {
 		Team       myradio.Team
 		Heads      []myradio.Officer

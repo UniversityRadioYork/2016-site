@@ -11,9 +11,10 @@ type Config struct {
 
 // Server is a structure containing server configuration.
 type Server struct {
-	Address string `toml:"address"`
-	Port    int    `toml:"port"`
-	Timeout int    `toml:"timeout"`
+	Address    string `toml:"address"`
+	Port       int    `toml:"port"`
+	Timeout    int    `toml:"timeout"`
+	MyRadioAPI string `toml:"myradio_api"`
 }
 
 // PageContext is a structure containing static information to provide
@@ -22,19 +23,29 @@ type Server struct {
 // This contains the website's long and short names, as well as a directory
 // of pages for navigation.
 type PageContext struct {
-	LongName        string `toml:"longName"`
-	ShortName       string `toml:"shortName"`
-	SiteDescription string `toml:"siteDescription"`
-	URLPrefix       string `toml:"urlPrefix"`
-	FullURL         string `toml:"fullURL"`
-	MainTwitter     string `toml:"mainTwitter"`
-	MainFacebook    string `toml:"mainFacebook"`
-	NewsTwitter     string `toml:"newsTwitter"`
-	ODName          string `toml:"odName"`
-	MyRadioAPIKey   string `toml:"myRadioAPIKey"`
-	Pages           []Page
-	Youtube         youtube
-	Gmaps           gmaps
+	LongName         string `toml:"longName"`
+	ShortName        string `toml:"shortName"`
+	SiteDescription  string `toml:"siteDescription"`
+	URLPrefix        string `toml:"urlPrefix"`
+	FullURL          string `toml:"fullURL"`
+	MainTwitter      string `toml:"mainTwitter"`
+	MainFacebook     string `toml:"mainFacebook"`
+	NewsTwitter      string `toml:"newsTwitter"`
+	MyRadioAPIKey    string `toml:"publicMyRadioAPIKey"`
+	ODName           string `toml:"odName"`
+	Christmas        bool   `toml:"christmas"`
+	AprilFools       bool   `toml:"aprilFools"`
+	CIN              bool   `toml:"cin"`
+	CINLivestreaming bool   `toml:"cinLivestreaming"`
+	CINAPI           string `toml:"cinAPI"`
+	CINHashtag       string `toml:"cinHashtag"`
+	CINLive          string `toml:"cinLive"`
+	ISTORN2020       bool   `toml:"istorn2020"`
+	CacheBuster      string `toml:"cacheBuster"`
+	Pages            []Page
+	Youtube          youtube
+	Gmaps            gmaps
+	CurrentYear      int
 }
 
 // ScheduleConfig is a structure configuring the schedule views.
@@ -56,9 +67,10 @@ type Page struct {
 }
 
 type youtube struct {
-	APIKey     string `toml:"apiKey"`
-	PlaylistID string `toml:"playlistID"`
-	ChannelURL string `toml:"channelURL"`
+	APIKey             string `toml:"apiKey"`
+	SessionsPlaylistID string `toml:"sessionsPlaylistID"`
+	CINPlaylistID      string `toml:"cinPlaylistID"`
+	ChannelURL         string `toml:"channelURL"`
 }
 
 type gmaps struct {

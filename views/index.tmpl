@@ -1,9 +1,22 @@
 {{define "content"}}
-{{with .PageData}}
-  <div class="container-fluid header-large current-next">
+  {{if .PageContext.ISTORN2020}}
+    {{template "istorn2020_countdown" .}}
+  {{end}}
+  <div class="container-fluid header-large current-next position-relative">
+  <img src="/images/sra-2020-bug.png" class="sra-2020-bug" alt="" />
+  {{if .PageContext.Christmas}}
+    <div class="snow"></div>
+  {{end}}
+  {{if .PageContext.AprilFools}}
+    <div id="april-fool">
+      <iframe src="//brookehatton.com/dvd-screensaver/src" width="100%" height="100%"></iframe>
+      <script src='{{url "js/april-fools.js"}}'></script>
+    </div>
+  {{end}}
+  {{with .PageData}}
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-11 col-md-10 box-shadow-1">
+        <div class="col-11 col-md-10 box-shadow-1 current-next-container">
         {{template "current_and_next" .}}
         {{template "banner" .}}
         </div>
@@ -11,9 +24,9 @@
     </div>
   </div>
   <div id="index-infobar" class="container-fluid bg-off-white container-padded">
-    <div class="container container-padded">
+    <div class="container">
       <div class="row justify-content-center">
-        <div class="pb-4 col-lg-3">
+        <div class="col-lg-3">
         {{template "message_box" .}}
         </div>
         <div class="col-lg-9">
@@ -28,7 +41,7 @@
             <div class="col-lg-6">
               <ul class="split-evenly-2 no-bullets">
               {{range .Teams}}
-                <li><a href="{{url "/teams/"}}/{{.Alias}}/" title="Find out more about {{.Name}}">{{.Name}}</a></li>
+                <li><a href="{{url "/teams/"}}{{.Alias}}/" title="Find out more about {{.Name}}">{{.Name}}</a></li>
               {{end}}
               </ul>
             </div>
@@ -37,23 +50,35 @@
       </div>
     </div>
   </div>
-  <div id="index-videos" class="container-fluid container-padded pb-0 bg-secondary">
-    <h2>URY Sessions</h2>
-    <div id="youtube-videos" class="row scroll-horiz pb-3 custom-scrollbar youtube-video-slider">
+  {{end}}
+  {{if .PageContext.CIN}}
+  <div id="index-videos" class="container-fluid container-padded pb-0 bg-cin">
+    <h2 class="cin-text">URY Candidate Interview Night</h2>
+    <div id="cin-videos" class="row scroll-horiz pb-3 custom-scrollbar-cin thumbnail-slider">
     </div>
   </div>
+  {{end}}
+  {{with .PageData}}
   {{if .Podcasts}}
-  <div id="index-podcasts" class="container-fluid container-padded pb-0 bg-third">
+  <div id="index-podcasts" class="container-fluid container-padded pb-0 bg-podcasts">
     <div class="row">
       <div class="col-12">
         <h2>Latest Podcasts</h2>
       </div>
     </div>
-    <div class="row scroll-horiz pb-3 custom-scrollbar">
+    <div class="row scroll-horiz custom-scrollbar thumbnail-slider">
       {{range .Podcasts}}
-      <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 pb-3">
-        <a class="ury-card podcast" href="{{.MicrositeLink.URL}}">
-          <div class="ury-card-img" style="background: url('https://ury.org.uk{{.Photo}}');" title="URY Podcast: {{.Title}} Logo"></div>
+      <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
+        <a class="ury-card podcast" href="{{.MicrositeLink.URL}}" title="URY Podcast: {{.Title}}">
+          <div class="ury-card-img"
+            style="background: url('
+            {{- if .Photo -}}
+              {{$.PageContext.FullURL}}{{.Photo}}
+            {{- else -}}
+              {{url "/images/default_show_profile.png"}}
+            {{- end -}}
+            ');" alt="{{.Title}} Logo">
+          </div>
           <div class="ury-card-body">
             <div class="ury-card-title">{{.Title}}</div>
             <span>{{.Time.Format "Monday, _2 Jan 2006"}}</span>
@@ -61,7 +86,7 @@
         </a>
       </div>
       {{end}}
-      <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 pb-3">
+      <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
         <a class="ury-card podcast link" href='{{url "/podcasts/"}}'>
           <div class="ury-card-body">
             <div class="ury-card-lg-title">See all podcasts...</div>
@@ -71,6 +96,11 @@
     </div>
   </div>
   {{end}}
+  <div id="index-videos" class="container-fluid container-padded pb-0 bg-sessions">
+    <h2>URY Sessions</h2>
+    <div id="sessions-videos" class="row scroll-horiz pb-3 custom-scrollbar-music thumbnail-slider">
+    </div>
+  </div>
   {{end}}
 {{end}}
 
@@ -78,8 +108,13 @@
 <!-- Youtube slider script -->
 <script>
 var youtubeAPIKey = {{.PageContext.Youtube.APIKey}};
-var youtubePlaylistID = "{{.PageContext.Youtube.PlaylistID}}";
+var youtubeSessionsPlaylistID = "{{.PageContext.Youtube.SessionsPlaylistID}}";
+var youtubeCINPlaylistID = "{{.PageContext.Youtube.CINPlaylistID}}";
+var isIndex = true;
+var isCIN = {{if .PageContext.CIN}}true{{else}}false{{end}};
+var isOD = false;
+var isISTORN2020 = {{if .PageContext.ISTORN2020}}true{{else}}false{{end}};
 </script>
-<script src='{{url "js/index.js"}}'></script>
+<script src='{{url "js/index.js"}}?ver={{ .PageContext.CacheBuster }}'></script>
 <script src="https://apis.google.com/js/client.js?onload=onGoogleLoad"></script>
 {{end}}

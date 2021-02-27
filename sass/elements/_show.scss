@@ -1,0 +1,49 @@
+$cardSize: 8em;
+
+.podcasts {
+  list-style: none;
+  padding: 0;
+  box-sizing: border-box;
+
+  .podcast-card {
+    background-color: white;
+    color: black;
+    margin-bottom: 1em;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    cursor: pointer;
+    transition: $transition-time;
+
+    &:hover {
+      background: lighten($computing-grey, 65%);
+
+      a.podcast-link {
+        text-decoration: underline;
+      }
+    }
+
+    a {
+      color: $link-color-dark;
+    }
+
+    img {
+      height: $cardSize;
+      width: $cardSize;
+      align-self: center;
+
+      @include media-breakpoint-down(xs) {
+        display: none;
+      }
+    }
+
+    .podcast-card-body {
+      display: flex;
+      flex-direction: column;
+
+      .podcast-card-body-links {
+        margin-top: auto;
+      }
+    }
+  }
+}

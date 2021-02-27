@@ -94,7 +94,7 @@ func (ic *IndexController) Post(w http.ResponseWriter, r *http.Request) {
 
 func (ic *IndexController) render(w http.ResponseWriter, data RenderData) {
 	// Render page
-	err := utils.RenderTemplate(w, ic.config.PageContext, data, "index.tmpl", "elements/current_and_next.tmpl", "elements/banner.tmpl", "elements/message_box.tmpl")
+	err := utils.RenderTemplate(w, ic.config.PageContext, data, "index.tmpl", "elements/current_and_next.tmpl", "elements/banner.tmpl", "elements/message_box.tmpl", "elements/istorn2020_countdown.tmpl")
 	if err != nil {
 		log.Println(err)
 		return

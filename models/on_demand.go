@@ -17,13 +17,17 @@ func NewOnDemandModel(s *myradio.Session) *OnDemandModel {
 
 // GetLastMixcloudTimeslots gets the data required for the OnDemand controller from MyRadio.
 //
-// On success, it returns the previous 6 timeslots, and nil.
+// On success, it returns the previous 10/11 timeslots, and nil.
 // Otherwise, it returns undefined data and the error causing failure.
 func (m *OnDemandModel) GetLastMixcloudTimeslots() (timeslots []myradio.Timeslot, err error) {
-	timeslots, err = m.session.GetPreviousTimeslots(6)
+	timeslots, err = m.session.GetPreviousTimeslots(11)
+	currrentAndNext, err := m.session.GetCurrentAndNext()
 	if err != nil {
 		return
 	}
-
+	// If show currently on air, remove it from previous timeslots
+	if currrentAndNext.Current.Id != 0 {
+		timeslots = timeslots[1:11]
+	}
 	return
 }
