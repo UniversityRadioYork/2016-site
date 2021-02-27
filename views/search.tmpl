@@ -3,16 +3,15 @@
 {{with .PageData}}
 
 <div class="container container-padded pt-5 mt-5">
-    <form action="{{url "/search/"}}" class="form-inline ml-auto search-box" style="font-size:2rem;">
+    <form id="searchForm" action="{{url "/search/"}}" class="form-inline ml-auto search-box" style="font-size:2rem;">
         <button type="submit" class="" alt="Submit"><i class="fa fa-search" aria-hidden="true"></i></button>
         <div class="col px-0">
             <input type="text" name="term" placeholder="Search..." value="{{.Term}}" width="100%">
 
             <div class="source-group">
-                <input type="radio" id="sourceShows" name="source" value="show" {{if eq .Source "show"}}checked{{end}}>
-
+                <input type="radio" id="sourceShows" name="source" class="search-filter" value="show" {{if eq .Source "show"}}checked{{end}}>
                 <label for="sourceShows">Shows</label>
-                <input type="radio" id="sourcePodcasts" name="source" value="podcast" {{if eq .Source "podcast"}}checked{{end}}>
+                <input type="radio" id="sourcePodcasts" name="source" class="search-filter" value="podcast" {{if eq .Source "podcast"}}checked{{end}}>
                 <label for="sourcePodcasts">Podcasts</label>
             </div>
         </div>
@@ -53,4 +52,8 @@
 </div><!-- /.container container-padded -->
 
 {{end}}
+{{end}}
+
+{{define "footer-scripts"}}
+<script src='{{url "/js/search.js"}}?ver={{ .PageContext.CacheBuster }}'></script>
 {{end}}
