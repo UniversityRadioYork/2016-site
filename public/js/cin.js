@@ -219,8 +219,8 @@ const ScheduleArea = () => {
                         } else if (new Date(event.start_time).getTime() > Date.now()) {
                             let startTime = new Date(event.start_time);
                             let endTime = new Date(event.end_time);
-                            let time = startTime.getHours() + ":" + startTime.getMinutes() +
-                                " - " + endTime.getHours() + ":" + endTime.getMinutes();
+                            let time = startTime.getHours().toString().padStart(2, "0") + ":" + startTime.getMinutes().toString().padStart(2, "0") +
+                                " - " + endTime.getHours().toString().padStart(2, "0") + ":" + endTime.getMinutes().toString().padStart(2, "0");
 
                             scheduleData.push({
                                 "type": "FUTURE",
@@ -234,7 +234,7 @@ const ScheduleArea = () => {
                             let endTime = new Date(event.end_time);
                             let time =
                                 "Now - " +
-                                endTime.getHours() + ":" + endTime.getMinutes();
+                                endTime.getHours().toString().padStart(2, "0") + ":" + endTime.getMinutes().toString().padStart(2, "0");
 
                             scheduleData.push({
                                 "type": "LIVE",
@@ -429,10 +429,10 @@ const LiveArea = () => {
 
           setTimes([
             "Now - " +
-              currentEnd.getHours() + ":" + currentEnd.getMinutes(),
+              currentEnd.getHours().toString().padStart(2, "0") + ":" + currentEnd.getMinutes().toString().padStart(2, "0"),
 
-              nextStart.getHours() + ":" + nextStart.getMinutes() + " - "
-              + nextEnd.getHours() + ":" + nextEnd.getMinutes()
+              nextStart.getHours().toString().padStart(2, "0") + ":" + nextStart.getMinutes().toString().padStart(2, "0") + " - "
+              + nextEnd.getHours().toString().padStart(2, "0") + ":" + nextEnd.getMinutes().toString().padStart(2, "0")
             ]);
           break;
         } else {
@@ -447,7 +447,7 @@ const LiveArea = () => {
           let endTime = new Date(interviews[i].end_time);
           setTimes([
             "Now - " +
-              endTime.getHours() + ":" + endTime.getMinutes(),
+              endTime.getHours().toString().padStart(2, "0") + ":" + endTime.getMinutes().toString().padStart(2, "0"),
             "",
           ]);
           break;
@@ -470,9 +470,9 @@ const LiveArea = () => {
           let nextEndTime = new Date(interviews[i].end_time);
           setTimes([
             "",
-            intDate.getHours() + ":" + intDate.getMinutes() +
+            intDate.getHours().toString().padStart(2, "0") + ":" + intDate.getMinutes().toString().padStart(2, "0") +
               " - " +
-              nextEndTime.getHours() + ":" + nextEndTime.getMinutes()
+              nextEndTime.getHours().toString().padStart(2, "0") + ":" + nextEndTime.getMinutes().toString().padStart(2, "0")
           ]);
           break;
         } else {
