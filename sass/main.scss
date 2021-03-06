@@ -386,3 +386,14 @@ footer {
     height: auto;
   }
 }
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.mainPageGrowingSpacer{
+  flex-grow: 1;
+  background-color: $off-white-color;
+}
