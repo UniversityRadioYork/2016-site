@@ -9,8 +9,8 @@ sendButton.onclick = () => {
             var currentTimeslot = data.payload.current.id;
             fetch(
                 `https://ury.org.uk/api/v2/timeslot/${currentTimeslot}/sendmessage?api_key=${MyRadioAPIKey}`, {
-                    method: 'post',
-                    body: messageBox.value
+                    method: 'put',
+                    body: `message=${messageBox.value}`
                 }
             ).then(() => {
                 messageBox.value = "";
