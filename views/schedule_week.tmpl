@@ -1,4 +1,4 @@
-{{define "title"}}{{.PageContext.ShortName}} | Schedule | {{week (index .PageData.Schedule.Dates 0)}}{{end}}
+{{define "title"}}{{.PageContext.ShortName}} | Schedule | {{week (index .PageData.Schedule.Days 0)}}{{end}}
 {{define "content"}}
 {{with .PageData}}
 
@@ -11,7 +11,7 @@
         </div>
         <div class="col-11 col-md-10 text-center mobile-only">
           <h1 class="display-3">Schedule</h1>
-          <h2 class="display-5">{{week (index .Schedule.Dates 0)}}</h2>
+          <h2 class="display-5">{{week (index .Schedule.Days 0)}}</h2>
         </div>
       </div>
     </div>
@@ -23,11 +23,11 @@
     <div class="row">
       <div class="col-auto">
         <h1 class="display-4 mobile-hide">Schedule <a class="fa fa-key schedule-key-icon" href="#key"></a></h1>
-        <h2 class="text-muted mobile-hide">{{week (index .Schedule.Dates 0)}}</h2>
+        <h2 class="text-muted mobile-hide">{{week (index .Schedule.Days 0)}}</h2>
       </div>
       <div class="col-12">
         <div class="row justify-content-center">
-          {{with $weekName := week (index .Schedule.Dates 0)}}
+          {{with $weekName := week (index .Schedule.Days 0)}}
             {{if eq $weekName "this week"}}
               <button class="btn btn-secondary mobile-only inline" id="jumpToNow" type="button" onclick="jumpToNow()">Jump to the current show</button>
             {{end}}
@@ -61,48 +61,29 @@
 <!-- schedule body -->
 <div class="container-fluid bg-off-white">
   <div class="container">
-  {{with .Schedule}}
-  {{if .Table}}
-    <div class="tables-container table">
-      <table class="schedule-table mobile-hide row-headers">
-        <colgroup>
-          <col class="mobile-hide time-col">
-        </colgroup>
-        <tr class="col-headers"></tr>
-        {{with index .Table 0}}
-          {{range .Cells}}
-            <tr>
-              <td class="time-header">{{.Hour | printf "%02d"}}:{{.Minute | printf "%02d"}}</td>
-            </tr>
-          {{end}}
+  {{if .Schedule}}
+    {{with .Schedule}}
+      <div class="schedule-container">
+        {{ range .Days}}
+          <h3>{{.Weekday}}&nbsp;{{.Format "02"}}</h3>
+          <ol style="list-style-type: none">
+            {{range (index $.PageData.Schedule.DayItems .)}}
+              <li>
+                <span>{{.Start.Hour | printf "%02d"}}:{{.Start.Minute | printf "%02d"}} - {{.Finish.Hour | printf "%02d"}}:{{.Finish.Minute | printf "%02d"}}</span>
+                <div title="{{stripHTML .Desc}}"
+                        {{if .PageURL}} onclick="window.location.href='{{url .PageURL}}'" {{end}} >
+                  {{if .PageURL}}
+                    <a href="{{url .PageURL}}" >{{.Name}}</a>
+                  {{else}}
+                    <p>{{.Name}}</p>
+                  {{end}}
+                </div>
+              </li>
+            {{end}}
+          </ol>
         {{end}}
-      </table>
-      {{range .Table}}
-        <table class="schedule-table day-{{.Day.Weekday}}">
-          <colgroup>
-            <col class="mobile-only time-col">
-          </colgroup>
-          <tr class="col-headers">
-            <th class="day-header" colspan=2>{{.Day.Weekday}}&nbsp;{{.Day.Format "02"}}</th>
-          </tr>
-          {{range .Cells}}
-            <tr>
-              <td class="time-header mobile-only hour-{{.Hour | printf "%02d"}}">{{.Hour | printf "%02d"}}:{{.Minute | printf "%02d"}}</td>
-              {{if ne .RowSpan 0}}
-              <td rowspan="{{.RowSpan}}" class="schedule-timeslot schedule-block-{{.Item.Block}}" title="{{stripHTML .Item.Desc}}"
-                  {{if .Item.PageURL}} onclick="window.location.href='{{url .Item.PageURL}}'" {{end}} >
-                {{if .Item.PageURL}}
-                  <a href="{{url .Item.PageURL}}" >{{.Item.Name}}</a>
-                {{else}}
-                  <p>{{.Item.Name}}</p>
-                {{end}}
-              </td>
-              {{end}}
-            </tr>
-          {{end}}
-        </table>
-      {{end}}
-    </div>
+      </div>
+    {{end}}
   {{else}}
     <div class="row justify-content-center p-5">
       <div class="col-12 col-lg-8 p-5 text-center schedule-block-regular disabled">
@@ -117,7 +98,7 @@
         <div class="schedule-keys" id="key">
           <div class="key-row">
             <h2 class="inline">Schedule Key:</h2>
-            {{ range .Subtypes }}
+            {{ range .PageData.Subtypes }}
               <span class="schedule-block-{{.Class}}">{{.Name}}</span>
             {{end}}
           </div>
@@ -125,7 +106,6 @@
     </div>
   </div>
 </div>
-{{end}}
 {{end}}
 {{define "footer-scripts"}}
 <!-- Jump to day button -->

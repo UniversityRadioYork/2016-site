@@ -11,6 +11,7 @@ import (
 //
 
 // StartHour is the hour of the day (local time) at which the scheduled day begins.
+// Note that this can be overridden in the config.
 var StartHour = 16
 
 // StartOfDayOn gets the schedule start-of-day on a given date.

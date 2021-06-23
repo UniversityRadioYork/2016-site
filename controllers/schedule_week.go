@@ -175,12 +175,12 @@ func (sc *ScheduleWeekController) makeAndRenderWeek(w http.ResponseWriter, year,
 // Any schedule that doesn't exist returns "" as an URL.
 // It can fail with err if it can't generate the URLs.
 func (sc *ScheduleWeekController) getRelatedScheduleURLs(ws *models.WeekSchedule) (purl, curl, nurl *url.URL, err error) {
-	if len(ws.Dates) == 0 {
+	if len(ws.Days) == 0 {
 		err = errors.New("week schedule has no assigned dates")
 		return
 	}
 
-	cdat := ws.Dates[0]
+	cdat := ws.Days[0]
 	if curl, err = sc.weekScheduleURLBuilder(&cdat); err != nil {
 		return
 	}
