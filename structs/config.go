@@ -4,9 +4,11 @@ package structs
 //
 // See the comments for Server and PageContext for more details.
 type Config struct {
-	Server      Server         `toml:"server"`
-	PageContext PageContext    `toml:"pageContext"`
-	Schedule    ScheduleConfig `toml:"schedule"`
+	Server         Server          `toml:"server"`
+	PageContext    PageContext     `toml:"pageContext"`
+	Schedule       ScheduleConfig  `toml:"schedule"`
+	ShortURLs      ShortURLsConfig `toml:"shortUrls"`
+	TrustedProxies []string        `toml:"trustedProxies"`
 }
 
 // Server is a structure containing server configuration.
@@ -77,4 +79,10 @@ type gmaps struct {
 	APIKey string  `toml:"apiKey"`
 	Lat    float32 `toml:"latitude"`
 	Lng    float32 `toml:"longitude"`
+}
+
+// ShortURLsConfig is a structure configuring the short-urls subsystem.
+type ShortURLsConfig struct {
+	// UpdateInterval is how often the short URLs should be refreshed, in seconds.
+	UpdateInterval uint `toml:"updateInterval"`
 }
