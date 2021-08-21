@@ -69,3 +69,7 @@
 	[schedule.sustainer]
 		name = "Overnight Owen"
 		desc = "Non-stop tones from the URY jukebox."
+
+# This is for updating the URL shortener information
+[shortURLs]
+	updateInterval = 600
