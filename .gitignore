@@ -29,5 +29,4 @@ _testmain.go
 public/css/*.scss.css
 .myradio.key
 config.toml
-short_urls.toml
 public/css/*.scss.css.map

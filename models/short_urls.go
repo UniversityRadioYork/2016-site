@@ -9,16 +9,10 @@ import (
 	"time"
 )
 
-type ShortURL struct {
-	ShortUrlID uint   `toml:"id"`
-	Slug       string `toml:"slug"`
-	RedirectTo string `toml:"redirectTo"`
-}
-
 type ShortURLModel struct {
 	c          *structs.Config
 	s          *myradio.Session
-	urlsBySlug map[string]*ShortURL
+	urlsBySlug map[string]*myradio.ShortURL
 	urlsLock   sync.RWMutex
 }
 
@@ -26,12 +20,12 @@ func NewShortURLsModel(c *structs.Config, s *myradio.Session) *ShortURLModel {
 	return &ShortURLModel{
 		c:          c,
 		s:          s,
-		urlsBySlug: make(map[string]*ShortURL),
+		urlsBySlug: make(map[string]*myradio.ShortURL),
 		urlsLock:   sync.RWMutex{},
 	}
 }
 
-func (m *ShortURLModel) Match(slug string) *ShortURL {
+func (m *ShortURLModel) Match(slug string) *myradio.ShortURL {
 	m.urlsLock.RLock()
 	defer m.urlsLock.RUnlock()
 	if url, ok := m.urlsBySlug[slug]; ok {
@@ -56,13 +50,9 @@ func (m *ShortURLModel) doTickUpdate() {
 		return
 	}
 
-	indexed := make(map[string]*ShortURL)
+	indexed := make(map[string]*myradio.ShortURL)
 	for _, url := range urls {
-		indexed[url.Slug] = &ShortURL{
-			ShortUrlID: url.ShortURLID,
-			Slug:       url.Slug,
-			RedirectTo: url.RedirectTo,
-		}
+		indexed[url.Slug] = &url
 	}
 
 	m.urlsLock.Lock()
