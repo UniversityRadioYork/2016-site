@@ -46,7 +46,7 @@ func (sc *NotFoundController) Get(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 			if err = sc.shortURLs.TrackClick(
-				shortUrl.ShortUrlID,
+				shortUrl.ShortURLID,
 				r.Header.Get("User-Agent"),
 				reqIp,
 			); err != nil {
