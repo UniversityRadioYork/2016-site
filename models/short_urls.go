@@ -51,8 +51,8 @@ func (m *ShortURLModel) doTickUpdate() {
 	}
 
 	indexed := make(map[string]*myradio.ShortURL)
-	for _, url := range urls {
-		indexed[url.Slug] = &url
+	for idx, url := range urls {
+		indexed[url.Slug] = &urls[idx]
 	}
 
 	m.urlsLock.Lock()
