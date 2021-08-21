@@ -41,7 +41,7 @@ func NewServer(c *structs.Config) (*Server, error) {
 	headRouter := router.Methods("HEAD").Subrouter()
 
 	// Routes go in here
-	nfc := controllers.NewNotFoundController(c)
+	nfc := controllers.NewNotFoundController(session, c)
 	router.NotFoundHandler = http.HandlerFunc(nfc.Get)
 
 	ic := controllers.NewIndexController(session, c)

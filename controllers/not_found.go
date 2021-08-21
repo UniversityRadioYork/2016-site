@@ -3,7 +3,9 @@ package controllers
 import (
 	"fmt"
 	"github.com/UniversityRadioYork/2016-site/models"
+	"github.com/UniversityRadioYork/myradio-go"
 	"log"
+	"net"
 	"net/http"
 
 	"github.com/UniversityRadioYork/2016-site/structs"
@@ -18,8 +20,8 @@ type NotFoundController struct {
 
 // NewNotFoundController returns a new NotFoundController with the MyRadio
 // session s and configuration context c.
-func NewNotFoundController(c *structs.Config) *NotFoundController {
-	shorts := models.NewShortURLsModel(c)
+func NewNotFoundController(s *myradio.Session, c *structs.Config) *NotFoundController {
+	shorts := models.NewShortURLsModel(c, s)
 	go shorts.UpdateTimer()
 	return &NotFoundController{
 		Controller: Controller{config: c},
@@ -37,7 +39,17 @@ func (sc *NotFoundController) Get(w http.ResponseWriter, r *http.Request) {
 	if shortUrl := sc.shortURLs.Match(slug); shortUrl != nil {
 		// Track the click asynchronously, for performance
 		go func() {
-			if err := sc.shortURLs.TrackClick(slug, utils.GetRequesterIP(sc.config, r)); err != nil {
+			var reqIp net.IP
+			var err error
+			if reqIp, err = utils.GetRequesterIP(sc.config, r); err != nil {
+				log.Println(fmt.Errorf("while getting requester IP: %w", err))
+				return
+			}
+			if err = sc.shortURLs.TrackClick(
+				shortUrl.ShortUrlID,
+				r.Header.Get("User-Agent"),
+				reqIp,
+			); err != nil {
 				log.Println(fmt.Errorf("while tracking short URL click: %w", err))
 			}
 		}()

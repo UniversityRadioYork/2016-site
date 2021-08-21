@@ -1,9 +1,8 @@
 package models
 
 import (
-	"fmt"
-	"github.com/BurntSushi/toml"
 	"github.com/UniversityRadioYork/2016-site/structs"
+	"github.com/UniversityRadioYork/myradio-go"
 	"log"
 	"net"
 	"sync"
@@ -18,13 +17,15 @@ type ShortURL struct {
 
 type ShortURLModel struct {
 	c          *structs.Config
+	s          *myradio.Session
 	urlsBySlug map[string]*ShortURL
 	urlsLock   sync.RWMutex
 }
 
-func NewShortURLsModel(cfg *structs.Config) *ShortURLModel {
+func NewShortURLsModel(c *structs.Config, s *myradio.Session) *ShortURLModel {
 	return &ShortURLModel{
-		c:          cfg,
+		c:          c,
+		s:          s,
 		urlsBySlug: make(map[string]*ShortURL),
 		urlsLock:   sync.RWMutex{},
 	}
@@ -40,22 +41,28 @@ func (m *ShortURLModel) Match(slug string) *ShortURL {
 	}
 }
 
-func (m *ShortURLModel) TrackClick(slug string, visitorIP *net.IPAddr) error {
-	// TODO
-	return nil
+func (m *ShortURLModel) TrackClick(id uint, visitorUserAgent string, visitorIP net.IP) error {
+	ip := ""
+	if visitorIP != nil {
+		ip = visitorIP.String()
+	}
+	return m.s.LogShortURLClick(id, visitorUserAgent, ip)
 }
 
 func (m *ShortURLModel) doTickUpdate() {
-	var decoded struct {
-		URLs []ShortURL `toml:"urls"`
-	}
-	if _, err := toml.DecodeFile("short_urls.toml.example", &decoded); err != nil {
-		log.Println(fmt.Errorf("while parsing short_urls: %w", err))
+	urls, err := m.s.GetAllShortURLs()
+	if err != nil {
+		log.Printf("when getting short URLs: %w", err)
 		return
 	}
+
 	indexed := make(map[string]*ShortURL)
-	for _, url := range decoded.URLs {
-		indexed[url.Slug] = &url
+	for _, url := range urls {
+		indexed[url.Slug] = &ShortURL{
+			ShortUrlID: url.ShortURLID,
+			Slug:       url.Slug,
+			RedirectTo: url.RedirectTo,
+		}
 	}
 
 	m.urlsLock.Lock()
@@ -66,7 +73,7 @@ func (m *ShortURLModel) doTickUpdate() {
 
 func (m *ShortURLModel) UpdateTimer() {
 	if m.c.ShortURLs.UpdateInterval == 0 {
-		log.Fatal("Tried to UpdateTimer but update interval is zero!")
+		panic("Tried to UpdateTimer but update interval is zero!")
 	}
 	for {
 		m.doTickUpdate()
