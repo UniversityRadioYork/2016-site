@@ -83,6 +83,10 @@ func (m *ShowModel) GetTimeslot(id int) (timeslot myradio.Timeslot, tracklist []
 
 	creditsToUsers, err = m.session.GetCreditsToUsers(id, true)
 
+	if err != nil {
+		return
+	}
+
 	tracklist, err = m.session.GetTrackListForTimeslot(id)
 	return
 }

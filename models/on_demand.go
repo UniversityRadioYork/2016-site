@@ -21,6 +21,9 @@ func NewOnDemandModel(s *myradio.Session) *OnDemandModel {
 // Otherwise, it returns undefined data and the error causing failure.
 func (m *OnDemandModel) GetLastMixcloudTimeslots() (timeslots []myradio.Timeslot, err error) {
 	timeslots, err = m.session.GetPreviousTimeslots(11)
+	if err != nil {
+		return
+	}
 	currrentAndNext, err := m.session.GetCurrentAndNext()
 	if err != nil {
 		return

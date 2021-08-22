@@ -28,6 +28,12 @@ func (onDemandC *OnDemandController) Get(w http.ResponseWriter, r *http.Request)
 
 	latestPodcasts, err := PodcastsM.GetAllPodcasts(10, 0)
 
+	if err != nil {
+		log.Println(err)
+		utils.RenderTemplate(w, onDemandC.config.PageContext, err, "404.tmpl")
+		return
+	}
+
 	OnDemandM := models.NewOnDemandModel(onDemandC.session)
 
 	latestTimeslots, err := OnDemandM.GetLastMixcloudTimeslots()

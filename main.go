@@ -20,7 +20,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	if &config.Schedule.StartHour != nil {
+	if config.Schedule.StartHour != 0 {
 		utils.StartHour = config.Schedule.StartHour
 	}
 

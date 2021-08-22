@@ -92,12 +92,12 @@ func (podcastsC *PodcastController) Get(w http.ResponseWriter, r *http.Request) 
 
 	if err != nil {
 		log.Println(err)
-		err = utils.RenderTemplate(w, podcastsC.config.PageContext, nil, "404.tmpl")
+		utils.RenderTemplate(w, podcastsC.config.PageContext, nil, "404.tmpl")
 		return
 	}
 
 	if podcast.Status != "Published" {
-		err = utils.RenderTemplate(w, podcastsC.config.PageContext, nil, "404.tmpl")
+		utils.RenderTemplate(w, podcastsC.config.PageContext, nil, "404.tmpl")
 		return
 	}
 

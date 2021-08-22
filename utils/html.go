@@ -28,7 +28,6 @@ func StripHTML(htmls string) (string, error) {
 			if n.FirstChild != nil {
 				f(n.FirstChild)
 			}
-			break
 		case html.ElementNode:
 			// Decide whether to descend into the element's
 			// children
@@ -48,13 +47,8 @@ func StripHTML(htmls string) (string, error) {
 			if n.Data == "p" {
 				buffer.WriteString("\n\n")
 			}
-
-			break
 		case html.TextNode:
 			buffer.WriteString(n.Data)
-			break
-		default:
-			break
 		}
 
 		if n.NextSibling != nil {
