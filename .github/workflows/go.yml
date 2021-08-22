@@ -20,11 +20,11 @@ jobs:
 
     - name: Build
       run: go build -v ./...
-      working-directory: 2016-site
+      working-directory: /home/runner/work/2016-site/2016-site
 
     - name: Test
       run: go test -v ./...
-      working-directory: 2016-site
+      working-directory: /home/runner/work/2016-site/2016-site
   
   lint:
     runs-on: ubuntu-latest
@@ -40,4 +40,4 @@ jobs:
         uses: golangci/golangci-lint-action@v2
         with:
           version: latest
-          working-directory: 2016-site
+          working-directory: /home/runner/work/2016-site/2016-site
