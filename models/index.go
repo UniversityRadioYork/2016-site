@@ -35,8 +35,7 @@ func (m *IndexModel) Get() (currentAndNext *myradio.CurrentAndNext, banners []my
 	}
 
 	//Get 10 podcasts from page 0 (the latest podcasts)
-	allpodcasts := make([]myradio.Podcast, 10)
-	allpodcasts, err = m.session.GetAllPodcasts(10, 0, false)
+	allpodcasts, err := m.session.GetAllPodcasts(10, 0, false)
 	if err != nil {
 		return
 	}

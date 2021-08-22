@@ -26,7 +26,7 @@ func NewTeamController(s *myradio.Session, c *structs.Config) *TeamController {
 func (teamC *TeamController) Get(w http.ResponseWriter, r *http.Request) {
 	teamM := models.NewTeamModel(teamC.session)
 	vars := mux.Vars(r)
-	alias, _ := vars["alias"]
+	alias := vars["alias"]
 	team, heads, assistants, officers, err := teamM.Get(alias)
 	if err != nil {
 		log.Println(err)

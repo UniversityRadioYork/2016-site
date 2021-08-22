@@ -21,8 +21,7 @@ func (m *TeamModel) Get(alias string) (team myradio.Team, heads []myradio.Office
 	if err != nil {
 		return
 	}
-	var teamID int
-	teamID = int(team.TeamID)
+	teamID := int(team.TeamID)
 
 	heads, err = m.session.GetTeamHeadPositions(teamID, nil)
 	if err != nil {

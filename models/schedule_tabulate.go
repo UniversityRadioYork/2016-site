@@ -10,20 +10,6 @@ import (
 	"github.com/UniversityRadioYork/2016-site/utils"
 )
 
-// weekFromVars extracts the year, and week strings from vars.
-func weekFromVars(vars map[string]string) (string, string, error) {
-	y, ok := vars["year"]
-	if !ok {
-		return "", "", errors.New("no year provided")
-	}
-	w, ok := vars["week"]
-	if !ok {
-		return "", "", errors.New("no week provided")
-	}
-
-	return y, w, nil
-}
-
 //
 // Week schedule algorithm
 // TODO(CaptainHayashi): move?
