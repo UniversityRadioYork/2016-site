@@ -17,29 +17,29 @@ jobs:
       uses: WillAbides/setup-go-faster@v1.6.0
       with:
         go-version: 1.17
-    
+
     - run: ls $GITHUB_WORKSPACE
 
     - name: Build
       run: go build -v ./...
-      working-directory: /home/runner/work/2016-site/2016-site
+      working-directory: $GITHUB_WORKSPACE
 
     - name: Test
       run: go test -v ./...
-      working-directory: /home/runner/work/2016-site/2016-site
-  
+      working-directory: $GITHUB_WORKSPACE
+
   lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      
+
       - name: Set up Go
         uses: WillAbides/setup-go-faster@v1.6.0
         with:
           go-version: 1.17
-      
+
       - name: Lint
         uses: golangci/golangci-lint-action@v2
         with:
           version: latest
-          working-directory: /home/runner/work/2016-site/2016-site
+          working-directory: ${{ env.GITHUB_WORKSPACE }}
