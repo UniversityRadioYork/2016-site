@@ -30,6 +30,9 @@ type ScheduleItem struct {
 	// PageURL is the root-relative URL to this schedule item's page,
 	// or "" if there is no URL.
 	PageURL string
+
+	ContinuesOnNextDay   bool
+	ContinuedFromPrevDay bool
 }
 
 // IsSustainer checks whether this schedule item is the URY sustainer.
