@@ -46,7 +46,7 @@ func (m *ShortURLModel) TrackClick(id uint, visitorUserAgent string, visitorIP n
 func (m *ShortURLModel) doTickUpdate() {
 	urls, err := m.s.GetAllShortURLs()
 	if err != nil {
-		log.Printf("when getting short URLs: %w", err)
+		log.Printf("when getting short URLs: %v", err)
 		return
 	}
 
