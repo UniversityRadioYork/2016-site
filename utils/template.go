@@ -107,6 +107,9 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 			}
 			return strings.Join(parts, " ")
 		},
+		"formatTime": func(fmt string, t time.Time) string {
+			return t.Format(fmt)
+		},
 		// TODO(CaptainHayashi): this is temporary
 		"stripHTML": func(s string) string {
 			d, err := StripHTML(s)

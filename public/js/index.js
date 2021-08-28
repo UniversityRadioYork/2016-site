@@ -108,20 +108,19 @@ function getYoutubeFeed(playlistid, results, htmlid) {
 function countdown() {
   if (window.isCountdown) {
     const now = new Date();
-    const countTo = new Date("2021-03-02T18:00:00Z");
 
-    const diffSeconds = (countTo - now) / 1000;
+    const diffSeconds = (window.countingTo - now) / 1000;
     var timerSeconds = (diffSeconds % 60);
     var timerMinutes = Math.floor((diffSeconds % 3600) / 60)
     var timerHours = Math.floor((diffSeconds % 86400) / 3600)
     var timerDays = Math.floor(diffSeconds / 86400);
 
-    if (timerSeconds.toFixed(0) == "60") {
+    if (timerSeconds.toFixed(0) === "60") {
       timerSeconds = 0;
       timerMinutes++;
     }
 
-    if (timerMinutes.toFixed(0) == "60") {
+    if (timerMinutes.toFixed(0) === "60") {
       timerMinutes = 0;
       timerHours++;
     }
@@ -133,10 +132,10 @@ function countdown() {
       timerSeconds = 0;
     }
 
-    document.getElementById("countdownDays").innerText = timerDays.toFixed(0);
-    document.getElementById("countdownHours").innerText = timerHours.toFixed(0).padStart(2, "0");
-    document.getElementById("countdownMinutes").innerText = timerMinutes.toFixed(0).padStart(2, "0");
-    document.getElementById("countdownSeconds").innerText = timerSeconds.toFixed(0).padStart(2, "0");
+    document.getElementById("indexCountdownDays").innerText = timerDays.toFixed(0);
+    document.getElementById("indexCountdownHours").innerText = timerHours.toFixed(0).padStart(2, "0");
+    document.getElementById("indexCountdownMinutes").innerText = timerMinutes.toFixed(0).padStart(2, "0");
+    document.getElementById("indexCountdownSeconds").innerText = timerSeconds.toFixed(0).padStart(2, "0");
 
     window.setTimeout(countdown, 1000);
   }

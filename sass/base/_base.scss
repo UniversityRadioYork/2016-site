@@ -121,7 +121,7 @@ $breakpoints: sm, md, lg, xl;
   text-decoration: none;
 }
 
-.istorn2020-countdown {
+.index-countdown-wrapper {
   height: 100vh !important;
   background-color: transparent;
   display: flex;
@@ -139,7 +139,7 @@ $breakpoints: sm, md, lg, xl;
   }
 }
 
-.istorn-countdown {
+.index-countdown {
   display: inline-block;
   //background-color: white;
   font-family: "Raleway", sans-serif;
@@ -154,7 +154,7 @@ $breakpoints: sm, md, lg, xl;
   }
 }
 
-#istorn020_bg {
+#index-countdown-video {
   position: fixed;
   bottom: 0;
   right: 0;

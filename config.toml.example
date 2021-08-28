@@ -32,8 +32,7 @@
 
 	christmas = true
 	aprilFools = false
-	istorn2020 = false
-	
+
 	# Candidate Interview Night Stuff
 	cin = true
 	cinLivestreaming = true
@@ -46,6 +45,11 @@
 	odName = "On Tap"
 
 	publicMyRadioAPIKey = "DFm1QGGyDZXHvGjjKYxv72ItpZe5oPiNvqTKEJLC2CmPYvdbYQ591DNKhpXwb1U9NVIgBuQ4XOBdSAKbaGzliqHm7pu4H4PxmO7mrH4JvKV6dBZx5n32obnEE2pE9vWC"
+
+  [pageContext.indexCountdown]
+    enabled = true
+    until = "2021-09-01T12:00:00+01:00"
+    callout = ""
 
 	[[pageContext.pages]]
 		name = "Search"

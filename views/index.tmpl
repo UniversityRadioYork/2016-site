@@ -1,6 +1,8 @@
 {{define "content"}}
-  {{if .PageContext.ISTORN2020}}
-    {{template "istorn2020_countdown" .}}
+  {{if .PageContext.IndexCountdown }}
+    {{ if .PageContext.IndexCountdown.Enabled }}
+        {{template "index_countdown" .}}
+    {{end}}
   {{end}}
   <div class="container-fluid header-large current-next position-relative">
   <img src="/images/sra-2020-bug.png" class="sra-2020-bug" alt="" />
@@ -113,7 +115,12 @@ var youtubeCINPlaylistID = "{{.PageContext.Youtube.CINPlaylistID}}";
 var isIndex = true;
 var isCIN = {{if .PageContext.CIN}}true{{else}}false{{end}};
 var isOD = false;
-var isISTORN2020 = {{if .PageContext.ISTORN2020}}true{{else}}false{{end}};
+{{ if .PageContext.IndexCountdown }}
+{{ if .PageContext.IndexCountdown.Enabled}}
+var isCountdown = true;
+var countingTo = new Date("{{ .PageContext.IndexCountdown.Until.Time | formatTime "2006-01-02T15:04:05Z07:00" }}")
+{{end}}
+{{end}}
 </script>
 <script src='{{url "js/index.js"}}?ver={{ .PageContext.CacheBuster }}'></script>
 <script src="https://apis.google.com/js/client.js?onload=onGoogleLoad"></script>
