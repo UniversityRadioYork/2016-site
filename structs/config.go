@@ -1,5 +1,7 @@
 package structs
 
+import "time"
+
 // Config is a structure containing global website configuration.
 //
 // See the comments for Server and PageContext for more details.
@@ -25,25 +27,25 @@ type Server struct {
 // This contains the website's long and short names, as well as a directory
 // of pages for navigation.
 type PageContext struct {
-	LongName         string `toml:"longName"`
-	ShortName        string `toml:"shortName"`
-	SiteDescription  string `toml:"siteDescription"`
-	URLPrefix        string `toml:"urlPrefix"`
-	FullURL          string `toml:"fullURL"`
-	MainTwitter      string `toml:"mainTwitter"`
-	MainFacebook     string `toml:"mainFacebook"`
-	NewsTwitter      string `toml:"newsTwitter"`
-	MyRadioAPIKey    string `toml:"publicMyRadioAPIKey"`
-	ODName           string `toml:"odName"`
-	Christmas        bool   `toml:"christmas"`
-	AprilFools       bool   `toml:"aprilFools"`
-	CIN              bool   `toml:"cin"`
-	CINLivestreaming bool   `toml:"cinLivestreaming"`
-	CINAPI           string `toml:"cinAPI"`
-	CINHashtag       string `toml:"cinHashtag"`
-	CINLive          string `toml:"cinLive"`
-	ISTORN2020       bool   `toml:"istorn2020"`
-	CacheBuster      string `toml:"cacheBuster"`
+	LongName         string                `toml:"longName"`
+	ShortName        string                `toml:"shortName"`
+	SiteDescription  string                `toml:"siteDescription"`
+	URLPrefix        string                `toml:"urlPrefix"`
+	FullURL          string                `toml:"fullURL"`
+	MainTwitter      string                `toml:"mainTwitter"`
+	MainFacebook     string                `toml:"mainFacebook"`
+	NewsTwitter      string                `toml:"newsTwitter"`
+	MyRadioAPIKey    string                `toml:"publicMyRadioAPIKey"`
+	ODName           string                `toml:"odName"`
+	Christmas        bool                  `toml:"christmas"`
+	AprilFools       bool                  `toml:"aprilFools"`
+	CIN              bool                  `toml:"cin"`
+	CINLivestreaming bool                  `toml:"cinLivestreaming"`
+	CINAPI           string                `toml:"cinAPI"`
+	CINHashtag       string                `toml:"cinHashtag"`
+	CINLive          string                `toml:"cinLive"`
+	IndexCountdown   *IndexCountdownConfig `toml:"indexCountdown"`
+	CacheBuster      string                `toml:"cacheBuster"`
 	Pages            []Page
 	Youtube          youtube
 	Gmaps            gmaps
@@ -60,6 +62,12 @@ type ScheduleConfig struct {
 type SustainerConfig struct {
 	Name string `toml:"name"`
 	Desc string `toml:"desc"`
+}
+
+type IndexCountdownConfig struct {
+	Enabled bool     `toml:"enabled"`
+	Until   tomlTime `toml:"until"`
+	Callout string   `toml:"callout"`
 }
 
 // Page is a structure describing a page in the website navigation system.
@@ -85,4 +93,14 @@ type gmaps struct {
 type ShortURLsConfig struct {
 	// UpdateInterval is how often the short URLs should be refreshed, in seconds.
 	UpdateInterval uint `toml:"updateInterval"`
+}
+
+type tomlTime struct {
+	time.Time
+}
+
+func (t *tomlTime) UnmarshalText(text []byte) error {
+	var err error
+	t.Time, err = time.Parse(time.RFC3339, string(text))
+	return err
 }
