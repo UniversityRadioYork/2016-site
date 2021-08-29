@@ -1,8 +1,10 @@
 {{define "index_countdown"}}
   {{with .PageContext.IndexCountdown }}
-    <video autoplay muted loop id="index-countdown-video">
-      <source src="images/index_countdown_bg.mp4" type="video/mp4" />
-    </video>
+    <div class="index-countdown-video-wrapper">
+      <video autoplay muted loop id="index-countdown-video">
+        <source src="images/index_countdown_bg.mp4" type="video/mp4" />
+      </video>
+    </div>
     <div class="index-countdown-wrapper">
       <div class="row align-items-center text-center">
         <div class="col">

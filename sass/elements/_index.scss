@@ -13,3 +13,59 @@
     }
   }
 }
+
+.index-countdown-video-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  #index-countdown-video {
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -100;
+    background-color: #002d5a;
+  }
+}
+
+.index-countdown-wrapper {
+  height: 100vh !important;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  .callout {
+    color: #c9c9c9;
+    font-size: 1.8rem;
+    font-style: italic;
+    font-family: Raleway, Roboto, sans-serif;
+  }
+}
+
+.index-countdown {
+  display: inline-block;
+  //background-color: white;
+  font-family: "Raleway", sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: white;
+  padding: 0.15em;
+  //letter-spacing: 0.4rem;
+  //border: 2px solid $cin-primary;
+  .smol {
+    font-size: 50%;
+  }
+}
+
