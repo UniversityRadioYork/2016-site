@@ -17,6 +17,10 @@
 	timeout	= 0
 	myradio_api = "https://www.ury.org.uk/api/v2"
 
+# Shorturl update interval
+[shortUrls]
+	updateInterval = 100
+
 # This is data that will be passed into all templates
 [pageContext]
 	longName  = "University Radio York"
@@ -38,7 +42,7 @@
 	cinLivestreaming = true
 	cinAPI = "http://127.0.0.1:8000"
 	cinHashtag = "#CIN21"
-	cinLive = "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FURY1350%2F&width=800&show_text=false&height=0&appId"	
+	cinLive = "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FURY1350%2F&width=800&show_text=false&height=0&appId"
 
 	cacheBuster = "v1"
 
