@@ -104,6 +104,13 @@ function getYoutubeFeed(playlistid, results, htmlid) {
   });
 }
 
+if (window.isCountdown) {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.getElementById("index-countdown-video").autoplay = false;
+    document.getElementById("index-countdown-video").pause();
+  }
+}
+
 // Countdown Timer
 function countdown() {
   if (window.isCountdown) {
