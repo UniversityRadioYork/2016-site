@@ -17,7 +17,7 @@
 
 [[faqs]]
 question = "How do I listen to URY?"
-answer = "Grab the boombox from your parents’ attic and tune it to 1350AM, go to our website: ury.org.uk/live, ask your smart speaker “play University Radio York”, or get the Radioplayer, TuneIn, or Apple Music app."
+answer = "Grab the boombox from your parents’ attic and tune it to 1350AM or 88.3FM, go to our website: ury.org.uk/live, ask your smart speaker “play University Radio York”, or get the Radioplayer, TuneIn, or Apple Music app."
 
 [[faqs]]
 question = "Can I get a show?"
@@ -44,22 +44,14 @@ answer = "Our station building is near the Vanbrugh nucleus building, around the
 seemore = "contact#map"
 
 [[faqs]]
-question = "What measures are you taking to protect against COVID-19?"
-answer = "The number of shows in our physical studios is strictly limited, as is the number of people in the studios. All equipment is cleaned and quarantined after each show, we ask presenters to use their own headphones rather than sharing, and we have perspex screens on our desks. In addition, everyone in the building must wear face coverings unless presenting or exempt. If you don’t feel comfortable presenting from our studios, you are more than welcome to do your show remotely - we have industry-grade technology to enable anyone to broadcast from their home, in fact we expect most of our shows will use this tech."
-
-[[faqs]]
 question = "Do I have to audition?"
 answer = "No! If you see a space on our schedule, you can fill it - all you need is to be trained."
 seemore = "schedule"
 
 [[faqs]]
-question = "Do I need to do my shows from the studios, or can I do them from home?"
-answer = "In addition to two industry standard studios, we developed our own WebStudio tool last term, enabling anyone to broadcast with just a laptop, a mic, and a pair of headphones. So it is entirely possible for you to do your show without ever leaving your bedroom. You might also be able to do a show from our studios, although this will be subject to availability and social distancing requirements."
-
-[[faqs]]
 question = "I’m not certain yet that I want to join, is there somewhere I can find out more without paying my membership?"
 answer = """You can join our Slack, ury.slack.com, and talk to the teams you’re interested in - each one has their own channel where the team members hang out.
-If you prefer in-person chats, the best place to start is our Production Meetings! There we chat about everything shows and production of shows, and there’s almost always a member of our computing or engineering teams there too, if you’re more interested in the stuff that goes on at our station that isn’t going on air. These are every Monday at 8pm on Zoom - the details will be in our Slack, ury.slack.com, in the #production channel.
+If you prefer in-person chats, the best place to start is our Production Meetings! There we chat about everything shows and production of shows, and there’s almost always a member of our computing or engineering teams there too, if you’re more interested in the stuff that goes on at our station that isn’t going on air. These are every week, and everyone is welcome! The details will be in our Slack, ury.slack.com, in the #production channel.
 Either of these options are a great way to learn more about how we work, as well as meeting some of the people that work to keep us going - we look forward to meeting you!"""
 seemore = "slack"
 
