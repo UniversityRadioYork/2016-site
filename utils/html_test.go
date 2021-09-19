@@ -32,10 +32,9 @@ func TestStripHTML(t *testing.T) {
 	}
 
 	for _, c := range cases {
-		got, err := utils.StripHTML(c.Input)
-		if err != nil {
-			t.Error(err)
-		} else if c.Expected != got {
+		got := utils.StripHTML(c.Input)
+
+    if c.Expected != got {
 			t.Errorf("expected:\n%s\n\ngot:\n%s", c.Expected, got)
 		}
 	}
