@@ -21,8 +21,8 @@ func TestStripHTML(t *testing.T) {
 			Input:    "raw test",
 		},
 		{
-			Expected: "1\n\n2",
-			Input:    "<p>1</p><p>2</p>",
+			Expected: "1\n2",
+			Input:    "<p>1</p>\n<p>2</p>",
 		},
 
 		{
