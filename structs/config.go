@@ -34,6 +34,7 @@ type PageContext struct {
 	FullURL          string                `toml:"fullURL"`
 	MainTwitter      string                `toml:"mainTwitter"`
 	MainFacebook     string                `toml:"mainFacebook"`
+	MainInstagram    string                `toml:"mainInstagram"`
 	NewsTwitter      string                `toml:"newsTwitter"`
 	MyRadioAPIKey    string                `toml:"publicMyRadioAPIKey"`
 	ODName           string                `toml:"odName"`
