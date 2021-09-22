@@ -20,7 +20,7 @@
         <h1 class="display-1">Radio</h1>
         <h2 class="display-4">By Students, For Students.</h2>
         <br>
-        <a href="#signUp" class="btn btn-primary-inverse btn-xl">Sign up</a>
+        <a href="/yusu" class="btn btn-primary-inverse btn-xl">Buy Membership</a>
       </div>
     </div>
   </div>
@@ -38,28 +38,7 @@
   </div>
 </div>
 
-<div class="container-fluid container-padded  bg-secondary">
-  <div class="container container-padded">
-      <h2>Frequently Asked Questions</h2><br>
-      <div> {{/* Prevents bug where p would appear inline with h2 */}}
-        
-        {{ range .FAQs.FAQs}}
-          <button type="button" class="faq-question">{{.Question}}</button>
-          <div class="faq-answer bg-off-white">
-            <br>
-            <p>{{.Answer}}</p>
-            {{ if .SeeMore }}
-              <a href="/{{ .SeeMore }}">Click here to learn more...</a>
-              <br><br>
-            {{ end }}
-          </div>
-        {{ end}}
-      </div>
-  </div>
-</div>
-
-
-<div class="container-fluid container-padded bg-third" id="signUp">
+<div class="container-fluid container-padded bg-secondary" id="signUp">
   <div class="container container-padded">
     <h1>Sign up today!</h1>
     <hr>
@@ -111,6 +90,27 @@
     </form>
   </div>
 </div>
+
+<div class="container-fluid container-padded  bg-third">
+  <div class="container container-padded">
+      <h2>Frequently Asked Questions</h2><br>
+      <div> {{/* Prevents bug where p would appear inline with h2 */}}
+        
+        {{ range .FAQs.FAQs}}
+          <button type="button" class="faq-question">{{.Question}}</button>
+          <div class="faq-answer bg-off-white">
+            <br>
+            <p>{{.Answer}}</p>
+            {{ if .SeeMore }}
+              <a href="/{{ .SeeMore }}">Click here to learn more...</a>
+              <br><br>
+            {{ end }}
+          </div>
+        {{ end}}
+      </div>
+  </div>
+</div>
+
 {{end}}
 <script src='{{url "/js/faq.js"}}'></script>
 {{end}}

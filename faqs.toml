@@ -27,6 +27,7 @@ seemore = "getinvolved#signUp"
 [[faqs]]
 question = "How much does it cost to be part of URY?"
 answer = "To be on air or work with any of our equipment, you must pay membership for the year, which is £7 to do as much as you want."
+seemore = "yusu"
 
 [[faqs]]
 question = "Do I have to be on air?"
@@ -53,6 +54,12 @@ question = "I’m not certain yet that I want to join, is there somewhere I can 
 answer = """You can join our Slack, ury.slack.com, and talk to the teams you’re interested in - each one has their own channel where the team members hang out.
 If you prefer in-person chats, the best place to start is our Production Meetings! There we chat about everything shows and production of shows, and there’s almost always a member of our computing or engineering teams there too, if you’re more interested in the stuff that goes on at our station that isn’t going on air. These are every week, and everyone is welcome! The details will be in our Slack, ury.slack.com, in the #production channel.
 Either of these options are a great way to learn more about how we work, as well as meeting some of the people that work to keep us going - we look forward to meeting you!"""
+seemore = "slack"
+
+[[faqs]]
+question = "What do I join to get involved?"
+answer = """We use Slack to talk within URY and keep everyone up to date as to what’s being discussed. It’s similar to Discord or Messenger. Find more at ury.slack.com and join any messaging channel you’re interested in.
+You should also join MyRadio, our internal website. Fill out the form on this page to get that done!"""
 seemore = "slack"
 
 [[faqs]]
