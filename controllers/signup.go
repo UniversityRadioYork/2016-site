@@ -66,11 +66,16 @@ func (gic *SignUpController) Post(w http.ResponseWriter, r *http.Request) {
 	//If they are then post them off to the API
 	if len(feedback) == 0 {
 		sm := models.NewSignUpModel(gic.session)
-		err := sm.Post(formParams)
+		created, err := sm.Post(formParams)
 		if err != nil {
 			log.Println(err)
 			feedback = append(feedback, "Oops. Something went wrong on our end.")
 			feedback = append(feedback, "Please try again later")
+		}
+		if !created {
+			feedback = append(feedback, "Looks like you already have an account!")
+			feedback = append(feedback, "Head over to "+gic.config.PageContext.FullURL+"/myradio to get started.")
+			feedback = append(feedback, "If you can't sign in, click 'I've forgotten my login' to reset it.")
 		}
 	}
 

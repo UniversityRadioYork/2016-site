@@ -21,10 +21,13 @@ func NewSignUpModel(s *myradio.Session) *SignUpModel {
 // Post posts the data from the sign up form to the api
 //
 // Returns an error or lack thereof based on success
-func (m *SignUpModel) Post(formParams map[string][]string) (err error) {
+func (m *SignUpModel) Post(formParams map[string][]string) (createdNewUser bool, err error) {
 	user, err := m.session.CreateOrActivateUser(formParams)
 	if err != nil {
 		log.Println(err)
+		return
+	}
+	if user == nil {
 		return
 	}
 	for _, listID := range formParams["interest"] {
@@ -39,5 +42,6 @@ func (m *SignUpModel) Post(formParams map[string][]string) (err error) {
 			log.Println(err)
 		}
 	}
+	createdNewUser = true
 	return
 }
