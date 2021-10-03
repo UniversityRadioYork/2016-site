@@ -21,11 +21,9 @@
     <div class="row">
       <div class="col-md-3"></div>
       <div class="col-md-6">
-        <ul>
-          {{range .Feedback}}
-            <li>{{.}}</li>
-          {{end}}
-        </ul>
+        {{range .Feedback}}
+          <p>{{.}}</p>
+        {{end}}
         <br>
         <p class="text-center"><a href="/getinvolved#getInvolvedForm">&lt; Back to the form</a></p>
       </div>
