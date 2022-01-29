@@ -5,33 +5,26 @@ import (
 	"log"
 	"time"
 
-	"github.com/BurntSushi/toml"
-	"github.com/UniversityRadioYork/2016-site/structs"
-	"github.com/UniversityRadioYork/2016-site/utils"
+	"github.com/UniversityRadioYork/2016-site/config"
+	"github.com/UniversityRadioYork/2016-site/controller"
 	"github.com/stretchr/graceful"
 )
 
 func main() {
 	log.SetFlags(log.Llongfile)
-
-	config := &structs.Config{}
-	_, err := toml.DecodeFile("config.toml", config)
+	config, err := config.New("config.toml")
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	if config.Schedule.StartHour != 0 {
-		utils.StartHour = config.Schedule.StartHour
-	}
-
-	config.PageContext.CurrentYear = time.Now().Year()
-
-	s, err := NewServer(config)
+	s, err := config.Session()
 	if err != nil {
 		log.Fatal(err)
 	}
-
+	c := controller.Controller{
+		Session: s,
+		Config:  config,
+	}
 	l := fmt.Sprintf("%s:%d", config.Server.Address, config.Server.Port)
 	log.Printf("Listening on: %s", l)
-	graceful.Run(l, time.Duration(config.Server.Timeout), s)
+	graceful.Run(l, time.Duration(config.Server.Timeout), c.Handler())
 }
