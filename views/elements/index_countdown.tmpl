@@ -1,11 +1,17 @@
 {{define "index_countdown"}}
   {{with .PageContext.IndexCountdown }}
-    <div class="index-countdown-video-wrapper">
-      <video autoplay muted loop id="index-countdown-video">
-        <source src="images/index_countdown_bg.mp4" type="video/mp4" />
-      </video>
-    </div>
+    {{if eq .Background.Type "video"}}
+      <div class="index-countdown-video-wrapper">
+        <video autoplay muted loop id="index-countdown-video">
+          <source src="{{.Background.Source}}" type="video/mp4" />
+        </video>
+      </div>
+    {{end}}
+    {{if eq .Background.Type "image"}}
+    <div class="index-countdown-wrapper image" style="background-image: url('{{.Background.Source}}')">
+    {{else}}
     <div class="index-countdown-wrapper">
+    {{end}}
       <div class="row align-items-center text-center">
         <div class="col">
           <div class="display-3">
@@ -20,9 +26,19 @@
       </div>
       <div class="row align-items-center text-center">
         <div class="col">
-          <div class="callout">
-            {{ .Callout }}
+
+          {{ if ne .LinkTo "" }}
+          <div class="callout link">
+            <a href="{{.LinkTo}}">
+              {{ .Callout }}
+            </a>
           </div>
+          {{else}}
+          <div class="callout">
+            {{.Callout}}
+          </div>
+          {{end}}
+
         </div>
       </div>
     </div>

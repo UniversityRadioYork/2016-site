@@ -65,10 +65,24 @@ type SustainerConfig struct {
 	Desc string `toml:"desc"`
 }
 
+type IndexCountdownBackgroundType string
+
+const (
+	CountdownBackgroundVideo IndexCountdownBackgroundType = "video"
+	CountdownBackgroundImage                              = "image"
+)
+
+type IndexCountdownBackground struct {
+	Type   IndexCountdownBackgroundType `toml:"type"`
+	Source string                       `toml:"source"`
+}
+
 type IndexCountdownConfig struct {
-	Enabled bool     `toml:"enabled"`
-	Until   tomlTime `toml:"until"`
-	Callout string   `toml:"callout"`
+	Enabled    bool                     `toml:"enabled"`
+	Until      tomlTime                 `toml:"until"`
+	Callout    string                   `toml:"callout"`
+	LinkTo     string                   `toml:"linkTo"`
+	Background IndexCountdownBackground `toml:"background"`
 }
 
 // Page is a structure describing a page in the website navigation system.
