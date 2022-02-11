@@ -47,11 +47,23 @@
   justify-content: center;
   padding: 0;
   margin: 0;
+
+  &.image {
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
   .callout {
     color: #c9c9c9;
     font-size: 1.8rem;
     font-style: italic;
     font-family: Raleway, Roboto, sans-serif;
+    &.link a {
+      color: #fafafa;
+      font-weight: bold;
+      text-decoration: underline;
+      text-decoration-thickness: 0.1em;
+    }
   }
 }
 
