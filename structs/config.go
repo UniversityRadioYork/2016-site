@@ -69,7 +69,7 @@ type IndexCountdownBackgroundType string
 
 const (
 	CountdownBackgroundVideo IndexCountdownBackgroundType = "video"
-	CountdownBackgroundImage                              = "image"
+	CountdownBackgroundImage IndexCountdownBackgroundType = "image"
 )
 
 type IndexCountdownBackground struct {
