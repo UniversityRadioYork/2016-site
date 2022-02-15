@@ -210,6 +210,9 @@ const ScheduleArea = () => {
                     ) {
                         if (new Date(event.end_time).getTime() < Date.now()) {
                             let youtube = event.interview.youtube_id;
+                            if (typeof youtube === "string" && youtube === "") {
+                              youtube = null;
+                            }
 
                             scheduleData.push({
                                 "type": "PAST",
