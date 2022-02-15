@@ -168,7 +168,7 @@ const ScheduleArea = () => {
         const searchTerm = useRef("");
         const [searched, setSearched] = useState(true);
         const [youtubeVid, setYoutubeVid] = useState(getLatestODVideo());
-        const [youtubeTitle, setYoutubeTitle] = useState("You Just Missed");
+        const [youtubeTitle, setYoutubeTitle] = useState(getLatestODVideo() == defaultYouTube ? "On Demand Videos Available Soon!" : "You Just Missed");
 
         const handleSearch = (event) => {
             searchTerm.current = event.target.value;
@@ -177,7 +177,12 @@ const ScheduleArea = () => {
 
         const updateYoutube = (id) => {
             setYoutubeVid(id);
-            setYoutubeTitle("");
+
+            if (id == defaultYouTube) {
+                setYoutubeTitle("On Demand Videos Available Soon!");
+            } else {
+                setYoutubeTitle("");
+            }
         };
 
         const updateSchedule = (auto) => {
@@ -257,14 +262,9 @@ const ScheduleArea = () => {
                 } else {
                     setSlots(scheduleData);
 
-                    if (youtubeTitle != "") {
-                        setYoutubeVid(getLatestODVideo());
-
-                        if (youtubeVid == defaultYouTube) {
-                            setYoutubeTitle("On Demand Videos Available Soon!");
-                        } else {
-                            setYoutubeTitle("You Just Missed");
-                        }
+                    if (youtubeVid == defaultYouTube) {
+                        setYoutubeVid(getLatestODVideo())
+                        setYoutubeTitle("You Just Missed")
                     }
                 }
             }

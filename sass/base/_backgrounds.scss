@@ -70,7 +70,8 @@
 }
 
 .bg-cin-2 {
-  background: linear-gradient(190deg, rgba(125,229,81,1) 0%, rgba(1,207,254,1) 100%);
+  // background: linear-gradient(190deg, #F96CDF, #292929 100%);
+  background: $cin-dark-primary;
 }
 
 .bg-cin-space {
