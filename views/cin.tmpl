@@ -28,10 +28,10 @@
     <div class="container-fluid container-padded text-center">
       <table align="center">
         <tr>
-          <td class="cin-count"><h1 id="countdownDays"></td>
-          <td class="cin-count"><h1 id="countdownHours"></td>
-          <td class="cin-count"><h1 id="countdownMinutes"></td>
-          <td class="cin-count"><h1 id="countdownSeconds"></td>
+          <td class="cin-count"><h1 id="indexCountdownDays"></td>
+          <td class="cin-count"><h1 id="indexCountdownHours"></td>
+          <td class="cin-count"><h1 id="indexCountdownMinutes"></td>
+          <td class="cin-count"><h1 id="indexCountdownSeconds"></td>
         </tr><tr>
           <td class="cin-count">DAYS</td>
           <td class="cin-count">HOURS</td>
@@ -40,7 +40,7 @@
         </tr>
       </table>
       <br>
-      <h2 class="cin-text-2">The broadcast will start at 6pm on Tuesday 2nd March.</h2>
+      <h2 class="cin-text-2">The broadcast will start at 7pm on Thursday 17th February.</h2>
 
       <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FURY1350&tabs=events&width=500&height=450&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="500" height="450" style="border:none;overflow:hidden; max-width: 90%;" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
     </div>
@@ -57,20 +57,13 @@
 </div>
 </div>
 </div>
-<div id="index-videos" class="container-fluid container-padded bg-cin bg-cin-space">
-    <div id="cin-videos" class="row pb-3 youtube-grid">
-    </div>
-</div>
 {{end}}
 
 {{define "footer-scripts"}}
-<!-- Youtube slider script -->
 <script>
-var youtubeAPIKey = {{.PageContext.Youtube.APIKey}};
-var youtubeSessionsPlaylistID = "{{.PageContext.Youtube.SessionsPlaylistID}}";
-var youtubeCINPlaylistID = "{{.PageContext.Youtube.CINPlaylistID}}";
-var youtubeLink = "{{.PageContext.Youtube.ChannelURL}}";
 var isIndex = false;
+var isCountdown = true;
+var countingTo = new Date("{{ .PageContext.IndexCountdown.Until.Time | formatTime "2006-01-02T15:04:05Z07:00" }}")
 var isCIN = true;
 var cinAPI = {{.PageContext.CINAPI}};
 var isCINlive = {{.PageContext.CINLivestreaming}};

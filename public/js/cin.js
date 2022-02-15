@@ -13,9 +13,9 @@ import htm from "https://unpkg.com/htm?module";
 // Initialize htm with Preact
 const html = htm.bind(h);
 
-var interviews = [];
+let interviews = [];
 
-var refreshTime = 3000;
+let refreshTime = 3000;
 const longTermRefreshTime = 20000;
 const defaultYouTube = "dtRgUJHNHII";
 
@@ -87,7 +87,7 @@ const LiveScheduleCard = (props) => {
 };
 
 const PastScheduleCard = (props) => {
-    var playButton = "";
+    let playButton = "";
     if (props.youtubeID != null) {
         playButton = html `<a
       href="javascript:void(0)"
@@ -97,7 +97,7 @@ const PastScheduleCard = (props) => {
     ></a>`;
     }
 
-    var youtubeStatus = "";
+    let youtubeStatus = "";
     if (props.youtubeStatus == "WATCH") {
         youtubeStatus = html `<a class="cin-text-2" href="javascript:void(0)"
         >Watch on YouTube</a
@@ -132,7 +132,7 @@ const PastScheduleCard = (props) => {
 };
 
 function prettifyCandidates(candidates) {
-    var names = [];
+    let names = [];
     candidates.forEach((candidate) => {
         names.push(candidate.full_name);
     });
@@ -140,7 +140,7 @@ function prettifyCandidates(candidates) {
 }
 
 const getInterviewers = (event) => {
-    var names = [];
+    let names = [];
     event.user_roles.forEach((user) => {
         if (user.role.name == "Interviewer") {
             names.push(user.user.name + (user.user.postnom.length > 0 ? (" (" + user.user.postnom + ")") : ""));
@@ -168,7 +168,7 @@ const ScheduleArea = () => {
         const searchTerm = useRef("");
         const [searched, setSearched] = useState(true);
         const [youtubeVid, setYoutubeVid] = useState(getLatestODVideo());
-        const [youtubeTitle, setYoutubeTitle] = useState("You Just Missed");
+        const [youtubeTitle, setYoutubeTitle] = useState(getLatestODVideo() == defaultYouTube ? "On Demand Videos Available Soon!" : "You Just Missed");
 
         const handleSearch = (event) => {
             searchTerm.current = event.target.value;
@@ -177,13 +177,18 @@ const ScheduleArea = () => {
 
         const updateYoutube = (id) => {
             setYoutubeVid(id);
-            setYoutubeTitle("");
+
+            if (id == defaultYouTube) {
+                setYoutubeTitle("On Demand Videos Available Soon!");
+            } else {
+                setYoutubeTitle("");
+            }
         };
 
         const updateSchedule = (auto) => {
             if (!auto || searchTerm.current == "") {
                 console.log("Update Schedule");
-                var scheduleData = [{
+                let scheduleData = [{
                     "type": "SEARCH"
                 }];
                 interviews.forEach((event) => {
@@ -204,7 +209,10 @@ const ScheduleArea = () => {
                         ) != -1
                     ) {
                         if (new Date(event.end_time).getTime() < Date.now()) {
-                            var youtube = event.interview.youtube_id;
+                            let youtube = event.interview.youtube_id;
+                            if (typeof youtube === "string" && youtube === "") {
+                              youtube = null;
+                            }
 
                             scheduleData.push({
                                 "type": "PAST",
@@ -257,14 +265,9 @@ const ScheduleArea = () => {
                 } else {
                     setSlots(scheduleData);
 
-                    if (youtubeTitle != "") {
-                        setYoutubeVid(getLatestODVideo());
-
-                        if (youtubeVid == defaultYouTube) {
-                            setYoutubeTitle("On Demand Videos Available Soon!");
-                        } else {
-                            setYoutubeTitle("You Just Missed");
-                        }
+                    if (youtubeVid == defaultYouTube) {
+                        setYoutubeVid(getLatestODVideo())
+                        setYoutubeTitle("You Just Missed")
                     }
                 }
             }
@@ -282,7 +285,7 @@ const ScheduleArea = () => {
             setSearched(true);
         });
 
-        var youtubeColumn = "";
+        let youtubeColumn = "";
         if (isCINlive) {
             youtubeColumn = html `
       <div class="col">
@@ -454,7 +457,7 @@ const LiveArea = () => {
         }
       } else {
         setShowLive(false);
-        var intDate = new Date(interviews[i].start_time);
+        let intDate = new Date(interviews[i].start_time);
         if (
           intDate.getTime() > Date.now() &&
           intDate.getTime() < Date.now() + 900000
@@ -517,9 +520,9 @@ const quickSortTime = (data) => {
   if (data.length === 0) {
     return [];
   } else {
-    var before = [];
-    var after = [];
-    var pivot = data[0];
+    let before = [];
+    let after = [];
+    let pivot = data[0];
     for (let i = 1; i < data.length; i++) {
       if (
         new Date(data[i].start_time).getTime() <
@@ -539,7 +542,7 @@ const getData = async () => {
   fetch(cinAPI + "/events/")
     .then((r) => r.json())
     .then((data) => {
-      var usableEvents = [];
+      let usableEvents = [];
       data.data.forEach((x) => {
         if (x.interview != null) {
           usableEvents.push(x);
