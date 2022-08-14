@@ -60,10 +60,16 @@
   {{if not .EndTime.IsZero}}
     {{- if .StartTime.IsZero -}}
       Now
+    {{- else if gt (subTime .StartTime now) 86400000000000 -}}
+        {{- .StartTime.Format "Monday 15:04" -}}
     {{- else -}}
       {{- .StartTime.Format "15:04" -}}
     {{- end}} -
-    {{.EndTime.Format "15:04"}}
+    {{ if gt (subTime .EndTime now) 86400000000000 -}}
+      {{.EndTime.Format "Monday 15:04"}}
+    {{- else -}}
+      {{.EndTime.Format "15:04"}}
+    {{- end -}}
   {{end}}
 </div>
 {{else}}
