@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"strconv"
 	"time"
+
+	"github.com/UniversityRadioYork/myradio-go"
 )
 
 //
@@ -182,4 +184,16 @@ func FormatWeekRelativeTo(start, now time.Time) string {
 	// If we got here, we can't give a fancy name to this week.
 	sun := startm.AddDate(0, 0, 6)
 	return startm.Format("02 Jan 2006") + " to " + sun.Format("02 Jan 2006")
+}
+
+// coerceTime takes a time.Time or myradio.Time and returns a time.Time.
+func coerceTime(raw interface{}) (time.Time, error) {
+	switch typ := raw.(type) {
+	case time.Time:
+		return typ, nil
+	case myradio.Time:
+		return typ.Time, nil
+	default:
+		return time.Time{}, fmt.Errorf("invalid time type: %T", raw)
+	}
 }

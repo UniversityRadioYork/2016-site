@@ -8,9 +8,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/UniversityRadioYork/2016-site/structs"
-	myradio "github.com/UniversityRadioYork/myradio-go"
 	"github.com/gedex/inflector"
+
+	"github.com/UniversityRadioYork/2016-site/structs"
+	"github.com/UniversityRadioYork/myradio-go"
 )
 
 // TemplatePrefix is the constant containing the filepath prefix for templates.
@@ -109,6 +110,22 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 		},
 		"formatTime": func(fmt string, t time.Time) string {
 			return t.Format(fmt)
+		},
+		"now": func() time.Time {
+			return time.Now()
+		},
+		"subTime": func(aRaw, bRaw interface{}) (time.Duration, error) {
+			var a, b time.Time
+			var err error
+			a, err = coerceTime(aRaw)
+			if err != nil {
+				return 0, err
+			}
+			b, err = coerceTime(bRaw)
+			if err != nil {
+				return 0, err
+			}
+			return a.Sub(b), nil
 		},
 		// TODO(CaptainHayashi): this is temporary
 		"stripHTML": func(s string) string {
