@@ -101,7 +101,11 @@ func (c *Controller) handleError(w http.ResponseWriter, r *http.Request, err err
 	pc, file, line, ok := runtime.Caller(1)
 	if ok {
 		fn := runtime.FuncForPC(pc)
-		context = fmt.Sprintf("%s at %s:%d (%s)", context, file, line, fn.Name())
+		if fn != nil {
+			context = fmt.Sprintf("%s [at %s:%d (%s)]", context, file, line, fn.Name())
+		} else {
+			context = fmt.Sprintf("%s [at %s:%d]", context, file, line)
+		}
 	}
 
 	var apiErr api.Error

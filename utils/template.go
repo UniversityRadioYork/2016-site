@@ -156,7 +156,11 @@ func logTemplateError(errMsg string, args ...interface{}) {
 	pc, file, line, ok := runtime.Caller(2)
 	if ok {
 		fn := runtime.FuncForPC(pc)
-		msg = fmt.Sprintf("%s [from %s (%s:%d)]", msg, fn.Name(), file, line)
+		if fn != nil {
+			msg = fmt.Sprintf("%s [at %s:%d (%s)]", msg, file, line, fn.Name())
+		} else {
+			msg = fmt.Sprintf("%s [at %s:%d]", msg, file, line)
+		}
 	}
 	log.Println(msg)
 }
