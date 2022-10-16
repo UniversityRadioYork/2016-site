@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/UniversityRadioYork/2016-site/models"
@@ -29,8 +28,7 @@ func (onDemandC *OnDemandController) Get(w http.ResponseWriter, r *http.Request)
 	latestPodcasts, err := PodcastsM.GetAllPodcasts(10, 0)
 
 	if err != nil {
-		log.Println(err)
-		utils.RenderTemplate(w, onDemandC.config.PageContext, err, "404.tmpl")
+		onDemandC.handleError(w, r, err, "PodcastModel.GetAllPodcasts")
 		return
 	}
 
@@ -39,8 +37,7 @@ func (onDemandC *OnDemandController) Get(w http.ResponseWriter, r *http.Request)
 	latestTimeslots, err := OnDemandM.GetLastMixcloudTimeslots()
 
 	if err != nil {
-		log.Println(err)
-		utils.RenderTemplate(w, onDemandC.config.PageContext, err, "404.tmpl")
+		onDemandC.handleError(w, r, err, "OnDemandModel.GetLastMixcloudTimeslots")
 		return
 	}
 
@@ -52,10 +49,5 @@ func (onDemandC *OnDemandController) Get(w http.ResponseWriter, r *http.Request)
 		LatestTimeslots: latestTimeslots,
 	}
 
-	err = utils.RenderTemplate(w, onDemandC.config.PageContext, data, "on_demand.tmpl")
-	if err != nil {
-		log.Println(err)
-		return
-	}
-
+	utils.RenderTemplate(w, onDemandC.config.PageContext, data, "on_demand.tmpl")
 }

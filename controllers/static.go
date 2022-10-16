@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/UniversityRadioYork/2016-site/structs"
@@ -21,44 +20,24 @@ func NewStaticController(c *structs.Config) *StaticController {
 
 // GetAbout handles the HTTP GET request r for the About page, writing to w.
 func (staticC *StaticController) GetAbout(w http.ResponseWriter, r *http.Request) {
-	err := utils.RenderTemplate(w, staticC.config.PageContext, nil, "about.tmpl")
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	utils.RenderTemplate(w, staticC.config.PageContext, nil, "about.tmpl")
 }
 
 // GetContact handles the HTTP GET request r for the Contact page, writing to w.
 func (staticC *StaticController) GetContact(w http.ResponseWriter, r *http.Request) {
-	err := utils.RenderTemplate(w, staticC.config.PageContext, nil, "contact.tmpl")
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	utils.RenderTemplate(w, staticC.config.PageContext, nil, "contact.tmpl")
 }
 
 // GetInvolved handles the HTTP GET request r for the Get Involved page, writing to w.
 func (staticC *StaticController) GetInvolved(w http.ResponseWriter, r *http.Request) {
-	err := utils.RenderTemplate(w, staticC.config.PageContext, nil, "getinvolved.tmpl")
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	utils.RenderTemplate(w, staticC.config.PageContext, nil, "getinvolved.tmpl")
 }
 
 // GetCompetitions handles the HTTP GET request r for the Get Involved page, writing to w.
 func (staticC *StaticController) GetCompetitions(w http.ResponseWriter, r *http.Request) {
-	err := utils.RenderTemplate(w, staticC.config.PageContext, nil, "competitions.tmpl")
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	utils.RenderTemplate(w, staticC.config.PageContext, nil, "competitions.tmpl")
 }
 
 func (staticC *StaticController) GetCIN(w http.ResponseWriter, r *http.Request) {
-	err := utils.RenderTemplate(w, staticC.config.PageContext, nil, "cin.tmpl")
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	utils.RenderTemplate(w, staticC.config.PageContext, nil, "cin.tmpl")
 }

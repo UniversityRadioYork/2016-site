@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"log"
 	"net/http"
 	"sort"
 	"strings"
@@ -48,8 +47,7 @@ func (gic *GetInvolvedController) Get(w http.ResponseWriter, r *http.Request) {
 	colleges, numTeams, listTeamMap, faqs, err := gim.Get()
 
 	if err != nil {
-		//@TODO: Do something proper here, render 404 or something
-		log.Println(err)
+		gic.handleError(w, r, err, "GetInvolvedModel.Get")
 		return
 	}
 
@@ -68,10 +66,5 @@ func (gic *GetInvolvedController) Get(w http.ResponseWriter, r *http.Request) {
 		FAQs:        faqs,
 	}
 
-	err = utils.RenderTemplate(w, gic.config.PageContext, data, "getinvolved.tmpl")
-	if err != nil {
-		log.Println(err)
-		return
-	}
-
+	utils.RenderTemplate(w, gic.config.PageContext, data, "getinvolved.tmpl")
 }

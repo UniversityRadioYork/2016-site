@@ -8,22 +8,23 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/gorilla/mux"
+
 	"github.com/UniversityRadioYork/2016-site/models"
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/2016-site/utils"
 	"github.com/UniversityRadioYork/myradio-go"
-	"github.com/gorilla/mux"
 )
 
 // weekFromVars extracts the year, and week strings from vars.
 func weekFromVars(vars map[string]string) (string, string, error) {
 	y, ok := vars["year"]
 	if !ok {
-		return "", "", errors.New("no year provided")
+		return "", "", utils.NewHTTPError(http.StatusBadRequest, "no year provided")
 	}
 	w, ok := vars["week"]
 	if !ok {
-		return "", "", errors.New("no week provided")
+		return "", "", utils.NewHTTPError(http.StatusBadRequest, "no week provided")
 	}
 
 	return y, w, nil
@@ -94,7 +95,7 @@ func (sc *ScheduleWeekController) GetThisWeek(w http.ResponseWriter, r *http.Req
 	today := time.Now()
 	year, week := today.ISOWeek()
 
-	sc.makeAndRenderWeek(w, year, week)
+	sc.makeAndRenderWeek(w, r, year, week)
 }
 
 // GetByYearWeek handles the HTTP GET request r for week schedules by year/week date reference, writing to w.
@@ -105,46 +106,43 @@ func (sc *ScheduleWeekController) GetByYearWeek(w http.ResponseWriter, r *http.R
 
 	ystr, wstr, err := weekFromVars(vars)
 	if err != nil {
-		log.Println(err)
+		sc.handleError(w, r, err, "weekFromVars")
 		return
 	}
 
 	year, week, _, err := utils.ParseIsoWeek(ystr, wstr, "1")
 	if err != nil {
-		log.Println(err)
+		sc.handleError(w, r, err, "ParseIsoWeek")
 		return
 	}
 
-	sc.makeAndRenderWeek(w, year, week)
+	sc.makeAndRenderWeek(w, r, year, week)
 }
 
 // makeAndRenderWeek makes and renders a week schedule for year and week, writing to w.
-func (sc *ScheduleWeekController) makeAndRenderWeek(w http.ResponseWriter, year, week int) {
+func (sc *ScheduleWeekController) makeAndRenderWeek(w http.ResponseWriter, r *http.Request, year, week int) {
 	m := models.NewScheduleModel(sc.session)
 	ws, err := m.WeekSchedule(year, week, sc.config.Schedule.Sustainer, sc.timeslotURLBuilder)
 	if err != nil {
-		//@TODO: Do something proper here, render 404 or something
-		log.Println(err)
+		sc.handleError(w, r, err, "ScheduleModel.WeekSchedule")
 		return
 	}
 
 	purl, curl, nurl, err := sc.getRelatedScheduleURLs(ws)
 	if err != nil {
-		//@TODO: Do something proper here, render 404 or something
-		log.Println(err)
+		sc.handleError(w, r, err, "scheduleController.getRelatedScheduleURLs")
 		return
 	}
 
 	currentAndNext, err := m.GetCurrentAndNext()
 	if err != nil {
-		log.Println(err)
+		log.Printf("Error from ScheduleModel.GetCurrentAndNext: %v", err)
 		// Safe to continue since we can check if CaN is absent in the template
 	}
 
-	subtypes, err := sc.session.GetAllShowSubtypes()
+	subtypes, err := sc.session.GetAllShowSubtypes() // TODO(markspolakovs): strictly this should be on ScheduleModel
 	if err != nil {
-		//@TODO: Do something proper here, render 404 or something
-		log.Println(err)
+		sc.handleError(w, r, err, "Session.GetAllShowSubtypes")
 		return
 	}
 
@@ -164,11 +162,7 @@ func (sc *ScheduleWeekController) makeAndRenderWeek(w http.ResponseWriter, year,
 		Subtypes:       subtypes,
 	}
 
-	err = utils.RenderTemplate(w, sc.config.PageContext, data, "schedule_week.tmpl", "elements/current_and_next.tmpl")
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	utils.RenderTemplate(w, sc.config.PageContext, data, "schedule_week.tmpl", "elements/current_and_next.tmpl")
 }
 
 // getRelatedScheduleURLs gets the URLs for the previous, current, and next schedules relative to ws.
