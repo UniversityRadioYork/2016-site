@@ -1,0 +1,26 @@
+{{define "title"}}{{.PageContext.ShortName}} | Music{{end}}
+{{define "content"}}
+<div class="container-fluid banner-2">
+  <div class="container">
+    <div class="row align-items-center text-center">
+      <div class="col">
+        <h1 class="display-3">The Music Team Blog</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-padded bg-off-white">
+  <div class="container d-flex flex-column align-items-center">
+    {{range .PageData}}
+      <div class="card my-3 w-75">
+        <div class="card-body">
+            <h2 class="card-title"><a target="_blank" class="stretched-link" href="{{.Link}}">{{.Title}}</a></h2>
+            <p class="card-text">Published on {{.PubDate}}</p>
+            <p class="card-text">{{.Content}}</p>
+            <a href="{{.Link}}" target="_blank" class="btn btn-primary">Read More</a>
+        </div>
+      </div>
+    {{end}}
+  </div>
+</div>
+{{end}}

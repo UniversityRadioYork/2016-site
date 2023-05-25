@@ -55,6 +55,14 @@ func (staticC *StaticController) GetCompetitions(w http.ResponseWriter, r *http.
 	}
 }
 
+func (staticC *StaticController) GetMusic(w http.ResponseWriter, r *http.Request) {
+  err := utils.RenderTemplate(w, staticC.config.PageContext, nil, "music.tmpl")
+  if err != nil {
+    log.Println(err)
+    return
+  }
+}
+
 func (staticC *StaticController) GetCIN(w http.ResponseWriter, r *http.Request) {
 	err := utils.RenderTemplate(w, staticC.config.PageContext, nil, "cin.tmpl")
 	if err != nil {
