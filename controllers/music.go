@@ -6,7 +6,6 @@ import (
   "encoding/xml"
 	"fmt"
 	"io/ioutil"
-  "regexp"
 
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/2016-site/utils"
@@ -71,7 +70,7 @@ func (sc *MusicController) Get(w http.ResponseWriter, r *http.Request) {
   // set content of each post to to scrape the first <em> tag
   for i := range rss.Channel.Items {
     var text string
-    text, err = ExtractFirstEmTagContent(string(rss.Channel.Items[i].Content))
+    text, err = utils.ExtractFirstEmTagContent(string(rss.Channel.Items[i].Content))
     if err == nil {
       rss.Channel.Items[i].Content = text
     }
@@ -91,13 +90,4 @@ func (sc *MusicController) Get(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		return
 	}
-}
-
-func ExtractFirstEmTagContent(htmlStr string) (string, error) {
-	re := regexp.MustCompile(`(?i)<em>(.*?)</em>`)
-	match := re.FindStringSubmatch(htmlStr)
-	if len(match) == 2 {
-		return match[1], nil
-	}
-	return "", fmt.Errorf("no <em> tag found")
 }
