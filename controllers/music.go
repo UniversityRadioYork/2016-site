@@ -36,7 +36,7 @@ func NewMusicController(s *myradio.Session, c *structs.Config) *MusicController 
 // Get handles the HTTP GET request r for the Music page, writing to w.
 func (sc *MusicController) Get(w http.ResponseWriter, r *http.Request) {
   // URL of the RSS feed to query
-  url := "https://medium.com/feed/@urymusic"
+  url := sc.config.Music.RSSFeed
 
   isError := false
 
