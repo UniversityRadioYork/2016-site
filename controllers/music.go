@@ -5,7 +5,7 @@ import (
 	"net/http"
   "encoding/xml"
 	"fmt"
-	"io/ioutil"
+	"io"
   "html"
 
 	"github.com/UniversityRadioYork/2016-site/structs"
@@ -49,7 +49,7 @@ func (sc *MusicController) Get(w http.ResponseWriter, r *http.Request) {
   defer resp.Body.Close()
 
   // Read the response body
-  xmlData, err := ioutil.ReadAll(resp.Body)
+  xmlData, err := io.ReadAll(resp.Body)
   if err != nil {
     fmt.Printf("Failed to read response body: %v\n", err)
     isError = true
