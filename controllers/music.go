@@ -45,6 +45,8 @@ func (sc *MusicController) Get(w http.ResponseWriter, r *http.Request) {
   if err != nil {
     fmt.Printf("Failed to query URL: %v\n", err)
     isError = true
+    RenderError(w, sc)
+    return
   }
   defer resp.Body.Close()
 
@@ -89,11 +91,8 @@ func (sc *MusicController) Get(w http.ResponseWriter, r *http.Request) {
 
   // If there was an error, render the error page
   if isError {
-    err = utils.RenderTemplate(w, sc.config.PageContext, nil, "404.tmpl")
-    if err != nil {
-      log.Println(err)
-      return
-    }
+    RenderError(w, sc)
+    return
   }
 
 	err = utils.RenderTemplate(w, sc.config.PageContext, rss.Channel.Items, "music.tmpl")
@@ -101,4 +100,12 @@ func (sc *MusicController) Get(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		return
 	}
+}
+
+func RenderError(w http.ResponseWriter, sc *MusicController) {
+  var err = utils.RenderTemplate(w, sc.config.PageContext, nil, "404.tmpl")
+  if err != nil {
+    log.Println(err)
+    return
+  }
 }
