@@ -197,3 +197,13 @@ func coerceTime(raw interface{}) (time.Time, error) {
 		return time.Time{}, fmt.Errorf("invalid time type: %T", raw)
 	}
 }
+
+func FormatRSSDate(dateString string, layout string) (string, error) {
+	t, err := time.Parse(layout, dateString)
+	if err != nil {
+		fmt.Println("Error parsing date:", err)
+		return "", err
+	}
+	formattedDate := t.Format("02 Jan 2006")
+	return formattedDate, err
+}

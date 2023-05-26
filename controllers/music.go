@@ -77,6 +77,16 @@ func (sc *MusicController) Get(w http.ResponseWriter, r *http.Request) {
     }
   }
 
+  // format the date of each post to be more readable
+  for i := range rss.Channel.Items {
+    var text string
+    var layout string = "Mon, 02 Jan 2006 15:04:05 MST"
+    text, err = utils.FormatRSSDate(rss.Channel.Items[i].PubDate, layout)
+    if err == nil {
+      rss.Channel.Items[i].PubDate = text
+    }
+  }
+
   // If there was an error, render the error page
   if isError {
     err = utils.RenderTemplate(w, sc.config.PageContext, nil, "404.tmpl")
