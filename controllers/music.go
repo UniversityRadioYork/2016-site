@@ -6,6 +6,7 @@ import (
   "encoding/xml"
 	"fmt"
 	"io/ioutil"
+  "html"
 
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/2016-site/utils"
@@ -72,7 +73,7 @@ func (sc *MusicController) Get(w http.ResponseWriter, r *http.Request) {
     var text string
     text, err = utils.ExtractFirstEmTagContent(string(rss.Channel.Items[i].Content))
     if err == nil {
-      rss.Channel.Items[i].Content = text
+      rss.Channel.Items[i].Content = html.EscapeString(text)
     }
   }
 
