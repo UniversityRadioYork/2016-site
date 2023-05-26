@@ -102,7 +102,7 @@ func (sc *MusicController) Get(w http.ResponseWriter, r *http.Request) {
 }
 
 func RenderError(w http.ResponseWriter, sc *MusicController) {
-  var err = utils.RenderTemplate(w, sc.config.PageContext, nil, "404.tmpl")
+  err := utils.RenderTemplate(w, sc.config.PageContext, nil, "404.tmpl")
   if err != nil {
     log.Println(err)
     return
