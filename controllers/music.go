@@ -44,7 +44,6 @@ func (sc *MusicController) Get(w http.ResponseWriter, r *http.Request) {
   resp, err := http.Get(url)
   if err != nil {
     fmt.Printf("Failed to query URL: %v\n", err)
-    isError = true
     RenderError(w, sc)
     return
   }
