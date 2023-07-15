@@ -25,7 +25,7 @@
 [pageContext]
 	longName  = "University Radio York"
 	shortName = "URY"
-	siteDescription = "University Radio York (URY) is the student radio station for the University of York, broadcasting 24 hours a day during term time on 1350AM and 88.3FM across campus, and worldwide via this website."
+	siteDescription = "University Radio York (URY) is the student radio station for the University of York, broadcasting 24 hours a day during term time on 88.3FM across campus, and worldwide via this website."
 
 	urlPrefix = ""
 	fullURL = "https://ury.org.uk"
