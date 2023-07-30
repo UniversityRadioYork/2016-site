@@ -9,7 +9,6 @@ import (
 
 	"github.com/UniversityRadioYork/2016-site/models"
 	"github.com/UniversityRadioYork/2016-site/structs"
-	"github.com/UniversityRadioYork/2016-site/utils"
 	"github.com/UniversityRadioYork/myradio-go"
 )
 
@@ -40,7 +39,7 @@ func (podcastsC *PodcastController) GetAllPodcasts(w http.ResponseWriter, r *htt
 	//podcast page offset is indexed from 0, URL's are from 1.
 	podcasts, err := podcastm.GetAllPodcasts(10, pageNumber-1)
 	if podcasts == nil {
-		podcastsC.render404(w, err)
+		podcastsC.notFound(w, err)
 		return
 	}
 
@@ -52,7 +51,7 @@ func (podcastsC *PodcastController) GetAllPodcasts(w http.ResponseWriter, r *htt
 		pageNext = true
 	}
 	if err != nil {
-		podcastsC.render404(w, err)
+		podcastsC.notFound(w, err)
 		return
 	}
 
@@ -78,7 +77,7 @@ func (podcastsC *PodcastController) Get(w http.ResponseWriter, r *http.Request) 
 	podcast, err := podcastsC.getPodcast(r)
 	if podcast == nil || err != nil {
 		// TODO(@MattWindsor91): what if the error is not 404?
-		podcastsC.render404(w, err)
+		podcastsC.notFound(w, err)
 		return
 	}
 
@@ -89,7 +88,6 @@ func (podcastsC *PodcastController) Get(w http.ResponseWriter, r *http.Request) 
 func (podcastsC *PodcastController) GetEmbed(w http.ResponseWriter, r *http.Request) {
 	podcast, err := podcastsC.getPodcast(r)
 	if err != nil {
-		//@TODO: Do something proper here, render 404 or something
 		log.Println(err)
 		http.NotFound(w, r)
 		return
@@ -120,23 +118,4 @@ func (podcastsC *PodcastController) renderPodcast(w http.ResponseWriter, podcast
 		Podcast: podcast,
 	}
 	podcastsC.renderTemplate(w, data, tmpl)
-}
-
-func (podcastsC *PodcastController) render404(w http.ResponseWriter, err error) {
-	// TODO(@MattWindsor91): aren't some of these 500s and not 404s?
-	if err != nil {
-		log.Println(err)
-	}
-
-	// TODO(@MattWindsor91): maybe bounce into not_found somehow rather than just using the template
-	podcastsC.renderTemplate(w, err, "404.tmpl")
-}
-
-func (podcastsC *PodcastController) renderTemplate(w http.ResponseWriter, data interface{}, mainTmpl string, addTmpls ...string) {
-	// TODO(@MattWindsor91): I think this can be pushed into *Controller
-	if err := utils.RenderTemplate(w, podcastsC.config.PageContext, data, mainTmpl, addTmpls...); err != nil {
-		// TODO(@MattWindsor91): handle error more gracefully
-		log.Println(err)
-		return
-	}
 }
