@@ -42,7 +42,7 @@ func (podcastsC *PodcastController) GetAllPodcasts(w http.ResponseWriter, r *htt
 	podcasts, err := podcastm.GetAllPodcasts(10, pageNumber-1)
 
 	if podcasts == nil {
-		utils.RenderTemplate(w, podcastsC.config.PageContext, err, "404.tmpl")
+		podcastsC.render404(w, err)
 	}
 	//see if it's possible to load another podcast for a possible next page.
 	nextPodcasts, _ := podcastm.GetAllPodcasts(1, pageNumber)
@@ -52,8 +52,7 @@ func (podcastsC *PodcastController) GetAllPodcasts(w http.ResponseWriter, r *htt
 		pageNext = true
 	}
 	if err != nil {
-		log.Println(err)
-		utils.RenderTemplate(w, podcastsC.config.PageContext, err, "404.tmpl")
+		podcastsC.render404(w, err)
 		return
 	}
 
@@ -71,12 +70,7 @@ func (podcastsC *PodcastController) GetAllPodcasts(w http.ResponseWriter, r *htt
 		Podcasts:       podcasts,
 	}
 
-	err = utils.RenderTemplate(w, podcastsC.config.PageContext, data, "podcasts.tmpl")
-	if err != nil {
-		log.Println(err)
-		return
-	}
-
+	podcastsC.renderTemplate(w, data, "podcasts.tmpl")
 }
 
 // Get handles the HTTP GET request r for a singular podcast page, writing to w.
@@ -91,13 +85,12 @@ func (podcastsC *PodcastController) Get(w http.ResponseWriter, r *http.Request) 
 	podcast, err := podcastm.Get(id)
 
 	if err != nil {
-		log.Println(err)
-		utils.RenderTemplate(w, podcastsC.config.PageContext, nil, "404.tmpl")
+		podcastsC.render404(w, err)
 		return
 	}
 
 	if podcast.Status != "Published" {
-		utils.RenderTemplate(w, podcastsC.config.PageContext, nil, "404.tmpl")
+		podcastsC.render404(w, nil)
 		return
 	}
 
@@ -106,14 +99,7 @@ func (podcastsC *PodcastController) Get(w http.ResponseWriter, r *http.Request) 
 	}{
 		Podcast: podcast,
 	}
-
-	err = utils.RenderTemplate(w, podcastsC.config.PageContext, data, "podcast.tmpl")
-
-	if err != nil {
-		log.Println(err)
-		return
-	}
-
+	podcastsC.renderTemplate(w, data, "podcast.tmpl")
 }
 
 // GetEmbed handles the HTTP GET request r for a singular podcast embed, writing to w.
@@ -138,12 +124,24 @@ func (podcastsC *PodcastController) GetEmbed(w http.ResponseWriter, r *http.Requ
 	}{
 		Podcast: podcast,
 	}
+	podcastsC.renderTemplate(w, data, "podcast_player.tmpl")
+}
 
-	err = utils.RenderTemplate(w, podcastsC.config.PageContext, data, "podcast_player.tmpl")
-
+func (podcastsC *PodcastController) render404(w http.ResponseWriter, err error) {
+	// TODO(@MattWindsor91): aren't some of these 500s and not 404s?
 	if err != nil {
+		log.Println(err)
+	}
+
+	// TODO(@MattWindsor91): maybe bounce into not_found somehow rather than just using the template
+	podcastsC.renderTemplate(w, err, "404.tmpl")
+}
+
+func (podcastsC *PodcastController) renderTemplate(w http.ResponseWriter, data interface{}, mainTmpl string, addTmpls ...string) {
+	// TODO(@MattWindsor91): I think this can be pushed into *Controller
+	if err := utils.RenderTemplate(w, podcastsC.config.PageContext, data, mainTmpl, addTmpls...); err != nil {
+		// TODO(@MattWindsor91): handle error more gracefully
 		log.Println(err)
 		return
 	}
-
 }
