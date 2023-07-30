@@ -39,10 +39,11 @@ func (podcastsC *PodcastController) GetAllPodcasts(w http.ResponseWriter, r *htt
 
 	//podcast page offset is indexed from 0, URL's are from 1.
 	podcasts, err := podcastm.GetAllPodcasts(10, pageNumber-1)
-
 	if podcasts == nil {
 		podcastsC.render404(w, err)
+		return
 	}
+
 	//see if it's possible to load another podcast for a possible next page.
 	nextPodcasts, _ := podcastm.GetAllPodcasts(1, pageNumber)
 
