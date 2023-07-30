@@ -91,12 +91,13 @@ func (podcastsC *PodcastController) GetEmbed(w http.ResponseWriter, r *http.Requ
 	if err != nil {
 		//@TODO: Do something proper here, render 404 or something
 		log.Println(err)
+		http.NotFound(w, r)
 		return
 	}
 
 	// No error, but podcast is not available
 	if podcast == nil {
-		//@TODO: Do something proper here, render 404 or something
+		http.NotFound(w, r)
 		return
 	}
 
