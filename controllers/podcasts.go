@@ -10,7 +10,7 @@ import (
 	"github.com/UniversityRadioYork/2016-site/models"
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/2016-site/utils"
-	myradio "github.com/UniversityRadioYork/myradio-go"
+	"github.com/UniversityRadioYork/myradio-go"
 )
 
 // PodcastController is the controller for the URYPlayer Podcast pages.
@@ -26,7 +26,6 @@ func NewPodcastController(s *myradio.Session, c *structs.Config) *PodcastControl
 
 // GetAllPodcasts handles the HTTP GET request r for the all postcasts page, writing to w.
 func (podcastsC *PodcastController) GetAllPodcasts(w http.ResponseWriter, r *http.Request) {
-
 	podcastm := models.NewPodcastModel(podcastsC.session)
 
 	vars := mux.Vars(r)
@@ -75,56 +74,50 @@ func (podcastsC *PodcastController) GetAllPodcasts(w http.ResponseWriter, r *htt
 
 // Get handles the HTTP GET request r for a singular podcast page, writing to w.
 func (podcastsC *PodcastController) Get(w http.ResponseWriter, r *http.Request) {
-
-	podcastm := models.NewPodcastModel(podcastsC.session)
-
-	vars := mux.Vars(r)
-
-	id, _ := strconv.Atoi(vars["id"])
-
-	podcast, err := podcastm.Get(id)
-
-	if err != nil {
+	podcast, err := podcastsC.getPodcast(r)
+	if podcast == nil || err != nil {
+		// TODO(@MattWindsor91): what if the error is not 404?
 		podcastsC.render404(w, err)
 		return
 	}
 
-	if podcast.Status != "Published" {
-		podcastsC.render404(w, nil)
-		return
-	}
-
-	data := struct {
-		Podcast *myradio.Podcast
-	}{
-		Podcast: podcast,
-	}
-	podcastsC.renderTemplate(w, data, "podcast.tmpl")
+	podcastsC.renderPodcast(w, podcast, "podcast.tmpl")
 }
 
 // GetEmbed handles the HTTP GET request r for a singular podcast embed, writing to w.
 func (podcastsC *PodcastController) GetEmbed(w http.ResponseWriter, r *http.Request) {
-
-	podcastm := models.NewPodcastModel(podcastsC.session)
-
-	vars := mux.Vars(r)
-
-	id, _ := strconv.Atoi(vars["id"])
-
-	podcast, err := podcastm.Get(id)
-
+	podcast, err := podcastsC.getPodcast(r)
 	if err != nil {
 		//@TODO: Do something proper here, render 404 or something
 		log.Println(err)
 		return
 	}
 
+	// No error, but podcast is not available
+	if podcast == nil {
+		//@TODO: Do something proper here, render 404 or something
+		return
+	}
+
+	podcastsC.renderPodcast(w, podcast, "podcast_player.tmpl")
+}
+
+func (podcastsC *PodcastController) getPodcast(r *http.Request) (*myradio.Podcast, error) {
+	id, err := strconv.Atoi(mux.Vars(r)["id"])
+	if err != nil {
+		return nil, err
+	}
+
+	return models.NewPodcastModel(podcastsC.session).Get(id)
+}
+
+func (podcastsC *PodcastController) renderPodcast(w http.ResponseWriter, podcast *myradio.Podcast, tmpl string) {
 	data := struct {
 		Podcast *myradio.Podcast
 	}{
 		Podcast: podcast,
 	}
-	podcastsC.renderTemplate(w, data, "podcast_player.tmpl")
+	podcastsC.renderTemplate(w, data, tmpl)
 }
 
 func (podcastsC *PodcastController) render404(w http.ResponseWriter, err error) {
