@@ -4,7 +4,6 @@ import (
 	"log"
 	"net/http"
 	"sort"
-	"strings"
 
 	"github.com/UniversityRadioYork/2016-site/models"
 	"github.com/UniversityRadioYork/2016-site/structs"
@@ -23,9 +22,16 @@ func (s CollegeSorter) Swap(i, j int) {
 	s[i], s[j] = s[j], s[i]
 }
 func (s CollegeSorter) Less(i, j int) bool {
-	if strings.Contains(s[i].CollegeName, "N/A") || strings.Contains(s[i].CollegeName, "Unknown") {
-		return true
+	for _, v := range []string{"Unknown", "N/A - non student"} {
+		if s[i].CollegeName == v {
+			return true
+		}
+
+		if s[j].CollegeName == v {
+			return false
+		}
 	}
+
 	return s[i].CollegeName < s[j].CollegeName
 }
 
