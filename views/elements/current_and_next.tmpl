@@ -18,7 +18,7 @@
     {{else}}
     <div class="current-and-next-now p-2 px-3 p-sm-3 p-lg-4">
     {{end}}
-    <h2 class="font-weight-bold">Now</h2>
+    <h2 class="font-weight-bold">Live now:</h2>
     {{template "current_next" .Current}}
     {{if .Current.Url}}
     </a>
@@ -35,7 +35,7 @@
     {{else}}
     <div class="current-and-next-next p-3 p-lg-4">
     {{end}}
-    <h2 class="font-weight-bold">Next</h2>
+    <h2 class="font-weight-bold">Up next:</h2>
     {{template "current_next" .Next}}
     {{if .Next.Url}}
     </a>

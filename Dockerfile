@@ -18,5 +18,7 @@ EXPOSE 3000
 
 RUN go get -d -v
 
+ENV TZ "Europe/London"
+
 ENTRYPOINT echo "\033[0;31mWARNING: \033[0mRunning with Docker will change \"localhost\" to \"0.0.0.0\" in your config. Remember to change it back!" && \
 sed -i 's/localhost/0.0.0.0/g' *.toml && make run
