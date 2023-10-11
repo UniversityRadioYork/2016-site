@@ -9,10 +9,10 @@ RUN set -e && \
     cp /usr/local/sassc-$SASS_VERSION/bin/sassc /usr/local/bin/sassc && \
     rm -rf /usr/local/sassc-$SASS_VERSION /usr/local/libsass-$SASS_VERSION
 
-RUN mkdir -p /go/src/github.com/UniversityRadioYork/2016-site
-WORKDIR /go/src/github.com/UniversityRadioYork/2016-site
+RUN mkdir -p /go/src/github.com/UniversityRadioYork/201623-site
+WORKDIR /go/src/github.com/UniversityRadioYork/201623-site
 
-COPY . /go/src/github.com/UniversityRadioYork/2016-site
+COPY . /go/src/github.com/UniversityRadioYork/201623-site
 
 EXPOSE 3000
 
