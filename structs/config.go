@@ -10,6 +10,7 @@ type Config struct {
 	PageContext    PageContext     `toml:"pageContext"`
 	Schedule       ScheduleConfig  `toml:"schedule"`
 	ShortURLs      ShortURLsConfig `toml:"shortUrls"`
+  Music          MusicConfig     `toml:"music"`
 	TrustedProxies []string        `toml:"trustedProxies"`
 }
 
@@ -108,6 +109,10 @@ type gmaps struct {
 type ShortURLsConfig struct {
 	// UpdateInterval is how often the short URLs should be refreshed, in seconds.
 	UpdateInterval uint `toml:"updateInterval"`
+}
+
+type MusicConfig struct {
+  RSSFeed string `toml:"rssFeed"`
 }
 
 type tomlTime struct {

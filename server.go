@@ -117,6 +117,9 @@ func NewServer(c *structs.Config) (*Server, error) {
 	signupC := controllers.NewSignUpController(session, c)
 	postRouter.HandleFunc("/signup/", signupC.Post)
 
+  musicC := controllers.NewMusicController(session, c)
+  getRouter.HandleFunc("/music/", musicC.Get)
+
 	staticC := controllers.NewStaticController(c)
 	getRouter.HandleFunc("/about/", staticC.GetAbout)
 	getRouter.HandleFunc("/contact/", staticC.GetContact)
