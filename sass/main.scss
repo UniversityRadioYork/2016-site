@@ -42,6 +42,9 @@
 footer {
   color: #646464;
   background: $off-white-color;
+  border-top: 2rem;
+  border-radius: 2rem 2rem 0 0;
+  margin-top: -2rem;
 
   a {
     color: $link-color-dark;
@@ -49,6 +52,7 @@ footer {
 
   .row {
     min-height: 3em;
+    padding: 15px
   }
 }
 
@@ -342,9 +346,10 @@ footer {
 .show-img {
   border: $off-white-color 7px solid;
   background-color: $primary-color;
+  border-radius: 2rem;
 
   @include media-breakpoint-up(md) {
-    margin-top: -3em;
+    margin-top: -7rem;
   }
 }
 
@@ -396,4 +401,10 @@ body {
 .mainPageGrowingSpacer{
   flex-grow: 1;
   background-color: $off-white-color;
+}
+.container-padded{
+  border-bottom: 2rem solid transparent;
+  margin-top: -2rem;
+  border-radius: 2rem 2rem 0 0;
+  padding-top: 2rem;
 }
