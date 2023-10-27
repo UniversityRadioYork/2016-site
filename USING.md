@@ -38,9 +38,9 @@ export GOPATH=~/go
 
 #### Pulling from git
 * Make sure GOPATH is set (`echo $GOPATH`)
-* `go get github.com/UniversityRadioYork/2016-site`
-    * This downloads 2016-site to ~/go/src/github.com/UniversityRadioYork/2016-site along with all necessary dependencies
-* To update your working copy of the repo, running `go get` in the 2016-site directory, but you can also checkout to a specific branch if required:
+* `go get github.com/UniversityRadioYork/201623-site`
+    * This downloads 201623-site to ~/go/src/github.com/UniversityRadioYork/201623-site along with all necessary dependencies
+* To update your working copy of the repo, running `go get` in the 201623-site directory, but you can also checkout to a specific branch if required:
     * `git checkout this-is-a-branch-name`
 
 #### Running the server =====
@@ -51,7 +51,7 @@ export GOPATH=~/go
 
 ### Editing files
 #### Ubuntu
-Trivial. Open a file editor and browse to ~/go/src/github.com/UniversityRadioYork/2016-site
+Trivial. Open a file editor and browse to ~/go/src/github.com/UniversityRadioYork/201623-site
 
 #### Windows
 * Windows likes to hide the actual files for the Ubuntu subsystem.
