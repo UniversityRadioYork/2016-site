@@ -402,9 +402,28 @@ body {
   flex-grow: 1;
   background-color: $off-white-color;
 }
+
 .container-padded{
   border-bottom: 2rem solid transparent;
   margin-top: -2rem;
   border-radius: 2rem 2rem 0 0;
   padding-top: 2rem;
+
+.pageTitleImage{
+  max-inline-size: 90%;
+  max-height: 15rem;
+}
+.teams-banner {
+  background: url("/images/drone-banner.jpg") center center no-repeat;
+  background-size: cover;
+  color: $white;
+
+  // Padding for mobile
+  padding: calc(5em + 60px) 0 5em;
+
+  // Padding for desktop
+  @include media-breakpoint-up(md) {
+    // Remove the height of the nav bar roughly 60px
+    padding: calc(5em + 60px) 0 5em;
+  }
 }

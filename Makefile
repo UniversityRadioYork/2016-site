@@ -20,10 +20,10 @@ build-sass: $(SASS_SRC)
 	$(SASS_COMPILER) $(MAIN_FILE) $(OUTPUT_FILE) -t compressed
 
 build-docker-image:
-	docker build -t 2016-site .
+	docker build -t 201623-site .
 
 docker:
-	docker run -it --rm -p 3000:3000 -v $$GOPATH/src/github.com/UniversityRadioYork/2016-site:/go/src/github.com/UniversityRadioYork/2016-site 2016-site
+	docker run -it --rm -p 3000:3000 -v $$GOPATH/src/github.com/UniversityRadioYork/201623-site:/go/src/github.com/UniversityRadioYork/201623-site 201623-site
 
 clean:
 	rm -f $(OUTPUT_FILE) $(BINARY)

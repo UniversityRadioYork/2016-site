@@ -1,14 +1,14 @@
 {{define "title"}}{{.PageContext.ShortName}} | Our Teams{{end}}
 {{define "content"}}
   {{with .PageData}}
-  <div class="container-fluid drone-banner  text-overlay">
-    <div class="container container-padded">
-      <div class="row justify-content-center">
-        <div class="text-center">
-          <h1 class="display-3">Our Teams</h1>
-          <h2 class="display-4">The people who make URY happen!</h2>
+ <div class="container-fluid header-medium teams-banner position-relative">
+    <div class="container">
+      <div class="row align-items-center text-center">
+        <div class="col">
+          <img class="pageTitleImage" src="/images/Teams.svg" />
+          <h2 class="display-5">The people who make URY happen!</h2>
           <br>
-          <a href="{{url "/getinvolved/#signUp"}}" class="btn btn-primary-inverse btn-xl">Be part of one!</a>
+          <a href="{{url "/getinvolved/#signUp"}}" class="btn btn-primary-inverse btn-xl">Join a Team!</a>
         </div>
       </div>
     </div>
