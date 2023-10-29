@@ -10,7 +10,7 @@ a.ury-card,
   background: $show-bg;
   color: $show-txt-color;
   transition: $transition-time;
-
+  border-radius: 2rem;
   // Override the ancher tag defaults
   display: block;
   text-decoration: none;
@@ -24,7 +24,7 @@ a.ury-card,
     padding-top: 100%;
     background-repeat: no-repeat;
     background-size: cover !important; //propotional resize
-
+    border-radius: 2rem;
 
   }
 
