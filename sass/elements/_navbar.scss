@@ -10,7 +10,8 @@ $nav-links-color: rgb(2, 45, 89);
   backdrop-filter: blur(5px);
   background: $nav-background;
   border-bottom: $nav-bottom-border;
-  border-radius: 0 0 2rem 2rem;
+  border-radius: 0 0 $border-curve-radius $border-curve-radius;
+  background-clip: padding-box;
 
   a {
     color: $nav-links-color;

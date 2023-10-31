@@ -50,3 +50,7 @@ $blocks-regular-color: $off-white-color;
 $custom-scrollbar-color: #FFF;
 
 $transition-time: 350ms;
+
+$border-curve-radius: 1.25rem;
+$internal-padding: 0.5rem;
+$internal-curve-radius: calc(#{$border-curve-radius} - #{$internal-padding});

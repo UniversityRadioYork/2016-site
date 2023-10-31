@@ -200,7 +200,7 @@ $sustainer-color: tint($primary-color, 40%);
     margin: auto;
     margin-bottom: 10px;
     padding: 10px;
-    border-radius: 2rem;
+    border-radius: $border-curve-radius;
     padding-bottom: 2rem;
     padding-right: 2rem;
     tr {
