@@ -24,12 +24,12 @@ func (m *OnDemandModel) GetLastMixcloudTimeslots() (timeslots []myradio.Timeslot
 	if err != nil {
 		return
 	}
-	currrentAndNext, err := m.session.GetCurrentAndNext()
+	currentAndNext, err := m.session.GetCurrentAndNext()
 	if err != nil {
 		return
 	}
 	// If show currently on air, remove it from previous timeslots
-	if currrentAndNext.Current.Id != 0 {
+	if currentAndNext.Current.Id != 0 {
 		timeslots = timeslots[1:11]
 	}
 	return
