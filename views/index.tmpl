@@ -61,6 +61,35 @@
   </div>
   {{end}}
   {{with .PageData}}
+<div id="index-just-missed" class="container-fluid container-padded bg-primary pb-0">
+  <h2>You just missed...</h2>
+  <div class="row custom-scrollbar scroll-horiz scroll-none-xl thumbnail-slider">
+    {{range .Timeslots}}
+    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
+      <a class="ury-card " href="/schedule/shows/timeslots/{{.TimeslotID}}/" title="URY Podcast: {{.Title}}">
+        <div class="ury-card-img" style="background: url('
+            {{- if .Season.ShowMeta.Photo -}}
+              {{$.PageContext.FullURL}}{{.Season.ShowMeta.Photo}}
+            {{- else -}}
+              {{url "/images/default_show_profile.png"}}
+            {{- end -}}');
+          " alt="{{.Title}} Logo"></div>
+        <div class="ury-card-body">
+          <div class="ury-card-title">{{.Title}}</div>
+          <span class="ury-card-date">{{.StartTime.Format "15:04 - Mon"}} • {{formatDuration .Duration}}</span>
+        </div>
+      </a>
+    </div>
+    {{end}}
+    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
+      <a class="ury-card link" href="//mixcloud.com/ury1350/">
+        <div class="ury-card-body">
+          <div class="ury-card-lg-title">See more on Mixcloud...</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
   {{if .Podcasts}}
   <div id="index-podcasts" class="container-fluid container-padded pb-0 bg-podcasts">
     <div class="row">
