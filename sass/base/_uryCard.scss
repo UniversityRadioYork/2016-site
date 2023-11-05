@@ -10,10 +10,11 @@ a.ury-card,
   background: $show-bg;
   color: $show-txt-color;
   transition: $transition-time;
-  border-radius: 2rem;
+  border-radius: $border-curve-radius;
   // Override the ancher tag defaults
   display: block;
   text-decoration: none;
+  padding: $internal-padding;
 
   &:hover {
     background: tint($show-bg, 70%);
@@ -24,8 +25,7 @@ a.ury-card,
     padding-top: 100%;
     background-repeat: no-repeat;
     background-size: cover !important; //propotional resize
-    border-radius: 2rem;
-
+    border-radius: $internal-curve-radius;
   }
 
   .ury-card-body {
@@ -67,8 +67,6 @@ a.ury-card,
     flex-direction: column;
   }
 }
-
-
 .team-card {
   a.card-body  {
       color: #343a40;

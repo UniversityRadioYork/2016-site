@@ -43,7 +43,7 @@ footer {
   color: #646464;
   background: $off-white-color;
   border-top: 2rem;
-  border-radius: 2rem 2rem 0 0;
+  border-radius: $border-curve-radius $border-curve-radius 0 0;
   margin-top: -2rem;
 
   a {
@@ -346,7 +346,7 @@ footer {
 .show-img {
   border: $off-white-color 7px solid;
   background-color: $primary-color;
-  border-radius: 2rem;
+  border-radius: $border-curve-radius;
 
   @include media-breakpoint-up(md) {
     margin-top: -7rem;
@@ -406,7 +406,7 @@ body {
 .container-padded{
   border-bottom: 2rem solid transparent;
   margin-top: -2rem;
-  border-radius: 2rem 2rem 0 0;
+  border-radius: $border-curve-radius $border-curve-radius 0 0;
   padding-top: 2rem;
 }
 .pageTitleImage{
