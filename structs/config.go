@@ -93,7 +93,6 @@ type Page struct {
 
 type youtube struct {
 	APIKey             string `toml:"apiKey"`
-	SessionsPlaylistID string `toml:"sessionsPlaylistID"`
 	CINPlaylistID      string `toml:"cinPlaylistID"`
 	ChannelURL         string `toml:"channelURL"`
 }

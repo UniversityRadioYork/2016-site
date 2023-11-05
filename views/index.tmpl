@@ -127,11 +127,6 @@
     </div>
   </div>
   {{end}}
-  <div id="index-videos" class="container-fluid container-padded pb-0 bg-sessions">
-    <h2>Live Music on URY</h2>
-    <div id="sessions-videos" class="row scroll-horiz pb-3 custom-scrollbar-music thumbnail-slider">
-    </div>
-  </div>
   {{end}}
 {{end}}
 
@@ -139,7 +134,6 @@
 <!-- Youtube slider script -->
 <script>
 var youtubeAPIKey = {{.PageContext.Youtube.APIKey}};
-var youtubeSessionsPlaylistID = "{{.PageContext.Youtube.SessionsPlaylistID}}";
 var youtubeCINPlaylistID = "{{.PageContext.Youtube.CINPlaylistID}}";
 var isIndex = true;
 var isCIN = {{if .PageContext.CIN}}true{{else}}false{{end}};
