@@ -19,15 +19,6 @@ func NewStaticController(c *structs.Config) *StaticController {
 	return &StaticController{Controller{config: c}}
 }
 
-// GetAbout handles the HTTP GET request r for the About page, writing to w.
-func (staticC *StaticController) GetAbout(w http.ResponseWriter, r *http.Request) {
-	err := utils.RenderTemplate(w, staticC.config.PageContext, nil, "about.tmpl")
-	if err != nil {
-		log.Println(err)
-		return
-	}
-}
-
 // GetContact handles the HTTP GET request r for the Contact page, writing to w.
 func (staticC *StaticController) GetContact(w http.ResponseWriter, r *http.Request) {
 	err := utils.RenderTemplate(w, staticC.config.PageContext, nil, "contact.tmpl")

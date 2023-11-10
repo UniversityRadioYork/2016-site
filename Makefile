@@ -23,7 +23,7 @@ build-docker-image:
 	docker build -t 201623-site .
 
 docker:
-	docker run -it --rm -p 3000:3000 -v $$GOPATH/src/github.com/UniversityRadioYork/201623-site:/go/src/github.com/UniversityRadioYork/201623-site 201623-site
+	docker run -it --rm -p 3000:3000 -v .:/usr/src/app 201623-site
 
 clean:
 	rm -f $(OUTPUT_FILE) $(BINARY)
