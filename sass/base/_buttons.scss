@@ -76,6 +76,15 @@ $listen-shadow: rgba(0, 0, 0, 0.33);
     }
   }
 
+  &.listen-btn-surround {
+    border-radius: 0.4em 0 0 0;
+    background-color: #28a745;
+  }
+
+  &.listen-btn-not-surround {
+    bottom: 32px;
+  }
+
   @media not prefers-reduced-motion {
     &.listen-btn-animated {
       animation-fill-mode: both;
