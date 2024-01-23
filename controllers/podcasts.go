@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"log"
 	"net/http"
 	"strconv"
 
@@ -10,7 +9,7 @@ import (
 	"github.com/UniversityRadioYork/2016-site/models"
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/2016-site/utils"
-	myradio "github.com/UniversityRadioYork/myradio-go"
+	"github.com/UniversityRadioYork/myradio-go"
 )
 
 // PodcastController is the controller for the URYPlayer Podcast pages.
@@ -40,21 +39,20 @@ func (podcastsC *PodcastController) GetAllPodcasts(w http.ResponseWriter, r *htt
 
 	//podcast page offset is indexed from 0, URL's are from 1.
 	podcasts, err := podcastm.GetAllPodcasts(10, pageNumber-1)
-
+	if err != nil {
+		podcastsC.handleError(w, r, err, "PodcastModel.GetAllPodcasts")
+		return
+	}
 	if podcasts == nil {
 		utils.RenderTemplate(w, podcastsC.config.PageContext, err, "404.tmpl")
 	}
+
 	//see if it's possible to load another podcast for a possible next page.
 	nextPodcasts, _ := podcastm.GetAllPodcasts(1, pageNumber)
 
 	var pageNext = false
 	if nextPodcasts != nil {
 		pageNext = true
-	}
-	if err != nil {
-		log.Println(err)
-		utils.RenderTemplate(w, podcastsC.config.PageContext, err, "404.tmpl")
-		return
 	}
 
 	data := struct {
@@ -71,12 +69,7 @@ func (podcastsC *PodcastController) GetAllPodcasts(w http.ResponseWriter, r *htt
 		Podcasts:       podcasts,
 	}
 
-	err = utils.RenderTemplate(w, podcastsC.config.PageContext, data, "podcasts.tmpl")
-	if err != nil {
-		log.Println(err)
-		return
-	}
-
+	utils.RenderTemplate(w, podcastsC.config.PageContext, data, "podcasts.tmpl")
 }
 
 // Get handles the HTTP GET request r for a singular podcast page, writing to w.
@@ -91,8 +84,7 @@ func (podcastsC *PodcastController) Get(w http.ResponseWriter, r *http.Request) 
 	podcast, err := podcastm.Get(id)
 
 	if err != nil {
-		log.Println(err)
-		utils.RenderTemplate(w, podcastsC.config.PageContext, nil, "404.tmpl")
+		podcastsC.handleError(w, r, err, "PodcastModel.Get")
 		return
 	}
 
@@ -107,13 +99,7 @@ func (podcastsC *PodcastController) Get(w http.ResponseWriter, r *http.Request) 
 		Podcast: podcast,
 	}
 
-	err = utils.RenderTemplate(w, podcastsC.config.PageContext, data, "podcast.tmpl")
-
-	if err != nil {
-		log.Println(err)
-		return
-	}
-
+	utils.RenderTemplate(w, podcastsC.config.PageContext, data, "podcast.tmpl")
 }
 
 // GetEmbed handles the HTTP GET request r for a singular podcast embed, writing to w.
@@ -128,8 +114,7 @@ func (podcastsC *PodcastController) GetEmbed(w http.ResponseWriter, r *http.Requ
 	podcast, err := podcastm.Get(id)
 
 	if err != nil {
-		//@TODO: Do something proper here, render 404 or something
-		log.Println(err)
+		podcastsC.handleError(w, r, err, "PodcastModel.Get")
 		return
 	}
 
@@ -139,11 +124,5 @@ func (podcastsC *PodcastController) GetEmbed(w http.ResponseWriter, r *http.Requ
 		Podcast: podcast,
 	}
 
-	err = utils.RenderTemplate(w, podcastsC.config.PageContext, data, "podcast_player.tmpl")
-
-	if err != nil {
-		log.Println(err)
-		return
-	}
-
+	utils.RenderTemplate(w, podcastsC.config.PageContext, data, "podcast_player.tmpl")
 }

@@ -2,6 +2,7 @@ package utils
 
 import (
 	"fmt"
+	"net/http"
 	"strconv"
 	"time"
 
@@ -61,7 +62,7 @@ func ParseIsoWeek(isoyear, isoweek, isoweekday string) (year int, week int, week
 		return
 	}
 	if year < 0 {
-		err = fmt.Errorf("Invalid year: %d", year)
+		err = NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid year: %d", year))
 		return
 	}
 
@@ -69,7 +70,7 @@ func ParseIsoWeek(isoyear, isoweek, isoweekday string) (year int, week int, week
 		return
 	}
 	if week < 1 || 53 < week {
-		err = fmt.Errorf("Invalid week: %d", week)
+		err = NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid week: %d", week))
 		return
 	}
 
@@ -80,7 +81,7 @@ func ParseIsoWeek(isoyear, isoweek, isoweekday string) (year int, week int, week
 		return
 	}
 	if di < 1 || 7 < di {
-		err = fmt.Errorf("Invalid day: %d", di)
+		err = NewHTTPError(http.StatusBadRequest, fmt.Sprintf("Invalid weekday: %d", di))
 		return
 	}
 

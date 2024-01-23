@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/UniversityRadioYork/2016-site/models"
@@ -36,7 +35,7 @@ func (sc *SearchController) Get(w http.ResponseWriter, r *http.Request) {
 		results, err = sm.Get(term)
 
 		if err != nil {
-			log.Println(err)
+			sc.handleError(w, r, err, "SearchModel.Get")
 			return
 		}
 	}
@@ -55,9 +54,5 @@ func (sc *SearchController) Get(w http.ResponseWriter, r *http.Request) {
 		Term:       term,
 	}
 
-	err = utils.RenderTemplate(w, sc.config.PageContext, data, "search.tmpl")
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	utils.RenderTemplate(w, sc.config.PageContext, data, "search.tmpl")
 }

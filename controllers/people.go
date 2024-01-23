@@ -1,15 +1,15 @@
 package controllers
 
 import (
-	"log"
 	"net/http"
 	"strconv"
+
+	"github.com/gorilla/mux"
 
 	"github.com/UniversityRadioYork/2016-site/models"
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/2016-site/utils"
 	"github.com/UniversityRadioYork/myradio-go"
-	"github.com/gorilla/mux"
 )
 
 // PeopleController is the controller for the user bio page.
@@ -33,14 +33,13 @@ func (pc *PeopleController) Get(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(vars["id"])
 
 	user, officerships, credits, currentAndNext, err := pm.Get(id)
+	if err != nil {
+		pc.handleError(w, r, err, "PeopleModel.Get")
+		return
+	}
 
 	//404 when the user has no credits.
 	if len(credits) == 0 && len(officerships) == 0 {
-		utils.RenderTemplate(w, pc.config.PageContext, err, "404.tmpl")
-		return
-	}
-	if err != nil {
-		log.Println(err)
 		utils.RenderTemplate(w, pc.config.PageContext, err, "404.tmpl")
 		return
 	}
@@ -57,10 +56,5 @@ func (pc *PeopleController) Get(w http.ResponseWriter, r *http.Request) {
 		CurrentAndNext: currentAndNext,
 	}
 
-	err = utils.RenderTemplate(w, pc.config.PageContext, data, "people.tmpl", "elements/current_and_next.tmpl")
-	if err != nil {
-		log.Println(err)
-		return
-	}
-
+	utils.RenderTemplate(w, pc.config.PageContext, data, "people.tmpl", "elements/current_and_next.tmpl")
 }
