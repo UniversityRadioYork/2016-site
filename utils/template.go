@@ -12,6 +12,7 @@ import (
 
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/myradio-go"
+	"github.com/microcosm-cc/bluemonday"
 )
 
 // TemplatePrefix is the constant containing the filepath prefix for templates.
@@ -127,14 +128,6 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 			}
 			return a.Sub(b), nil
 		},
-		// TODO(CaptainHayashi): this is temporary
-		"stripHTML": func(s string) string {
-			d, err := StripHTML(s)
-			if err != nil {
-				return "Error stripping HTML"
-			}
-			return d
-		},
 		"week":   FormatWeekRelative,
 		"plural": inflector.Pluralize,
 	})
@@ -149,6 +142,9 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 // renderHTML takes some html as a string and returns a template.HTML
 //
 // Handles plain text gracefully.
-func renderHTML(value interface{}) template.HTML {
-	return template.HTML(fmt.Sprint(value))
+func renderHTML(value string) template.HTML {
+  sanitizer := bluemonday.UGCPolicy()
+  sanitizedString := sanitizer.Sanitize(value)
+
+	return template.HTML(sanitizedString)
 }
