@@ -13,11 +13,11 @@
 {{end}}
 
 {{define "content"}}
-<div class="container-fluid header-medium on-demand position-relative">
+<div class="container-fluid header-medium on-demand">
   <div class="container">
     <div class="row align-items-center text-center">
       <div class="col">
-        <h1 class="display-3">{{.PageContext.ShortName}} {{.PageContext.ODName}}</h1>
+        <img class="pageTitleImage" src="/images/OnTap.svg"/>
         <h2 class="display-5">Refreshing content when you need it the most.</h2>
       </div>
     </div>
@@ -85,28 +85,5 @@
   </div>
 </div>
 {{end}}
-<div id="index-videos" class="container-fluid container-padded bg-sessions">
-  <div class="row">
-    <div class="col-12 col-md-8">
-      <a name="YouTube"></a><h2>Live Music on URY</h2>
-    </div>
-  </div>
-  <div id="sessions-videos" class="row pb-3 thumbnail-grid">
-  </div>
 </div>
-{{end}}
-
-{{define "footer-scripts"}}
-<!-- Youtube slider script -->
-<script>
-var youtubeAPIKey = {{.PageContext.Youtube.APIKey}};
-var youtubeSessionsPlaylistID = "{{.PageContext.Youtube.SessionsPlaylistID}}";
-var youtubeCINPlaylistID = "{{.PageContext.Youtube.CINPlaylistID}}";
-var youtubeLink = "{{.PageContext.Youtube.ChannelURL}}";
-var isIndex = false;
-var isCIN = false;
-var isOD = true;
-</script>
-<script src='{{url "/js/index.js"}}?ver={{ .PageContext.CacheBuster }}'></script>
-<script src="https://apis.google.com/js/client.js?onload=onGoogleLoad"></script>
 {{end}}

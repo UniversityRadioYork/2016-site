@@ -30,3 +30,5 @@ public/css/*.scss.css
 .myradio.key
 config.toml
 public/css/*.scss.css.map
+
+.direnv/

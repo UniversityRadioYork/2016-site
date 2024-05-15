@@ -13,7 +13,7 @@
 {{end}}
 
 {{define "officer"}}
-<div class="col-12 col-sm-6 col-md-3 col-lg-2">
+<div class="col-12 col-sm-6 col-md-3 col-lg-2 ury-card">
   <a href="/people/{{.User.MemberID}}" title="Goto {{.User.Fname}} {{.User.Sname}}'s profile">
     <div class="user-img my-3">
       <img class="img-fluid" src="https://ury.org.uk{{.User.Photo}}" alt="Photo of {{.User.Fname}} {{.User.Sname}}">
@@ -30,7 +30,7 @@
       <div class="container container-padded">
         <div class="row justify-content-center">
           <div class="text-center">
-            <h1 class="display-5"><a href='{{url "/teams/"}}' title="View all teams">Our Teams</a></h1>
+            <a href='{{url "/teams/"}}'> <img class="pageTitleImage" src="/images/Teams.svg" /></a>
             <h2 class="display-5">The people who make URY happen!</h2>
             <br>
             <a href='{{url "/getinvolved/#signUp"}}' class="btn btn-primary-inverse btn-lg">Be part of one!</a>
@@ -39,13 +39,13 @@
       </div>
     </div>
     {{with .Team}}
-    <div class="container-fluid">
+    <div class="container-fluid container-padded bg-white">
       <div class="container container-padded">
         <h4 class="display-4">{{.Name}}</h4>
       </div>
     </div>
     {{if .Description}}
-    <div class="container-fluid bg-primary">
+    <div class="container-fluid bg-primary container-padded">
       <div class="container container-padded">
         <h2>Team Description</h2>
         <p>{{html .Description}}</p>
@@ -55,7 +55,7 @@
     {{end}}
     {{end}}
     {{if len .Team.Officers}}
-    <div class="container-fluid bg-secondary">
+    <div class="container-fluid bg-secondary container-padded">
       <div class="container container-padded">
         <h2>Team Officers</h2>
         <div class="row">
@@ -79,7 +79,7 @@
         </div>
       </div>
     {{end}}
-    <div class="container-fluid bg-third">
+    <div class="container-fluid bg-third container-padded">
       <div class="container container-padded">
         <h2>Get Involved</h2>
         <p>
