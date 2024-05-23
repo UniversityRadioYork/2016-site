@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"errors"
+	"encoding/json"
 	"log"
 	"net/http"
 	"net/url"
@@ -148,12 +149,19 @@ func (sc *ScheduleWeekController) makeAndRenderWeek(w http.ResponseWriter, year,
 		return
 	}
 
+	beans, err := json.MarshalIndent(ws, "", "    ")
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
 	data := struct {
 		Schedule                  *models.WeekSchedule
 		PrevURL, CurrURL, NextURL *url.URL
 		CurrentAndNext            *myradio.CurrentAndNext
 		StartHour                 int
 		Subtypes                  []myradio.ShowSeasonSubtype
+		Beans string
 	}{
 		Schedule:       ws,
 		PrevURL:        purl,
@@ -162,6 +170,7 @@ func (sc *ScheduleWeekController) makeAndRenderWeek(w http.ResponseWriter, year,
 		CurrentAndNext: currentAndNext,
 		StartHour:      utils.StartHour,
 		Subtypes:       subtypes,
+		Beans: string(beans),
 	}
 
 	err = utils.RenderTemplate(w, sc.config.PageContext, data, "schedule_week.tmpl", "elements/current_and_next.tmpl")

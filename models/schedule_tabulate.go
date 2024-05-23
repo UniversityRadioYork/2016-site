@@ -17,8 +17,6 @@ import (
 
 // WeekScheduleCell represents one cell in the week schedule.
 type WeekScheduleCell struct {
-	// Number of rows this cell spans.
-	// If 0, this is a continuation from a cell further up.
 	RowSpan uint
 
 	// Pointer to the timeslot in this cell, if any.
@@ -276,6 +274,9 @@ type WeekSchedule struct {
 	// Table is the actual week table.
 	// If there is no schedule for the given week, this will be nil.
 	Table []WeekScheduleCol
+	// The week's schedule but in list form not table form
+	// If there is no schedule for the given week, this will be nil.
+	List []WeekScheduleList
 }
 
 // hasShows asks whether a schedule slice contains any non-sustainer shows.
@@ -311,6 +312,12 @@ func (c *WeekScheduleCol) addCell(s uint, i *ScheduleItem, h int, m int) {
 	c.Cells = append(c.Cells, WeekScheduleCell{RowSpan: s, Item: i, Hour: h, Minute: m})
 }
 
+type WeekScheduleList struct {
+	Day     time.Time
+	Current bool
+	Shows   []ScheduleItem
+}
+
 // tableFilp flips the schedule table such that it becomes a list of days which have a list
 // of shows on that day.
 func tableFilp(rows []WeekScheduleRow, dates []time.Time) []WeekScheduleCol {
@@ -321,6 +328,32 @@ func tableFilp(rows []WeekScheduleRow, dates []time.Time) []WeekScheduleCol {
 	for _, row := range rows {
 		for i, cell := range row.Cells {
 			days[i].addCell(cell.RowSpan, cell.Item, row.Hour, row.Minute)
+		}
+	}
+	return days
+}
+
+func buildList(schedule []*ScheduleItem, dates []time.Time) []WeekScheduleList {
+	thisYear, thisMonth, thisDay := time.Now().Date()
+	days := make([]WeekScheduleList, 7)
+	thisWeek := false
+	for i := range days {
+		days[i].Day = dates[i]
+		year, month, day := dates[i].Date()
+		if year == thisYear && month == thisMonth && day == thisDay {
+			days[i].Current = true
+			thisWeek = true
+		}
+	}
+	if !thisWeek {
+		days[0].Current = true
+	}
+	for _, item := range schedule {
+		if straddlesDay(item) {
+			// Handle this mess
+		} else {
+			dayIndex := (item.Start.Weekday() + 6) % 7
+			days[dayIndex].Shows = append(days[dayIndex].Shows, *item)
 		}
 	}
 	return days
@@ -337,6 +370,7 @@ func tabulateWeekSchedule(start, finish time.Time, schedule []*ScheduleItem) (*W
 		return &WeekSchedule{
 			Dates: days,
 			Table: nil,
+			List:  nil,
 		}, nil
 	}
 
@@ -349,10 +383,12 @@ func tabulateWeekSchedule(start, finish time.Time, schedule []*ScheduleItem) (*W
 	populateRows(days, rows, schedule)
 
 	table := tableFilp(rows, days)
+	list := buildList(schedule, days)
 
 	sch := WeekSchedule{
 		Dates: days,
 		Table: table,
+		List:  list,
 	}
 
 	return &sch, nil

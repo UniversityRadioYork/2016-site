@@ -30,6 +30,9 @@ type ScheduleItem struct {
 	// PageURL is the root-relative URL to this schedule item's page,
 	// or "" if there is no URL.
 	PageURL string
+
+	// ShowArtURL is the URL to the show art image of this show.
+	ShowArtURL string
 }
 
 // IsSustainer checks whether this schedule item is the URY sustainer.
@@ -41,12 +44,13 @@ func (s *ScheduleItem) IsSustainer() bool {
 // It takes a sustainer config, c, to work out the sustainer name.
 func NewSustainerItem(c structs.SustainerConfig, start, finish time.Time) *ScheduleItem {
 	return &ScheduleItem{
-		Name:    c.Name,
-		Desc:    c.Desc,
-		Start:   start,
-		Finish:  finish,
-		Block:   "sustainer",
-		PageURL: "",
+		Name:       c.Name,
+		Desc:       c.Desc,
+		Start:      start,
+		Finish:     finish,
+		Block:      "sustainer",
+		PageURL:    "",
+		ShowArtURL: c.Image,
 	}
 }
 
@@ -62,12 +66,13 @@ func NewTimeslotItem(t *myradio.Timeslot, finish time.Time, u func(*myradio.Time
 		return nil, err
 	}
 	return &ScheduleItem{
-		Name:    t.Title,
-		Desc:    t.Description,
-		Start:   t.StartTime,
-		Finish:  finish,
-		Block:   t.Subtype.Class,
-		PageURL: url.Path,
+		Name:       t.Title,
+		Desc:       t.Description,
+		Start:      t.StartTime,
+		Finish:     finish,
+		Block:      t.Subtype.Class,
+		PageURL:    url.Path,
+		ShowArtURL: t.Photo,
 	}, nil
 }
 

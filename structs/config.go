@@ -61,8 +61,9 @@ type ScheduleConfig struct {
 
 // SustainerConfig is a structure describing the sustainer show.
 type SustainerConfig struct {
-	Name string `toml:"name"`
-	Desc string `toml:"desc"`
+	Name  string `toml:"name"`
+	Desc  string `toml:"desc"`
+	Image string `toml:"image"`
 }
 
 type IndexCountdownBackgroundType string
