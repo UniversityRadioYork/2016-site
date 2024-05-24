@@ -353,6 +353,11 @@ func buildList(schedule []*ScheduleItem, dates []time.Time) []WeekScheduleList {
 			// Handle this mess
 		} else {
 			dayIndex := (item.Start.Weekday() + 6) % 7
+			// Where does the come from, nobody knows; here's a fix to get rid of it though -ash (2024)
+			// TODO: actually fix this
+			if len(days[dayIndex].Shows) == 0 && item.IsSustainer() {
+				continue
+			}
 			days[dayIndex].Shows = append(days[dayIndex].Shows, *item)
 		}
 	}
