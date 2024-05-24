@@ -60,7 +60,77 @@
 
 <!-- schedule body -->
 <div class="container-fluid bg-off-white container-padded">
-  <div class="container">
+<div class="container sched-table">
+  {{with .Schedule}}
+  {{if .Table}}
+    <div class="tables-container table">
+      <table class="schedule-table mobile-hide row-headers">
+        <colgroup>
+          <col class="mobile-hide time-col">
+        </colgroup>
+        <tr class="col-headers"></tr>
+        {{with index .Table 0}}
+          {{range .Cells}}
+            <tr>
+              <td class="time-header">{{.Hour | printf "%02d"}}:{{.Minute | printf "%02d"}}</td>
+            </tr>
+          {{end}}
+        {{end}}
+      </table>
+      {{range .Table}}
+        <table class="schedule-table day-{{.Day.Weekday}}">
+          <colgroup>
+            <col class="mobile-only time-col">
+          </colgroup>
+          <tr class="col-headers">
+            <th class="day-header" colspan=2>{{.Day.Weekday}}&nbsp;{{.Day.Format "02"}}</th>
+          </tr>
+          {{range .Cells}}
+            <tr>
+              <td class="time-header mobile-only hour-{{.Hour | printf "%02d"}}">{{.Hour | printf "%02d"}}:{{.Minute | printf "%02d"}}</td>
+              {{if ne .RowSpan 0}}
+              <td rowspan="{{.RowSpan}}" class="schedule-timeslot schedule-block-{{.Item.Block}}"
+                  {{if .Item.PageURL}} onclick="window.location.href='{{url .Item.PageURL}}'" {{end}} >
+                {{if .Item.PageURL}}
+                  <a href="{{url .Item.PageURL}}" >{{.Item.Name}}</a>
+                {{else}}
+                  <p>{{.Item.Name}}</p>
+                {{end}}
+              </td>
+              {{end}}
+            </tr>
+          {{end}}
+        </table>
+      {{end}}
+    </div>
+  {{else}}
+    <div class="row justify-content-center p-5">
+      <div class="col-12 col-lg-8 p-5 text-center schedule-block-regular disabled">
+        <h3>There's nothing on for this week.</h3>
+        <h4>We're most likely off air, or we haven't scheduled it yet!</h4>
+      </div>
+    </div>
+  {{end}}
+  {{end}}
+  <br>
+    <div class="row justify-content-center pb-3">
+        <div class="schedule-keys" id="key">
+          <div class="key-row">
+            <h2 class="inline">Schedule Key:</h2>
+            {{ range .Subtypes }}
+              <span class="schedule-block-{{.Class}}">{{.Name}}</span>
+            {{end}}
+          </div>
+        </div>
+    </div>
+  </div>
+
+
+
+
+
+
+  <div class="container sched-list">
   {{with .Schedule}}
   {{if .List}}
     <ul class="nav nav-tabs" id="schedule-tab" role="tablist">
@@ -112,17 +182,6 @@
     </div>
   {{end}}
   {{end}}
-  <br>
-    <div class="row justify-content-center pb-3">
-        <div class="schedule-keys" id="key">
-          <div class="key-row">
-            <h2 class="inline">Schedule Key:</h2>
-            {{ range .Subtypes }}
-              <span class="schedule-block-{{.Class}}">{{.Name}}</span>
-            {{end}}
-          </div>
-        </div>
-    </div>
   </div>
 </div>
 {{end}}
