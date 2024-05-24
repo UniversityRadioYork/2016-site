@@ -179,7 +179,6 @@ func MakeScheduleSlice(c structs.SustainerConfig, start, finish time.Time, slots
 	}
 
 	s := newScheduleBuilder(c, tbuilder, nslots)
-	s.fill(start, slots[0].StartTime)
 
 	// Now, if possible, start filling between.
 	var show, nextShow *myradio.Timeslot
