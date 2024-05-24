@@ -48,6 +48,8 @@ type PageContext struct {
 	CINLive          string                `toml:"cinLive"`
 	IndexCountdown   *IndexCountdownConfig `toml:"indexCountdown"`
 	CacheBuster      string                `toml:"cacheBuster"`
+	LiveAudioURL     string                `toml:"liveAudioUrl"`
+	IcecastStatusURL string                `toml:"icecastStatusUrl"`
 	Pages            []Page
 	Youtube          youtube
 	Osm              osm
@@ -94,9 +96,9 @@ type Page struct {
 }
 
 type youtube struct {
-	APIKey             string `toml:"apiKey"`
-	CINPlaylistID      string `toml:"cinPlaylistID"`
-	ChannelURL         string `toml:"channelURL"`
+	APIKey        string `toml:"apiKey"`
+	CINPlaylistID string `toml:"cinPlaylistID"`
+	ChannelURL    string `toml:"channelURL"`
 }
 
 type osm struct {

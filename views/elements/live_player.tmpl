@@ -1,0 +1,32 @@
+{{define "live_player"}}
+
+<div class="row justify-content-center align-items-center mobile-column p-4 live-container" id="live-player-container">
+    <audio style="display: none" id="live-player-audio"></audio>
+
+    <button class="p-4 play-pause-button" id="live-player-play">
+        <i class="fa fa-play"></i>
+    </button>
+    
+    <div class="live-now-playing">
+        <h2>Listening to University Radio York</h2>
+        <p id="live-player-track-container" style="display: none">
+            Now playing: <b id="live-player-track-title"></b> by <b id="live-player-track-artist"></b>
+        </p>
+    </div>
+
+    <label>
+        Volume:<br>
+        <input type="range" min="0" max="11" step="1" name="volume" id="live-player-volume">
+    </label>
+</div>
+
+<script type="module">
+    import { makePlayer } from '{{url "/js/live-player.js"}}';
+    window.livePlayer = makePlayer({
+        idPrefix: 'live-player',
+        audioUrl: '{{.PageContext.LiveAudioURL}}',
+        icecastStatusUrl: '{{.PageContext.IcecastStatusURL}}',
+    });
+</script>
+
+{{end}}

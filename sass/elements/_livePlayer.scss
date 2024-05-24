@@ -1,0 +1,72 @@
+.live-container {
+    gap: 1.5rem;
+}
+
+.live-now-playing p {
+    margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+    .mobile-column {
+        flex-direction: column;
+        align-items: center !important;
+        justify-content: left !important;
+        text-align: center;
+    }
+}
+
+.play-pause-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-radius: 99999px;
+    background-color: $ury-blue-color;
+    color: white;
+    border: none;
+    outline: none;
+    width: 48px;
+    height: 48px;
+    box-shadow: 0 0.25rem 1rem rgba(0,0,0,0.5);
+    transition: transform ease 200ms, box-shadow ease 200ms;
+    &:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0.25rem 1rem rgba(0,0,0,0.75);
+    }
+    &:focus {
+        outline: none;
+    }
+    &:active {
+        transform: scale(0.9);
+        box-shadow: 0 0.25rem 1rem rgba(0,0,0,0.5);
+    }
+
+    .player-load-dots span {
+        animation: pulse 2000ms ease infinite;
+
+        &:nth-child(1) {
+            animation-delay: 0ms;
+        }
+        &:nth-child(2) {
+            animation-delay: 250ms;
+        }
+        &:nth-child(3) {
+            animation-delay: 500ms;
+        }
+    }
+}
+
+@keyframes pulse {
+    from {
+        opacity: 1;
+    }
+    25% {
+        opacity: 0;
+    }
+    75% {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
