@@ -8,7 +8,7 @@
     </button>
     
     <div class="live-now-playing">
-        <h2>Listening to University Radio York</h2>
+        <h2>Listening to {{.PageContext.LongName}}</h2>
         <p id="live-player-track-container" style="display: none">
             Now playing: <b id="live-player-track-title"></b> by <b id="live-player-track-artist"></b>
         </p>
@@ -18,6 +18,10 @@
         Volume:<br>
         <input type="range" min="0" max="11" step="1" name="volume" id="live-player-volume">
     </label>
+
+    <p>
+        <a href="//ury.org.uk/live/" onclick="window.open('//ury.org.uk/live', 'radioplayer', 'height=800,width=440'); window.livePlayer.pause(); return false;"><i>Pop-up player</i></a>
+    </p>
 </div>
 
 <script type="module">
