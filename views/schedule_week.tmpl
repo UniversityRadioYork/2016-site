@@ -88,7 +88,13 @@
               <li class="schedule-card">
                 <img src="https://ury.org.uk{{.ShowArtURL}}" width="128" height="128">
                 <div class="card-details">
-                  <h3><a href="{{.PageURL}}">{{.Name}}</a></h3>
+                  <h3>
+                    {{if .PageURL}}
+                      <a href="{{.PageURL}}">{{.Name}}</a>
+                    {{else}}
+                      {{.Name}}
+                    {{end}}
+                  </h3>
                   <h4>{{.Start.Format "03:04pm"}} - {{.Finish.Format "03:04pm"}}</h4>
                 </div>
               </li>
