@@ -57,7 +57,7 @@
     {{if len .Team.Officers}}
     <div class="container-fluid bg-secondary container-padded">
       <div class="container container-padded">
-        <h2>Team Officers</h2>
+        <h2>Team Committee</h2>
         <div class="row">
           {{range .Heads}}
             {{template "officer" .}}
@@ -65,10 +65,16 @@
           {{range .Assistants}}
             {{template "officer" .}}
           {{end}}
+        </div>
+        {{if len .Officers}}
+        <br>
+        <h2>Team Members</h2>
+        <div class="row">
           {{range .Officers}}
             {{template "officer" .}}
           {{end}}
         </div>
+        {{end}}
       </div>
     </div>
     {{else}}
