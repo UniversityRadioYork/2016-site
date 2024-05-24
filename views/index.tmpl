@@ -4,7 +4,7 @@
         {{template "index_countdown" .}}
     {{end}}
   {{end}}
-  <div class="container-fluid header-large current-next position-relative">
+  <div class="container-fluid header-large current-next">
   <img src="/images/sra-2020-bug.png" class="sra-2020-bug" alt="" />
   {{if .PageContext.Christmas}}
     <div class="snow"></div>
@@ -28,26 +28,18 @@
   <div id="index-infobar" class="container-fluid bg-off-white container-padded">
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-lg-3">
+        <div class="col-lg-5">
         {{template "message_box" .}}
         </div>
-        <div class="col-lg-9">
+        <div class="col-lg-1">
+
+        </div>
+        <div class="col-lg-5">
           <h2>Get Involved</h2>
           <hr>
-          <div class="row">
-            <div class="col-lg-6">
-              <p>University Radio York has been alive since 1968, when we became the first legal independent radio station in the UK!</p>
-              <p>Help us continue our legacy by joining the URY team.</p>
-              <p>Contact our teams to find out more.</p>
-            </div>
-            <div class="col-lg-6">
-              <ul class="split-evenly-2 no-bullets">
-              {{range .Teams}}
-                <li><a href="{{url "/teams/"}}{{.Alias}}/" title="Find out more about {{.Name}}">{{.Name}}</a></li>
-              {{end}}
-              </ul>
-            </div>
-          </div>
+          <p>University Radio York has been alive since 1968, when we became the first legal independent radio station in the UK!</p>
+          <p>Help us continue our legacy by joining the URY team.</p>
+          <p><a href="{{url "/getinvolved/"}}">find out more</a></p>
         </div>
       </div>
     </div>
@@ -61,6 +53,35 @@
   </div>
   {{end}}
   {{with .PageData}}
+<div id="index-just-missed" class="container-fluid container-padded bg-primary pb-0">
+  <h2>You just missed...</h2>
+  <div class="row custom-scrollbar scroll-horiz scroll-none-xl thumbnail-slider">
+    {{range .Timeslots}}
+    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
+      <a class="ury-card " href="/schedule/shows/timeslots/{{.TimeslotID}}/" title="URY Podcast: {{.Title}}">
+        <div class="ury-card-img" style="background: url('
+            {{- if .Season.ShowMeta.Photo -}}
+              {{$.PageContext.FullURL}}{{.Season.ShowMeta.Photo}}
+            {{- else -}}
+              {{url "/images/default_show_profile.png"}}
+            {{- end -}}');
+          " alt="{{.Title}} Logo"></div>
+        <div class="ury-card-body">
+          <div class="ury-card-title">{{.Title}}</div>
+          <span class="ury-card-date">{{.StartTime.Format "15:04 - Mon"}} • {{formatDuration .Duration}}</span>
+        </div>
+      </a>
+    </div>
+    {{end}}
+    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
+      <a class="ury-card link" href="//mixcloud.com/ury1350/">
+        <div class="ury-card-body">
+          <div class="ury-card-lg-title">See more on Mixcloud...</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
   {{if .Podcasts}}
   <div id="index-podcasts" class="container-fluid container-padded pb-0 bg-podcasts">
     <div class="row">
@@ -98,11 +119,6 @@
     </div>
   </div>
   {{end}}
-  <div id="index-videos" class="container-fluid container-padded pb-0 bg-sessions">
-    <h2>Live Music on URY</h2>
-    <div id="sessions-videos" class="row scroll-horiz pb-3 custom-scrollbar-music thumbnail-slider">
-    </div>
-  </div>
   {{end}}
 {{end}}
 
@@ -110,7 +126,6 @@
 <!-- Youtube slider script -->
 <script>
 var youtubeAPIKey = {{.PageContext.Youtube.APIKey}};
-var youtubeSessionsPlaylistID = "{{.PageContext.Youtube.SessionsPlaylistID}}";
 var youtubeCINPlaylistID = "{{.PageContext.Youtube.CINPlaylistID}}";
 var isIndex = true;
 var isCIN = {{if .PageContext.CIN}}true{{else}}false{{end}};

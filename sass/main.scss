@@ -42,6 +42,9 @@
 footer {
   color: #646464;
   background: $off-white-color;
+  border-top: 2rem;
+  border-radius: $border-curve-radius $border-curve-radius 0 0;
+  margin-top: -2rem;
 
   a {
     color: $link-color-dark;
@@ -49,6 +52,7 @@ footer {
 
   .row {
     min-height: 3em;
+    padding: 15px
   }
 }
 
@@ -342,9 +346,10 @@ footer {
 .show-img {
   border: $off-white-color 7px solid;
   background-color: $primary-color;
+  border-radius: $border-curve-radius;
 
   @include media-breakpoint-up(md) {
-    margin-top: -3em;
+    margin-top: -7rem;
   }
 }
 
@@ -396,4 +401,29 @@ body {
 .mainPageGrowingSpacer{
   flex-grow: 1;
   background-color: $off-white-color;
+}
+
+.container-padded{
+  border-bottom: 2rem solid transparent;
+  margin-top: -2rem;
+  border-radius: $border-curve-radius $border-curve-radius 0 0;
+  padding-top: 2rem;
+}
+.pageTitleImage{
+  max-inline-size: 90%;
+  max-height: 15rem;
+}
+.teams-banner {
+  background: url("/images/drone-banner.jpg") center center no-repeat;
+  background-size: cover;
+  color: $white;
+
+  // Padding for mobile
+  padding: calc(5em + 60px) 0 5em;
+
+  // Padding for desktop
+  @include media-breakpoint-up(md) {
+    // Remove the height of the nav bar roughly 60px
+    padding: calc(5em + 60px) 0 5em;
+  }
 }

@@ -31,4 +31,6 @@ public/css/*.scss.css
 config.toml
 public/css/*.scss.css.map
 
-.direnv
+
+.direnv/
+

@@ -20,7 +20,7 @@
 <div class="container-fluid current-next">
 
 </div>
-<div class="container-fluid bg-off-white">
+<div class="container-fluid bg-off-white container-padded">
   <div class="container p-3">
     <div class="row">
       <div class="col-12 col-sm-5 col-lg-3">
@@ -80,7 +80,7 @@
 </div>
 {{with .PageData}}
   {{if .CreditsToUsers}}
-  <div class="container-fluid bg-primary">
+  <div class="container-fluid bg-primary container-padded">
     <div class="container pt-3">
       <h2>Credits</h2>
       <hr>
@@ -103,7 +103,7 @@
   {{end}}
 {{end}}
 {{if gt (len .PageData.Seasons) 0}}
-<div class="container-fluid bg-secondary">
+<div class="container-fluid bg-secondary container-padded">
   <div class="container show-selector">
     <div class="row">
       <div class="col-12 col-xl-4 p-4">
@@ -190,7 +190,7 @@
 {{end}}
 {{with .PageData}}
 {{if gt (len .Podcasts) 0}}
-  <div class="container-fluid bg-off-white">
+  <div class="container-fluid bg-off-white container-padded">
     <div class="container pt-3 pb-1">
       <div class="row justify-content-between">
         <div class="col">

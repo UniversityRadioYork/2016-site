@@ -51,24 +51,3 @@ func (teamC *TeamController) Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
-
-// GetAll handles the HTTP GET request r for the all teams page, writing to w.
-func (teamC *TeamController) GetAll(w http.ResponseWriter, r *http.Request) {
-	teamM := models.NewTeamModel(teamC.session)
-	teams, err := teamM.GetAll()
-	if err != nil {
-		log.Println(err)
-		utils.RenderTemplate(w, teamC.config.PageContext, nil, "404.tmpl")
-		return
-	}
-	data := struct {
-		Teams []myradio.Team
-	}{
-		Teams: teams,
-	}
-	err = utils.RenderTemplate(w, teamC.config.PageContext, data, "teams.tmpl")
-	if err != nil {
-		log.Println(err)
-		return
-	}
-}

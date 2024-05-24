@@ -11,86 +11,119 @@
 <meta property="og:url" content='{{.PageContext.FullURL}}{{url "/about/"}}'>
 {{end}}
 {{define "content"}}
-<div class="container-fluid banner-2">
-  <div class="container container-padded">
-    <div class="row align-items-center text-center">
-      <div class="col">
-        <h1 class="display-3">On Air, Online, On Demand</h1>
-        <h2 class="display-4">Broadcasting since 1968</h2>
+
+  <div class="container-fluid banner-2">
+    <div class="container container-padded">
+      <div class="row align-items-center text-center">
+        <div class="col">
+          <img class="pageTitleImage" src="/images/AboutUs.svg"/>
+          <h2 class="display-5">Broadcasting since 1968.</h2>
+          <br>
+          <a href="{{url "/getinvolved/#signUp"}}" class="btn btn-primary-inverse btn-xl">Get Involved!</a>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div class="container-fluid container-padded bg-off-white">
-  <div class="container container-padded">
-    <h1>Welcome to URY!</h1>
-    <div class="row">
-      <div class="col-md-6 col-lg-4">
-        <h2>Who are we?</h2>
-        <p>{{.PageContext.SiteDescription}}</p>
-        <p>The station is run by students for students, meaning the people behind the station understand what the listenership want to hear.</p>
-        <p>Our presenters cover a wide range of content. This includes a mixture of different genres and shows, which are tailor-made to different demographics. Our aim is to inform and entertain the students of the University of York.</p>
-      </div>
-      <div class="col-md-6 col-lg-4">
-        <h2>Where are we?</h2>
-        <p>URY's studios lie at the very heart of the campus in our own building in Vanbrugh College.<p>
-        <p>However, URY is not confined to the four walls of the station; we are always around the campus at major University and Student Union events, be it covering live music, recruiting new freshers or reporting on major news events.</p>
-        <p>
-          <a href="{{url "/contact/#map"}}"title="Contact Page">Find us on a map!</a>
-        </p>
-      </div>
-      <div class="col-md-6 col-lg-4">
-        <h2>Our Teams</h2>
-        <p>Behind the scenes, the main activities involved in running the station are broken down in teams, which contain officers
-          who are responsible for specific areas of station activity.</p>
-        <p>URY is proud to have a large active membership, and encourages people to get involved, no matter what they want to
-          do or how much time they can commit.</p>
-        <p>
-          <a href="{{url "/teams/"}}"title="Visit the teams page">Find out more about our teams!</a>
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="container-fluid container-padded bg-primary">
-  <div class="container container-padded">
-    <h1>How To Listen</h1>
-    <p>There are many ways you can listen to URY, whether you’re a Uni of York student, friends and family of our presenters, or you’re just interested in what our student radio station has to offer.</p>
-    <div class="row">
-      <div class="col-md-6 col-lg-4">
-        <h2>On Air</h2>
-          <h3>FM Radio</h3>
-          <p>We broadcast across campus and the city of York on 88.3MHz FM.</p>
-          <p>Whether you have a radio in your alarm clock or in your car (or even a 'proper' radio!), make sure to tune it to 88.3FM!</p>
-          <h3>In Your Ears</h3>
-          <p>URY can occasionally be heard out and about on campus, as we regularly attend campus events such as move-in days, Freshers’ Fairs, and Elections Result Night. If you hear us, come along and say hi!</p>
-      </div>
-      <div class="col-md-6 col-lg-4">
-        <h2>Online</h2>
-        <p>If you don't own a radio (or if your only radio is in your car and you want to listen to us outside) then don’t worry, as we broadcast online too.</p>
-          <h3>URY Website</h3>
-          <p>You can listen to us live through <a target="_blank" rel="noopener noreferrer" href="//ury.org.uk/live" title="Click to listen live.">radioplayer</a> (recommended), or via one of our streams:</p>
-          <ul>
-            <li><a target="_blank" rel="noopener noreferrer" href="//audio.ury.org.uk/live-high" title="Listen to URY's High Quality stream (192kb/s).">High Quality (192 kb/s MPEG)</a></li>
-            <li><a target="_blank" rel="noopener noreferrer" href="//audio.ury.org.uk/live-high-ogg" title="Listen to URY's High Quality (OGG) stream (128kb/s).">High Quality OGG (128 kb/s OGG)</a></li>
-            <li><a target="_blank" rel="noopener noreferrer" href="//audio.ury.org.uk/live-mobile" title="Listen to URY's Mobile Quality stream (48kb/s).">Mobile Quality (48 kb/s MPEG)</a></li>
-          </ul>
-          <h3>Smart Speakers</h3>
-          <p>We are also on TuneIn, which means you can listen to us via most smart speakers - simply say “Play University Radio York”.</p>
-          <h3>iTunes Internet Radio</h3>
-          <p>You can even find us on iTunes Radio: <br>Internet Radio -> College/University -> ((URY)) - University Radio York</p>
-      </div>
-      <div class="col-md-6 col-lg-4">
-        <h2>On Tap</h2>
-        <p>URY On Tap - Refreshing content when you need it the most.</p>
-        <p>At URY we understand that our listeners have very busy lives and you can’t always tune into your favourite show live, but never fear! The majority of our shows are automatically uploaded to Mixcloud, simply look for the show slot you missed on <a href="{{url "/schedule/thisweek"}}" title="Click to view our schedule.">our schedule</a>, and you'll have the option to listen back to it at your leisure. </p>
-        <p>Believe it or not, but radio can also be a visual medium - check out <a href="{{url "/ontap#YouTube"}}" title="Click to view our youtube content.">our YouTube content</a> to see all of our latest live music and interviews. </p>
-        <p>If all of that wasn’t enough for you, we still produce the occasional podcast too! <a href="{{url "/podcasts"}}" title="Click to find all of our podcasts.">View all podcasts!</a></p>
+  <div class="container-fluid container-padded bg-primary">
+    <div class="container container-padded">
+      <h1>Welcome to URY!</h1>
+      <div class="row">
+        <div class="col-md-6 col-lg-4">
+          <h2>Who are we?</h2>
+          <p>{{.PageContext.SiteDescription}}</p>
+          <p>The station is run by students for students, meaning the people behind the station understand what the listenership want to hear.</p>
+          <p>Our presenters cover a wide range of content, including a mixture of different genres and shows, all  of which are tailor-made to different demographics. Our aim is to both inform and entertain the students of the University of York.</p>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <h2>Where are we?</h2>
+          <p>URY's studios lie at the very heart of the campus in our own building in Vanbrugh College.<p>
+          <p>However, URY is not confined to the four walls of the station; we are always around the campus at major University and Student Union events, be it covering live music, recruiting new freshers or reporting on major news events.</p>
+          <p>
+            <a href="{{url "/contact/#map"}}"title="Contact Page">Find us on a map!</a>
+          </p>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <h2>Our Teams</h2>
+          <p>Behind the scenes, the main activities involved in running the station are broken down in teams, which contain officers
+            who are responsible for specific areas of station activity.</p>
+          <p>URY is proud to have a large active membership, and encourages people to get involved, no matter what they want to
+            do or how much time they can commit.</p>
+          <p>
+            Scroll down to find out more about our teams!
+          </p>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div class="container-fluid container-padded">
+  <div class="container-fluid container-padded bg-off-white">
+    <div class="container container-padded">
+      <h1>How To Listen</h1>
+      <p>There are many ways you can listen to URY, whether you’re a Uni of York student, friends and family of our presenters, or you’re just interested in what our student radio station has to offer.</p>
+      <div class="row">
+        <div class="col-md-6 col-lg-4">
+          <h2>On Air</h2>
+            <h3>FM Radio</h3>
+            <p>We broadcast across campus and the city of York on 88.3MHz FM.</p>
+            <p>Whether you have a radio in your alarm clock or in your car (or even a 'proper' radio!), make sure to tune it to 88.3FM!</p>
+            <h3>In Your Ears</h3>
+            <p>URY can occasionally be heard out and about on campus, as we regularly attend campus events such as move-in days, Freshers’ Fairs, and Elections Result Night. If you hear us, come along and say hi!</p>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <h2>Online</h2>
+          <p>If you don't own a radio (or if your only radio is in your car and you want to listen to us outside) then don’t worry, as we broadcast online too.</p>
+            <h3>URY Website</h3>
+            <p>You can listen to us live through <a target="_blank" rel="noopener noreferrer" href="//ury.org.uk/live" title="Click to listen live.">radioplayer</a> (recommended), or via one of our streams:</p>
+            <ul>
+              <li><a target="_blank" rel="noopener noreferrer" href="//audio.ury.org.uk/live-high" title="Listen to URY's High Quality stream (192kb/s).">High Quality (192 kb/s MPEG)</a></li>
+              <li><a target="_blank" rel="noopener noreferrer" href="//audio.ury.org.uk/live-high-ogg" title="Listen to URY's High Quality (OGG) stream (128kb/s).">High Quality OGG (128 kb/s OGG)</a></li>
+              <li><a target="_blank" rel="noopener noreferrer" href="//audio.ury.org.uk/live-mobile" title="Listen to URY's Mobile Quality stream (48kb/s).">Mobile Quality (48 kb/s MPEG)</a></li>
+            </ul>
+            <h3>Smart Speakers</h3>
+            <p>We are also on TuneIn, which means you can listen to us via most smart speakers - simply say “Play University Radio York”.</p>
+            <h3>iTunes Internet Radio</h3>
+            <p>You can even find us on iTunes Radio: <br>Internet Radio -> College/University -> ((URY)) - University Radio York</p>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <h2>On Tap</h2>
+          <p>URY On Tap - Refreshing content when you need it the most.</p>
+          <p>At URY we understand that our listeners have very busy lives and you can’t always tune into your favourite show live, but never fear! The majority of our shows are automatically uploaded to Mixcloud, simply look for the show slot you missed on <a href="{{url "/schedule/thisweek"}}" title="Click to view our schedule.">our schedule</a>, and you'll have the option to listen back to it at your leisure. </p>
+          <p>Believe it or not, but radio can also be a visual medium - check out <a href="{{url "/ontap#YouTube"}}" title="Click to view our youtube content.">our YouTube content</a> to see all of our latest live music and interviews. </p>
+          <p>If all of that wasn’t enough for you, we still produce the occasional podcast too! <a href="{{url "/podcasts"}}" title="Click to find all of our podcasts.">View all podcasts!</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid container-padded bg-primary">
+    <div class="container container-padded">
+        <h1>Our Teams</h1>
+        <div class="row justify-content-center">
+        {{with .PageData}}
+          {{range .Teams}}
+            {{if .Alias}}
+            <div class="col-12 col-sm-6 col-lg-6 my-3 team-card">
+              <div class="card text-dark">
+                <a a href="/teams/{{.Alias}}/" title="Goto the {{.Name}} page." class="card-body">
+                  <h2 class="card-title">
+                    {{.Name}}
+                  </h2>
+                  <p class="card-text">
+                  {{if .Description}}
+                    {{html .Description}}
+                  {{else}}
+                    This team does not currently have a description.
+                  {{end}}
+                  </p>
+                </a>
+              </div>
+            </div>
+            {{end}}
+            {{end}}
+          {{end}}
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="container-fluid container-padded bg-white">
   <div class="container container-padded">
     <h1>Our History</h1>
     <div> {{/* Prevents bug where p would appear inline with h2 */}}
@@ -104,7 +137,7 @@
     </div>
   </div>
 </div>
-<div class="container-fluid container-padded bg-secondary">
+<div class="container-fluid container-padded bg-off-white">
   <div class="container container-padded">
     <div class="row">
       <div class="col-12">
@@ -244,3 +277,4 @@
   </div>
 </div>
 {{end}}
+
