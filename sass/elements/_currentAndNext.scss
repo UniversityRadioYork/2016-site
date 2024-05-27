@@ -83,9 +83,11 @@
     &.closed {
       transition: max-height 500ms ease;
       max-height: 0;
-      // silly hack since the closed player has a height of 1px,
-      // even though i tell it that it can have a max height of 0
-      background-color: red;
+      @include media-breakpoint-down(sm) {
+        // silly hack since the closed player has a height of 1px,
+        // even though i tell it that it can have a max height of 0
+        background-color: red;
+      }
     }
   }
 }
