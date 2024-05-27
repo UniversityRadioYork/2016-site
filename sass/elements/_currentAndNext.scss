@@ -1,5 +1,5 @@
 .current-next {
-  background: url("/images/bg-banner-1.jpg") center -128px no-repeat;
+  background: url("/images/bg-banner-1.jpg") center no-repeat;
   background-size: cover;
   color: white;
   box-sizing: content-box;
@@ -83,6 +83,9 @@
     &.closed {
       transition: max-height 500ms ease;
       max-height: 0;
+      // silly hack since the closed player has a height of 1px,
+      // even though i tell it that it can have a max height of 0
+      background-color: red;
     }
   }
 }

@@ -6,12 +6,13 @@
     margin: 0;
 }
 
-@media screen and (max-width: 768px) {
+@include media-breakpoint-down(md) {
     .mobile-column {
         flex-direction: column;
         align-items: center !important;
         justify-content: left !important;
         text-align: center;
+        gap: 1rem;
     }
 }
 
