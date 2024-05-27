@@ -86,10 +86,11 @@ func (ic *IndexController) Post(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		// Set prompt if send fails
 		data.MsgBoxError = true
+		// Indicate to the client that this was an error
+		w.WriteHeader(400)
 	}
 
 	ic.render(w, data)
-
 }
 
 func (ic *IndexController) render(w http.ResponseWriter, data RenderData) {
