@@ -350,9 +350,6 @@ func buildList(schedule []*ScheduleItem, dates []time.Time) []WeekScheduleList {
 	}
 	for _, item := range schedule {
     dayIndex := (item.Start.Weekday() + 6) % 7
-    if len(days[dayIndex].Shows) == 0 && item.IsSustainer() {
-				continue
-    }
 		if straddlesDay(item) {
       item.ShowWeekDay = true
       EnddayIndex := (item.Finish.Weekday() + 6) % 7
@@ -360,15 +357,19 @@ func buildList(schedule []*ScheduleItem, dates []time.Time) []WeekScheduleList {
         days[i].Shows = append(days[i].Shows, *item);
       }
 		} else {
-			// Where does the come from, nobody knows; here's a fix to get rid of it though -ash (2024)
-			// TODO: actually fix this
-      // it comes from makescheduleslice see the s.fill line. needed otherwise the first show on monday will start at 6am on table view
 			days[dayIndex].Shows = append(days[dayIndex].Shows, *item)
 		}
 	}
   for day := range days {
+			// Where does the come from, nobody knows; here's a fix to get rid of it though -ash (2024)
+			// TODO: actually fix this
+      // it comes from makescheduleslice see the s.fill line. needed otherwise the first show on monday will start at 6am on table view
+      // or not, theres jukeboxes coming from elsewhere aswell
     if days[day].Shows[len(days[day].Shows)-1].IsSustainer(){
       days[day].Shows = days[day].Shows[:len(days[day].Shows) - 1]
+    }
+    if days[day].Shows[0].IsSustainer(){
+      days[day].Shows = days[day].Shows[1:]
     }
   }
 	return days

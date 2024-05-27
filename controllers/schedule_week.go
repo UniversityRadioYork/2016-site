@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"errors"
-	"encoding/json"
 	"log"
 	"net/http"
 	"net/url"
