@@ -141,5 +141,12 @@ export function makePlayer(config) {
         playbackControls.setVolume(parseInt(volume.value) / 11.0);
     });
 
+    window.onbeforeunload = () => {
+        console.log('before unload');
+        if (player.src !== null && !player.paused) {
+            return '';
+        }
+    };
+
     return playbackControls;
 }
