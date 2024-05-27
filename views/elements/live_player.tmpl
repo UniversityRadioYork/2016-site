@@ -1,12 +1,10 @@
 {{define "live_player"}}
 
 <div class="row justify-content-center align-items-center mobile-column p-4 live-container" id="live-player-container">
-    <audio style="display: none" id="live-player-audio"></audio>
-
     <button class="p-4 play-pause-button" id="live-player-play">
         <i class="fa fa-play"></i>
     </button>
-    
+
     <div class="live-now-playing">
         <h2>Listening to {{.PageContext.LongName}}</h2>
         <p id="live-player-track-container" style="display: none">

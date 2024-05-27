@@ -1,6 +1,7 @@
 export function makePlayer(config) {
     const { idPrefix, audioUrl, icecastStatusUrl } = config;
-    const player = document.getElementById(`${idPrefix}-audio`);
+    let player = new Audio();
+    player.preload = 'none';
     const playPause = document.getElementById(`${idPrefix}-play`);
     const volume = document.getElementById(`${idPrefix}-volume`);
     const currentTrackTitle = document.getElementById(`${idPrefix}-track-title`);
@@ -11,7 +12,7 @@ export function makePlayer(config) {
         if (player.paused) {
             playPause.innerHTML = '<i class="fa fa-play"></i>';
         } else {
-            playPause.innerHTML = '<i class="fa fa-pause"></i>';
+            playPause.innerHTML = '<i class="fa fa-stop"></i>';
         }
     }
 
@@ -65,14 +66,10 @@ export function makePlayer(config) {
 
     const playbackControls = {
         play() {
+            player.src = audioUrl;
             if (playbackError) {
                 console.log('playback error');
                 return;
-            }
-            if (!player.src) {
-                // Load the live feed
-                player.src = audioUrl;
-                player.autoplay = false;
             }
             if (!nowPlayingUpdate) {
                 fetchNowPlaying();
@@ -88,12 +85,16 @@ export function makePlayer(config) {
             if (nowPlayingUpdate) {
                 clearTimeout(nowPlayingUpdate);
             }
-            player.pause();
+
+            player.src = null;
+            player.srcObject = null;
+
+            updateButton();
         },
 
         setVolume(level) {
             player.volume = level;
-        }
+        },
     };
 
     player.addEventListener('waiting', () => {
