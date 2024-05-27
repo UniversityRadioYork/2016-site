@@ -151,7 +151,11 @@
                       {{.Name}}
                     {{end}}
                   </h3>
-                  <h4>{{.Start.Format "03:04pm"}} - {{.Finish.Format "03:04pm"}}</h4>
+                  {{if .ShowWeekDay}}
+                    <h4>{{.Start.Format "Monday 15:04"}} - {{.Finish.Format "Monday 15:04"}}</h4>
+                  {{else}}
+                    <h4>{{.Start.Format "15:04"}} - {{.Finish.Format "15:04"}}</h4>
+                  {{end}}
                 </div>
               </li>
             {{end}}

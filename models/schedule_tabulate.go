@@ -349,18 +349,28 @@ func buildList(schedule []*ScheduleItem, dates []time.Time) []WeekScheduleList {
 		days[0].Current = true
 	}
 	for _, item := range schedule {
+    dayIndex := (item.Start.Weekday() + 6) % 7
+    if len(days[dayIndex].Shows) == 0 && item.IsSustainer() {
+				continue
+    }
 		if straddlesDay(item) {
-			// Handle this mess
+      item.ShowWeekDay = true
+      EnddayIndex := (item.Finish.Weekday() + 6) % 7
+      for i := dayIndex; i<=EnddayIndex; i++ {
+        days[i].Shows = append(days[i].Shows, *item);
+      }
 		} else {
-			dayIndex := (item.Start.Weekday() + 6) % 7
 			// Where does the come from, nobody knows; here's a fix to get rid of it though -ash (2024)
 			// TODO: actually fix this
-			if len(days[dayIndex].Shows) == 0 && item.IsSustainer() {
-				continue
-			}
+      // it comes from makescheduleslice see the s.fill line. needed otherwise the first show on monday will start at 6am on table view
 			days[dayIndex].Shows = append(days[dayIndex].Shows, *item)
 		}
 	}
+  for day := range days {
+    if days[day].Shows[len(days[day].Shows)-1].IsSustainer(){
+      days[day].Shows = days[day].Shows[:len(days[day].Shows) - 1]
+    }
+  }
 	return days
 }
 

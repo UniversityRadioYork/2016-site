@@ -33,6 +33,8 @@ type ScheduleItem struct {
 
 	// ShowArtURL is the URL to the show art image of this show.
 	ShowArtURL string
+
+  ShowWeekDay bool
 }
 
 // IsSustainer checks whether this schedule item is the URY sustainer.
@@ -51,6 +53,7 @@ func NewSustainerItem(c structs.SustainerConfig, start, finish time.Time) *Sched
 		Block:      "sustainer",
 		PageURL:    "",
 		ShowArtURL: c.Image,
+    ShowWeekDay: false,
 	}
 }
 
@@ -73,6 +76,7 @@ func NewTimeslotItem(t *myradio.Timeslot, finish time.Time, u func(*myradio.Time
 		Block:      t.Subtype.Class,
 		PageURL:    url.Path,
 		ShowArtURL: t.Photo,
+    ShowWeekDay: false,
 	}, nil
 }
 
