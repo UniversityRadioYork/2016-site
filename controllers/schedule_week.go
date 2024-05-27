@@ -149,7 +149,6 @@ func (sc *ScheduleWeekController) makeAndRenderWeek(w http.ResponseWriter, year,
 		return
 	}
 
-	beans, err := json.MarshalIndent(ws, "", "    ")
 	if err != nil {
 		log.Println(err)
 		return
@@ -161,7 +160,6 @@ func (sc *ScheduleWeekController) makeAndRenderWeek(w http.ResponseWriter, year,
 		CurrentAndNext            *myradio.CurrentAndNext
 		StartHour                 int
 		Subtypes                  []myradio.ShowSeasonSubtype
-		Beans string
 	}{
 		Schedule:       ws,
 		PrevURL:        purl,
@@ -170,7 +168,6 @@ func (sc *ScheduleWeekController) makeAndRenderWeek(w http.ResponseWriter, year,
 		CurrentAndNext: currentAndNext,
 		StartHour:      utils.StartHour,
 		Subtypes:       subtypes,
-		Beans: string(beans),
 	}
 
 	err = utils.RenderTemplate(w, sc.config.PageContext, data, "schedule_week.tmpl", "elements/current_and_next.tmpl")

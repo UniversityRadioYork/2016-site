@@ -427,18 +427,3 @@ body {
     padding: calc(5em + 60px) 0 5em;
   }
 }
-.sched-list{
-  display: none;
-}
-.sched-table{
-    display: block;
-  }
-@media screen and (max-width: 768px) {
-  .sched-list{
-    display: block;
-  }
-  .sched-table{
-      display: none;
-    }
-}
-
