@@ -25,23 +25,6 @@
         <h1 class="display-4 mobile-hide">Schedule <a class="fa fa-key schedule-key-icon" href="#key"></a></h1>
         <h2 class="text-muted mobile-hide">{{week (index .Schedule.Dates 0)}}</h2>
       </div>
-      <div class="col-12">
-        <div class="row justify-content-center">
-          {{with $weekName := week (index .Schedule.Dates 0)}}
-            {{if eq $weekName "this week"}}
-              <button class="btn btn-secondary mobile-only inline" id="jumpToNow" type="button" onclick="jumpToNow()">Jump to the current show</button>
-            {{end}}
-          {{end}}
-          <h1 class="mobile-only inline"><a class="fa fa-key schedule-key-icon" data-toggle="collapse" data-target=".schedule-keys" aria-expanded="false" aria-controls="schedule-keys"></a></h1>
-        </div>
-        <div class="schedule-keys collapse">
-          <div class="key-row">
-              {{ range .Subtypes }}
-                <span class="schedule-block-{{.Class}}">{{.Name}}</span>
-              {{end}}
-          </div>
-        </div>
-      </div>
     </div>
 
     <nav aria-label="Related Schedules" class="row nav justify-content-between">
@@ -59,8 +42,8 @@
 </div>
 
 <!-- schedule body -->
-<div class="container-fluid bg-off-white container-padded">
-<div class="container sched-table">
+<div class="container-fluid bg-off-white container-padded mobile-hide">
+<div class="container">
   {{with .Schedule}}
   {{if .Table}}
     <div class="tables-container table">
@@ -124,15 +107,17 @@
         </div>
     </div>
   </div>
+  </div>
 
 
 
 
 
 
-  <div class="container sched-list">
+<div class="bg-off-white mobile-only">
   {{with .Schedule}}
   {{if .List}}
+  <div class="container-fluid container">
     <ul class="nav nav-tabs" id="schedule-tab" role="tablist">
       {{range .List}}
         <li class="nav-item" role="presentation">
@@ -146,6 +131,7 @@
         </li>
       {{end}}
     </ul>
+    </div>
     <div class="tab-content mt-2" id="schedule-tabContent">
       {{range .List}}
         {{if .Current}}
@@ -153,11 +139,11 @@
         {{else}}
           <div class="tab-pane" id="{{.Day.Weekday}}" role="tabpanel" aria-labelledby="{{.Day.Weekday}}-tab">
         {{end}}
-          <ul>
+          <ul class="p-0">
             {{range .Shows}}
               <li class="schedule-card">
                 <img src="https://ury.org.uk{{.ShowArtURL}}" width="128" height="128">
-                <div class="card-details">
+                <div class="card-details pb-0">
                   <h3>
                     {{if .PageURL}}
                       <a href="{{.PageURL}}">{{.Name}}</a>
@@ -182,7 +168,6 @@
     </div>
   {{end}}
   {{end}}
-  </div>
 </div>
 {{end}}
 {{end}}
