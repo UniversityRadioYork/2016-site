@@ -66,7 +66,6 @@ export function makePlayer(config) {
 
     const playbackControls = {
         play() {
-            player.src = audioUrl;
             if (playbackError) {
                 console.log('playback error');
                 return;
@@ -74,7 +73,11 @@ export function makePlayer(config) {
             if (!nowPlayingUpdate) {
                 fetchNowPlaying();
             }
-            player.play();
+
+            if (!this.playing) {
+                player.src = audioUrl;
+                player.play();
+            }
         },
 
         pause() {
@@ -95,6 +98,10 @@ export function makePlayer(config) {
         setVolume(level) {
             player.volume = level;
         },
+
+        get playing() {
+            return player.src !== null && !player.paused;
+        }
     };
 
     player.addEventListener('waiting', () => {
@@ -143,7 +150,7 @@ export function makePlayer(config) {
 
     window.onbeforeunload = () => {
         console.log('before unload');
-        if (player.src !== null && !player.paused) {
+        if (playbackControls.playing) {
             return '';
         }
     };
