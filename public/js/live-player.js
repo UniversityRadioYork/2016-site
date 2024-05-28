@@ -87,6 +87,7 @@ export function makePlayer(config) {
             }
             if (nowPlayingUpdate) {
                 clearTimeout(nowPlayingUpdate);
+                nowPlayingUpdate = null;
             }
 
             player.src = null;
