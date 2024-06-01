@@ -40,6 +40,7 @@ type PageContext struct {
 	ODName           string                `toml:"odName"`
 	Christmas        bool                  `toml:"christmas"`
 	AprilFools       bool                  `toml:"aprilFools"`
+	Pride 		     bool                  `toml:"pride"`
 	CIN              bool                  `toml:"cin"`
 	CINLivestreaming bool                  `toml:"cinLivestreaming"`
 	CINAPI           string                `toml:"cinAPI"`
