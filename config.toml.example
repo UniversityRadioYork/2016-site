@@ -37,6 +37,7 @@
 
 	christmas = true
 	aprilFools = false
+	pride = true
 
 	# Candidate Interview Night Stuff
 	cin = true

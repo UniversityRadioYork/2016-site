@@ -5,7 +5,11 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="{{url "/"}}">
+    {{if .PageContext.Pride}}
+      <img src="{{url "/images/URY_Rainbow.png"}}" height="34" alt="{{.PageContext.LongName}} Logo" >
+    {{else}}
       <img src="{{url "/images/logo.png"}}" height="34" alt="{{.PageContext.LongName}} Logo" >
+    {{end}}
     </a>
     <div class="navbar-collapse collapse" id="collapsed">
       <div class="navbar-nav">
