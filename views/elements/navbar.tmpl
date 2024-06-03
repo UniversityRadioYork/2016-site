@@ -6,9 +6,9 @@
     </button>
     <a class="navbar-brand" href="{{url "/"}}">
     {{if .PageContext.Pride}}
-      <img src="{{url "/images/URY_Rainbow.png"}}" height="34" alt="{{.PageContext.LongName}} Logo" >
+        <img class="navbar-pride-logo" src="{{url "/images/URY_Rainbow.png"}}" height="34" alt="{{.PageContext.LongName}} Logo" >
     {{else}}
-      <img src="{{url "/images/logo.png"}}" height="34" alt="{{.PageContext.LongName}} Logo" >
+        <img src="{{url "/images/logo.png"}}" height="34" alt="{{.PageContext.LongName}} Logo" >
     {{end}}
     </a>
     <div class="navbar-collapse collapse" id="collapsed">
