@@ -166,6 +166,15 @@ $sustainer-color: tint($primary-color, 40%);
   @include schedule-block($collab, $off-white-color);
 }
 
+.schedule-card {
+  display: flex;
+  flex-direction: row;
+}
+
+.card-details {
+  padding: 1rem;
+}
+
 .schedule-keys .key-row {
   * {
     display: inline-block;

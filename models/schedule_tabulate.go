@@ -17,8 +17,6 @@ import (
 
 // WeekScheduleCell represents one cell in the week schedule.
 type WeekScheduleCell struct {
-	// Number of rows this cell spans.
-	// If 0, this is a continuation from a cell further up.
 	RowSpan uint
 
 	// Pointer to the timeslot in this cell, if any.
@@ -276,6 +274,9 @@ type WeekSchedule struct {
 	// Table is the actual week table.
 	// If there is no schedule for the given week, this will be nil.
 	Table []WeekScheduleCol
+	// The week's schedule but in list form not table form
+	// If there is no schedule for the given week, this will be nil.
+	List []WeekScheduleList
 }
 
 // hasShows asks whether a schedule slice contains any non-sustainer shows.
@@ -311,6 +312,12 @@ func (c *WeekScheduleCol) addCell(s uint, i *ScheduleItem, h int, m int) {
 	c.Cells = append(c.Cells, WeekScheduleCell{RowSpan: s, Item: i, Hour: h, Minute: m})
 }
 
+type WeekScheduleList struct {
+	Day     time.Time
+	Current bool
+	Shows   []ScheduleItem
+}
+
 // tableFilp flips the schedule table such that it becomes a list of days which have a list
 // of shows on that day.
 func tableFilp(rows []WeekScheduleRow, dates []time.Time) []WeekScheduleCol {
@@ -326,6 +333,48 @@ func tableFilp(rows []WeekScheduleRow, dates []time.Time) []WeekScheduleCol {
 	return days
 }
 
+func buildList(schedule []*ScheduleItem, dates []time.Time) []WeekScheduleList {
+	thisYear, thisMonth, thisDay := time.Now().Date()
+	days := make([]WeekScheduleList, 7)
+	thisWeek := false
+	for i := range days {
+		days[i].Day = dates[i]
+		year, month, day := dates[i].Date()
+		if year == thisYear && month == thisMonth && day == thisDay {
+			days[i].Current = true
+			thisWeek = true
+		}
+	}
+	if !thisWeek {
+		days[0].Current = true
+	}
+	for _, item := range schedule {
+    dayIndex := (item.Start.Weekday() + 6) % 7
+		if straddlesDay(item) {
+      item.ShowWeekDay = true
+      EnddayIndex := (item.Finish.Weekday() + 6) % 7
+      for i := dayIndex; i<=EnddayIndex; i++ {
+        days[i].Shows = append(days[i].Shows, *item);
+      }
+		} else {
+			days[dayIndex].Shows = append(days[dayIndex].Shows, *item)
+		}
+	}
+  for day := range days {
+			// Where does the come from, nobody knows; here's a fix to get rid of it though -ash (2024)
+			// TODO: actually fix this
+      // it comes from makescheduleslice see the s.fill line. needed otherwise the first show on monday will start at 6am on table view
+      // or not, theres jukeboxes coming from elsewhere aswell
+    if days[day].Shows[len(days[day].Shows)-1].IsSustainer(){
+      days[day].Shows = days[day].Shows[:len(days[day].Shows) - 1]
+    }
+    if days[day].Shows[0].IsSustainer(){
+      days[day].Shows = days[day].Shows[1:]
+    }
+  }
+	return days
+}
+
 // tabulateWeekSchedule creates a schedule table from the given schedule slice.
 func tabulateWeekSchedule(start, finish time.Time, schedule []*ScheduleItem) (*WeekSchedule, error) {
 	days := []time.Time{}
@@ -337,6 +386,7 @@ func tabulateWeekSchedule(start, finish time.Time, schedule []*ScheduleItem) (*W
 		return &WeekSchedule{
 			Dates: days,
 			Table: nil,
+			List:  nil,
 		}, nil
 	}
 
@@ -349,10 +399,12 @@ func tabulateWeekSchedule(start, finish time.Time, schedule []*ScheduleItem) (*W
 	populateRows(days, rows, schedule)
 
 	table := tableFilp(rows, days)
+	list := buildList(schedule, days)
 
 	sch := WeekSchedule{
 		Dates: days,
 		Table: table,
+		List:  list,
 	}
 
 	return &sch, nil
