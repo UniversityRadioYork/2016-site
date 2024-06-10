@@ -54,6 +54,14 @@ func straddlesDay(s *ScheduleItem) bool {
 	return straddle
 }
 
+func listStraddlesDay(s *ScheduleItem) bool {
+	dayBoundary := 0
+	adjustedStart := s.Start.Add(time.Hour * time.Duration(-dayBoundary))
+	adjustedEnd := s.Finish.Add(time.Hour * time.Duration(-dayBoundary))
+	straddle := adjustedEnd.Day() != adjustedStart.Day() && s.Finish.Sub(s.Start) > time.Hour
+	return straddle
+}
+
 // calcScheduleBoundaries gets the offsets of the earliest and latest visible schedule hours.
 // It returns these as top and bot respectively.
 func calcScheduleBoundaries(items []*ScheduleItem, scheduleStart time.Time) (top, bot utils.StartOffset, err error) {
@@ -350,7 +358,7 @@ func buildList(schedule []*ScheduleItem, dates []time.Time) []WeekScheduleList {
 	}
 	for _, item := range schedule {
     dayIndex := (item.Start.Weekday() + 6) % 7
-		if straddlesDay(item) {
+		if listStraddlesDay(item) {
       item.ShowWeekDay = true
       EnddayIndex := (item.Finish.Weekday() + 6) % 7
       for i := dayIndex; i<=EnddayIndex; i++ {
