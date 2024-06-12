@@ -10,6 +10,9 @@
 <meta property="og:description" content="At URY, radio is a two-way medium. Send us a message or find us on social media.">
 <meta property="og:image" content="{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}">
 <meta property="og:url" content="{{.PageContext.FullURL}}{{url "/contact/"}}">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
 {{end}}
 
 {{define "content"}}
@@ -145,6 +148,8 @@ var placeName = "{{.PageContext.LongName}}";
 var Lat = {{.PageContext.Gmaps.Lat}};
 var Lng = {{.PageContext.Gmaps.Lng}};
 </script>
+ <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
 <script src='{{url "/js/responsivemap.js"}}?ver={{ .PageContext.CacheBuster }}'></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key={{.PageContext.Gmaps.APIKey}}"></script>
 {{end}}
