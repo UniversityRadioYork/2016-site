@@ -14,7 +14,7 @@
     <meta name="description" content="{{.PageContext.SiteDescription}}">
 
     <title>{{block "title" .}}{{.PageContext.LongName}}{{end}}</title>
-    
+
     {{block "open-graph" .}}
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@{{.PageContext.MainTwitter}}">
@@ -43,12 +43,14 @@
     {{template "header" .}}
 {{end}}
 
+<main>
 {{block "content" .}}
 <div class="container container-padded">
 <h1>Error</h1>
 <p>No content defined for this page.</p>
 </div>
 {{end}}
+</main>
 
 
 {{block "footer-block" .}}

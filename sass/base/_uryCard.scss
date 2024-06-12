@@ -22,9 +22,7 @@ a.ury-card,
 
   .ury-card-img {
     width: 100%;
-    padding-top: 100%;
-    background-repeat: no-repeat;
-    background-size: cover !important; //propotional resize
+    aspect-ratio: 1;
     border-radius: $internal-curve-radius;
   }
 
