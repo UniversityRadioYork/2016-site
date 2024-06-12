@@ -16,59 +16,74 @@
 <div class="container-fluid banner-2 text-overlay">
   <div class="container container-padded">
     <div class="row align-items-center text-center">
-      <div class="col">
-        <img class="pageTitleImage" src="/images/ContactUs.svg"/>
-        <h2 class="display-5">At URY, radio is a two-way medium.</h2>
-      </div>
+      <hgroup class="col">
+        <h1><img class="pageTitleImage" src="/images/ContactUs.svg"/></h1>
+        <p class="h2">At URY, radio is a two-way medium.</p>
+      </hgroup>
     </div>
   </div>
 </div>
 <div class="container-fluid container-padded text-center bg-white">
   <div class="row">
     <div class="col-md-2 align-self-center">
-      <a href="//instagram.com/{{.PageContext.MainInstagram}}"><i class="fab fa-instagram fa-2x"></i><h3>Our Instagram</h3></a>
+      <a href="//instagram.com/{{.PageContext.MainInstagram}}">
+        <i class="fab fa-instagram fa-2x"></i>
+        <br>
+        <b class="h3">Our Instagram</b>
+      </a>
     </div>
     <div class="col-md-2 align-self-center">
-      <a href="//twitter.com/{{.PageContext.MainTwitter}}"><i class="fab fa-twitter fa-2x"></i><h3>Our Twitter</h3></a>
+      <a href="//twitter.com/{{.PageContext.MainTwitter}}">
+        <i class="fab fa-twitter fa-2x"></i>
+        <br>
+        <b class="h3">Our Twitter</b>
+      </a>
     </div>
     <div class="col-md-4 align-self-center">
-      <h2>07851 101 313</h2>
-      <span>Text the studio<br>or send a message via the <a href="/" title="URY Homepage">homepage</a>.</span>
+      <span class="h2">Send a message via the <a href="/" title="URY Homepage">homepage</a>.</span>
     </div>
     <div class="col-md-2 align-self-center">
-      <a href="//facebook.com/{{.PageContext.MainFacebook}}"><i class="fab fa-facebook fa-2x"></i><h3>Our Facebook</h3></a>
+      <a href="//facebook.com/{{.PageContext.MainFacebook}}">
+        <i class="fab fa-facebook fa-2x"></i>
+        <br>
+        <b class="h3">Our Facebook</b>
+      </a>
     </div>
     <div class="col-md-2 align-self-center">
-      <a href="{{.PageContext.Youtube.ChannelURL}}"><i class="fab fa-youtube fa-2x"></i><h3>Our YouTube</h3></a>
+      <a href="{{.PageContext.Youtube.ChannelURL}}">
+        <i class="fab fa-youtube fa-2x"></i>
+        <br>
+        <b class="h3">Our YouTube</b>
+      </a>
     </div>
   </div>
 </div>
-<div class="container-fluid container-padded text-center bg-primary">
+<section class="container-fluid container-padded text-center bg-primary">
   <div class="row">
     <div class="col">
-      <h1>Got some news for us?</h1>
+      <h2 class="h1">Got some news for us?</h2>
       <p>Got a breaking news story? Get in touch with the URY Newsroom right away!</p>
     </div>
   </div>
   <div class="row">
     <div class="col">
-      <h2><a href="mailto:newsroom@ury.org.uk" title="Email URY Newsroom">newsroom@ury.org.uk</a> <span class="slash-divider">/</span> <a href="//twitter.com/{{.PageContext.NewsTwitter}}" title="URY News Twitter" target="_blank" rel="noopener noreferrer">@{{.PageContext.NewsTwitter}}</a></h2>
+      <b class="h2"><a href="mailto:newsroom@ury.org.uk" title="Email URY Newsroom">newsroom@ury.org.uk</a> <span class="slash-divider">/</span> <a href="//twitter.com/{{.PageContext.NewsTwitter}}" title="URY News Twitter" target="_blank" rel="noopener noreferrer">@{{.PageContext.NewsTwitter}}</a></b>
     </div>
   </div>
-</div>
-<div class="container-fluid container-padded text-center bg-secondary key-contacts">
+</section>
+<section class="container-fluid container-padded text-center bg-secondary key-contacts">
   <div class="container container-padded">
     <div class="row">
-      <div class="col">
-        <h1>Key Contacts</h1>
+      <hgroup class="col">
+        <h2 class="h1">Key Contacts</h2>
         <p>The people to contact about enquiries.</p>
-      </div>
+      </hgroup>
     </div>
     <div class="row">
       <div class="col-md-6 col-lg-3">
         <div class="card bg-white p-3">
           <div class="card-block">
-            <h2 class="card-title">Management</h2>
+            <h3 class="card-title">Management</h3>
             <p><a href="mailto:management@ury.org.uk" title="Email Management">management@ury.org.uk</a></p>
             <p class="card-text">These are people who are responsible for the day to day running of the station and ensure the key aims of the station are met in terms of output, revenue and audience.</p>
           </div>
@@ -77,7 +92,7 @@
       <div class="col-md-6 col-lg-3">
         <div class="card bg-white p-3">
           <div class="card-block">
-            <h2 class="card-title">Programme Controller</h2>
+            <h3 class="card-title">Programme Controller</h3>
             <p class="card-text"><a href="mailto:pc@ury.org.uk" title="Email the Programme Controller">pc@ury.org.uk</a></p>
             <p class="card-text">The Programme Controller manages the quality of the station’s output and adhering to our licenses, please contact them if you have any enquiries on this.</p>
           </div>
@@ -86,7 +101,7 @@
       <div class="col-md-6 col-lg-3">
         <div class="card bg-white p-3">
           <div class="card-block">
-            <h2 class="card-title">Music Team</h2>
+            <h3 class="card-title">Music Team</h3>
             <p class="card-text"><a href="mailto:music@ury.org.uk" title="Email the Music Team">music@ury.org.uk</a></p>
             <p class="card-text">Are you a keen musician, want to hear a track on URY, or know an up and coming band that would like some air time? Give Music Team a shout!</p>
           </div>
@@ -95,7 +110,7 @@
       <div class="col-md-6 col-lg-3">
         <div class="card bg-white p-3">
           <div class="card-block">
-            <h2 class="card-title">Production Team</h2>
+            <h3 class="card-title">Production Team</h3>
             <p class="card-text"><a href="mailto:production@ury.org.uk" title="Email the Production Team"> production@ury.org.uk</a></p>
             <p class="card-text">Do you want URY to host or DJ an event? Or do you wish for your event to be broadcasted live? Production Team is the one who manage all of our events.</p>
           </div>
@@ -103,22 +118,24 @@
       </div>
     </div>
   </div>
-</div>
-<div class="container-fluid container-padded text-center bg-off-white">
+</section>
+<section class="container-fluid container-padded text-center bg-off-white">
   <div class="container container-padded">
     <div class="row">
-      <div class="col">
-        <h1>Everything Else</h1>
+      <hgroup class="col">
+        <h2 class="h1">Everything Else</h2>
         <p>For all other enquiries, contact the URY office.</p>
-      </div>
+      </hgroup>
     </div>
     <div class="row">
       <div class="col-md-5">
-        <h2>Phone</h2>
-        <p><strong>Internal Phone</strong><br>1350 (Free)</p>
-        <p><strong>External Phone</strong><br>(+44)1904 32 1350 (Standard Rates)</p>
+        <h3>Phone</h3>
+          <h4>Internal Phone</h4>
+          <p>1350 (Free)</p>
+          <h4>External Phone</h4>
+          <p>(+44)1904 32 1350 (Standard Rates)</p>
         <hr>
-        <h2>Postal Address</h2>
+        <h3>Postal Address</h3>
         <p>
           URY, Vanbrugh College<br>
           University of York<br>
@@ -127,15 +144,14 @@
         </p>
       </div>
       <div class="col-md-7">
-        <h2>Where to find us</h2>
-        <a name="map"></a>
+        <h3>Where to find us</h3>
         <div class="map-container">
           <div id="map" class="res-map"></div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>
 {{end}}
 
 {{define "footer-scripts"}}
