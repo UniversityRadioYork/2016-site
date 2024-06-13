@@ -14,7 +14,7 @@
     <meta name="description" content="{{.PageContext.SiteDescription}}">
 
     <title>{{block "title" .}}{{.PageContext.LongName}}{{end}}</title>
-    
+
     {{block "open-graph" .}}
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@{{.PageContext.MainTwitter}}">
@@ -25,6 +25,9 @@
     <meta property="og:description" content="{{.PageContext.SiteDescription}}">
     <meta property="og:image" content='{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}'>
     <meta property="og:url" content='{{.PageContext.FullURL}}{{url "/"}}'>
+    {{end}}
+
+    {{block "head" .}}
     {{end}}
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>

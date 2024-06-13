@@ -11,6 +11,11 @@
 <meta property="og:image" content="{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}">
 <meta property="og:url" content="{{.PageContext.FullURL}}{{url "/contact/"}}">
 {{end}}
+{{define "head"}}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+{{end}}
 
 {{define "content"}}
 <div class="container-fluid banner-2 text-overlay">
@@ -142,9 +147,11 @@
 <!-- Responsive map script -->
 <script>
 var placeName = "{{.PageContext.LongName}}";
-var Lat = {{.PageContext.Gmaps.Lat}};
-var Lng = {{.PageContext.Gmaps.Lng}};
+var Lat = {{.PageContext.Osm.Lat}};
+var Lng = {{.PageContext.Osm.Lng}};
 </script>
+ <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
 <script src='{{url "/js/responsivemap.js"}}?ver={{ .PageContext.CacheBuster }}'></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key={{.PageContext.Gmaps.APIKey}}"></script>
 {{end}}

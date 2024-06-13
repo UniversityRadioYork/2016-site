@@ -50,7 +50,7 @@ type PageContext struct {
 	CacheBuster      string                `toml:"cacheBuster"`
 	Pages            []Page
 	Youtube          youtube
-	Gmaps            gmaps
+	Osm              osm
 	CurrentYear      int
 }
 
@@ -99,8 +99,7 @@ type youtube struct {
 	ChannelURL         string `toml:"channelURL"`
 }
 
-type gmaps struct {
-	APIKey string  `toml:"apiKey"`
+type osm struct {
 	Lat    float32 `toml:"latitude"`
 	Lng    float32 `toml:"longitude"`
 }

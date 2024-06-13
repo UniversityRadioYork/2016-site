@@ -68,8 +68,7 @@
 		cinPlaylistID = "PLsxUDJzU4VKAAH1pOogbzJx7pZgd-2zOx"
 		channelURL = "//youtube.com/ury1350"
 
-	[pageContext.gmaps]
-		APIKey = "AIzaSyACeeyIgdIhiSxV01OIPiA3MyJDqrOspLQ"
+	[pageContext.osm]
 		latitude = 53.948193
 		longitude = -1.054030
 

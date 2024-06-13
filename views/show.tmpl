@@ -15,6 +15,9 @@
 <meta property="og:url" content='{{.PageContext.FullURL}}{{url "/schedule/shows/"}}{{.PageData.Show.ShowID}}'>
 <meta property="og:description" content="{{ stripHtml .PageData.Show.Description}}">
 {{end}}
+{{define "head"}}
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
+{{end}}
 
 {{define "content"}}
 <div class="container-fluid current-next">
@@ -241,7 +244,6 @@
 {{end}}
 {{end}}
 {{define "footer-scripts"}}
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
 <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="//cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
 <script src="//cdn.datatables.net/plug-ins/1.10.16/api/fnFindCellRowIndexes.js"></script>
