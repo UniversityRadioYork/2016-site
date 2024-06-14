@@ -13,6 +13,7 @@ $search-background: rgb(255, 255, 255);
   margin-top: auto;
   width: auto;
 
+
   input {
     background: none;
     border: 0;
@@ -22,6 +23,7 @@ $search-background: rgb(255, 255, 255);
     padding-left: 0;
     padding-right: .5em;
     width: 100%;
+    float: left;
 
     &:focus {
       outline: none;
@@ -30,6 +32,27 @@ $search-background: rgb(255, 255, 255);
     }
   }
 
+  input[type="radio"] {
+    display: none;
+  }
+  .source-group {
+    position: absolute;
+    top: -4px;
+    right: 1px;
+    background: $off-white-color;
+    border-radius: 45px;
+    padding: 0 15px;
+    label {
+      display: inline-block;
+      padding: 0 5px;
+      font-size: 0.8em;
+      vertical-align: text-top;
+    }
+    input:checked + label {
+      color: $blue;
+    }
+
+  }
   button {
     color: $search-button-color;
     border: 0;

@@ -2,27 +2,130 @@
 {{define "content"}}
 {{with .PageData}}
 
-<div class="container container-padded pt-5 mt-5">
-    <form action="{{url "/search/"}}" class="form-inline ml-auto search-box" style="font-size:2rem;">
-        <button type="submit" class="" alt="Submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-        <div class="col px-0">
-            <input type="text" name="term" placeholder="Search..." value="{{.Term}}" width="100%">
+<div class="container-fluid on-demand">
+    <div class="container container-padded">
+            <div class="row align-items-end text-center">
+                <div class="col">
+                    <h1 class="display-5 header-title">
+                        Past. Present. Future. #Content.
+                        <br>
+                        <span class="display-3">
+                            Find it on {{$.PageContext.ShortName }}.
+                        </span>
+                    </h1>
+                    <form id="searchForm" action="{{url "/search/"}}" class="mt-5 form-inline ml-auto search-box" style="font-size:2rem;">
+                        <button type="submit" class="" alt="Submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        <div class="col px-0">
+                            <input type="text" name="term" placeholder="Search..." value="{{.Term}}" width="100%">
+
+                            <div class="source-group bg-dark">
+                                <input type="radio" id="sourceShows" name="source" class="search-filter" value="show" {{if eq .Source "show"}}checked{{end}}>
+                                <label for="sourceShows">Shows</label>
+                                <input type="radio" id="sourcePodcasts" name="source" class="search-filter" value="podcast" {{if eq .Source "podcast"}}checked{{end}}>
+                                <label for="sourcePodcasts">Podcasts</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+    </div>
+</div>
+
+{{if .Searching}}
+<div class="container-fluid container-padded {{if eq .Source "show"}}bg-primary{{else if eq .Source "podcast"}}bg-podcasts{{end}}">
+    <div class="container container-padded py-3">
+        <div class="row">
+            <div class="col-12 col-sm-8">
+                <h2>
+                    <span class="text-muted">Searching for...</span>
+                    <br>
+                {{if eq .Source "show"}}
+                    <span class="display-4">Shows</span>
+                {{else if eq .Source "podcast"}}
+                    <span class="display-4">Podcasts</span>
+                {{end}}
+                </h2>
+            </div>
+            <div class="col-12 col-sm-4">
+                {{if eq .Source "show"}}
+                    <div class="text-right">
+                        <span class="h3 text-muted">Want something new?</span>
+                        <br>
+                        <a href="/ontap" class="btn btn-lg btn-primary mt-3" title="New On-Demand Content">New Shows</a>
+                    </div>
+                {{else if eq .Source "podcast"}}
+                    <div class="text-right">
+                        <span class="h3 text-muted">Want something new?</span>
+                        <br>
+                        <a href="/podcasts" class="btn btn-lg btn-primary mt-3" title="All/Latest Podcasts">Latest Podcasts</a>
+                    </div>
+                {{end}}
+            </div>
         </div>
-    </form>
+    </div>
+</div>
+{{end}}
+
+<div class="container container-padded mt-2">
 	{{if .Searching}}
-        <div class="pt-3" style="text-align: right;">{{.NumResults}} Results</div>
+        <span>Top Results</span>
         <hr>
-		{{range .Results}}
-            <h5>
-				<a href="/schedule/shows/{{.ShowID}}/">{{.Title}}</a>
-            </h5>
-		    {{html .Description}}
-            <hr>
-		{{else}}
-            <p>
-                No Results
-            </p>
-		{{end}}
+        {{if eq .Source "show"}}
+            {{range .ShowResults}}
+                <div class="row">
+                    <div class="mobile-hide col-12 col-md-3 col-lg-2">
+                        <img class="img-fluid" src='
+                            {{if .Photo}}
+                                {{$.PageContext.FullURL}}{{.Photo}}
+                            {{else}}
+                                {{url "/images/default_show_profile.png"}}
+                            {{end}}
+                        ' alt="{{.Title}} Logo">
+                    </div>
+                    <div class="col-12 col-md-9 col-lg-10">
+                        <h4>
+                            <a href="{{.MicroSiteLink.URL}}/">{{.Title}}</a>
+                        </h4>
+                        <h5>
+                            {{.CreditsString}}
+                        </h5>
+                        <p class="ellipsis">{{html .Description}}</p>
+                    </div>
+                </div>
+                <hr>
+            {{end}}
+        {{else if eq .Source "podcast"}}
+            {{range .PodcastResults}}
+                <div class="row">
+                    <div class="mobile-hide col-12 col-md-3 col-lg-2">
+                        <img class="img-fluid" src='
+                            {{if .Photo}}
+                                {{$.PageContext.FullURL}}{{.Photo}}
+                            {{else}}
+                                {{url "/images/default_show_profile.png"}}
+                            {{end}}
+                        ' alt="{{.Title}} Logo">
+                    </div>
+                    <div class="col-12 col-md-9 col-lg-10">
+                        <h4>
+                            <a href="{{.MicrositeLink.URL}}/">{{.Title}}</a>
+                        </h4>
+                        <span class="h4">
+                            {{.Time.Format "Monday, _2 Jan 2006"}}
+                        </span>
+                        <p class="ellipsis">{{html .Description}}</p>
+                    </div>
+                </div>
+                <hr>
+            {{end}}
+        {{end}}
+        {{if gt (len .ErrorMsg) 0}}
+            <div class="alert mt-5 alert-warning">{{.ErrorMsg}}</div>
+        {{else if eq .NumResults 0}}
+            <h4 class="display-5 text-center m-5">
+                No search results. Please try a different search term.
+            </h4>
+        {{end}}
 
 	{{else}}
 	{{end}}
@@ -30,4 +133,8 @@
 </div><!-- /.container container-padded -->
 
 {{end}}
+{{end}}
+
+{{define "footer-scripts"}}
+<script src='{{url "/js/search.js"}}?ver={{ .PageContext.CacheBuster }}'></script>
 {{end}}
