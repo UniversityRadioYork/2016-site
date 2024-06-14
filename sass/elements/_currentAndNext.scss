@@ -1,5 +1,6 @@
 .current-next {
-  background: url("/images/bg-banner-1.jpg") center center no-repeat;
+  background: -webkit-image-set(url("/images/bg-banner-1.webp") type("image/webp"), url("/images/bg-banner-1.jpg") type("image/jpeg")) center center no-repeat;
+  background: image-set(url("/images/bg-banner-1.webp") type("image/webp"), url("/images/bg-banner-1.jpg") type("image/jpeg")) center center no-repeat;
   background-size: cover;
   color: white;
   box-sizing: content-box;
