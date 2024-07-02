@@ -70,12 +70,12 @@
   <nav class="row nav justify-content-between">
     <span>
       <a class="nav-link
-        {{if gt .PageNumber 1}}
+        {{if eq .PageNumber 1}}
           disabled
         {{end}}
       " href='{{url "/podcasts/"}}page/{{.PageNumberPrev}}'>&larr; Previous page</a>
       <a class="nav-link
-      {{if gt .PageNumber 1}}
+      {{if eq .PageNumber 1}}
         disabled
       {{end}}
       " href='{{url "/podcasts/"}}'>Latest</a>
