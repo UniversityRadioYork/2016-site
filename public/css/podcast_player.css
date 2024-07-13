@@ -1,5 +1,6 @@
 .player {
-  border: 1px solid #8d8d8d;
+  inset: 0;
+  border: 1px solid #d7d7d7;
   background-color: white;
   margin-bottom: 20px;
   max-width: 800px;
@@ -226,7 +227,7 @@ progress[value]::-webkit-progress-value {
 }
 
 /* Site embed size player */
-@media (max-height: 121px) and (min-height: 119px) {
+@media (min-width: 500px) and (max-height: 121px) and (min-height: 119px) {
   .player {
     width: 100%;
     max-width: 100%;
@@ -258,15 +259,24 @@ progress[value]::-webkit-progress-value {
   .time-container {
     width: calc(100% - 120px);
     padding: 18px;
+    float: right;
   }
 
   .meta-container {
     padding: 9px;
-    border-top: 1px solid rgb(215, 215, 215);
+    border-top: 1px solid #d7d7d7;
     border-bottom: 1px solid rgb(233, 233, 233);
+    display: block;
+
+    div.podcast-title {
+
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 
   .time-container {
-    border-bottom: 1px solid rgb(215, 215, 215);
+    border-bottom: 1px solid #d7d7d7;
   }
 }
