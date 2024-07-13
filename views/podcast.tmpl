@@ -1,4 +1,5 @@
-{{define "title"}}{{.PageContext.ShortName}} | {{.PageContext.ODName}} | {{with .PageData}} {{.Podcast.Title}} {{end}} Podcast {{end}}
+{{define "title"}}{{.PageContext.ShortName}} | {{.PageContext.ODName}} | {{with .PageData}} {{.Podcast.Title}} {{end}}
+Podcast {{end}}
 
 {{define "open-graph"}}
 <meta name="twitter:card" content="summary">
@@ -9,115 +10,109 @@
 {{if .PageData.Podcast.Photo}}
 <meta property="og:image" content="{{.PageContext.FullURL}}{{url .PageData.Podcast.Photo}}">
 {{else}}
-<meta property="og:image" content="{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}">
+<meta property="og:image" content="{{.PageContext.FullURL}}{{url " /images/open_graph-general.jpg"}}">
 {{end}}
 <meta property="og:type" content="website">
-<meta property="og:url" content="{{.PageContext.FullURL}}{{url "/podcasts/"}}{{.PageData.Podcast.PodcastID}}">
+<meta property="og:url" content="{{.PageContext.FullURL}}{{url " /podcasts/"}}{{.PageData.Podcast.PodcastID}}">
 <meta property="og:description" content="{{ stripHtml .PageData.Podcast.Description}}">
 {{end}}
 
 {{define "content"}}
 
-  <div class="container-fluid on-demand">
-    <div class="container container-padded">
-        <div class="row align-items-end text-center">
-          <div class="col">
-            <h1 class="display-5 header-title">
-                <a href="{{url "/ontap/"}}" title="Go back to {{.PageContext.ODName}}">
-                  {{- .PageContext.ShortName }} {{.PageContext.ODName -}}
-                </a>
-            </h1>
-            <h2 class="display-4">
-              Podcast
-            </h3>
-          </div>
-        </div>
+<div class="container-fluid current-next">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-11 col-md-10 py-2 podcast-card text-center text-lg-left">
+        <h2>
+          <a href="/ontap/" title="Goto {{.PageContext.ShortName}} {{.PageContext.ODName}}">
+            {{- .PageContext.ShortName}} {{.PageContext.ODName -}}
+          </a>: Podcast
+        </h2>
+        <iframe width="100%" src="player/" class="uryplayer-podcast-embed" frameborder="0"></iframe>
+        <a href="/podcasts/" title="Goto {{.PageContext.ShortName}} Podcasts">Listen to more podcasts on demand...</a>
+      </div>
     </div>
   </div>
+</div>
 
-  {{with .PageData}}
-  <div class="container-fluid bg-off-white container-padded">
-    <div class="container container-padded">
-      <div class="row">
-        <div class="col-12 col-lg-3">
-          <img class="img-fluid show-img" src='
+{{with .PageData}}
+<div class="container-fluid bg-off-white container-padded">
+  <div class="container p-3">
+    <div class="row">
+      <div class="col-12 col-sm-5 col-lg-3">
+        <img class="img-fluid show-img" src='
             {{if .Podcast.Photo}}
               {{$.PageContext.FullURL}}{{.Podcast.Photo}}
             {{else}}
               {{url "/images/default_show_profile.png"}}
             {{end}}
           ' alt="{{.Podcast.Title}} Logo">
-        </div>
-        <div class="col-12 col-lg-9">
-          <h1>{{.Podcast.Title}}</h1>
-          {{if .Podcast.Show}}
-            <h3>
-              Brought to you by
-              <a href="{{url "/schedule/shows/"}}{{.Podcast.Show.ShowID}}">
-                {{.Podcast.Show.Title}}
-              </a>
-            </h3>
-          {{end}}
-          <h5 class="text-muted">{{.Podcast.Time.Format "Monday, _2 Jan 2006"}}</h5>
-          <hr>
-          <iframe src="player/" class="uryplayer-podcast-embed" frameborder="0">
-          </iframe>
-          <hr>
-          <h2>Description</h2>
-          <p>{{html .Podcast.Description}}</p>
-          <hr>
-  {{end}}
-          <div class="row justify-content-between">
-            <div class="col-auto mr-auto mw-100 overflow-hidden mb-3">
-              <span class="h5 mg-right-5">Embed Podcast:</span>
-              <a data-toggle="collapse" href="#collapseEmbedCode" role="button" aria-expanded="false" aria-controls="collapseEmbedCode">View Code</a>
-            </div>
-            <div class="col-auto mr-auto mw-100 mb-3 share-links">
-              <span class="h5 mg-right-5">Share:</span>
-              <a href="#"
-                  data-type="twitter"
-                  data-url='{{.PageContext.FullURL}}{{url "/podcasts/"}}{{.PageData.Podcast.PodcastID}}/'
-                  {{if .PageData.Podcast.Photo}}
-                      data-media="{{.PageContext.FullURL}}{{.PageData.Podcast.Photo}}"
-                  {{end}}
-                  data-description="Checkout {{.PageData.Podcast.Title}} on {{.PageContext.LongName}}"
-                  data-via="{{.PageContext.MainTwitter}}"
-                  class="prettySocial fab fa-twitter">
-              </a>
-
-              <a href="#"
-                  data-type="facebook"
-                  data-url='{{.PageContext.FullURL}}{{url "/podcasts/"}}{{.PageData.Podcast.PodcastID}}/'
-                  data-title="{{.PageData.Podcast.Title}} | {{.PageContext.ShortName}}"
-                  data-description="{{.PageData.Podcast.Description}}"
-                  {{if .PageData.Podcast.Photo}}
-                      data-media="{{.PageContext.FullURL}}{{.PageData.Podcast.Photo}}"
-                  {{end}}
-                  class="prettySocial fab fa-facebook">
-              </a>
-            </div>
+      </div>
+      <div class="col-12 col-sm-7 col-lg-9">
+        <h1>{{.Podcast.Title}}</h1>
+        {{if .Podcast.Show}}
+        <h3>
+          Brought to you by
+          <a href='{{url " /schedule/shows/"}}{{.Podcast.Show.ShowID}}'>
+            {{.Podcast.Show.Title}}
+          </a>
+        </h3>
+        {{end}}
+        <h5 class="h3 text-muted">{{.Podcast.Time.Format "Monday, _2 Jan 2006"}}</h5>
+        <hr>
+        <h2>Description</h2>
+        <p>{{html .Podcast.Description}}</p>
+        <hr>
+        {{end}}
+        <div class="row justify-content-between">
+          <div class="col-auto mr-auto mw-100 overflow-hidden mb-3">
+            <span class="h5 mg-right-5">Embed Podcast:</span>
+            <a class="h5" data-toggle="collapse" href="#collapseEmbedCode" role="button" aria-expanded="false"
+              aria-controls="collapseEmbedCode" onclick="toggleShowHide()" id="showHideButton">Show code</a>
+          </div>
+          <div class="col-auto share-links">
+            <span class="h5 mg-right-5">Share:</span>
+            <a href="#" data-type="twitter"
+              data-url='{{.PageContext.FullURL}}{{url "/podcasts/"}}{{.PageData.Podcast.PodcastID}}/' {{if
+              .PageData.Podcast.Photo}} data-media="{{.PageContext.FullURL}}{{.PageData.Podcast.Photo}}" {{end}}
+              data-description="Checkout {{.PageData.Podcast.Title}} on {{.PageContext.LongName}}"
+              data-via="{{.PageContext.MainTwitter}}" class="prettySocial fab fa-twitter">
+            </a>
+            <a href="#" data-type="facebook"
+              data-url='{{.PageContext.FullURL}}{{url "/podcasts/"}}{{.PageData.Podcast.PodcastID}}/'
+              data-title="{{.PageData.Podcast.Title}} | {{.PageContext.ShortName}}"
+              data-description="{{.PageData.Podcast.Description}}" {{if .PageData.Podcast.Photo}}
+              data-media="{{.PageContext.FullURL}}{{.PageData.Podcast.Photo}}" {{end}}
+              class="prettySocial fab fa-facebook">
+            </a>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="container-fluid bg-third collapse container-padded" id="collapseEmbedCode">
-    <div class="container container-padded">
-      <h2>Embed this podcast...</h2>
-      <div class="row">
-        <div class="col-12 col-lg-6">
-          <p>Want to put our podcast on your blog or website? Just copy the HTML code below...</p>
-          <textarea class="uryplayer-podcast-code" readonly="readonly" onclick="this.focus(); this.select();" style="border: none;" type="text" cols="30"><iframe width=&quot;500&quot; height=&quot;500&quot; src=&quot;{{$.PageContext.FullURL}}/podcasts/{{.PageData.Podcast.PodcastID}}/player/&quot; frameborder=&quot;0&quot; allowfullscreen > </iframe>
-          </textarea>
+        <div class="collapse" id="collapseEmbedCode">
+          <p>If you want to put our podcast on your blog or website, just <a href="#copybutton" role="button"
+              id="copybutton" onclick="copyIFrame()">copy</a> the HTML code below...</p>
+          <textarea class="uryplayer-podcast-code" readonly="readonly" onclick="this.focus(); this.select();"
+            type="text" rows="1"
+            cols="30"><iframe width=&quot;500&quot; height=&quot;500&quot; src=&quot;{{$.PageContext.FullURL}}/podcasts/{{.PageData.Podcast.PodcastID}}/player/&quot; frameborder=&quot;0&quot; allowfullscreen ></iframe></textarea>
         </div>
       </div>
     </div>
   </div>
+</div>
 {{end}}
 {{define "footer-scripts"}}
 <script src='{{url "/js/show.js"}}?ver={{ .PageContext.CacheBuster }}'></script>
 <script src='{{url "/js/jquery.prettySocial.min.js"}}?ver={{ .PageContext.CacheBuster }}'></script>
 <script type="text/javascript" class="source">
   $(".prettySocial").prettySocial();
+  var codeShown = false;
+
+  function copyIFrame() {
+    navigator.clipboard.writeText("<iframe width=\";500\"; height=\";500\"; src=\";{{$.PageContext.FullURL}}/podcasts/{{.PageData.Podcast.PodcastID}}/player/\"; frameborder=\";0\"; allowfullscreen ></iframe>");
+  }
+  function toggleShowHide() {
+    var link = document.getElementById("showHideButton")
+    codeShown ? link.innerHTML = "Show code" : link.innerHTML = "Hide code";
+    codeShown = !codeShown;
+  }
 </script>
 {{end}}

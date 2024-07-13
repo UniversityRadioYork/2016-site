@@ -136,6 +136,7 @@ footer {
     }
   }
 }
+
 // User page styling.
 .user-img {
   //border: #e1e1e1 7px solid;
@@ -190,12 +191,13 @@ footer {
 }
 
 .uryplayer-podcast-embed {
-  height: 75px;
-  width: 500px;
+  height: 120px;
   max-width: 100%;
 }
+
 .uryplayer-podcast-code {
-  height: 70px;
+  resize: vertical;
+  min-height: 2em;
   width: 100%;
 }
 
@@ -245,6 +247,7 @@ footer {
 // Responsive: Portrait tablets and up
 
 @media screen and (min-width: 768px) {
+
   // Remove the padding we set earlier
   .header {
     padding-right: 0;
@@ -357,8 +360,17 @@ footer {
   font-size: 0.8em;
 }
 
-.podcast.card {
+.podcast-card {
+  background: #FCFCFC;
   color: #555;
+  border-radius: 1em;
+  overflow: hidden;
+}
+
+// Podcasts list page
+.podcast-list-img {
+  border-radius: 0.4rem;
+  overflow: hidden;
 }
 
 // Styling for responsive map
@@ -398,21 +410,23 @@ body {
   flex-direction: column;
 }
 
-.mainPageGrowingSpacer{
+.mainPageGrowingSpacer {
   flex-grow: 1;
   background-color: $off-white-color;
 }
 
-.container-padded{
+.container-padded {
   border-bottom: 2rem solid transparent;
   margin-top: -2rem;
   border-radius: $border-curve-radius $border-curve-radius 0 0;
   padding-top: 2rem;
 }
-.pageTitleImage{
+
+.pageTitleImage {
   max-inline-size: 90%;
   max-height: 15rem;
 }
+
 .teams-banner {
   background: url("/images/drone-banner.jpg") center center no-repeat;
   background-size: cover;
