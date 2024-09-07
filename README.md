@@ -51,11 +51,10 @@ for example:
 -   explict podcasts (to create shows)
 -   selector (expected by 2016-site/can remove this from models/index.go 2016-site)
 
-This is because 2016-site uses parts of database that aren't made on myradio creation,
+This will fix shows not loading on 2016-site when using the base myradio as
+2016-site uses parts of database that aren't made on myradio creation,
 
 ### finishing steps
-
-This will fix shows not loading on 2016-site when using the base myradio database
 
 After completing all these setups:
 You can setup a reverse proxy to "https://worldwide:4443" or configure ssl for https connections,
