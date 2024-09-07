@@ -57,7 +57,7 @@ This will fix shows not loading on 2016-site when using the base myradio as
 ### finishing steps
 
 After completing all these setups:
-You can setup a reverse proxy to "https://worldwide:4443" or configure ssl for https connections,
+You can setup a reverse proxy to "https://localhost:4443" or configure ssl for https connections,
 
 And change 2016-site to use your myradio instance:
 
