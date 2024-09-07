@@ -62,8 +62,10 @@ You can setup a reverse proxy to "https://worldwide:4443" or configure ssl for h
 And change 2016-site to use your myradio instance:
 
 In Config.toml:
-	myradio_api = "https://www.ury.org.uk/api/v2"
 
+```
+    myradio_api = "https://www.ury.org.uk/api/v2"
+```
 
 
 
