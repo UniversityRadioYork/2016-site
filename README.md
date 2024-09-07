@@ -38,30 +38,34 @@ Next you need a api_key to allow the website to access myradio's show informatio
 
 login into database with details used during setup of myradio
 
-`INSERT INTO myury.api_key (key_string, description) VALUES ('ARANDOMSTRINGOFCHARACTERS', '2016-site development api key');`
-
-`INSERT INTO myury.api_key_auth (key_string, typeid) VALUES ('ARANDOMSTRINGOFCHARACTERS', (SELECT typeid FROM l_action WHERE phpconstant = 'AUTH_APISUDO'));`
+```sql
+INSERT INTO myury.api_key (key_string, description) VALUES ('ARANDOMSTRINGOFCHARACTERS', '2016-site development api key');
+INSERT INTO myury.api_key_auth (key_string, typeid) VALUES ('ARANDOMSTRINGOFCHARACTERS', (SELECT typeid FROM l_action WHERE phpconstant = 'AUTH_APISUDO'));
+```
 
 [please choose a better key than 'ARANDOMSTRINGOFCHARACTERS']
 
 You might need add some other database columns to create shows
 
 for example:
-
 -   explict podcasts (to create shows)
 -   selector (expected by 2016-site/can remove this from models/index.go 2016-site)
 
-2016-site uses parts of database that aren't made on myradio creation,
+This is because 2016-site uses parts of database that aren't made on myradio creation,
 
 ### finishing steps
 
 This will fix shows not loading on 2016-site when using the base myradio database
 
 After completing all these setups:
+You can setup a reverse proxy to "https://worldwide:4443" or configure ssl for https connections,
 
-you can use setup guide in [2016-site](https://github.com/UniversityRadioYork/2016-site),
-And setup a reverse proxy to "https://hostname/api/v2" or configure ssl for https connections,
-To complete the setup.
+And change 2016-site to use your myradio instance:
+
+In Config.toml:
+	myradio_api = "https://www.ury.org.uk/api/v2"
+
+
 
 
 ## Editor Config
