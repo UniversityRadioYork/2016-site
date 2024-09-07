@@ -64,7 +64,7 @@ And change 2016-site to use your myradio instance:
 In Config.toml:
 
 ```
-    myradio_api = "https://www.ury.org.uk/api/v2"
+myradio_api = "https://www.ury.org.uk/api/v2"
 ```
 
 
