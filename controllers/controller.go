@@ -10,11 +10,13 @@ import (
 	"log"
 	"net/http"
 	"runtime"
+	"strings"
 
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/2016-site/utils"
 	"github.com/UniversityRadioYork/myradio-go"
 	"github.com/UniversityRadioYork/myradio-go/api"
+	"github.com/getsentry/sentry-go"
 )
 
 // ControllerInterface is the interface to which controllers adhere.
@@ -102,11 +104,18 @@ func (c *Controller) handleError(w http.ResponseWriter, r *http.Request, err err
 	if ok {
 		fn := runtime.FuncForPC(pc)
 		if fn != nil {
-			context = fmt.Sprintf("%s [at %s:%d (%s)]", context, file, line, fn.Name())
+			context = fmt.Sprintf("%s at %s:%d (%s)", context, file, line, strings.Replace(fn.Name(), "github.com/UniversityRadioYork/2016-site/", "", 1))
 		} else {
-			context = fmt.Sprintf("%s [at %s:%d]", context, file, line)
+			context = fmt.Sprintf("%s at %s:%d", context, file, line)
 		}
 	}
+
+	sentry.WithScope(func(scope *sentry.Scope) {
+		scope.SetContext("error", map[string]any{
+			"context": context,
+		})
+		sentry.CaptureException(err)
+	})
 
 	var apiErr api.Error
 	if errors.As(err, &apiErr) {

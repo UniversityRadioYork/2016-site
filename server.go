@@ -9,6 +9,8 @@ import (
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/myradio-go"
 	"github.com/codegangsta/negroni"
+	"github.com/getsentry/sentry-go"
+	sentrynegroni "github.com/getsentry/sentry-go/negroni"
 	"github.com/gorilla/mux"
 )
 
@@ -21,6 +23,18 @@ type Server struct {
 func NewServer(c *structs.Config) (*Server, error) {
 
 	s := Server{negroni.Classic()}
+
+	s.UseHandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
+		sentry.AddBreadcrumb(&sentry.Breadcrumb{
+			Type:     "http",
+			Category: "request",
+			Message:  fmt.Sprintf("%s %s", r.Method, r.URL.Path),
+		})
+	})
+
+	s.Use(sentrynegroni.New(sentrynegroni.Options{
+		Repanic: true, // let negroni return a HTTP page
+	}))
 
 	var session *myradio.Session
 	var err error
