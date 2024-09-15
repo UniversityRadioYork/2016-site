@@ -32,7 +32,7 @@ $ make docker #Runs the image
 
 ## Using with your own Myradio
 
-### Inital setup
+### Creating an API key
 
 Next you need a api_key to allow the website to access myradio's show information,
 
