@@ -91,11 +91,80 @@
   </div>
 </div>
 
+<div id="index-just-missed" class="container-fluid container-padded bg-primary pb-0">
+  <h2>Freshers Event</h2>
+  <div class="row custom-scrollbar scroll-horiz scroll-none-xl thumbnail-slider">
+
+    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
+      <a class="ury-card " href="https://osm.org/go/evplQUbdm?m=">
+        <div class="ury-card-img" style="background: url({{url "/images/welcome_fair.jpg"}})" alt="Gregs Place"></div>
+        <div class="ury-card-body">
+          <div class="ury-card-title">Welcome Fair</div>
+          <span class="ury-card-date">Sat 21st 10:00-16:00 • Greg's Place</span>
+        </div>
+      </a>
+    </div>
+
+
+    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
+      <a class="ury-card " href="https://osm.org/go/evplQWUS_?m=">
+        <div class="ury-card-img" style="background: url({{url "/images/welcome_talk.jpg"}})" alt="Gregs Place"></div>
+        <div class="ury-card-body">
+          <div class="ury-card-title">Welcome Talk</div>
+          <span class="ury-card-date">Mon 23rd 19:00-20:00 • P/L/002</span>
+        </div>
+      </a>
+    </div>
+
+
+    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
+      <a class="ury-card " href="https://osm.org/go/evplQVbf7?m=">
+        <div class="ury-card-img" style="background: url({{url "/images/open_station.png"}})" alt="Gregs Place"></div>
+        <div class="ury-card-body">
+          <div class="ury-card-title">Open Station</div>
+          <span class="ury-card-date">Wed 25th 10:00-16:00 • URY</span>
+        </div>
+      </a>
+    </div>
+
+
+    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
+      <a class="ury-card " href="https://osm.org/go/evpP3LS2Z-?m=&node=4678507473">
+        <div class="ury-card-img" style="background: url({{url "/images/bar.png"}})" alt="Gregs Place"></div>
+        <div class="ury-card-body">
+          <div class="ury-card-title">Combined Media Social</div>
+          <span class="ury-card-date">Fri 27th 19:00-late • Manahatta York</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
+      <div class="ury-card " >
+        <div class="ury-card-img" style="background: url({{url "/images/station_meeting.jpg"}})" alt="Gregs Place"></div>
+        <div class="ury-card-body">
+          <div class="ury-card-title">Station Meeting</div>
+          <span class="ury-card-date">Every Mon 19:00-20:00 • V/N/123A </span>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
+      <a class="ury-card link" href="https://www.instagram.com/uniradioyork/">
+        <div class="ury-card-body">
+          <div class="ury-card-lg-title">For more follow us on Instagram...</div>
+        </div>
+      </a>
+    </div>
+
+  </div>
+</div>
+
 <div class="container-fluid container-padded  bg-third">
   <div class="container container-padded">
       <h2>Frequently Asked Questions</h2><br>
       <div> {{/* Prevents bug where p would appear inline with h2 */}}
-        
+
         {{ range .FAQs.FAQs}}
           <button type="button" class="faq-question">{{.Question}}</button>
           <div class="faq-answer bg-off-white">
