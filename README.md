@@ -34,7 +34,7 @@ $ make docker #Runs the image
 
 ### Creating an API key
 
-Next you need a api_key to allow the website to access myradio's show information,
+First, you need an API key to allow the website to access show information from MyRadio:
 
 Connect to the MyRadio database and run the following SQL
 
