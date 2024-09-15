@@ -19,6 +19,7 @@ type Server struct {
 	Port       int    `toml:"port"`
 	Timeout    int    `toml:"timeout"`
 	MyRadioAPI string `toml:"myradio_api"`
+	SentryDSN  string `toml:"sentry_dsn"`
 }
 
 // PageContext is a structure containing static information to provide
@@ -40,7 +41,7 @@ type PageContext struct {
 	ODName           string                `toml:"odName"`
 	Christmas        bool                  `toml:"christmas"`
 	AprilFools       bool                  `toml:"aprilFools"`
-	Pride 		     bool                  `toml:"pride"`
+	Pride            bool                  `toml:"pride"`
 	CIN              bool                  `toml:"cin"`
 	CINLivestreaming bool                  `toml:"cinLivestreaming"`
 	CINAPI           string                `toml:"cinAPI"`
@@ -94,14 +95,14 @@ type Page struct {
 }
 
 type youtube struct {
-	APIKey             string `toml:"apiKey"`
-	CINPlaylistID      string `toml:"cinPlaylistID"`
-	ChannelURL         string `toml:"channelURL"`
+	APIKey        string `toml:"apiKey"`
+	CINPlaylistID string `toml:"cinPlaylistID"`
+	ChannelURL    string `toml:"channelURL"`
 }
 
 type osm struct {
-	Lat    float32 `toml:"latitude"`
-	Lng    float32 `toml:"longitude"`
+	Lat float32 `toml:"latitude"`
+	Lng float32 `toml:"longitude"`
 }
 
 // ShortURLsConfig is a structure configuring the short-urls subsystem.
