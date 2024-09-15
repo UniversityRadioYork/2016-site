@@ -18,29 +18,12 @@
 </div>
 
 <!-- schedule header -->
-<div class="container-fluid bg-off-white">
+<div class="container-fluid bg-off-white container-padded">
   <div class="container justify-content-between py-3">
     <div class="row">
       <div class="col-auto">
         <h1 class="display-4 mobile-hide">Schedule <a class="fa fa-key schedule-key-icon" href="#key"></a></h1>
         <h2 class="text-muted mobile-hide">{{week (index .Schedule.Dates 0)}}</h2>
-      </div>
-      <div class="col-12">
-        <div class="row justify-content-center">
-          {{with $weekName := week (index .Schedule.Dates 0)}}
-            {{if eq $weekName "this week"}}
-              <button class="btn btn-secondary mobile-only inline" id="jumpToNow" type="button" onclick="jumpToNow()">Jump to the current show</button>
-            {{end}}
-          {{end}}
-          <h1 class="mobile-only inline"><a class="fa fa-key schedule-key-icon" data-toggle="collapse" data-target=".schedule-keys" aria-expanded="false" aria-controls="schedule-keys"></a></h1>
-        </div>
-        <div class="schedule-keys collapse">
-          <div class="key-row">
-              {{ range .Subtypes }}
-                <span class="schedule-block-{{.Class}}">{{.Name}}</span>
-              {{end}}
-          </div>
-        </div>
       </div>
     </div>
 
@@ -59,8 +42,8 @@
 </div>
 
 <!-- schedule body -->
-<div class="container-fluid bg-off-white">
-  <div class="container">
+<div class="container-fluid bg-off-white container-padded mobile-hide">
+<div class="container">
   {{with .Schedule}}
   {{if .Table}}
     <div class="tables-container table">
@@ -89,7 +72,7 @@
             <tr>
               <td class="time-header mobile-only hour-{{.Hour | printf "%02d"}}">{{.Hour | printf "%02d"}}:{{.Minute | printf "%02d"}}</td>
               {{if ne .RowSpan 0}}
-              <td rowspan="{{.RowSpan}}" class="schedule-timeslot schedule-block-{{.Item.Block}}" title="{{stripHTML .Item.Desc}}"
+              <td rowspan="{{.RowSpan}}" class="schedule-timeslot schedule-block-{{.Item.Block}}"
                   {{if .Item.PageURL}} onclick="window.location.href='{{url .Item.PageURL}}'" {{end}} >
                 {{if .Item.PageURL}}
                   <a href="{{url .Item.PageURL}}" >{{.Item.Name}}</a>
@@ -124,6 +107,71 @@
         </div>
     </div>
   </div>
+  </div>
+
+
+
+
+
+
+<div class="bg-off-white mobile-only">
+  {{with .Schedule}}
+  {{if .List}}
+  <div class="container-fluid container">
+    <ul class="nav nav-tabs" id="schedule-tab" role="tablist">
+      {{range .List}}
+        <li class="nav-item" role="presentation">
+          {{if .Current}}
+            <button class="nav-link active" id="{{.Day.Weekday}}-tab" data-toggle="pill" data-target="#{{.Day.Weekday}}" type="button" role="tab" aria-controls="{{.Day.Weekday}}" aria-selected="true">
+          {{else}}
+            <button class="nav-link" id="{{.Day.Weekday}}-tab" data-toggle="pill" data-target="#{{.Day.Weekday}}" type="button" role="tab" aria-controls="{{.Day.Weekday}}" aria-selected="false">
+          {{end}}
+            {{.Day.Weekday}}&nbsp;{{.Day.Format "02"}}
+          </button>
+        </li>
+      {{end}}
+    </ul>
+    </div>
+    <div class="tab-content mt-2" id="schedule-tabContent">
+      {{range .List}}
+        {{if .Current}}
+          <div class="tab-pane show active" id="{{.Day.Weekday}}" role="tabpanel" aria-labelledby="{{.Day.Weekday}}-tab">
+        {{else}}
+          <div class="tab-pane" id="{{.Day.Weekday}}" role="tabpanel" aria-labelledby="{{.Day.Weekday}}-tab">
+        {{end}}
+          <ul class="p-0">
+            {{range .Shows}}
+              <li class="schedule-card">
+                <img src="https://ury.org.uk{{.ShowArtURL}}" width="128" height="128">
+                <div class="card-details pb-0">
+                  <h3>
+                    {{if .PageURL}}
+                      <a href="{{.PageURL}}">{{.Name}}</a>
+                    {{else}}
+                      {{.Name}}
+                    {{end}}
+                  </h3>
+                  {{if .ShowWeekDay}}
+                    <h4>{{.Start.Format "Monday 15:04"}} - {{.Finish.Format "Monday 15:04"}}</h4>
+                  {{else}}
+                    <h4>{{.Start.Format "15:04"}} - {{.Finish.Format "15:04"}}</h4>
+                  {{end}}
+                </div>
+              </li>
+            {{end}}
+          </ul>
+        </div>
+      {{end}}
+    </div>
+  {{else}}
+    <div class="row justify-content-center p-5">
+      <div class="col-12 col-lg-8 p-5 text-center schedule-block-regular disabled">
+        <h3>There's nothing on for this week.</h3>
+        <h4>We're most likely off air, or we haven't scheduled it yet!</h4>
+      </div>
+    </div>
+  {{end}}
+  {{end}}
 </div>
 {{end}}
 {{end}}

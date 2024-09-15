@@ -5,14 +5,17 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="{{url "/"}}">
-      <img src="{{url "/images/logo.png"}}" height="34" alt="{{.PageContext.LongName}} Logo" >
+    {{if .PageContext.Pride}}
+        <img class="navbar-pride-logo" src="{{url "/images/URY_Rainbow.png"}}" height="34" alt="{{.PageContext.LongName}} Logo" >
+    {{else}}
+        <img src="{{url "/images/logo.png"}}" height="34" alt="{{.PageContext.LongName}} Logo" >
+    {{end}}
     </a>
     <div class="navbar-collapse collapse" id="collapsed">
       <div class="navbar-nav">
         <a class="nav-item nav-link" href="{{url "/schedule/thisweek" }}">Schedule</a>
         <a class="nav-item nav-link" href="{{url "/ontap/"}}">{{.PageContext.ODName}}</a>
         <a class="nav-item nav-link" href="{{url "/about/"}}">About Us</a>
-        <a class="nav-item nav-link" href="{{url "/teams/"}}">Teams</a>
         <a class="nav-item nav-link" href="{{url "/getinvolved/"}}">Get Involved</a>
         <a class="nav-item nav-link" href="{{url "/contact/"}}">Contact Us</a>
       </div>

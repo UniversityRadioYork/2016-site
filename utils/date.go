@@ -14,7 +14,7 @@ import (
 //
 
 // StartHour is the hour of the day (local time) at which the scheduled day begins.
-var StartHour = 16
+var StartHour = 6
 
 // StartOfDayOn gets the schedule start-of-day on a given date.
 // This is in terms of StartHour.

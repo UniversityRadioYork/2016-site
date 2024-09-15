@@ -146,6 +146,11 @@ func (sc *ScheduleWeekController) makeAndRenderWeek(w http.ResponseWriter, r *ht
 		return
 	}
 
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
 	data := struct {
 		Schedule                  *models.WeekSchedule
 		PrevURL, CurrURL, NextURL *url.URL

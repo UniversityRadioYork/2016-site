@@ -2,34 +2,29 @@
 
 {{define "content"}}
 
-<div class="container-fluid on-demand">
-		<div class="container container-padded">
-				<div class="row align-items-end text-center">
-					<div class="col">
-						<h1 class="display-5 header-title">
-								<a href='{{url "/ontap/"}}' title="Go back to {{.PageContext.ODName}}">
-									{{- .PageContext.ShortName }} {{.PageContext.ODName -}}
-								</a>
-            </h1>
-            <h2 class="display-3">
-              Podcasts
-            </h3>
-					</div>
-				</div>
-		</div>
+<div class="container-fluid header-medium on-demand">
+  <div class="container">
+    <div class="row align-items-center text-center">
+      <div class="col">
+        <a href="/ontap" title="Goto {{.PageContext.ShortName}} {{.PageContext.ODName}}">
+        <img class="pageTitleImage" src="/images/OnTap.svg"/></a>
+        <h2 class="display-5">The power of podcasts in the palm of your hand.</h2>
+      </div>
+    </div>
   </div>
+</div>
 
 {{with .PageData}}
-<div class="container container-padded pt-5 mt-5">
+<div class="container-fluid podcasts-container container-padded bg-white">
   <nav class="row nav justify-content-between">
     <span>
       <a class="nav-link
-        {{if gt .PageNumber 1}}
+        {{if eq .PageNumber 1}}
           disabled
         {{end}}
       " href='{{url "/podcasts/"}}page/{{.PageNumberPrev}}'>&larr; Previous page</a>
       <a class="nav-link
-      {{if gt .PageNumber 1}}
+      {{if eq .PageNumber 1}}
         disabled
       {{end}}
       " href='{{url "/podcasts/"}}'>Latest</a>
@@ -47,13 +42,13 @@
   {{range .Podcasts}}
   <div class="row">
     <div class="mobile-hide col-12 col-md-3 col-lg-2">
-      <img class="img-fluid" src='
+    <a href="{{.MicrositeLink.URL}}/"><img class="img-fluid podcast-list-img" src='
         {{if .Photo}}
               {{$.PageContext.FullURL}}{{.Photo}}
         {{else}}
               {{url "/images/default_show_profile.png"}}
         {{end}}
-      ' alt="{{.Title}} Logo">
+      ' alt="{{.Title}} Logo"></a>
     </div>
     <div class="col-12 col-md-9 col-lg-10">
       <h4>
@@ -75,12 +70,12 @@
   <nav class="row nav justify-content-between">
     <span>
       <a class="nav-link
-        {{if gt .PageNumber 1}}
+        {{if eq .PageNumber 1}}
           disabled
         {{end}}
       " href='{{url "/podcasts/"}}page/{{.PageNumberPrev}}'>&larr; Previous page</a>
       <a class="nav-link
-      {{if gt .PageNumber 1}}
+      {{if eq .PageNumber 1}}
         disabled
       {{end}}
       " href='{{url "/podcasts/"}}'>Latest</a>

@@ -1,4 +1,4 @@
-FROM golang:1.7
+FROM golang:1.21
 
 ENV SASS_VERSION=3.3.6
 
@@ -9,14 +9,15 @@ RUN set -e && \
     cp /usr/local/sassc-$SASS_VERSION/bin/sassc /usr/local/bin/sassc && \
     rm -rf /usr/local/sassc-$SASS_VERSION /usr/local/libsass-$SASS_VERSION
 
-RUN mkdir -p /go/src/github.com/UniversityRadioYork/2016-site
-WORKDIR /go/src/github.com/UniversityRadioYork/2016-site
+WORKDIR /usr/src/app
 
-COPY . /go/src/github.com/UniversityRadioYork/2016-site
+COPY . /usr/src/app/
+
+RUN go get
+
+ENV TZ "Europe/London"
 
 EXPOSE 3000
-
-RUN go get -d -v
 
 ENTRYPOINT echo "\033[0;31mWARNING: \033[0mRunning with Docker will change \"localhost\" to \"0.0.0.0\" in your config. Remember to change it back!" && \
 sed -i 's/localhost/0.0.0.0/g' *.toml && make run

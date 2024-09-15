@@ -23,18 +23,21 @@
 }
 .current-next-container {
   max-width: 950px;
+  border-radius:  $border-curve-radius;
 }
 
 .current-and-next {
   color: white;
   overflow: hidden;
+  border-radius:  $border-curve-radius;
 
   .current-and-next-img {
     background: $current-next-now-bg;
-
+    padding: 0.5rem;
     img {
       width: 100%;
       height: auto;
+      border-radius: 0.75rem;
     }
   }
 

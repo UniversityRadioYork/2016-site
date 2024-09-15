@@ -3,7 +3,7 @@
 {{with .CurrentAndNext}}
 <div class="current-and-next row justify-content-center">
   {{if .Current}}
-  <div class="col-5 col-sm-3 col-md-2 p-0 current-and-next-img">
+  <div class="col-5 col-sm-3 col-md-2 current-and-next-img">
     <img src='
     {{- if .Current.Photo -}}
       //ury.org.uk{{.Current.Photo}}
@@ -14,11 +14,11 @@
   </div>
   <div class="col-7 col-sm-9 col-md-5 p-0 m-0">
     {{if .Current.Url}}
-    <a class="current-and-next-now p-2 px-3 p-sm-3 p-lg-4 " href="{{.Current.Url}}" title="Show currently on air: {{.Current.Title}}">
+    <a class="current-and-next-now p-2 px-3 p-sm-3 p-lg-4 " href="{{.Current.Url}}" title="Live now: {{.Current.Title}}">
     {{else}}
     <div class="current-and-next-now p-2 px-3 p-sm-3 p-lg-4">
     {{end}}
-    <h2 class="font-weight-bold">Now</h2>
+    <h2 class="font-weight-bold">Live now:</h2>
     {{template "current_next" .Current}}
     {{if .Current.Url}}
     </a>
@@ -31,11 +31,11 @@
   {{if .Next}}
   <div class="col col-md-5 p-0 m-0">
     {{if .Next.Url}}
-    <a class="current-and-next-next p-3 p-lg-4" href="{{.Next.Url}}" title="Show on air next: {{.Next.Title}}">
+    <a class="current-and-next-next p-3 p-lg-4" href="{{.Next.Url}}" title="Up next: {{.Next.Title}}">
     {{else}}
     <div class="current-and-next-next p-3 p-lg-4">
     {{end}}
-    <h2 class="font-weight-bold">Next</h2>
+    <h2 class="font-weight-bold">Up next:</h2>
     {{template "current_next" .Next}}
     {{if .Next.Url}}
     </a>
@@ -73,7 +73,7 @@
   {{end}}
 </div>
 {{else}}
-<span>Looks like there is nothing on here.</span>
+<span>Looks like there is nothing on right now.</span>
 {{end}}
 </div>
 {{end}}

@@ -40,6 +40,7 @@ type PageContext struct {
 	ODName           string                `toml:"odName"`
 	Christmas        bool                  `toml:"christmas"`
 	AprilFools       bool                  `toml:"aprilFools"`
+	Pride 		     bool                  `toml:"pride"`
 	CIN              bool                  `toml:"cin"`
 	CINLivestreaming bool                  `toml:"cinLivestreaming"`
 	CINAPI           string                `toml:"cinAPI"`
@@ -49,7 +50,7 @@ type PageContext struct {
 	CacheBuster      string                `toml:"cacheBuster"`
 	Pages            []Page
 	Youtube          youtube
-	Gmaps            gmaps
+	Osm              osm
 	CurrentYear      int
 }
 
@@ -61,8 +62,9 @@ type ScheduleConfig struct {
 
 // SustainerConfig is a structure describing the sustainer show.
 type SustainerConfig struct {
-	Name string `toml:"name"`
-	Desc string `toml:"desc"`
+	Name  string `toml:"name"`
+	Desc  string `toml:"desc"`
+	Image string `toml:"image"`
 }
 
 type IndexCountdownBackgroundType string
@@ -93,13 +95,11 @@ type Page struct {
 
 type youtube struct {
 	APIKey             string `toml:"apiKey"`
-	SessionsPlaylistID string `toml:"sessionsPlaylistID"`
 	CINPlaylistID      string `toml:"cinPlaylistID"`
 	ChannelURL         string `toml:"channelURL"`
 }
 
-type gmaps struct {
-	APIKey string  `toml:"apiKey"`
+type osm struct {
 	Lat    float32 `toml:"latitude"`
 	Lng    float32 `toml:"longitude"`
 }

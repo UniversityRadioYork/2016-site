@@ -15,12 +15,15 @@
 <meta property="og:url" content='{{.PageContext.FullURL}}{{url "/schedule/shows/"}}{{.PageData.Show.ShowID}}'>
 <meta property="og:description" content="{{ stripHtml .PageData.Show.Description}}">
 {{end}}
+{{define "head"}}
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
+{{end}}
 
 {{define "content"}}
 <div class="container-fluid current-next">
 
 </div>
-<div class="container-fluid bg-off-white">
+<div class="container-fluid bg-off-white container-padded">
   <div class="container p-3">
     <div class="row">
       <div class="col-12 col-sm-5 col-lg-3">
@@ -80,7 +83,7 @@
 </div>
 {{with .PageData}}
   {{if .CreditsToUsers}}
-  <div class="container-fluid bg-primary">
+  <div class="container-fluid bg-primary container-padded">
     <div class="container pt-3">
       <h2>Credits</h2>
       <hr>
@@ -103,12 +106,12 @@
   {{end}}
 {{end}}
 {{if gt (len .PageData.Seasons) 0}}
-<div class="container-fluid bg-secondary">
+<div class="container-fluid bg-secondary container-padded">
   <div class="container show-selector">
     <div class="row">
       <div class="col-12 col-xl-4 p-4">
         <h2>{{.PageContext.ShortName}} {{.PageContext.ODName}}</h2>
-        <p>Explore the show catalogue, and listen back to your favorite episodes!</p>
+        <p>Explore the show catalogue, and listen back to your favourite episodes!</p>
         <a href="/ontap/">View all of our on demand content...</a>
       </div>
       <div id="season-list" class="col-12 col-md-6 col-xl-4 bg-off-white">
@@ -190,7 +193,7 @@
 {{end}}
 {{with .PageData}}
 {{if gt (len .Podcasts) 0}}
-  <div class="container-fluid bg-off-white">
+  <div class="container-fluid bg-off-white container-padded">
     <div class="container pt-3 pb-1">
       <div class="row justify-content-between">
         <div class="col">
@@ -241,7 +244,6 @@
 {{end}}
 {{end}}
 {{define "footer-scripts"}}
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
 <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="//cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
 <script src="//cdn.datatables.net/plug-ins/1.10.16/api/fnFindCellRowIndexes.js"></script>

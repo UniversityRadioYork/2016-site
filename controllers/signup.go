@@ -46,7 +46,7 @@ func (gic *SignUpController) Post(w http.ResponseWriter, r *http.Request) {
 		} else {
 			// Ignore an added @york.ac.uk (since we assume it)
 			eduroam = strings.TrimSuffix(eduroam, "@york.ac.uk")
-			match, _ := regexp.MatchString("^[a-z]{1,6}[0-9]{1,6}$", eduroam)
+			match, _ := regexp.MatchString("^([a-z]|[A-Z]){1,6}[0-9]{1,6}$", eduroam)
 			if !match {
 				feedback = append(feedback, "The @york.ac.uk email you provided seems invalid")
 			}

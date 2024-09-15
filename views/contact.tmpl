@@ -11,19 +11,24 @@
 <meta property="og:image" content="{{.PageContext.FullURL}}{{url "/images/open_graph-general.jpg"}}">
 <meta property="og:url" content="{{.PageContext.FullURL}}{{url "/contact/"}}">
 {{end}}
+{{define "head"}}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+{{end}}
 
 {{define "content"}}
 <div class="container-fluid banner-2 text-overlay">
   <div class="container container-padded">
     <div class="row align-items-center text-center">
       <div class="col">
-        <h1 class="display-2">Say hi to URY!</h1>
-        <h2 class="display-4">At URY, radio is a two-way medium.</h2>
+        <img class="pageTitleImage" src="/images/ContactUs.svg"/>
+        <h2 class="display-5">At URY, radio is a two-way medium.</h2>
       </div>
     </div>
   </div>
 </div>
-<div class="container-fluid container-padded text-center">
+<div class="container-fluid container-padded text-center bg-white">
   <div class="row">
     <div class="col-md-2 align-self-center">
       <a href="//instagram.com/{{.PageContext.MainInstagram}}"><i class="fab fa-instagram fa-2x"></i><h3>Our Instagram</h3></a>
@@ -78,7 +83,7 @@
         <div class="card bg-white p-3">
           <div class="card-block">
             <h2 class="card-title">Programme Controller</h2>
-            <p class="card-text"><a href="mailto:programme.controller@ury.org.uk" title="Email the Programme Controller">programme.controller@ury.org.uk</a></p>
+            <p class="card-text"><a href="mailto:pc@ury.org.uk" title="Email the Programme Controller">pc@ury.org.uk</a></p>
             <p class="card-text">The Programme Controller manages the quality of the station’s output and adhering to our licenses, please contact them if you have any enquiries on this.</p>
           </div>
         </div>
@@ -142,9 +147,11 @@
 <!-- Responsive map script -->
 <script>
 var placeName = "{{.PageContext.LongName}}";
-var Lat = {{.PageContext.Gmaps.Lat}};
-var Lng = {{.PageContext.Gmaps.Lng}};
+var Lat = {{.PageContext.Osm.Lat}};
+var Lng = {{.PageContext.Osm.Lng}};
 </script>
+ <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
 <script src='{{url "/js/responsivemap.js"}}?ver={{ .PageContext.CacheBuster }}'></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key={{.PageContext.Gmaps.APIKey}}"></script>
 {{end}}

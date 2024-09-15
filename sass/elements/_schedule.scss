@@ -166,6 +166,15 @@ $sustainer-color: tint($primary-color, 40%);
   @include schedule-block($collab, $off-white-color);
 }
 
+.schedule-card {
+  display: flex;
+  flex-direction: row;
+}
+
+.card-details {
+  padding: 1rem;
+}
+
 .schedule-keys .key-row {
   * {
     display: inline-block;
@@ -200,8 +209,9 @@ $sustainer-color: tint($primary-color, 40%);
     margin: auto;
     margin-bottom: 10px;
     padding: 10px;
-    border-radius: 2px;
-
+    border-radius: $border-curve-radius;
+    padding-bottom: 2rem;
+    padding-right: 2rem;
     tr {
       height: 70px;
     }
