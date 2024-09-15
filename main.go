@@ -29,6 +29,7 @@ func main() {
 		if err != nil {
 			log.Fatal(fmt.Errorf("sentry.Init: %s", err))
 		}
+		defer sentry.Flush(2 * time.Second)
 	}
 
 	if config.Schedule.StartHour != 0 {
