@@ -79,4 +79,4 @@
 	[schedule.sustainer]
 		name = "Overnight Owen"
 		desc = "Non-stop tunes from the URY jukebox."
-		image = "//media/image_meta/ShowImageMetadata/22.png"
+		image = "/media/image_meta/ShowImageMetadata/22.png"
