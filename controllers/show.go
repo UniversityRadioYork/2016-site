@@ -10,11 +10,12 @@ import (
 	"strings"
 	"time"
 
+	"github.com/gorilla/mux"
+
 	"github.com/UniversityRadioYork/2016-site/models"
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/2016-site/utils"
 	"github.com/UniversityRadioYork/myradio-go"
-	"github.com/gorilla/mux"
 )
 
 // ShowController is the controller for looking up shows.
@@ -48,17 +49,15 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(vars["id"])
 
 	showInfo, err := sm.GetShow(id)
+	if err != nil {
+		sc.handleError(w, r, err, "ShowModel.GetShow")
+		return
+	}
 
 	// Needed so that credits are grouped by type
 
 	var scheduledSeasons = make([]myradio.Season, 0)
 	var timeslots = make([]myradio.Timeslot, 0)
-
-	if err != nil {
-		log.Println(err)
-		utils.RenderTemplate(w, sc.config.PageContext, struct{}{}, "404.tmpl")
-		return
-	}
 
 	for _, season := range showInfo.Seasons {
 		_, timeslotsSingleSeason, _ := sm.GetSeason(season.SeasonID)
@@ -102,11 +101,7 @@ func (sc *ShowController) GetShow(w http.ResponseWriter, r *http.Request) {
 		Podcasts:       showInfo.Podcasts,
 	}
 
-	err = utils.RenderTemplate(w, sc.config.PageContext, data, "show.tmpl")
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	utils.RenderTemplate(w, sc.config.PageContext, data, "show.tmpl")
 }
 
 // GetTimeslot handles the HTTP GET request r for an individual timeslot, writing to w.
@@ -118,6 +113,11 @@ func (sc *ShowController) GetTimeslot(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(vars["id"])
 
 	timeslot, tracklist, creditsToUsers, err := sm.GetTimeslot(id)
+	if err != nil {
+		sc.handleError(w, r, err, "ShowModel.GetTimeslot")
+		return
+	}
+
 	odState := 0
 
 	endTime := timeslot.StartTime.Add(timeslot.Duration)
@@ -149,18 +149,7 @@ func (sc *ShowController) GetTimeslot(w http.ResponseWriter, r *http.Request) {
 		CreditsToUsers: creditsToUsers,
 	}
 
-	if err != nil {
-		log.Println(err)
-		utils.RenderTemplate(w, sc.config.PageContext, data, "404.tmpl")
-		return
-	}
-
-	err = utils.RenderTemplate(w, sc.config.PageContext, data, "timeslot.tmpl")
-	if err != nil {
-		log.Println(err)
-		return
-	}
-
+	utils.RenderTemplate(w, sc.config.PageContext, data, "timeslot.tmpl")
 }
 
 // GetSeason handles the HTTP GET request r for an individual season, writing to w.
@@ -174,8 +163,7 @@ func (sc *ShowController) GetSeason(w http.ResponseWriter, r *http.Request) {
 	season, _, err := sm.GetSeason(id)
 
 	if err != nil {
-		utils.RenderTemplate(w, sc.config.PageContext, struct{}{}, "404.tmpl")
-		log.Println(err)
+		sc.handleError(w, r, err, "ShowModel.GetSeason")
 		return
 	}
 
@@ -195,8 +183,7 @@ func (sc *ShowController) GetPodcastRssHead(w http.ResponseWriter, r *http.Reque
 
 	rss, err := sm.GetPodcastRSS(id)
 	if err != nil {
-		w.WriteHeader(404)
-		log.Println(err)
+		sc.handleError(w, r, err, "ShowModel.GetPodcastRSS")
 		return
 	}
 
@@ -223,9 +210,7 @@ func (sc *ShowController) GetPodcastRss(w http.ResponseWriter, r *http.Request) 
 
 	rss, err := sm.GetPodcastRSS(id)
 	if err != nil {
-		w.WriteHeader(404)
-		utils.RenderTemplate(w, sc.config.PageContext, struct{}{}, "404.tmpl")
-		log.Println(err)
+		sc.handleError(w, r, err, "ShowModel.GetPodcastRSS")
 		return
 	}
 
@@ -244,7 +229,7 @@ func (sc *ShowController) GetPodcastRss(w http.ResponseWriter, r *http.Request) 
 
 	_, err = w.Write(rssBytes)
 	if err != nil {
-		log.Println(err)
+		log.Printf("ShowController.GetPodcastRSS: writing feed data: %v", err)
 	}
 }
 
@@ -265,8 +250,7 @@ func (sc *ShowController) GetUyco(w http.ResponseWriter, r *http.Request) {
 		timeslot, _, _, err := sm.GetTimeslot(value)
 
 		if err != nil {
-			log.Println(err)
-			utils.RenderTemplate(w, sc.config.PageContext, concertData, "404.tmpl")
+			sc.handleError(w, r, err, "ShowModel.GetTimeslot")
 			return
 		}
 
@@ -281,9 +265,5 @@ func (sc *ShowController) GetUyco(w http.ResponseWriter, r *http.Request) {
 		Concert: concertData,
 	}
 
-	err := utils.RenderTemplate(w, sc.config.PageContext, toSend, "uyco.tmpl")
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	utils.RenderTemplate(w, sc.config.PageContext, toSend, "uyco.tmpl")
 }
