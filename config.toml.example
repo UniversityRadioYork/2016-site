@@ -30,9 +30,11 @@
 	urlPrefix = ""
 	fullURL = "https://ury.org.uk"
 
-	mainTwitter = "URY1350"
-	mainFacebook = "URY1350"
-	mainInstagram = "ury1350"
+	mainTwitter = https://x.com/URY1350
+	mainFacebook = https://www.facebook.com/UniRadioYork
+	mainInstagram = https://www.instagram.com/uniradioyork/
+	mainTikTok = https://www.tiktok.com/@uniradioyork
+	mainlinkedin = https://www.linkedin.com/company/university-radio-york/
 	newsTwitter = "URYNews"
 
 	christmas = true
@@ -66,7 +68,7 @@
 	[pageContext.youtube]
 		APIKey = "AIzaSyCzI5Gvpq1hPlfjvB81EVc0vLv_11eW7NI"
 		cinPlaylistID = "PLsxUDJzU4VKAAH1pOogbzJx7pZgd-2zOx"
-		channelURL = "//youtube.com/ury1350"
+		channelURL = https://www.youtube.com/@UniRadioYork
 
 	[pageContext.osm]
 		latitude = 53.948193
