@@ -1,17 +1,17 @@
 {{define "live_player"}}
 
 <div class="row justify-content-center align-items-center mobile-column p-4 live-container" id="live-player-container">
-    <button class="p-4 play-pause-button" id="live-player-play">
-        <i class="fa fa-play"></i>
-    </button>
 
     <div class="live-now-playing">
-        <h2>Listening to {{.PageContext.LongName}}</h2>
         <p id="live-player-track-container" style="display: none">
-            Now playing: <b id="live-player-track-title"></b>
+            Now playing:<br/><b id="live-player-track-title"></b>
             <span class="mobile-hide"> by <b id="live-player-track-artist"></b></span>
         </p>
     </div>
+
+    <button class="p-4 play-pause-button" id="live-player-play">
+      <i class="fa fa-play"></i>
+    </button>
 
     <label>
         Volume:<br>

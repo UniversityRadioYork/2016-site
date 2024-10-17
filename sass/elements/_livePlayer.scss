@@ -4,9 +4,10 @@
 
 .live-now-playing p {
     margin: 0;
+    font-size: large;
 }
 
-@include media-breakpoint-down(md) {
+@include media-breakpoint-down(sm) {
     .mobile-column {
         flex-direction: column;
         align-items: center !important;
@@ -22,7 +23,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 99999px;
-    background-color: $ury-blue-color;
+    background-color: #d51b32;
     color: white;
     border: none;
     outline: none;
