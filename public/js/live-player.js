@@ -7,6 +7,13 @@ export function makePlayer(config) {
     const currentTrackTitle = document.getElementById(`${idPrefix}-track-title`);
     const currentTrackArtist = document.getElementById(`${idPrefix}-track-artist`);
     const currentTrackArtistContainer = document.getElementById(`${idPrefix}-track-artist-container`);
+    const closeButton = document.getElementById(`${idPrefix}-close`);
+
+    closeButton.addEventListener('click', () => {
+        playbackControls.pause();
+        document.querySelector('.current-and-next-player').classList.add('closed');
+        document.querySelectorAll('.listen-btn').forEach((ele) => ele.style.display = '');
+    });
 
     function updateButton() {
         if (player.paused) {
