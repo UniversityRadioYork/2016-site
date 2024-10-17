@@ -1,0 +1,47 @@
+{{define "live_player"}}
+
+<div id="live-player-popout">
+  <div id="live-player-popout-controls">
+    <a href="//ury.org.uk/live/" onclick="window.open('//ury.org.uk/live', 'radioplayer', 'height=800,width=440'); window.livePlayer.pause(); return false;"><i aria-label="pop out player" class="fas fa-external-link-alt"></i></a>
+
+    <button id="live-player-close">
+      <i class="fa fa-times"></i>
+    </button>
+  </div>
+
+  <div class="row justify-content-center align-items-center mobile-column p-3 pb-5 live-container" id="live-player-container">
+
+      <div class="live-now-playing control-seg">
+          <p id="live-player-track-container">
+              Now playing:<br/>
+              <b id="live-player-track-title">University Radio York</b>
+              <span class="mobile-hide" id="live-player-track-artist-container" style="display: none"> by <b id="live-player-track-artist"></b></span>
+          </p>
+      </div>
+
+      <div class="control-seg">
+        <button class="p-4 play-pause-button" id="live-player-play">
+          <i class="fa fa-play"></i>
+        </button>
+
+        <div class="live-player-volume-cont">
+            <i class="fas fa-volume-off"></i>
+            <input type="range" min="0" max="11" step="1" name="volume" id="live-player-volume">
+            <i class="fas fa-volume-up"></i>
+        </div>
+      </div>
+
+  </div>
+
+</div>
+
+<script type="module">
+    import { makePlayer } from '{{url "/js/live-player.js"}}';
+    window.livePlayer = makePlayer({
+        idPrefix: 'live-player',
+        audioUrl: '{{.PageContext.LiveAudioURL}}',
+        icecastStatusUrl: '{{.PageContext.IcecastStatusURL}}',
+    });
+</script>
+
+{{end}}

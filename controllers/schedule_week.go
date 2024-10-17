@@ -169,7 +169,7 @@ func (sc *ScheduleWeekController) makeAndRenderWeek(w http.ResponseWriter, year,
 		Subtypes:       subtypes,
 	}
 
-	err = utils.RenderTemplate(w, sc.config.PageContext, data, "schedule_week.tmpl", "elements/current_and_next.tmpl")
+	err = utils.RenderTemplate(w, sc.config.PageContext, data, "schedule_week.tmpl", "elements/current_and_next.tmpl", "elements/live_player.tmpl")
 	if err != nil {
 		log.Println(err)
 		return

@@ -57,7 +57,7 @@ func (pc *PeopleController) Get(w http.ResponseWriter, r *http.Request) {
 		CurrentAndNext: currentAndNext,
 	}
 
-	err = utils.RenderTemplate(w, pc.config.PageContext, data, "people.tmpl", "elements/current_and_next.tmpl")
+	err = utils.RenderTemplate(w, pc.config.PageContext, data, "people.tmpl", "elements/current_and_next.tmpl", "elements/live_player.tmpl")
 	if err != nil {
 		log.Println(err)
 		return

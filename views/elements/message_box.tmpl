@@ -2,7 +2,7 @@
 {{with .}}
 <h2>Send a Message</h2>
 <hr>
-<form id="studiomessage" action="/" method="post">
+<form id="studiomessage" action="/" method="post" onsubmit="sendMessage(); return false;">
   <textarea class="form-control" id="comments" name="message" rows="4" maxlength="1000" placeholder=
   {{if .MsgBoxError}}
   	"Message cannot be sent at this time, please try again later."
@@ -18,6 +18,31 @@
   {{end}}
   >Send Message</button>
 </form>
-<p class="pt-1 mb-0">You can also text on <a href="sms:+447851101313">07851 101 313</a></p>
+<script>
+  function sendMessage() {
+    const messageInput = document.getElementById('comments');
+    const sendButton = document.getElementById('messagesend');
+    fetch('/', {
+      method: 'POST',
+      body: new FormData(document.getElementById('studiomessage')),
+    }).then((res) => {
+      if (!res.ok) {
+        messageInput.placeholder = 'Message cannot be sent at this time, please try again later.';
+      }
+      messageInput.disabled = false;
+      sendButton.disabled = false;
+      sendButton.innerText = 'Sent!';
+      setTimeout(() => {
+        if (sendButton.innerText === 'Sent!') {
+          sendButton.innerText = 'Send Message';
+        }
+      }, 1000);
+    });
+    messageInput.value = '';
+    messageInput.disabled = true;
+    sendButton.disabled = true;
+    sendButton.innerText = 'Sending...';
+  }
+</script>
 {{end}}
 {{end}}

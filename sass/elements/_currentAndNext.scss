@@ -1,5 +1,5 @@
 .current-next {
-  background: url("/images/bg-banner-1.jpg") center center no-repeat;
+  background: url("/images/bg-banner-1.jpg") center no-repeat;
   background-size: cover;
   color: white;
   box-sizing: content-box;
@@ -75,4 +75,19 @@
     background: $current-next-next-bg;
   }
 
+  .current-and-next-player {
+    transition: max-height 500ms ease;
+    overflow: hidden;
+    max-height: 256px;
+
+    &.closed {
+      transition: max-height 500ms ease;
+      max-height: 0;
+      @include media-breakpoint-down(sm) {
+        // silly hack since the closed player has a height of 1px,
+        // even though i tell it that it can have a max height of 0
+        background-color: red;
+      }
+    }
+  }
 }

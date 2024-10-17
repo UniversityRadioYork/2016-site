@@ -86,15 +86,16 @@ func (ic *IndexController) Post(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		// Set prompt if send fails
 		data.MsgBoxError = true
+		// Indicate to the client that this was an error
+		w.WriteHeader(400)
 	}
 
 	ic.render(w, data)
-
 }
 
 func (ic *IndexController) render(w http.ResponseWriter, data RenderData) {
 	// Render page
-	err := utils.RenderTemplate(w, ic.config.PageContext, data, "index.tmpl", "elements/current_and_next.tmpl", "elements/banner.tmpl", "elements/message_box.tmpl", "elements/index_countdown.tmpl")
+	err := utils.RenderTemplate(w, ic.config.PageContext, data, "index.tmpl", "elements/current_and_next.tmpl", "elements/banner.tmpl", "elements/message_box.tmpl", "elements/index_countdown.tmpl", "elements/live_player.tmpl")
 	if err != nil {
 		log.Println(err)
 		return
