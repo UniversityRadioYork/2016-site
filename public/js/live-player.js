@@ -44,7 +44,7 @@ export function makePlayer(config) {
         fetch(icecastStatusUrl)
             .then((resp) => {
                 if (!resp.ok) {
-                    console.error('failed to fetch current track', resp.status, resp.statusText);
+                    console.error('failed to fetch current track, has the icecastStatus been added to config?', resp.status, resp.statusText);
                     nowPlayingUpdate = setTimeout(fetchNowPlaying, 10_000);
                     return;
                 } else {
@@ -60,14 +60,14 @@ export function makePlayer(config) {
                 // Update every 10s
                 nowPlayingUpdate = setTimeout(fetchNowPlaying, 10_000);
             }).catch((e) => {
-                console.error('failed to fetch now playing', e);
+                console.error('failed to fetch now playing, has the icecastStatus been added to config?', e);
             });
     }
 
     const playbackControls = {
         play() {
             if (playbackError) {
-                console.log('playback error');
+                console.log('playback error, has the audioUrl been set in config?');
                 return;
             }
             if (!nowPlayingUpdate) {
@@ -132,7 +132,7 @@ export function makePlayer(config) {
     });
 
     player.addEventListener('error', (ev) => {
-        console.log(ev.error);
+        console.log(ev);
         markError();
     });
 
