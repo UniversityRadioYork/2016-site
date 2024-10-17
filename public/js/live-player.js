@@ -7,7 +7,6 @@ export function makePlayer(config) {
     const currentTrackTitle = document.getElementById(`${idPrefix}-track-title`);
     const currentTrackArtist = document.getElementById(`${idPrefix}-track-artist`);
     const currentTrackArtistContainer = document.getElementById(`${idPrefix}-track-artist-container`);
-    const currentTrackContainer = document.getElementById(`${idPrefix}-track-container`);
 
     function updateButton() {
         if (player.paused) {
