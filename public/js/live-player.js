@@ -6,6 +6,7 @@ export function makePlayer(config) {
     const volume = document.getElementById(`${idPrefix}-volume`);
     const currentTrackTitle = document.getElementById(`${idPrefix}-track-title`);
     const currentTrackArtist = document.getElementById(`${idPrefix}-track-artist`);
+    const currentTrackArtistContainer = document.getElementById(`${idPrefix}-track-artist-container`);
     const currentTrackContainer = document.getElementById(`${idPrefix}-track-container`);
 
     function updateButton() {
@@ -31,10 +32,10 @@ export function makePlayer(config) {
     function setNowPlaying(title, artist) {
         currentTrackTitle.innerText = title;
         currentTrackArtist.innerText = artist;
-        if (title === 'URY' && artist === null) {
-            currentTrackContainer.style.display = 'none';
-        } else {
-            currentTrackContainer.style.display = 'block';
+        currentTrackArtistContainer.style.display = 'inline';
+        if (artist === null) {
+            currentTrackTitle.innerText = "University Radio York"
+            currentTrackArtistContainer.style.display = 'none';
         }
     }
 

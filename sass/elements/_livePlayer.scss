@@ -1,5 +1,28 @@
+.current-and-next-player:last-of-type{
+  background-color: #dcdee0cc !important;
+}
+
 .live-container {
-    gap: 1.5rem;
+    gap: 4.5rem;
+}
+
+.control-seg {
+    width: 50%;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    align-items: center;
+    &:first-of-type {
+        justify-content: flex-end;
+    }
+}
+
+.live-player-volume-cont {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.6rem;
 }
 
 .live-now-playing p {
@@ -14,6 +37,12 @@
         justify-content: left !important;
         text-align: center;
         gap: 1rem;
+    }
+    .control-seg {
+        width: unset;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 }
 
