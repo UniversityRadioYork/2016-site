@@ -8,6 +8,7 @@ import (
 	"github.com/BurntSushi/toml"
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/2016-site/utils"
+	"github.com/getsentry/sentry-go"
 	"github.com/stretchr/graceful"
 )
 
@@ -18,6 +19,17 @@ func main() {
 	_, err := toml.DecodeFile("config.toml", config)
 	if err != nil {
 		log.Fatal(err)
+	}
+
+	if config.Server.SentryDSN != "" {
+		err := sentry.Init(sentry.ClientOptions{
+			Dsn:              config.Server.SentryDSN,
+			TracesSampleRate: 0.1,
+		})
+		if err != nil {
+			log.Fatal(fmt.Errorf("sentry.Init: %s", err))
+		}
+		defer sentry.Flush(2 * time.Second)
 	}
 
 	if config.Schedule.StartHour != 0 {

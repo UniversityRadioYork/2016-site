@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"log"
 	"net/http"
 	"regexp"
 	"strings"
@@ -68,9 +67,8 @@ func (gic *SignUpController) Post(w http.ResponseWriter, r *http.Request) {
 		sm := models.NewSignUpModel(gic.session)
 		created, err := sm.Post(formParams)
 		if err != nil {
-			log.Println(err)
-			feedback = append(feedback, "Oops. Something went wrong on our end.")
-			feedback = append(feedback, "Please try again later")
+			gic.handleError(w, r, err, "SignUpModel.Post")
+			return
 		}
 		if !created {
 			feedback = append(feedback, "Looks like you already have an account!")
@@ -85,10 +83,5 @@ func (gic *SignUpController) Post(w http.ResponseWriter, r *http.Request) {
 		Feedback: feedback,
 	}
 
-	err := utils.RenderTemplate(w, gic.config.PageContext, data, "signedup.tmpl")
-
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	utils.RenderTemplate(w, gic.config.PageContext, data, "signedup.tmpl")
 }

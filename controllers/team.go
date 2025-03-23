@@ -1,14 +1,14 @@
 package controllers
 
 import (
-	"log"
 	"net/http"
+
+	"github.com/gorilla/mux"
 
 	"github.com/UniversityRadioYork/2016-site/models"
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/2016-site/utils"
 	"github.com/UniversityRadioYork/myradio-go"
-	"github.com/gorilla/mux"
 )
 
 // TeamController is the controller for the team information pages.
@@ -29,8 +29,7 @@ func (teamC *TeamController) Get(w http.ResponseWriter, r *http.Request) {
 	alias := vars["alias"]
 	team, heads, assistants, officers, err := teamM.Get(alias)
 	if err != nil {
-		log.Println(err)
-		utils.RenderTemplate(w, teamC.config.PageContext, nil, "404.tmpl")
+		teamC.handleError(w, r, err, "TeamModel.Get")
 		return
 	}
 
@@ -45,9 +44,5 @@ func (teamC *TeamController) Get(w http.ResponseWriter, r *http.Request) {
 		Assistants: assistants,
 		Officers:   officers,
 	}
-	err = utils.RenderTemplate(w, teamC.config.PageContext, data, "team.tmpl")
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	utils.RenderTemplate(w, teamC.config.PageContext, data, "team.tmpl")
 }

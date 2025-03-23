@@ -3,8 +3,10 @@ package utils
 import (
 	"fmt"
 	"html/template"
+	"log"
 	"net/http"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"time"
 
@@ -39,8 +41,8 @@ var BaseTemplates = []string{
 // template to render.  The variadic argument addTmpls names any additional
 // templates mainTmpl depends on.
 //
-// RenderTemplate returns any error that occurred when rendering the template.
-func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data interface{}, mainTmpl string, addTmpls ...string) error {
+// RenderTemplate logs any error that occurred when rendering the template.
+func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data interface{}, mainTmpl string, addTmpls ...string) {
 	var err error
 
 	td := structs.Globals{
@@ -133,10 +135,27 @@ func RenderTemplate(w http.ResponseWriter, context structs.PageContext, data int
 	})
 	t, err = t.ParseFiles(tmpls...)
 	if err != nil {
-		return err
+		logTemplateError("Error parsing templates %v: %v", tmpls, err)
 	}
 
-	return t.Execute(w, td)
+	err = t.Execute(w, td)
+	if err != nil {
+		logTemplateError("Error executing template %s: %v", mainTmpl, err)
+	}
+}
+
+func logTemplateError(errMsg string, args ...interface{}) {
+	msg := fmt.Sprintf(errMsg, args...)
+	pc, file, line, ok := runtime.Caller(2)
+	if ok {
+		fn := runtime.FuncForPC(pc)
+		if fn != nil {
+			msg = fmt.Sprintf("%s [at %s:%d (%s)]", msg, file, line, fn.Name())
+		} else {
+			msg = fmt.Sprintf("%s [at %s:%d]", msg, file, line)
+		}
+	}
+	log.Println(msg)
 }
 
 // renderHTML takes some html as a string and returns a template.HTML

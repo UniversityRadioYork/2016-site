@@ -39,7 +39,7 @@ func (ic *IndexController) Get(w http.ResponseWriter, r *http.Request) {
 	currentAndNext, banners, timeslots, podcasts, showOnAir, err := model.Get()
 
 	if err != nil {
-		log.Println(err)
+		ic.handleError(w, r, err, "IndexModel.Get")
 		return
 	}
 
@@ -67,7 +67,7 @@ func (ic *IndexController) Post(w http.ResponseWriter, r *http.Request) {
 	currentAndNext, banners, timeslots, podcasts, showOnAir, err := model.Get()
 
 	if err != nil {
-		log.Println(err)
+		ic.handleError(w, r, err, "IndexModel.Get")
 		return
 	}
 
@@ -84,6 +84,7 @@ func (ic *IndexController) Post(w http.ResponseWriter, r *http.Request) {
 	msgmodel := models.NewMessageModel(ic.session)
 	err = msgmodel.Put(msg)
 	if err != nil {
+		log.Printf("Error from MessageModel.Put: %v", err)
 		// Set prompt if send fails
 		data.MsgBoxError = true
 	}
@@ -94,9 +95,5 @@ func (ic *IndexController) Post(w http.ResponseWriter, r *http.Request) {
 
 func (ic *IndexController) render(w http.ResponseWriter, data RenderData) {
 	// Render page
-	err := utils.RenderTemplate(w, ic.config.PageContext, data, "index.tmpl", "elements/current_and_next.tmpl", "elements/banner.tmpl", "elements/message_box.tmpl", "elements/index_countdown.tmpl")
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	utils.RenderTemplate(w, ic.config.PageContext, data, "index.tmpl", "elements/current_and_next.tmpl", "elements/banner.tmpl", "elements/message_box.tmpl", "elements/index_countdown.tmpl")
 }

@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/UniversityRadioYork/2016-site/models"
@@ -26,8 +25,7 @@ func (aboutC *AboutController) Get(w http.ResponseWriter, r *http.Request) {
 	teamM := models.NewTeamModel(aboutC.session)
 	teams, err := teamM.GetAll()
 	if err != nil {
-		log.Println(err)
-		utils.RenderTemplate(w, aboutC.config.PageContext, nil, "404.tmpl")
+		aboutC.handleError(w, r, err, "TeamModel.GetAll")
 		return
 	}
 	data := struct {
@@ -35,9 +33,5 @@ func (aboutC *AboutController) Get(w http.ResponseWriter, r *http.Request) {
 	}{
 		Teams: teams,
 	}
-	err = utils.RenderTemplate(w, aboutC.config.PageContext, data, "about.tmpl")
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	utils.RenderTemplate(w, aboutC.config.PageContext, data, "about.tmpl")
 }

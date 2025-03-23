@@ -2,11 +2,12 @@ package controllers
 
 import (
 	"fmt"
-	"github.com/UniversityRadioYork/2016-site/models"
-	"github.com/UniversityRadioYork/myradio-go"
 	"log"
 	"net"
 	"net/http"
+
+	"github.com/UniversityRadioYork/2016-site/models"
+	"github.com/UniversityRadioYork/myradio-go"
 
 	"github.com/UniversityRadioYork/2016-site/structs"
 	"github.com/UniversityRadioYork/2016-site/utils"
@@ -57,9 +58,5 @@ func (sc *NotFoundController) Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(404)
-	err := utils.RenderTemplate(w, sc.config.PageContext, nil, "404.tmpl")
-	if err != nil {
-		log.Println(err)
-		return
-	}
+	utils.RenderTemplate(w, sc.config.PageContext, nil, "404.tmpl")
 }
