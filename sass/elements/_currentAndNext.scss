@@ -1,5 +1,5 @@
 .current-next {
-  background: url("/images/bg-banner-1.jpg") center center no-repeat;
+  background: url("/images/bg-banner-1.png") center center no-repeat;
   background-size: cover;
   color: white;
   box-sizing: content-box;
@@ -31,13 +31,13 @@
 }
 .current-next-container {
   max-width: 950px;
-  border-radius:  $border-curve-radius;
+  border-radius: $border-curve-radius;
 }
 
 .current-and-next {
   color: white;
   overflow: hidden;
-  border-radius:  $border-curve-radius;
+  border-radius: $border-curve-radius;
 
   .current-and-next-img {
     background: $current-next-now-bg;
@@ -49,7 +49,6 @@
     }
   }
 
-
   .current-and-next-now,
   .current-and-next-next {
     display: block;
@@ -57,7 +56,8 @@
     color: $current-next-txt-color;
   }
 
-  a.current-and-next-now { // scss-lint:disable QualifyingElement
+  a.current-and-next-now {
+    // scss-lint:disable QualifyingElement
     text-decoration: none;
 
     &:hover {
@@ -70,7 +70,8 @@
     background: $current-next-now-bg;
   }
 
-  a.current-and-next-next { // scss-lint:disable QualifyingElement
+  a.current-and-next-next {
+    // scss-lint:disable QualifyingElement
     text-decoration: none;
 
     &:hover {
@@ -82,5 +83,4 @@
   .current-and-next-next {
     background: $current-next-next-bg;
   }
-
 }

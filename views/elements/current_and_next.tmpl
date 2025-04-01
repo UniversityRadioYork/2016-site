@@ -5,16 +5,12 @@
   {{if .Current}}
   <div class="col-5 col-sm-3 col-md-2 current-and-next-img">
     <img src='
-    {{- if .Current.Photo -}}
-      //ury.org.uk{{.Current.Photo}}
-    {{- else -}}
-      {{url "/images/default_show_profile.png"}}
-    {{- end -}}
-    ' alt="{{.Current.Title}} Logo" />
+    https://ury.org.uk/media/image_meta/ShowImageMetadata/1724.png
+    ' alt="Vinyl Revival Logo" />
   </div>
   <div class="col-7 col-sm-9 col-md-5 p-0 m-0">
     {{if .Current.Url}}
-    <a class="current-and-next-now p-2 px-3 p-sm-3 p-lg-4 " href="{{.Current.Url}}" title="Live now: {{.Current.Title}}">
+    <a class="current-and-next-now p-2 px-3 p-sm-3 p-lg-4 " href="{{.Current.Url}}" title="Live now: Vinyl Revival">
     {{else}}
     <div class="current-and-next-now p-2 px-3 p-sm-3 p-lg-4">
     {{end}}
@@ -31,7 +27,7 @@
   {{if .Next}}
   <div class="col col-md-5 p-0 m-0">
     {{if .Next.Url}}
-    <a class="current-and-next-next p-3 p-lg-4" href="{{.Next.Url}}" title="Up next: {{.Next.Title}}">
+    <a class="current-and-next-next p-3 p-lg-4" href="{{.Next.Url}}" title="Up next: Vinyl Revival">
     {{else}}
     <div class="current-and-next-next p-3 p-lg-4">
     {{end}}
@@ -54,7 +50,7 @@
 <div class="template-box">
 {{if .Title}}
 <div class="h3 show-title ellipsis">
-  {{.Title}}
+  Vinyl Revival
 </div>
 <div class="show-time h4">
   {{if not .EndTime.IsZero}}

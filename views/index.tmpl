@@ -37,8 +37,8 @@
         <div class="col-lg-5">
           <h2>Get Involved</h2>
           <hr>
-          <p>University Radio York has been alive since 1968, when we became the first legal independent radio station in the UK!</p>
-          <p>Help us continue our legacy by joining the URY team.</p>
+          <p>There is no hope. There is no freedom. There is only Vinyl Revival.</p>
+          <p>Help us continue our legacy by joining the Vinyl Revival team.</p>
           <p><a href="{{url "/getinvolved/"}}">find out more</a></p>
         </div>
       </div>
@@ -58,16 +58,16 @@
   <div class="row custom-scrollbar scroll-horiz scroll-none-xl thumbnail-slider">
     {{range .Timeslots}}
     <div class="col-8 col-sm-7 col-md-4 col-lg-3 col-xl-2 p-3 thumbnail-container">
-      <a class="ury-card " href="/schedule/shows/timeslots/{{.TimeslotID}}/" title="URY Podcast: {{.Title}}">
+      <a class="ury-card " href="/schedule/shows/timeslots/{{.TimeslotID}}/" title="URY Podcast: Vinyl Revival">
         <div class="ury-card-img" style="background: url('
             {{- if .Season.ShowMeta.Photo -}}
-              {{$.PageContext.FullURL}}{{.Season.ShowMeta.Photo}}
+              {{url "https://ury.org.uk/media/image_meta/ShowImageMetadata/1724.png"}}
             {{- else -}}
-              {{url "/images/default_show_profile.png"}}
+              {{url "https://ury.org.uk/media/image_meta/ShowImageMetadata/1724.png"}}
             {{- end -}}');
           " alt="{{.Title}} Logo"></div>
         <div class="ury-card-body">
-          <div class="ury-card-title">{{.Title}}</div>
+          <div class="ury-card-title">Vinyl Revival</div>
           <span class="ury-card-date">{{.StartTime.Format "15:04 - Mon"}} • {{formatDuration .Duration}}</span>
         </div>
       </a>
@@ -96,14 +96,14 @@
           <div class="ury-card-img"
             style="background: url('
             {{- if .Photo -}}
-              {{$.PageContext.FullURL}}{{.Photo}}
+              {{url "https://ury.org.uk/media/image_meta/ShowImageMetadata/1724.png"}}
             {{- else -}}
-              {{url "/images/default_show_profile.png"}}
+              {{url "https://ury.org.uk/media/image_meta/ShowImageMetadata/1724.png"}}
             {{- end -}}
             ');" alt="{{.Title}} Logo">
           </div>
           <div class="ury-card-body">
-            <div class="ury-card-title">{{.Title}}</div>
+            <div class="ury-card-title">Vinyl Revival</div>
             <span>{{.Time.Format "Monday, _2 Jan 2006"}}</span>
           </div>
         </a>

@@ -1,13 +1,13 @@
 // Add percentage of white to a color
 @import "utils";
 
-$ury-blue-color: #002d5a;
+$ury-blue-color: #000000;
 
-$computing-grey: #2E3540;
+$computing-grey: #2e3540;
 
-$speech-green: #2A722B;
+$speech-green: #2a722b;
 
-$news-maroon: #5A162E;
+$news-maroon: #5a162e;
 
 $music-purple: #562179;
 
@@ -15,7 +15,7 @@ $primetime: #feb93a;
 
 $collab: #d14fda;
 
-$cin-primary: #FFF;
+$cin-primary: #fff;
 $cin-dark-primary: #f9b9bd;
 $cin-background: #307dbf;
 $link-color-cin: #b2e2ff;
@@ -41,14 +41,14 @@ $mobile-max-width: 770px;
 
 //Current and Next
 $current-next-now-bg: #f3f3f3;
-$current-next-next-bg: rgba(243, 243, 243, .85);
-$current-next-txt-color: #002d5a;
+$current-next-next-bg: rgba(243, 243, 243, 0.85);
+$current-next-txt-color: #000000;
 //Schedule block colours
 $blocks-sustainer-color: $secondary-color;
 $blocks-regular-color: $off-white-color;
 
 //custom scroll bar
-$custom-scrollbar-color: #FFF;
+$custom-scrollbar-color: #fff;
 
 $transition-time: 350ms;
 

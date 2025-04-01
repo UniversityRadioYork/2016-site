@@ -9,7 +9,6 @@
   text-overflow: ellipsis;
 }
 
-
 @include media-breakpoint-down(lg) {
   .container {
     max-width: none;
@@ -52,7 +51,7 @@ footer {
 
   .row {
     min-height: 3em;
-    padding: 15px
+    padding: 15px;
   }
 }
 
@@ -176,7 +175,7 @@ footer {
 }
 
 .on-demand {
-  background: url("/images/bg-banner-1.jpg") center center no-repeat;
+  background: url("/images/bg-banner-1.png") center center no-repeat;
   background-size: cover;
   color: $white;
 
@@ -247,7 +246,6 @@ footer {
 // Responsive: Portrait tablets and up
 
 @media screen and (min-width: 768px) {
-
   // Remove the padding we set earlier
   .header {
     padding-right: 0;
@@ -309,7 +307,6 @@ footer {
     padding: 14px 24px;
     font-size: 21px;
   }
-
 }
 
 @include media-breakpoint-down(sm) {
@@ -340,7 +337,7 @@ footer {
 // Show/Season/Timeslot specific
 
 .mixcloud {
-  background: #FCFCFC;
+  background: #fcfcfc;
   color: #555;
   border-radius: 1em;
   overflow: hidden;
@@ -361,7 +358,7 @@ footer {
 }
 
 .podcast-card {
-  background: #FCFCFC;
+  background: #fcfcfc;
   color: #555;
   border-radius: 1em;
   overflow: hidden;

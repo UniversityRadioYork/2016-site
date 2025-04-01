@@ -75,9 +75,9 @@
               <td rowspan="{{.RowSpan}}" class="schedule-timeslot schedule-block-{{.Item.Block}}"
                   {{if .Item.PageURL}} onclick="window.location.href='{{url .Item.PageURL}}'" {{end}} >
                 {{if .Item.PageURL}}
-                  <a href="{{url .Item.PageURL}}" >{{.Item.Name}}</a>
+                  <a href="{{url .Item.PageURL}}" >Vinyl Revival</a>
                 {{else}}
-                  <p>{{.Item.Name}}</p>
+                  <p>Vinyl Revival</p>
                 {{end}}
               </td>
               {{end}}
@@ -101,7 +101,7 @@
           <div class="key-row">
             <h2 class="inline">Schedule Key:</h2>
             {{ range .Subtypes }}
-              <span class="schedule-block-{{.Class}}">{{.Name}}</span>
+              <span class="schedule-block-{{.Class}}">Vinyl Revival</span>
             {{end}}
           </div>
         </div>
