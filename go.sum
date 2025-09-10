@@ -2,6 +2,12 @@ github.com/BurntSushi/toml v0.4.1 h1:GaI7EiDXDRfa8VshkTj7Fym7ha+y8/XxIgD2okUIjLw
 github.com/BurntSushi/toml v0.4.1/go.mod h1:CxXYINrC8qIiEnFrOxCa7Jy5BFHlXnUU2pbicEuybxQ=
 github.com/UniversityRadioYork/myradio-go v0.0.0-20210821190257-67bde48f2e7e h1:4tEgYVcZraVZAVMaV/lTCPNiW4ZE3OASjV4JKw3KkXc=
 github.com/UniversityRadioYork/myradio-go v0.0.0-20210821190257-67bde48f2e7e/go.mod h1:iFH6u3KFaQ73MR9bfqTThGd7TFUYUe9cAajxxh9E0Z8=
+github.com/UniversityRadioYork/myradio-go v0.0.0-20220923185614-685895615da0 h1:lA2ngpcODUXqna1wj7EGPVwSezy7k6uvDlCW/qtRc3w=
+github.com/UniversityRadioYork/myradio-go v0.0.0-20220923185614-685895615da0/go.mod h1:iFH6u3KFaQ73MR9bfqTThGd7TFUYUe9cAajxxh9E0Z8=
+github.com/UniversityRadioYork/myradio-go v0.0.0-20250908113500-b29d6db76318 h1:VyYXp9mxOScoqElQT1PRAIdXYcRXMu4JtGUQqBGZJ/o=
+github.com/UniversityRadioYork/myradio-go v0.0.0-20250908113500-b29d6db76318/go.mod h1:iFH6u3KFaQ73MR9bfqTThGd7TFUYUe9cAajxxh9E0Z8=
+github.com/UniversityRadioYork/myradio-go v0.0.0-20250908120447-916155223cda h1:dkwugBDk9J2IztL36vvnYNh9mvwFFWI2ZXaHC0N2L8Q=
+github.com/UniversityRadioYork/myradio-go v0.0.0-20250908120447-916155223cda/go.mod h1:iFH6u3KFaQ73MR9bfqTThGd7TFUYUe9cAajxxh9E0Z8=
 github.com/asaskevich/govalidator v0.0.0-20210307081110-f21760c49a8d/go.mod h1:WaHUgvxTVq04UNunO+XhnAqY/wQc+bxr74GqbsZ/Jqw=
 github.com/aymerick/douceur v0.2.0 h1:Mv+mAeH1Q+n9Fr+oyamOlAkUNPWPlA8PPGR0QAaYuPk=
 github.com/aymerick/douceur v0.2.0/go.mod h1:wlT5vV2O3h55X9m7iVYN0TBM0NH/MmbLnd30/FjWUq4=

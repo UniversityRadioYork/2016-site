@@ -3,7 +3,6 @@ package controllers
 import (
 	"log"
 	"net/http"
-	"sort"
 
 	"github.com/UniversityRadioYork/2016-site/models"
 	"github.com/UniversityRadioYork/2016-site/structs"
@@ -51,7 +50,7 @@ func (gic *GetInvolvedController) Get(w http.ResponseWriter, r *http.Request) {
 
 	gim := models.NewGetInvolvedModel(gic.session)
 
-	colleges, numTeams, listTeamMap, faqs, err := gim.Get()
+	faqs, err := gim.Get()
 
 	if err != nil {
 		//@TODO: Do something proper here, render 404 or something
@@ -59,19 +58,10 @@ func (gic *GetInvolvedController) Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//Sort Colleges Alphabetically, with N/A and Unknown at the start
-	sort.Sort(CollegeSorter(colleges))
-
 	data := struct {
-		Colleges    []myradio.College
-		NumTeams    int
-		ListTeamMap map[int]*myradio.Team
-		FAQs        *models.FAQ
+		FAQs *models.FAQ
 	}{
-		Colleges:    colleges,
-		NumTeams:    numTeams,
-		ListTeamMap: listTeamMap,
-		FAQs:        faqs,
+		FAQs: faqs,
 	}
 
 	err = utils.RenderTemplate(w, gic.config.PageContext, data, "getinvolved.tmpl")
@@ -79,5 +69,4 @@ func (gic *GetInvolvedController) Get(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 		return
 	}
-
 }

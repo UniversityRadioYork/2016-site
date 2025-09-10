@@ -42,52 +42,7 @@
   <div class="container container-padded">
     <h1>Sign up today!</h1>
     <hr>
-    <form id="getInvolvedForm" class="form-getinvolved" action="/signup/" method="post">
-      <div class="row">
-        <fieldset id="getinvolved-personal-details" class="col-md-6">
-          <legend>I'm…</legend>
-          <div class="form-group">
-            <label for="fname">First Name</label>
-            <input type="text" id="fname" name="fname" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="sname">Last Name</label>
-            <input type="text" id="sname" name="sname" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="eduroam">York Email</label>
-            <div class="input-group">
-              <input type="text" id="eduroam" name="eduroam" class="form-control" placeholder="abc123">
-              <span class="input-group-addon">@york.ac.uk</span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="phone">Phone Number (Optional)</label>
-            <input type="text" id="phone" name="phone" class="form-control">
-          </div>
-          <div class="form-group">
-            <label for="college">College</label>
-            <select id="college" name="collegeid" class="form-control">
-              {{range .Colleges}}
-                <option value="{{.CollegeId}}">{{.CollegeName}}</option>
-              {{end}}
-            </select>
-          </div>
-        </fieldset>
-        <fieldset id="getinvolved-interest" class="col-md-6">
-          <legend>I'm interested in…</legend>
-          {{range $listID, $Team := .ListTeamMap}}
-            <input type="checkbox" name="interest" id="interest-{{$Team.Alias}}" value="{{$listID}}">
-            <label for="interest-{{$Team.Alias}}" title="{{html $Team.Description}}">{{$Team.Name}}</label>
-            <br>
-          {{end}}
-          <br>
-        </fieldset>
-      </div>
-      <div class="row justify-content-center">
-        <input type="submit" value="Sign Up!" class="btn btn-primary btn-lg">
-      </div>
-    </form>
+    <iframe src="{{url "/signup"}}" frameborder="0" width="100%" height="512"></iframe>
   </div>
 </div>
 

@@ -1,0 +1,137 @@
+{{define "title"}}{{.PageContext.ShortName}} | Get Involved{{end}}
+
+{{define "bootstrap"}}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet" integrity="sha384-CK2SzKma4jA5H/MXDUU7i1TqZlCFaD4T01vtyDFvPlD97JQyS+IsSh1nI2EFbpyk" crossorigin="anonymous">
+{{end}}
+
+{{define "ury-styles"}}
+<link rel="stylesheet" href="{{url "/css/signup.css"}}">
+{{end}}
+
+{{define "header-block"}}
+<!-- go templates are annoying and don't let you define an empty block -->
+{{end}}
+
+{{define "content"}}
+{{with .PageData}}
+<main class="mx-2">
+  <form>
+    <section id="get-started" class="min-vh-100 container text-center">
+      <div class="align-items-center">
+        <p class="text-white">
+          Getting on air is as simple as buying membership and attending a one hour training session.
+        </p>
+
+        <a class="btn btn-primary" href="#training-slot-select" role="button" id="get-started-continue">
+          Begin!
+        </a>
+      </div>
+    </section>
+
+    <section id="training-slot-select" class="min-vh-100">
+      <h2 class="text-white">Select a training slot</h2>
+
+      <ul class="ps-0 d-flex flex-column gap-2">
+        {{ range .Trainings }}
+        <label class="card h4" for="training-{{ .DemoID }}">
+          <div class="card-body">
+            <div class="form-check">
+              <input class="form-check-input training-slot-select" type="radio" name="sessionid" value="{{ .DemoID }}" id="training-{{ .DemoID }}">
+
+              <div class="form-check-label">
+                <span class="badge rounded-pill text-bg-success">
+                  0 / 2
+                </span>
+                {{ .StartTimeRaw }}
+                <!--Monday 21st July, 3:00 PM-->
+              </div>
+            </div>
+          </div>
+        </label>
+        {{ end }}
+
+        <label class="card h4" for="training-124">
+          <div class="card-body">
+            <div class="form-check">
+              <input class="form-check-input training-slot-select" type="radio" name="sessionid" value="124" id="training-124" disabled>
+
+              <div class="form-check-label">
+                <span class="badge rounded-pill text-bg-secondary">
+                  2 / 2
+                </span>
+                Tuesday 22st July, 3:00 PM
+              </div>
+            </div>
+          </div>
+        </label>
+
+        <label class="card h4" for="training-125">
+          <div class="card-body">
+            <div class="form-check">
+              <input class="form-check-input training-slot-select" type="radio" name="sessionid" value="125" id="training-125">
+
+              <div class="form-check-label">
+                <span class="badge rounded-pill text-bg-warning">
+                  1 / 2
+                </span>
+                Wednesday 23st July, 3:00 PM
+              </div>
+            </div>
+          </div>
+        </label>
+
+        <label class="card h4" for="training-none">
+          <div class="card-body">
+            <div class="form-check">
+              <input class="form-check-input training-slot-select" type="radio" name="sessionid" value="" id="training-none">
+
+              <div class="form-check-label">
+                I'll book a training session later
+              </div>
+            </div>
+          </div>
+        </label>
+      </ul>
+
+      <a class="btn btn-primary" href="#personal-details" role="button" id="training-continue">
+        Continue
+      </a>
+    </section>
+
+    <section class="min-vh-100 text-white" id="personal-details">
+      <div class="mb-3 form-input">
+        <label for="first-name" class="form-label">First name</label>
+        <input type="text" class="form-control" id="first-name" name="firstname">
+      </div>
+      <div class="mb-3 form-input">
+        <label for="last-name" class="form-label">Last name</label>
+        <input type="text" class="form-control" id="last-name" name="lastname">
+      </div>
+      <div class="mb-3 form-input">
+        <label for="email" class="form-label">Uni of York Email address</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="email" name="email">
+          <span class="input-group-text" id="basic-addon2">@york.ac.uk</span>
+        </div>
+      </div>
+
+      <div class="mb-3 form-input">
+        <label for="collect" class="form-label">College</label>
+          <select id="college" name="collegeid" class="form-select">
+            {{range .Colleges}}
+              <option value="{{.CollegeId}}">{{.CollegeName}}</option>
+            {{end}}
+          </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </section>
+  </form>
+</main>
+{{end}}
+{{end}}
+
+{{define "footer-scripts"}}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+<script src="{{url "/js/signup.js"}}" type="module"></script>
+{{end}}
