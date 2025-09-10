@@ -17,115 +17,124 @@
 {{with .PageData}}
 <main class="mx-2">
   <form>
-    <section id="get-started" class="min-vh-100 container text-center">
-      <div class="align-items-center">
-        <p class="text-white">
-          Getting on air is as simple as buying membership and attending a one hour training session.
-        </p>
+    <section class="min-vh-100 text-white" id="personal-details">
+      <div class="row">
+        <div class="col">
+          <div class="mb-2 form-input">
+            <label for="first-name" class="form-label">First name</label>
+            <input type="text" class="form-control" id="first-name" name="firstname">
+          </div>
+          <div class="mb-2 form-input">
+            <label for="last-name" class="form-label">Last name</label>
+            <input type="text" class="form-control" id="last-name" name="lastname">
+          </div>
+          <div class="mb-2 form-input">
+            <label for="email" class="form-label">Uni of York Email address</label>
+            <div class="input-group">
+              <input type="text" class="form-control" id="email" name="email">
+              <span class="input-group-text">@york.ac.uk</span>
+            </div>
+          </div>
+          <div class="mb-2 form-input">
+            <label for="phone" class="form-label">Mobile Number (optional)</label>
+            <div class="input-group">
+              <input type="tel" class="form-control" id="phone" name="phone">
+            </div>
+          </div>
+          <div class="mb-3 form-input">
+            <label for="collect" class="form-label">College</label>
+              <select id="college" name="collegeid" class="form-select">
+                {{range .Colleges}}
+                  <option value="{{.CollegeId}}">{{.CollegeName}}</option>
+                {{end}}
+              </select>
+          </div>
+        </div>
 
-        <a class="btn btn-primary" href="#training-slot-select" role="button" id="get-started-continue">
-          Begin!
+        <div class="col">
+          <p>
+            On the next page, you'll be able to book a studio training session. If you don't want to book now, you can always do so later on MyRadio.
+          </p>
+
+          <p>
+            You'll receive an email with details to log into MyRadio once you've signed up, which will allow you to update these details at any time.
+          </p>
+        </div>
+      </div>
+
+      <div class="d-flex flex-row justify-content-center">
+        <a class="btn btn-lg btn-primary" href="#training-slot-select" role="button" id="profile-continue">
+          Next
         </a>
       </div>
     </section>
 
-    <section id="training-slot-select" class="min-vh-100">
-      <h2 class="text-white">Select a training slot</h2>
+    <section id="training-slot-select" class="min-vh-100 text-white">
+      <h2>Select a training slot</h2>
 
-      <ul class="ps-0 d-flex flex-column gap-2">
-        {{ range .Trainings }}
-        <label class="card h4" for="training-{{ .DemoID }}">
-          <div class="card-body">
-            <div class="form-check">
-              <input class="form-check-input training-slot-select" type="radio" name="sessionid" value="{{ .DemoID }}" id="training-{{ .DemoID }}">
+      <div class="row">
+        <div class="col">
+          <ul class="ps-0 d-flex flex-column gap-2" id="available-trainings">
+            {{ range .Trainings }}
+            <label class="card h4 is-actual-training-slot" for="training-{{ .DemoID }}">
+              <div class="card-body">
+                <div class="form-check">
+                  <input class="form-check-input training-slot-select" type="radio" name="sessionid" value="{{ .DemoID }}" id="training-{{ .DemoID }}">
 
-              <div class="form-check-label">
-                <span class="badge rounded-pill text-bg-success">
-                  0 / 2
-                </span>
-                {{ .StartTimeRaw }}
-                <!--Monday 21st July, 3:00 PM-->
+                  <div class="form-check-label">
+                    <span class="badge rounded-pill text-bg-success">
+                      0 / 2
+                    </span>
+                    {{ .StartTimeRaw }}
+                    <!--Monday 21st July, 3:00 PM-->
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </label>
-        {{ end }}
+            </label>
+            {{ end }}
 
-        <label class="card h4" for="training-124">
-          <div class="card-body">
-            <div class="form-check">
-              <input class="form-check-input training-slot-select" type="radio" name="sessionid" value="124" id="training-124" disabled>
+            <label class="card h4" for="training-none">
+              <div class="card-body">
+                <div class="form-check">
+                  <input class="form-check-input training-slot-select" type="radio" name="sessionid" value="" id="training-none">
 
-              <div class="form-check-label">
-                <span class="badge rounded-pill text-bg-secondary">
-                  2 / 2
-                </span>
-                Tuesday 22st July, 3:00 PM
+                  <div class="form-check-label">
+                    I'll book a training session later
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </label>
+            </label>
 
-        <label class="card h4" for="training-125">
-          <div class="card-body">
-            <div class="form-check">
-              <input class="form-check-input training-slot-select" type="radio" name="sessionid" value="125" id="training-125">
+            <label class="card h4" for="training-unavailable">
+              <div class="card-body">
+                <div class="form-check">
+                  <input class="form-check-input training-slot-select" type="radio" name="sessionid" value="!!unavailable" id="training-unavailable">
 
-              <div class="form-check-label">
-                <span class="badge rounded-pill text-bg-warning">
-                  1 / 2
-                </span>
-                Wednesday 23st July, 3:00 PM
+                  <div class="form-check-label">
+                    None of these options work for me
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </label>
+            </label>
+          </ul>
+        </div>
+        <div class="col">
+          <p>
+            Studio training sessions last for about an hour, after which you will be able to request a spot on the schedule and go on air!
+          </p>
 
-        <label class="card h4" for="training-none">
-          <div class="card-body">
-            <div class="form-check">
-              <input class="form-check-input training-slot-select" type="radio" name="sessionid" value="" id="training-none">
-
-              <div class="form-check-label">
-                I'll book a training session later
-              </div>
-            </div>
-          </div>
-        </label>
-      </ul>
+          <p>
+            Don't worry if none of these work for you, our trainers will organise more!
+          </p>
+        </div>
+      </div>
 
       <a class="btn btn-primary" href="#personal-details" role="button" id="training-continue">
         Continue
       </a>
     </section>
 
-    <section class="min-vh-100 text-white" id="personal-details">
-      <div class="mb-3 form-input">
-        <label for="first-name" class="form-label">First name</label>
-        <input type="text" class="form-control" id="first-name" name="firstname">
-      </div>
-      <div class="mb-3 form-input">
-        <label for="last-name" class="form-label">Last name</label>
-        <input type="text" class="form-control" id="last-name" name="lastname">
-      </div>
-      <div class="mb-3 form-input">
-        <label for="email" class="form-label">Uni of York Email address</label>
-        <div class="input-group">
-          <input type="text" class="form-control" id="email" name="email">
-          <span class="input-group-text" id="basic-addon2">@york.ac.uk</span>
-        </div>
-      </div>
-
-      <div class="mb-3 form-input">
-        <label for="collect" class="form-label">College</label>
-          <select id="college" name="collegeid" class="form-select">
-            {{range .Colleges}}
-              <option value="{{.CollegeId}}">{{.CollegeName}}</option>
-            {{end}}
-          </select>
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </section>
+    
   </form>
 </main>
 {{end}}
