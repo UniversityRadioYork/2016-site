@@ -1,10 +1,7 @@
-import { c, g, h, s, t, x } from './xeact.js';
-
-MyRadioAPIKey = '123123';
+import { g, h, s, t } from './xeact.js';
 
 (function () {
-  // const MYRADIO_API_BASE = 'https://ury.org.uk/api/v2';
-  const MYRADIO_API_BASE = 'http://fern:7080/api/v2';
+  const MYRADIO_API_BASE = 'https://ury.org.uk/api/v2';
 
   const profileNextButton = g('profile-continue');
 
