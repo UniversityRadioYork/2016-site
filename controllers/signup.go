@@ -42,7 +42,7 @@ func (gic *SignUpController) Get(w http.ResponseWriter, r *http.Request) {
 		Colleges    []myradio.College
 		NumTeams    int
 		ListTeamMap map[int]*myradio.Team
-		Trainings   []myradio.TrainingSession
+		Trainings   []models.SignUpTrainingSession
 	}{
 		Colleges:    colleges,
 		NumTeams:    numTeams,
@@ -97,10 +97,13 @@ func (gic *SignUpController) Post(w http.ResponseWriter, r *http.Request) {
 		delete(formParams, "phone")
 	}
 
+	var trainingSignupResult int
+
 	//If they are then post them off to the API
 	if len(feedback) == 0 {
 		sm := models.NewSignUpModel(gic.session)
-		created, err := sm.Post(formParams)
+		created, tsr, err := sm.Post(formParams)
+		trainingSignupResult = tsr
 		if err != nil {
 			log.Println(err)
 			feedback = append(feedback, "Oops. Something went wrong on our end.")
@@ -114,9 +117,11 @@ func (gic *SignUpController) Post(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := struct {
-		Feedback []string
+		Feedback             []string
+		TrainingSignupResult int
 	}{
-		Feedback: feedback,
+		Feedback:             feedback,
+		TrainingSignupResult: trainingSignupResult,
 	}
 
 	err := utils.RenderTemplate(w, gic.config.PageContext, data, "signedup.tmpl")

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"strconv"
+	"time"
 
 	"github.com/UniversityRadioYork/myradio-go"
 )
@@ -11,6 +12,23 @@ import (
 // SignUpModel is the model for getting team data
 type SignUpModel struct {
 	Model
+}
+
+type SignUpTrainingSession struct {
+	myradio.TrainingSessionForSignup
+}
+
+func (s *SignUpTrainingSession) RemainingSpaces() int {
+	return s.MaxParticipants - s.AttendeeCount
+}
+
+func (s *SignUpTrainingSession) TooLateToSignUp() bool {
+	if s.SignupCutoffHours == 0 {
+		return false
+	}
+	now := time.Now()
+	remainingTime := s.StartTime().Sub(now)
+	return remainingTime.Hours() < float64(s.SignupCutoffHours)
 }
 
 // NewSignUpModel returns a new SignUpModel on the MyRadio session s.
@@ -25,7 +43,7 @@ func NewSignUpModel(s *myradio.Session) *SignUpModel {
 //	the team associated with that list
 //
 // Otherwise, it returns undefined data and the error causing failure.
-func (m *SignUpModel) Get() (colleges []myradio.College, numTeams int, teamInterestLists map[int]*myradio.Team, trainings []myradio.TrainingSession, err error) {
+func (m *SignUpModel) Get() (colleges []myradio.College, numTeams int, teamInterestLists map[int]*myradio.Team, trainings []SignUpTrainingSession, err error) {
 	// Get a list of the colleges and IDs
 	colleges, err = m.session.GetColleges()
 	if err != nil {
@@ -60,14 +78,19 @@ func (m *SignUpModel) Get() (colleges []myradio.College, numTeams int, teamInter
 		}
 	}
 
-	allTrainings, err := m.session.GetFutureTrainingSessions()
+	allTrainings, err := m.session.GetFutureTrainingSessionsForSignup()
 	if err != nil {
 		return
 	}
 
-	trainings = make([]myradio.TrainingSession, 0, len(allTrainings))
+	trainings = make([]SignUpTrainingSession, 0, len(allTrainings))
 	for _, training := range allTrainings {
-		if training.PresenterStatusID == "Studio Trained" {
+		training := SignUpTrainingSession{
+			training,
+		}
+		if training.PresenterStatusID == "Studio Trained" &&
+			training.AttendeeCount != training.MaxParticipants &&
+			!training.TooLateToSignUp() {
 			trainings = append(trainings, training)
 		}
 	}
@@ -78,7 +101,7 @@ func (m *SignUpModel) Get() (colleges []myradio.College, numTeams int, teamInter
 // Post posts the data from the sign up form to the api
 //
 // Returns an error or lack thereof based on success
-func (m *SignUpModel) Post(formParams map[string][]string) (createdNewUser bool, err error) {
+func (m *SignUpModel) Post(formParams map[string][]string) (createdNewUser bool, trainingSignupResult int, err error) {
 	user, err := m.session.CreateOrActivateUser(formParams)
 	if err != nil {
 		log.Println(err)
@@ -97,6 +120,28 @@ func (m *SignUpModel) Post(formParams map[string][]string) (createdNewUser bool,
 		if err != nil {
 			fmt.Printf("Failed to subscribe to list %d:", LID)
 			log.Println(err)
+		}
+	}
+	trainingSessionID, ok := formParams["sessionid"]
+	if ok {
+		if trainingSessionID[0] == "!!unavailable" {
+			_, err = m.session.AddToWaitingList(1, user.MemberID)
+			if err != nil {
+				return
+			}
+
+			trainingSignupResult = -5
+		} else if trainingSessionID[0] != "" {
+			var demoID int
+			demoID, err = strconv.Atoi(trainingSessionID[0])
+			if err != nil {
+				log.Println(err)
+				return
+			}
+			trainingSignupResult, err = m.session.AddAttendeeToDemo(demoID, user.MemberID)
+			if err != nil {
+				return
+			}
 		}
 	}
 	createdNewUser = true

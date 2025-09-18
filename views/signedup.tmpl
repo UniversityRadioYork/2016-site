@@ -7,7 +7,7 @@
   <div class="container container-padded">
     <div class="row align-items-center text-center">
       <div class="col">
-        <h1 class="display-3">On Air, Online, On Demand</h1>
+        <h1 class="display-3">On Air, Online, On Tap</h1>
         <h2 class="display-4">Broadcasting since 1968.</h2>
       </div>
     </div>
@@ -32,8 +32,29 @@
   </div>
 </div>
 {{else}}
-    <h1 class="text-center">Success!</h1>
+    <h1 class="text-center">
+      {{if ne .TrainingSignupResult 0}}
+      (Mostly)
+      {{end}}
+      Success!
+    </h1>
     <h4 class="text-center">We've registered you on our computers, and you'll soon get an email telling you all about what happens next!</h4>
+
+    {{ if ne .TrainingSignupResult 0 }}
+    <p class="text-center">
+      {{if eq .TrainingSignupResult 1}}
+      Unfortunately the training session you picked has run out of spaces.
+      {{else if eq .TrainingSignupResult 2}}
+      Somehow you've already signed up to a training session - not sure how that's happened.
+      {{else if eq .TrainingSignupResult 3}}
+      Unfortunately you're too late to sign up for the training session you picked.
+      {{else if eq .TrainingSignupResult -5}}
+      As you said none of the available training sessions work for you, we've added you to the interest list and you'll receive an email whenever new training sessions are added.
+      {{end}}
+      You can sign up to a new session by going <a href="/myradio/Training/listDemos/">here</a> and logging into your new account.
+    </p>
+    {{end}}
+
     <p class="text-center">For now, here's some other useful things to do:</p>
     <div class="row">
       <div class="col-md-1"></div>
@@ -54,7 +75,7 @@
           <img src="/images/slack-logo-white.png" class="img-fluid mx-auto d-block" alt="Slack Logo">
         </div>
         <p></p>
-        <p class="text-center">Find the URY Slack team at <a href="http://ury.slack.com">ury.slack.com</a> and join all the channels you're interested in.</p>
+        <p class="text-center">Find the URY Slack at <a href="http://ury.slack.com">ury.slack.com</a> and join all the channels you're interested in.</p>
         <br>
       </div>
 
@@ -64,9 +85,7 @@
         <br>
         <h1 class="text-center">Come see us!</h1>
         <br>
-        <p class="text-center">We have a calendar of <a href="https://goo.gl/5APK7Q">all our meetings</a>, to which new members are always welcome, and you can drop by the station almost any time and there'll be someone to talk to.</p>
-        <br>
-        <p class="text-center">All of our team meetings are held in Vanbrugh Arms (V&nbsp;Bar), which is right next to the radio station</p>
+        <p class="text-center">All our meetings are announced on Slack, and new members are always welcome! You can also drop by the station almost any time and there'll be someone to talk to.</p>
         <br>
         <a class="text-center" href="/contact#map"><h4>Map of where to find us</h4></a>
         <br>
@@ -83,7 +102,6 @@
         <p class="text-center">Once you get your confirmation email, you'll be able to log in to <a href="https://ury.org.uk/myradio/">MyRadio</a>. This is where you'll be able to book training, request shows and do other magical things.</p>
         <br>
       </div>
-
     </div>
   </div>
 </div>

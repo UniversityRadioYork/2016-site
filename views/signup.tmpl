@@ -16,22 +16,32 @@
 {{define "content"}}
 {{with .PageData}}
 <main class="mx-2">
-  <form>
+  <form action="/signup/" method="post" target="_top" id="signup-form">
     <section class="min-vh-100 text-white" id="personal-details">
-      <div class="row">
-        <div class="col">
+      <div class="row flex-md-row-reverse">
+        <div class="col-md">
+          <p>
+            On the next page, you'll be able to book a studio training session. If you don't want to book now, you can always do so later on MyRadio.
+          </p>
+
+          <p>
+            You'll receive an email with details to log into MyRadio once you've signed up, which will allow you to update these details at any time.
+          </p>
+        </div>
+
+        <div class="col-md">
           <div class="mb-2 form-input">
             <label for="first-name" class="form-label">First name</label>
-            <input type="text" class="form-control" id="first-name" name="firstname">
+            <input type="text" class="form-control" id="first-name" name="fname">
           </div>
           <div class="mb-2 form-input">
             <label for="last-name" class="form-label">Last name</label>
-            <input type="text" class="form-control" id="last-name" name="lastname">
+            <input type="text" class="form-control" id="last-name" name="sname">
           </div>
           <div class="mb-2 form-input">
             <label for="email" class="form-label">Uni of York Email address</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="email" name="email">
+              <input type="text" class="form-control" id="email" name="eduroam">
               <span class="input-group-text">@york.ac.uk</span>
             </div>
           </div>
@@ -50,16 +60,6 @@
               </select>
           </div>
         </div>
-
-        <div class="col">
-          <p>
-            On the next page, you'll be able to book a studio training session. If you don't want to book now, you can always do so later on MyRadio.
-          </p>
-
-          <p>
-            You'll receive an email with details to log into MyRadio once you've signed up, which will allow you to update these details at any time.
-          </p>
-        </div>
       </div>
 
       <div class="d-flex flex-row justify-content-center">
@@ -69,41 +69,54 @@
       </div>
     </section>
 
-    <section id="training-slot-select" class="min-vh-100 text-white">
+    <section id="training-slot-select" class="vh-100 text-white d-flex flex-column">
       <h2>Select a training slot</h2>
 
-      <div class="row">
-        <div class="col">
+      <div class="row flex-column flex-md-row-reverse flex-nowrap mb-2 overflow-hidden">
+        <div class="col-md">
+          <p>
+            Studio training sessions last for about an hour, after which you will be able to request a spot on the schedule and go on air!
+          </p>
+
+          <p>
+            Don't worry if none of these work for you, our trainers will organise more!
+          </p>
+
+          <p>
+            (P.S. This list is scrollable)
+          </p>
+        </div>
+
+        <div class="col-md flex-fill flex-md-1 flex-md-shrink-1 overflow-scroll">
           <ul class="ps-0 d-flex flex-column gap-2" id="available-trainings">
             {{ range .Trainings }}
+            {{/* if you change anything in this template, make sure to update it in signup.js too */}}
             <label class="card h4 is-actual-training-slot" for="training-{{ .DemoID }}">
               <div class="card-body">
                 <div class="form-check">
+                  {{if eq .AttendeeCount .MaxParticipants}}
+                  <input class="form-check-input training-slot-select" type="radio" name="sessionid" value="{{ .DemoID }}" id="training-{{ .DemoID }}" disabled>
+                  {{else}}
                   <input class="form-check-input training-slot-select" type="radio" name="sessionid" value="{{ .DemoID }}" id="training-{{ .DemoID }}">
+                  {{end}}
 
                   <div class="form-check-label">
+                    {{if eq .RemainingSpaces 0}}
+                    <span class="badge rounded-pill text-bg-secondary">
+                    {{else if eq .RemainingSpaces 1}}
+                    <span class="badge rounded-pill text-bg-warning">
+                    {{else}}
                     <span class="badge rounded-pill text-bg-success">
-                      0 / 2
+                    {{end}}
+                      {{ .AttendeeCount }} / {{ .MaxParticipants }}
                     </span>
-                    {{ .StartTimeRaw }}
-                    <!--Monday 21st July, 3:00 PM-->
+
+                    {{ .StartTimeRaw }} (with {{ .Host }})
                   </div>
                 </div>
               </div>
             </label>
             {{ end }}
-
-            <label class="card h4" for="training-none">
-              <div class="card-body">
-                <div class="form-check">
-                  <input class="form-check-input training-slot-select" type="radio" name="sessionid" value="" id="training-none">
-
-                  <div class="form-check-label">
-                    I'll book a training session later
-                  </div>
-                </div>
-              </div>
-            </label>
 
             <label class="card h4" for="training-unavailable">
               <div class="card-body">
@@ -116,25 +129,26 @@
                 </div>
               </div>
             </label>
-          </ul>
-        </div>
-        <div class="col">
-          <p>
-            Studio training sessions last for about an hour, after which you will be able to request a spot on the schedule and go on air!
-          </p>
 
-          <p>
-            Don't worry if none of these work for you, our trainers will organise more!
-          </p>
+            <label class="card h4" for="training-none">
+              <div class="card-body">
+                <div class="form-check">
+                  <input class="form-check-input training-slot-select" type="radio" name="sessionid" value="" id="training-none">
+
+                  <div class="form-check-label">
+                    I don&apos;t want to book a training session right now
+                  </div>
+                </div>
+              </div>
+            </label>
+          </ul>
         </div>
       </div>
 
-      <a class="btn btn-primary" href="#personal-details" role="button" id="training-continue">
-        Continue
-      </a>
+      <div class="d-flex flex-row justify-content-center">
+        <input type="submit" class="btn btn-lg btn-primary" id="signup" value="Sign up!">
+      </div>
     </section>
-
-    
   </form>
 </main>
 {{end}}

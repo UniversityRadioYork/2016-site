@@ -2,3 +2,12 @@ body {
   background-color: transparent;
   overflow: hidden;
 }
+
+.flex-md-1 {
+  flex: 1 !important;
+}
+
+#profile-continue.disabled {
+  pointer-events: all !important;
+  cursor: default;
+}
