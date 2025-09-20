@@ -4,7 +4,7 @@ go 1.16
 
 require (
 	github.com/BurntSushi/toml v0.4.1
-	github.com/UniversityRadioYork/myradio-go v0.0.0-20250918191937-0db57b1405ea
+	github.com/UniversityRadioYork/myradio-go v0.0.0-20250920003256-83008a6c7f1b
 	github.com/codegangsta/negroni v1.0.0
 	github.com/gedex/inflector v0.0.0-20170307190818-16278e9db813
 	github.com/gorilla/mux v1.8.0

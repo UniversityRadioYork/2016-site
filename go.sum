@@ -18,6 +18,8 @@ github.com/UniversityRadioYork/myradio-go v0.0.0-20250918160517-dfa61d1f223a h1:
 github.com/UniversityRadioYork/myradio-go v0.0.0-20250918160517-dfa61d1f223a/go.mod h1:iFH6u3KFaQ73MR9bfqTThGd7TFUYUe9cAajxxh9E0Z8=
 github.com/UniversityRadioYork/myradio-go v0.0.0-20250918191937-0db57b1405ea h1:PhCjE0vsnwHOj1UwF2LuR6rPPqobEWPmGJy9rvDJ9g0=
 github.com/UniversityRadioYork/myradio-go v0.0.0-20250918191937-0db57b1405ea/go.mod h1:iFH6u3KFaQ73MR9bfqTThGd7TFUYUe9cAajxxh9E0Z8=
+github.com/UniversityRadioYork/myradio-go v0.0.0-20250920003256-83008a6c7f1b h1:UZcHfBljvD/0Cg4ekXLaRv5bos3ij6G8mKz/ZiC109w=
+github.com/UniversityRadioYork/myradio-go v0.0.0-20250920003256-83008a6c7f1b/go.mod h1:iFH6u3KFaQ73MR9bfqTThGd7TFUYUe9cAajxxh9E0Z8=
 github.com/asaskevich/govalidator v0.0.0-20210307081110-f21760c49a8d/go.mod h1:WaHUgvxTVq04UNunO+XhnAqY/wQc+bxr74GqbsZ/Jqw=
 github.com/aymerick/douceur v0.2.0 h1:Mv+mAeH1Q+n9Fr+oyamOlAkUNPWPlA8PPGR0QAaYuPk=
 github.com/aymerick/douceur v0.2.0/go.mod h1:wlT5vV2O3h55X9m7iVYN0TBM0NH/MmbLnd30/FjWUq4=
