@@ -5,9 +5,11 @@ package controllers
 */
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/UniversityRadioYork/2016-site/structs"
+	"github.com/UniversityRadioYork/2016-site/utils"
 	"github.com/UniversityRadioYork/myradio-go"
 )
 
@@ -31,48 +33,78 @@ type Controller struct {
 // Get handles a HTTP GET request r, writing to w.
 //
 // Unless overridden, controllers refuse this method.
-func (c *Controller) Get(w http.ResponseWriter, r *http.Request) {
-	http.Error(w, "Method Not Allowed", 405)
+func (*Controller) Get(w http.ResponseWriter, _ *http.Request) {
+	notAllowed(w)
 }
 
 // Post handles a HTTP POST request r, writing to w.
 //
 // Unless overridden, controllers refuse this method.
-func (c *Controller) Post(w http.ResponseWriter, r *http.Request) {
-	http.Error(w, "Method Not Allowed", 405)
+func (*Controller) Post(w http.ResponseWriter, _ *http.Request) {
+	notAllowed(w)
 }
 
 // Delete handles a HTTP DELETE request r, writing to w.
 //
 // Unless overridden, controllers refuse this method.
-func (c *Controller) Delete(w http.ResponseWriter, r *http.Request) {
-	http.Error(w, "Method Not Allowed", 405)
+func (*Controller) Delete(w http.ResponseWriter, _ *http.Request) {
+	notAllowed(w)
 }
 
 // Put handles a HTTP PUT request r, writing to w.
 //
 // Unless overridden, controllers refuse this method.
-func (c *Controller) Put(w http.ResponseWriter, r *http.Request) {
-	http.Error(w, "Method Not Allowed", 405)
+func (*Controller) Put(w http.ResponseWriter, _ *http.Request) {
+	notAllowed(w)
 }
 
 // Head handles a HTTP HEAD request r, writing to w.
 //
 // Unless overridden, controllers refuse this method.
-func (c *Controller) Head(w http.ResponseWriter, r *http.Request) {
-	http.Error(w, "Method Not Allowed", 405)
+func (*Controller) Head(w http.ResponseWriter, _ *http.Request) {
+	notAllowed(w)
 }
 
 // Patch handles a HTTP PATCH request r, writing to w.
 //
 // Unless overridden, controllers refuse this method.
-func (c *Controller) Patch(w http.ResponseWriter, r *http.Request) {
-	http.Error(w, "Method Not Allowed", 405)
+func (*Controller) Patch(w http.ResponseWriter, _ *http.Request) {
+	notAllowed(w)
 }
 
 // Options handles a HTTP OPTIONS request r, writing to w.
 //
 // Unless overridden, controllers refuse this method.
-func (c *Controller) Options(w http.ResponseWriter, r *http.Request) {
-	http.Error(w, "Method Not Allowed", 405)
+func (*Controller) Options(w http.ResponseWriter, _ *http.Request) {
+	notAllowed(w)
+}
+
+// notAllowed sends a HTTP Method Not Allowed error.
+func notAllowed(w http.ResponseWriter) {
+	http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+}
+
+// notFound renders a 404 Not Found error originating from this controller.
+// It takes an optional error that represents the failure to find something,
+// and passes it into the template.
+//
+// This shouldn't be confused with NotFoundController, which handles 404s
+// originating from the user asking for a URL that doesn't exist.
+func (c *Controller) notFound(w http.ResponseWriter, err error) {
+	// TODO(@MattWindsor91): what about non-404 errors?  how do we handle those?
+	if err != nil {
+		log.Println(err)
+	}
+
+	w.WriteHeader(http.StatusNotFound)
+	c.renderTemplate(w, err, "404.tmpl")
+}
+
+// renderTemplate renders a template from this Controller's page context.
+func (c *Controller) renderTemplate(w http.ResponseWriter, data interface{}, mainTmpl string, addTmpls ...string) {
+	if err := utils.RenderTemplate(w, c.config.PageContext, data, mainTmpl, addTmpls...); err != nil {
+		// TODO(@MattWindsor91): handle error more gracefully
+		log.Println(err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+	}
 }

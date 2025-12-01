@@ -33,6 +33,18 @@ func (m *PodcastModel) GetAllPodcasts(number int, page int) (podcasts []myradio.
 }
 
 // Get gets the data required for the Podcast controller from MyRadio.
-func (m *PodcastModel) Get(id int) (podcast *myradio.Podcast, err error) {
-	return m.session.GetPodcastWithShow(id)
+// It does not retrieve a podcast if the podcast is unpublished.
+func (m *PodcastModel) Get(id int) (*myradio.Podcast, error) {
+	pod, err := m.session.GetPodcastWithShow(id)
+	if err != nil {
+		return nil, err
+	}
+
+	// we should not show unpublished podcasts, regardless of situation
+	// (https://github.com/UniversityRadioYork/2016-site/issues/269)
+	if pod.Status != "Published" {
+		return nil, nil
+	}
+
+	return pod, nil
 }
