@@ -11,5 +11,5 @@ require (
 	github.com/grokify/html-strip-tags-go v0.0.1
 	github.com/microcosm-cc/bluemonday v1.0.15
 	github.com/stretchr/graceful v1.2.15
-	golang.org/x/net v0.7.0
+	golang.org/x/net v0.17.0
 )
