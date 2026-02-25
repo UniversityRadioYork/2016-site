@@ -61,7 +61,7 @@ func ParseIsoWeek(isoyear, isoweek, isoweekday string) (year int, week int, week
 		return
 	}
 	if year < 0 {
-		err = fmt.Errorf("Invalid year: %d", year)
+		err = fmt.Errorf("invalid year: %d", year)
 		return
 	}
 
@@ -69,7 +69,7 @@ func ParseIsoWeek(isoyear, isoweek, isoweekday string) (year int, week int, week
 		return
 	}
 	if week < 1 || 53 < week {
-		err = fmt.Errorf("Invalid week: %d", week)
+		err = fmt.Errorf("invalid week: %d", week)
 		return
 	}
 
@@ -80,7 +80,7 @@ func ParseIsoWeek(isoyear, isoweek, isoweekday string) (year int, week int, week
 		return
 	}
 	if di < 1 || 7 < di {
-		err = fmt.Errorf("Invalid day: %d", di)
+		err = fmt.Errorf("invalid day: %d", di)
 		return
 	}
 

@@ -18,6 +18,7 @@
             sassc
             gnumake
             go
+            golangci-lint
           ];
         };
       }

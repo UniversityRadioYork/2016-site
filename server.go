@@ -53,7 +53,7 @@ func NewServer(c *structs.Config) (*Server, error) {
 
 	showC := controllers.NewShowController(session, c)
 	getRouter.HandleFunc("/schedule/shows/", func(w http.ResponseWriter, r *http.Request) {
-		http.Redirect(w, r, "/schedule/thisweek/", 301)
+		http.Redirect(w, r, "/schedule/thisweek/", http.StatusMovedPermanently)
 	})
 	getRouter.HandleFunc("/schedule/shows/{id:[0-9]+}/", showC.GetShow).Name("show")
 	getRouter.HandleFunc("/schedule/shows/timeslots/{id:[0-9]+}/", showC.GetTimeslot).Name("timeslot")
@@ -65,7 +65,7 @@ func NewServer(c *structs.Config) (*Server, error) {
 	getRouter.HandleFunc("/uyco/", showC.GetUyco).Name("uyco")
 
 	getRouter.HandleFunc("/schedule/", func(w http.ResponseWriter, r *http.Request) {
-		http.Redirect(w, r, "/schedule/thisweek/", 301)
+		http.Redirect(w, r, "/schedule/thisweek/", http.StatusMovedPermanently)
 	})
 	// NOTE: NewScheduleWeekController assumes 'timeslot' is installed BEFORE it is called.
 	schedWeekC := controllers.NewScheduleWeekController(session, getRouter, c)
@@ -85,23 +85,23 @@ func NewServer(c *structs.Config) (*Server, error) {
 	getRouter.HandleFunc("/podcasts/{id:[0-9]+}/player/", podcastsC.GetEmbed)
 	// Redirect old podcast URLs
 	getRouter.HandleFunc("/uryplayer/", func(w http.ResponseWriter, r *http.Request) {
-		http.Redirect(w, r, "/ontap/", 301)
+		http.Redirect(w, r, "/ontap/", http.StatusMovedPermanently)
 	})
 	getRouter.HandleFunc("/listen/", func(w http.ResponseWriter, r *http.Request) {
-		http.Redirect(w, r, "/about/", 301)
+		http.Redirect(w, r, "/about/", http.StatusMovedPermanently)
 	})
 	getRouter.HandleFunc("/uryplayer/podcasts/", func(w http.ResponseWriter, r *http.Request) {
-		http.Redirect(w, r, "/podcasts/", 301)
+		http.Redirect(w, r, "/podcasts/", http.StatusMovedPermanently)
 	})
 	getRouter.HandleFunc("/uryplayer/podcasts/{id:[0-9]+}/", func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		id, _ := strconv.Atoi(vars["id"])
-		http.Redirect(w, r, fmt.Sprintf("/podcasts/%d/", id), 301)
+		http.Redirect(w, r, fmt.Sprintf("/podcasts/%d/", id), http.StatusMovedPermanently)
 	})
 	getRouter.HandleFunc("/uryplayer/podcasts/{id:[0-9]+}/player/", func(w http.ResponseWriter, r *http.Request) {
 		vars := mux.Vars(r)
 		id, _ := strconv.Atoi(vars["id"])
-		http.Redirect(w, r, fmt.Sprintf("/podcasts/%d/player/", id), 301)
+		http.Redirect(w, r, fmt.Sprintf("/podcasts/%d/player/", id), http.StatusMovedPermanently)
 	})
 
 	pc := controllers.NewPeopleController(session, c)

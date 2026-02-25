@@ -58,6 +58,7 @@ func (m *IndexModel) Get() (currentAndNext *myradio.CurrentAndNext, banners []my
 	if err != nil {
 		return
 	}
+	// nolint QF1001
 	showOnAir = !(selectorInfo.Studio == myradio.SelectorJukebox || selectorInfo.Studio == myradio.SelectorOffAir)
 
 	return

@@ -32,47 +32,47 @@ type Controller struct {
 //
 // Unless overridden, controllers refuse this method.
 func (c *Controller) Get(w http.ResponseWriter, r *http.Request) {
-	http.Error(w, "Method Not Allowed", 405)
+	http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 }
 
 // Post handles a HTTP POST request r, writing to w.
 //
 // Unless overridden, controllers refuse this method.
 func (c *Controller) Post(w http.ResponseWriter, r *http.Request) {
-	http.Error(w, "Method Not Allowed", 405)
+	http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 }
 
 // Delete handles a HTTP DELETE request r, writing to w.
 //
 // Unless overridden, controllers refuse this method.
 func (c *Controller) Delete(w http.ResponseWriter, r *http.Request) {
-	http.Error(w, "Method Not Allowed", 405)
+	http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 }
 
 // Put handles a HTTP PUT request r, writing to w.
 //
 // Unless overridden, controllers refuse this method.
 func (c *Controller) Put(w http.ResponseWriter, r *http.Request) {
-	http.Error(w, "Method Not Allowed", 405)
+	http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 }
 
 // Head handles a HTTP HEAD request r, writing to w.
 //
 // Unless overridden, controllers refuse this method.
 func (c *Controller) Head(w http.ResponseWriter, r *http.Request) {
-	http.Error(w, "Method Not Allowed", 405)
+	http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 }
 
 // Patch handles a HTTP PATCH request r, writing to w.
 //
 // Unless overridden, controllers refuse this method.
 func (c *Controller) Patch(w http.ResponseWriter, r *http.Request) {
-	http.Error(w, "Method Not Allowed", 405)
+	http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 }
 
 // Options handles a HTTP OPTIONS request r, writing to w.
 //
 // Unless overridden, controllers refuse this method.
 func (c *Controller) Options(w http.ResponseWriter, r *http.Request) {
-	http.Error(w, "Method Not Allowed", 405)
+	http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 }
