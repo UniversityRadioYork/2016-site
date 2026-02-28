@@ -36,7 +36,7 @@ type PageContext struct {
 	MainFacebook     string                `toml:"mainFacebook"`
 	MainInstagram    string                `toml:"mainInstagram"`
 	MainTikTok       string                `toml:"mainTikTok"`
-	NewsTwitter      string                `toml:"newsTwitter"`
+	NewsInstagram    string              `toml:"newsInstagram"`
 	MyRadioAPIKey    string                `toml:"publicMyRadioAPIKey"`
 	ODName           string                `toml:"odName"`
 	Christmas        bool                  `toml:"christmas"`

@@ -33,7 +33,7 @@
 	mainTwitter = "URY1350"
 	mainFacebook = "URY1350"
 	mainInstagram = "ury1350"
-	newsTwitter = "URYNews"
+	newsInstagram = "ury.news"
 
 	christmas = true
 	aprilFools = false
