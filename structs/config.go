@@ -3,7 +3,7 @@ package structs
 import "time"
 
 // Config is a structure containing global website configuration.
-//
+// 
 // See the comments for Server and PageContext for more details.
 type Config struct {
 	Server         Server          `toml:"server"`

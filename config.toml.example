@@ -6,7 +6,7 @@
 #	|__| |__|  |__| | _|       \______/  | _| `.__|    |__|    /__/     \__\ |__| \__|     |__|
 #
 #
-# This is the main config file for the 2016-site.
+# This is the main config file for the 2016-site. 
 # The main API Key should not be stored in this file. It should be in `.myradio.key`
 # Any changes to this config should be reflected in the struct `structs.Config`
 
