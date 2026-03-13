@@ -139,25 +139,35 @@
         {{else}}
           <div class="tab-pane" id="{{.Day.Weekday}}" role="tabpanel" aria-labelledby="{{.Day.Weekday}}-tab">
         {{end}}
-          <ul class="p-0">
+          <ul class="p-0 mb-5">
             {{range .Shows}}
-              <li class="schedule-card">
-                <img src="https://ury.org.uk{{.ShowArtURL}}" width="128" height="128">
-                <div class="card-details pb-0">
-                  <h3>
-                    {{if .PageURL}}
-                      <a href="{{.PageURL}}">{{.Name}}</a>
+              {{if .PageURL}}
+                <a href="{{.PageURL}}" class="schedule-card-link">
+                  <li class="schedule-card">
+                    <img src="https://ury.org.uk{{.ShowArtURL}}" width="128" height="128">
+                    <div class="card-details pb-0">
+                      <h3>{{.Name}}</h3>
+                      {{if .ShowWeekDay}}
+                        <h4>{{.Start.Format "Monday 15:04"}} - {{.Finish.Format "Monday 15:04"}}</h4>
+                      {{else}}
+                        <h4>{{.Start.Format "15:04"}} - {{.Finish.Format "15:04"}}</h4>
+                      {{end}}
+                    </div>
+                  </li>
+                </a>
+              {{else}}
+                <li class="schedule-card">
+                  <img src="https://ury.org.uk{{.ShowArtURL}}" width="128" height="128">
+                  <div class="card-details pb-0">
+                    <h3>{{.Name}}</h3>
+                    {{if .ShowWeekDay}}
+                      <h4>{{.Start.Format "Monday 15:04"}} - {{.Finish.Format "Monday 15:04"}}</h4>
                     {{else}}
-                      {{.Name}}
+                      <h4>{{.Start.Format "15:04"}} - {{.Finish.Format "15:04"}}</h4>
                     {{end}}
-                  </h3>
-                  {{if .ShowWeekDay}}
-                    <h4>{{.Start.Format "Monday 15:04"}} - {{.Finish.Format "Monday 15:04"}}</h4>
-                  {{else}}
-                    <h4>{{.Start.Format "15:04"}} - {{.Finish.Format "15:04"}}</h4>
-                  {{end}}
-                </div>
-              </li>
+                  </div>
+                </li>
+              {{end}}
             {{end}}
           </ul>
         </div>

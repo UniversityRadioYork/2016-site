@@ -2,7 +2,6 @@ $white: #ffffff;
 $black: #000000;
 $shadow: rgba(0, 0, 0, 0.5);
 
-
 .schedule-key-icon {
   font-size: 0.6em;
   color: $black;
@@ -53,7 +52,6 @@ $shadow: rgba(0, 0, 0, 0.5);
     &:first-of-type {
       width: 5%;
     }
-
   }
 }
 
@@ -93,7 +91,6 @@ $shadow: rgba(0, 0, 0, 0.5);
       height: 30px;
     }
   }
-
 
   .day-header {
     text-align: center;
@@ -169,6 +166,13 @@ $sustainer-color: tint($primary-color, 40%);
 .schedule-card {
   display: flex;
   flex-direction: row;
+  background: white;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  margin: 1rem;
+  img {
+    border-radius: 0.5rem;
+  }
 }
 
 .card-details {
@@ -183,7 +187,8 @@ $sustainer-color: tint($primary-color, 40%);
 
 @include media-breakpoint-down(md) {
   .schedule-keys .key-row {
-    .h5, .h6 {
+    .h5,
+    .h6 {
       display: block;
       margin-top: 10px;
     }
@@ -197,7 +202,8 @@ $sustainer-color: tint($primary-color, 40%);
   }
   .schedule-keys .key-row {
     text-align: left;
-    .h5, .h6 {
+    .h5,
+    .h6 {
       display: block;
       margin-top: 10px;
     }
