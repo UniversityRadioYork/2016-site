@@ -30,6 +30,46 @@ $ make build-docker-image #Builds the image, will only have to be re-run if you 
 $ make docker #Runs the image
 ```
 
+## Using with your own Myradio
+
+### Creating an API key
+
+First, you need an API key to allow the website to access show information from MyRadio:
+
+Connect to the MyRadio database and run the following SQL
+
+```sql
+INSERT INTO myury.api_key (key_string, description) VALUES ('ARANDOMSTRINGOFCHARACTERS', '2016-site development api key');
+INSERT INTO myury.api_key_auth (key_string, typeid) VALUES ('ARANDOMSTRINGOFCHARACTERS', (SELECT typeid FROM l_action WHERE phpconstant = 'AUTH_APISUDO'));
+```
+
+[please choose a better key than 'ARANDOMSTRINGOFCHARACTERS']
+
+You might need add some other database columns to create shows
+
+for example:
+-   explict podcasts (to create shows)
+-   selector (expected by 2016-site/can remove this from models/index.go 2016-site)
+
+This will fix shows not loading on 2016-site when using the base myradio as,
+
+2016-site uses parts of database that aren't made on myradio creation.
+
+### Finishing steps
+
+After completing all these setups:
+You can setup a reverse proxy to "https://localhost:4443" or configure ssl for https connections,
+
+And change 2016-site to use your myradio instance:
+
+In Config.toml:
+
+```
+myradio_api = "https://{hostname}/api/v2"
+```
+
+
 
 ## Editor Config
 There is a handy editor config file included in this repo, most editors/IDE's have support for this either natively or through a plugin, see [here](http://editorconfig.org/#download).
+
