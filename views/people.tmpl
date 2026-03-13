@@ -21,7 +21,6 @@
 
 {{define "content"}}
 
-  {{with .PageData}}
     <div class="container-fluid current-next">
       <div class="container mobile-hide">
         <div class="row justify-content-center">
@@ -31,6 +30,7 @@
         </div>
       </div><!-- /.container container-padded -->
     </div><!-- /outer containter -->
+    {{with .PageData}}
     <div class="container-fluid bg-off-white">
       <div class="container container-padded">
         <div class="row">
