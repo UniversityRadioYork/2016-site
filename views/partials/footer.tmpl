@@ -1,14 +1,19 @@
 {{define "footer"}}
   <footer class="container-fluid">
     <div class="row align-items-center">
-      <div class="col">
-        <a href="https://www.york.ac.uk/about/legal-statements/">Disclaimer</a> | <a href="/competitions">Competitions</a> | <a href="/myradio/">MyRadio</a> | <a href="https://yorksu.org/documents/term-and-conditions">Terms & Conditions</a>
+      <div class="col-12 col-md-4">
+        <nav class="footer-links d-flex flex-wrap justify-content-center justify-content-md-start" aria-label="Footer links">
+          <a class="mr-3 mb-2" href="https://www.york.ac.uk/about/legal-statements/">Disclaimer</a>
+          <a class="mr-3 mb-2" href="/competitions">Competitions</a>
+          <a class="mr-3 mb-2" href="/myradio/">MyRadio</a>
+          <a class="mb-2" href="https://yorksu.org/documents/term-and-conditions">Terms &amp; Conditions</a>
+        </nav>
       </div>
-      <div class="col">
-        <a href="https://yorksu.org/home"> <img href="/images/YorkSU_Logo.png" alt="The YorkSU Logo" width="1em"> </a>
+      <div class="col-12 col-md-4 text-center">
+        <a href="https://yorksu.org/home"><img class="yorksu-logo mx-auto" src="/images/YorkSU_Logo.svg" alt="The YorkSU Logo"></a>
       </div>
-      <div class="col">
-        <p class="m-0 text-right">Copyright © 1967-{{.PageContext.CurrentYear}} University Radio York. Designed by the <a href="mailto:computing@ury.org.uk" title="Click to email the Computing team.">URY Computing Team</a></p>
+      <div class="col-12 col-md-4">
+        <p class="m-0 text-center text-md-right">Copyright © 1967-{{.PageContext.CurrentYear}} University Radio York. Designed by the <a href="mailto:computing@ury.org.uk" title="Click to email the Computing team.">URY Computing Team</a></p>
       </div>
     </div>
   </footer>
