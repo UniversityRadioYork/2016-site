@@ -101,7 +101,7 @@ function success(data) {
         ' title="Show currently on air: ' +
         data.payload.current.title +
         '">' +
-        '<h2 class="font-weight-bold">Now</h2>' +
+        '<h2 class="font-weight-bold">Live now</h2>' +
         makeContent(data.payload.current) +
         '</a>',
     )
@@ -109,7 +109,7 @@ function success(data) {
   } else {
     $('.current-and-next-now').replaceWith(
       '<div class="current-and-next-now p-2 pt-3 px-3 p-sm-3 p-lg-4 " title="View the show now on air.">' +
-        '<h2 class="font-weight-bold">Now</h2>' +
+        '<h2 class="font-weight-bold">Live now</h2>' +
         makeContent(data.payload.current) +
         '</a>',
     )
@@ -121,7 +121,7 @@ function success(data) {
     // There is no next show (e.g. we're off air)
     $('.current-and-next-next').replaceWith(
       '<div class="current-and-next-next p-2 pt-3 px-3 p-sm-3 p-lg-4 " title="View the show up next.">' +
-        '<h2 class="font-weight-bold">Next</h2>' +
+        '<h2 class="font-weight-bold">Up next</h2>' +
         '<div class="h3 show-title ellipsis">There\'s nothing up next yet.</div>' +
         '</a>',
     )
@@ -132,14 +132,14 @@ function success(data) {
         ' title="Show on air next: ' +
         data.payload.next.title +
         '.">' +
-        '<h2 class="font-weight-bold">Next</h2>' +
+        '<h2 class="font-weight-bold">Up next</h2>' +
         makeContent(data.payload.next) +
         '</a>',
     )
   } else {
     $('.current-and-next-next').replaceWith(
       '<div class="current-and-next-next p-2 pt-3 px-3 p-sm-3 p-lg-4 " title="View the show up next.">' +
-        '<h2 class="font-weight-bold">Next</h2>' +
+        '<h2 class="font-weight-bold">Up next</h2>' +
         makeContent(data.payload.next) +
         '</a>',
     )

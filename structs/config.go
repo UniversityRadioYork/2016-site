@@ -49,6 +49,8 @@ type PageContext struct {
 	CINLive          string                `toml:"cinLive"`
 	IndexCountdown   *IndexCountdownConfig `toml:"indexCountdown"`
 	CacheBuster      string                `toml:"cacheBuster"`
+	LiveAudioURL     string                `toml:"liveAudioUrl"`
+	IcecastStatusURL string                `toml:"icecastStatusUrl"`
 	Pages            []Page
 	Youtube          youtube
 	Osm              osm

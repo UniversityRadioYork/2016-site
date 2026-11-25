@@ -1,6 +1,5 @@
 {{define "title"}}{{.PageContext.ShortName}} | Schedule | {{week (index .PageData.Schedule.Dates 0)}}{{end}}
 {{define "content"}}
-{{with .PageData}}
 
 <!-- top banner -->
 <div class="container-fluid header-large current-next mobile-shrink">
@@ -9,6 +8,7 @@
         <div class="col-11 col-md-10 box-shadow-1 current-next-container mobile-hide">
           {{template "current_and_next" .}}
         </div>
+{{with .PageData}}
         <div class="col-11 col-md-10 text-center mobile-only">
           <h1 class="display-3">Schedule</h1>
           <h2 class="display-5">{{week (index .Schedule.Dates 0)}}</h2>

@@ -15,16 +15,16 @@
       <script src='{{url "js/april-fools.js"}}'></script>
     </div>
   {{end}}
-  {{with .PageData}}
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-11 col-md-10 box-shadow-1 current-next-container">
         {{template "current_and_next" .}}
-        {{template "banner" .}}
+        {{template "banner" .PageData}}
         </div>
       </div>
     </div>
   </div>
+  {{with .PageData}}
   <div id="index-infobar" class="container-fluid bg-off-white container-padded">
     <div class="container">
       <div class="row justify-content-center">
